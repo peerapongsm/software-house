@@ -41,10 +41,10 @@ const COPY = {
     navContact: "ติดต่อ",
     h1: "โปรแกรมฟรี",
     heroSub:
-      "16 โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
+      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
     heroApps: "ดูโปรแกรมทั้งหมด",
     heroCustom: "คุยเรื่องทำแอป",
-    wallLabel: "โปรแกรมทั้ง 16 ตัว กดเพื่อดูรายละเอียด",
+    wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
     appsTitle: "เลือกตัวที่ตรงกับงานของคุณ",
     appsSub: "ทุกตัวฟรี ทำงานได้โดยไม่ต้องต่อเน็ต และสำรองข้อมูลเก็บไว้เองได้",
     winOnly: "ใช้ได้กับ Windows 10 และ 11 (64-bit) บนคอมพิวเตอร์ ยังไม่มีเวอร์ชัน Mac มือถือ และแท็บเล็ต",
@@ -122,10 +122,10 @@ const COPY = {
     navContact: "Contact",
     h1: "Free software",
     heroSub:
-      "Sixteen Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
+      "Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
     heroApps: "See all apps",
     heroCustom: "Talk about a custom app",
-    wallLabel: "All 16 apps. Select one for details.",
+    wallLabel: "All apps. Select one for details.",
     appsTitle: "Pick the one that fits your work",
     appsSub: "Every app is free, runs without an internet connection, and lets you keep your own backups.",
     winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
@@ -263,7 +263,7 @@ function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => v
   );
 }
 
-/** The signature: all 16 app tiles, laid out like pinned apps on a Windows Start menu. */
+/** The signature: every app tile, laid out like pinned apps on a Windows Start menu. */
 function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) => void }) {
   return (
     <ul aria-label={label} className="grid grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6">

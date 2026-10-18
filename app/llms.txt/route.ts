@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 export function GET() {
   const body = `# PeerapoS
 
-> PeerapoS is a small software house in Thailand that builds custom apps and software for businesses (รับทำแอปและเขียนโปรแกรมตามสั่ง), and publishes 16 free offline Windows apps for small businesses (โปรแกรมฟรีสำหรับ SME).
+> PeerapoS is a small software house in Thailand that builds custom apps and software for businesses (รับทำแอปและเขียนโปรแกรมตามสั่ง), and publishes free offline Windows apps for small businesses (โปรแกรมฟรีสำหรับ SME).
 
 Website: ${SITE_URL}
 Contact: ${EMAIL} · LINE ${LINE_URL} · Fastwork ${FASTWORK_URL}

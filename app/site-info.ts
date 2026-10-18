@@ -45,7 +45,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
       a: "พีระพงศ์ ศักดิ์สมมนต์ (พี) ตอนนี้เป็น Software Architect ที่ธนาคารแห่งประเทศไทย เคยเป็น Full-Stack Engineer ที่ Agoda จบ ป.โท Information Systems จาก Syracuse University และได้ใบรับรอง Microsoft Azure Solutions Architect Expert",
     },
     {
-      q: "โปรแกรมฟรี 16 ตัวฟรีจริงไหม",
+      q: "โปรแกรมฟรีจริงไหม",
       a: "ฟรีจริง ไม่มีค่าสมาชิก ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง",
     },
   ],
@@ -75,7 +75,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
       a: "Peerapong (Peter) Saksommon, a Software Architect at the Bank of Thailand and a former full-stack engineer at Agoda. He holds an MS in Information Systems from Syracuse University and is a Microsoft Certified Azure Solutions Architect Expert.",
     },
     {
-      q: "Are the 16 free apps really free?",
+      q: "Are the free apps really free?",
       a: "Yes. No subscription, no ads, no account. Every app works offline on Windows 10 and 11, and your data stays on your own PC.",
     },
   ],
