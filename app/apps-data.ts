@@ -259,7 +259,7 @@ export const APPS: DesktopApp[] = [
   },
   {
     name: "PeerapoS School",
-    version: "1.1.2",
+    version: "1.2.0",
     icon: "/apps/school.png",
     shots: 5,
     uiLang: "th",
@@ -268,14 +268,14 @@ export const APPS: DesktopApp[] = [
       description:
         "จัดตารางสอน เช็คชื่อ กรอกคะแนน แล้วตัดเกรดตามหลักสูตรแกนกลางให้เอง มีงานครูประจำชั้นครบ ทั้งเยี่ยมบ้าน คัดกรอง SDQ และคะแนนความประพฤติ พิมพ์ ปพ.5 และส่งออก Excel ไปกรอก SGS ได้",
       chips: ["ตารางสอน", "เช็คชื่อ", "ตัดเกรด", "SDQ", "ปพ.5"],
-      features: ["ตารางสอน", "เช็คชื่อรายคาบและหน้าเสาธง", "กรอกคะแนนและตัดเกรด", "ร มส ผ มผ", "เยี่ยมบ้านและคัดกรอง SDQ", "คะแนนความประพฤติ", "พิมพ์ ปพ.5 และ Excel สำหรับ SGS"],
+      features: ["ตารางสอน", "เช็คชื่อรายคาบและหน้าเสาธง", "ตามการบ้านรายวัน", "กรอกคะแนนและตัดเกรด", "ร มส ผ มผ", "เยี่ยมบ้านและคัดกรอง SDQ", "คะแนนความประพฤติ", "พิมพ์ ปพ.5 และ Excel สำหรับ SGS"],
     },
     en: {
       tagline: "Teacher's gradebook and homeroom tasks.",
       description:
         "Timetable, attendance and scores, with grades calculated to the Thai core curriculum. Homeroom work too — home visits, SDQ screening and conduct points. Prints the ปพ.5 report and exports Excel for SGS.",
       chips: ["Timetable", "Attendance", "Grading", "SDQ", "ปพ.5"],
-      features: ["Timetable", "Per-period and morning-assembly attendance", "Scores and grading", "ร / มส / ผ / มผ results", "Home visits and SDQ screening", "Conduct points", "Print ปพ.5 and Excel for SGS"],
+      features: ["Timetable", "Per-period and morning-assembly attendance", "Daily homework tracking", "Scores and grading", "ร / มส / ผ / มผ results", "Home visits and SDQ screening", "Conduct points", "Print ปพ.5 and Excel for SGS"],
     },
   },
   {
