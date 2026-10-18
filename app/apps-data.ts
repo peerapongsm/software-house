@@ -362,4 +362,25 @@ export const APPS: DesktopApp[] = [
       features: ["Daily and weekly room board", "Deposits and double-booking guard", "Walk-ins", "Check-in, check-out and overtime", "Hour packs", "Gear rental and sound engineers", "Time-of-day pricing", "Receipts/tax invoices with PromptPay QR", "Refunds and credit notes", "Daily close", "LINE messages to customers"],
     },
   },
+  {
+    name: "PeerapoS Pharmacy",
+    version: "1.0.0",
+    icon: "/apps/pharmacy.png",
+    shots: 5,
+    uiLang: "th",
+    th: {
+      tagline: "ระบบหน้าร้านสำหรับร้านขายยาเล็ก",
+      description:
+        "ขายด้วยสแกนเนอร์ ตัดยาตามล็อตที่หมดอายุก่อน เตือนเมื่อลูกค้าแพ้ยา พิมพ์ฉลากยาให้เอง รับสินค้าพร้อมล็อตและวันหมดอายุ และออกบัญชี ข.ย.9–13 ได้ทุกเมื่อ ไม่จำกัดจำนวนสินค้าหรือบิล",
+      chips: ["ขายหน้าร้าน", "ล็อตและวันหมดอายุ", "แพ้ยา", "ฉลากยา", "บัญชี ข.ย."],
+      features: ["ขายด้วยบาร์โค้ดหรือปุ่มรูปสินค้า", "ตัดล็อตที่หมดอายุก่อนให้อัตโนมัติ", "เตือนแพ้ยาและยาที่ต้องมีใบสั่งยา", "พิมพ์ฉลากยาหลังรับเงิน", "ใบเสร็จ/ใบกำกับภาษีและ QR พร้อมเพย์", "ใบสั่งซื้อ รับสินค้า และคืนสินค้า", "ตรวจนับสต็อก", "บัญชี ข.ย.9–13", "โปรโมชันและแต้มสะสม", "ลิ้นชักเก็บเงิน", "รายงานยอดขาย กำไร และของใกล้หมดอายุ"],
+    },
+    en: {
+      tagline: "Point of sale for a small pharmacy.",
+      description:
+        "Sell with a barcode scanner, draw stock from the lot that expires first, get warned about a customer's drug allergy, print dosage labels automatically, receive stock with lot and expiry, and print the Thai FDA ข.ย.9–13 registers whenever you need them. No limits on items or bills.",
+      chips: ["Point of sale", "Lots and expiry", "Allergy alerts", "Drug labels", "FDA registers"],
+      features: ["Barcode and picture-button selling", "First-expiry-first-out lots", "Allergy and prescription checks", "Dosage labels after payment", "Receipts/tax invoices with PromptPay QR", "Purchase orders, receiving and supplier returns", "Stock count", "Thai FDA ข.ย.9–13 registers", "Promotions and loyalty points", "Cash drawer", "Sales, profit and expiry reports"],
+    },
+  },
 ];
