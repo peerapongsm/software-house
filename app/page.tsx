@@ -585,7 +585,7 @@ export default function Home() {
               href={downloadUrl(app)}
               className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
             >
-              {t.dl.button} v{app.version}
+              {t.dl.button}
             </a>
             <p className="mt-2 text-center text-sm text-graphite">
               {t.dl.size} · {t.dl.note}

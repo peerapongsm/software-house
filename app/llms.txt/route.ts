@@ -35,7 +35,7 @@ Peerapong (Peter) Saksommon: Software Architect at the Bank of Thailand, former 
 
 Free, no subscription, no ads, no account. Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
 
-${APPS.map((a) => `- ${a.name} (v${a.version}): ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}`).join("\n")}
+${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}`).join("\n")}
 
 ## FAQ
 

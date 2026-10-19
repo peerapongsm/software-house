@@ -112,7 +112,6 @@ const JSON_LD = {
       description: `${a.th.tagline} — ${a.en.tagline} ${a.en.description}`,
       applicationCategory: "BusinessApplication",
       operatingSystem: "Windows 10, Windows 11",
-      softwareVersion: a.version,
       downloadUrl: downloadUrl(a),
       offers: { "@type": "Offer", price: "0", priceCurrency: "THB" },
       author: { "@id": `${SITE_URL}/#org` },
