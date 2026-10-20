@@ -364,4 +364,24 @@ export const APPS: DesktopApp[] = [
       features: ["Barcode and picture-button selling", "First-expiry-first-out lots", "Allergy and prescription checks", "Dosage labels after payment", "Receipts/tax invoices with PromptPay QR", "Purchase orders, receiving and supplier returns", "Stock count", "Thai FDA ข.ย.9–13 registers", "Promotions and loyalty points", "Cash drawer", "Sales, profit and expiry reports"],
     },
   },
+  {
+    name: "PeerapoS POS",
+    icon: "/apps/pos.png",
+    shots: 5,
+    uiLang: "th",
+    th: {
+      tagline: "ระบบหน้าร้านสำหรับร้านอาหารและคาเฟ่เล็ก",
+      description:
+        "เปิดโต๊ะจากผังร้านหรือขายที่เคาน์เตอร์ ส่งใบสั่งเข้าครัวและบาร์ แยกบิลหรือหารเท่ากันก็ได้ คิด VAT และค่าบริการให้ รับเงินสด พร้อมเพย์ โอน หรือบัตร ตัดวัตถุดิบตามสูตรทุกครั้งที่ขาย และปิดกะพร้อมนับเงินในลิ้นชัก ไม่จำกัดจำนวนเมนูหรือบิล",
+      chips: ["โต๊ะและเคาน์เตอร์", "ใบสั่งเข้าครัว", "แยกบิล", "สต๊อกวัตถุดิบ", "สมาชิกและแต้ม"],
+      features: ["ผังโต๊ะ หรือขายที่เคาน์เตอร์พร้อมเลขคิว", "เมนูมีขนาดและตัวเลือก เช่น เผ็ดน้อย ไข่ดาว", "ส่งใบสั่งแยกตามจุดทำ ครัวหรือบาร์", "ย้ายโต๊ะ รวมโต๊ะ ยกเลิกรายการ พร้อมใบแจ้งครัว", "แยกบิลตามรายการหรือหารเท่ากัน", "VAT และค่าบริการ", "ใบเสร็จ ใบกำกับภาษีอย่างย่อและเต็มรูป พร้อม QR พร้อมเพย์", "สต๊อกวัตถุดิบตัดตามสูตร พร้อมต้นทุนอาหาร", "เปิดปิดกะและนับเงินในลิ้นชัก", "สมาชิกและแต้มสะสม", "รายงานยอดขาย เมนูขายดี และภาษีขาย"],
+    },
+    en: {
+      tagline: "Point of sale for a small restaurant or café.",
+      description:
+        "Open a table from the floor plan or sell at the counter, send orders to the kitchen and bar, split a bill by item or evenly, add VAT and service charge, take cash, PromptPay, transfer or card, deduct ingredients by recipe with every sale, and close each shift with a cash count. No limits on menu items or bills.",
+      chips: ["Tables and counter", "Kitchen tickets", "Split bills", "Ingredient stock", "Members and points"],
+      features: ["Floor plan, or counter mode with queue numbers", "Menu sizes and options", "Tickets per station: kitchen or bar", "Move, merge and void with kitchen slips", "Split by item or evenly", "VAT and service charge", "Receipts and abbreviated/full tax invoices with PromptPay QR", "Recipe-based ingredient stock with food cost", "Shifts with a cash-drawer count", "Members and loyalty points", "Sales, top-item and sales-tax reports"],
+    },
+  },
 ];
