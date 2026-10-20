@@ -384,4 +384,24 @@ export const APPS: DesktopApp[] = [
       features: ["Floor plan, or counter mode with queue numbers", "Menu sizes and options", "Tickets per station: kitchen or bar", "Move, merge and void with kitchen slips", "Split by item or evenly", "VAT and service charge", "Receipts and abbreviated/full tax invoices with PromptPay QR", "Recipe-based ingredient stock with food cost", "Shifts with a cash-drawer count", "Members and loyalty points", "Sales, top-item and sales-tax reports"],
     },
   },
+  {
+    name: "PeerapoS Massage",
+    icon: "/apps/massage.png",
+    shots: 5,
+    uiLang: "th",
+    th: {
+      tagline: "ระบบหน้าร้านสำหรับร้านนวดและสปาเล็ก",
+      description:
+        "ดูเตียงและห้องทั้งร้านเป็นการ์ด เห็นทันทีว่าเตียงไหนว่าง เตียงไหนกำลังนวด และเหลืออีกกี่นาที พอหมอลงเวลาเข้างาน โปรแกรมก็เรียงคิวให้เอง รับลูกค้าเดินเข้าหรือจองล่วงหน้าได้โดยหมอกับเตียงไม่ซ้อนเวลา ต่อเวลา ขายคอร์ส รับพร้อมเพย์ผ่าน QR คิดค่ามือพร้อมใบสรุป แล้วปิดยอดประจำวันด้วยการนับเงินในลิ้นชัก ใช้ฟรี ข้อมูลอยู่ในเครื่องของร้าน ไม่ต้องต่ออินเทอร์เน็ต",
+      chips: ["การ์ดเตียง", "คิวหมอนวด", "จองล่วงหน้า", "ค่ามือ", "คอร์สนวด"],
+      features: ["การ์ดเตียงและห้อง บอกเวลาที่เหลือของแต่ละเตียง", "เตือนเมื่อใกล้หมดเวลาหรือเกินเวลา", "ตารางเวลาตามหมอนวดหรือตามเตียง", "คิวหมอเรียงให้เองตามเวลาเข้างาน เลือกรีเควสได้", "ลูกค้าเดินเข้าและจองล่วงหน้า หมอกับเตียงไม่ซ้อนเวลา", "ต่อเวลา บริการเสริม ส่วนลด และแบ่งจ่าย", "ใบเสร็จและใบกำกับภาษีเต็มรูป พร้อม QR พร้อมเพย์", "คอร์สนวดตัดชั่วโมงทีละครั้ง เตือนก่อนหมดอายุ", "ค่ามือแบบบาทต่อครั้งหรือเปอร์เซ็นต์ พร้อมประกันมือ ทิป และเบิกล่วงหน้า", "ใบสรุปค่ามือตามช่วงวันที่จ่าย", "ปิดยอดประจำวันและนับเงินในลิ้นชัก", "รายงานยอดขาย ยอดตามหมอนวด และภาษีขาย"],
+    },
+    en: {
+      tagline: "Front desk for a small massage shop or spa.",
+      description:
+        "See every bed and room as a card with the minutes left on each session, let the therapist queue order itself from clock-in times, take walk-ins and bookings without double-booking a therapist or bed, extend sessions, sell massage courses, take PromptPay by QR, work out therapist pay with payout slips, and close each day with a cash count. Free, with your data kept on the shop's own PC and no internet needed.",
+      chips: ["Bed cards", "Therapist queue", "Bookings", "Therapist pay", "Courses"],
+      features: ["Bed and room cards with time left", "Near-end and over-time alerts", "Time board by therapist or by bed", "Automatic therapist queue with requests", "Walk-ins and bookings with no double-booking", "Extensions, add-ons, discounts and split payments", "Receipts and full tax invoices with PromptPay QR", "Massage courses used hour by hour, with expiry reminders", "Therapist pay per session or by percentage, with daily minimum, tips and advances", "Payout slips by pay period", "Day close with a cash-drawer count", "Sales, per-therapist and sales-tax reports"],
+    },
+  },
 ];
