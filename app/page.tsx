@@ -349,7 +349,6 @@ export default function Home() {
             rel="noopener noreferrer"
             className="whitespace-nowrap rounded-full bg-tip px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-tip-deep sm:px-4"
           >
-            <span aria-hidden="true">♥ </span>
             {t.navSupport}
           </a>
           <LangSwitcher lang={lang} onChange={setLang} />
@@ -431,7 +430,6 @@ export default function Home() {
             rel="noopener noreferrer"
             className="shrink-0 rounded-xl bg-white px-7 py-4 text-center text-lg font-bold text-tip-deep transition-colors hover:bg-paper"
           >
-            <span aria-hidden="true">♥ </span>
             {t.supportButton}
           </a>
         </div>
@@ -637,7 +635,6 @@ export default function Home() {
               rel="noopener noreferrer"
               className="mt-4 block rounded-xl border-2 border-tip px-6 py-3 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
             >
-              <span aria-hidden="true">♥ </span>
               {t.dl.support}
             </a>
           </div>
