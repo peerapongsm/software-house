@@ -107,7 +107,7 @@ const COPY = {
     faqTitle: "คำถามที่พบบ่อย",
     aboutTitle: "สวัสดีครับ ผมพี",
     aboutBody:
-      "ผมชื่อพีระพงศ์ ศักดิ์สมมนต์ เรียกพีก็ได้ครับ โปรแกรมทุกตัวในเว็บนี้ผมทำเองทั้งหมด ตอนนี้ทำงานประจำอยู่ที่ธนาคารแห่งประเทศไทย ก่อนหน้านั้นเป็น Full-Stack Engineer ที่ Agoda นอกเวลางานก็ทำโปรแกรมพวกนี้แจกให้ใช้ฟรี งานล่าสุดเป็นระบบ MES ให้โรงงานผลิตกระสอบพลาสติกสาน ตั้งแต่แจ้งซ่อมเครื่องจักร ใบสั่งงาน ไปจนถึงคลังอะไหล่ ใช้ได้ทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์ ถ้ามีงานไหนที่กินเวลาคุณทุกวัน ทักมาเล่าให้ผมฟังได้เลยครับ",
+      "ผมชื่อพีระพงศ์ ศักดิ์สมมนต์ เรียกพีก็ได้ครับ โปรแกรมทุกตัวในเว็บนี้ผมทำเองทั้งหมด ตอนนี้ทำงานประจำอยู่ที่ธนาคารแห่งประเทศไทย ก่อนหน้านั้นเป็น Full-Stack Engineer ที่ Agoda นอกเวลางานก็ทำโปรแกรมพวกนี้แจกให้ใช้ฟรี ถ้ามีงานไหนที่กินเวลาคุณทุกวัน ทักมาเล่าให้ผมฟังได้เลยครับ",
     creds: [
       "ธนาคารแห่งประเทศไทย - Software Architect",
       "Ex-Agoda · Full-Stack Engineer",
@@ -193,7 +193,7 @@ const COPY = {
     faqTitle: "Questions people ask",
     aboutTitle: "Hi, I'm Peter",
     aboutBody:
-      "Peerapong Saksommon here, Peter for short. I build every app on this site myself. By day I work at the Bank of Thailand, and before that I wrote code at Agoda. Outside work I make these apps and give them away. Most recently I built a system for a woven-sack factory, covering breakdown reports, work orders and the spare-parts store, on phones, tablets and computers. If something eats your time every day, message me and tell me about it. No pressure.",
+      "Peerapong Saksommon here, Peter for short. I build every app on this site myself. By day I work at the Bank of Thailand, and before that I wrote code at Agoda. Outside work I make these apps and give them away. If something eats your time every day, message me and tell me about it. No pressure.",
     creds: [
       "Bank of Thailand - Software Architect",
       "Ex-Agoda · Full-Stack Engineer",

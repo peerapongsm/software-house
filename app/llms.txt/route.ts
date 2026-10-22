@@ -16,11 +16,10 @@ Support / tips: ${GANK_URL}
 ## Custom app development (รับทำแอปตามสั่ง)
 
 - Offline Windows programs, and web apps that run on phones, tablets and desktops.
-- Typical work: back-office systems such as inventory, customer records (CRM), work orders, maintenance requests and manufacturing (MES).
+- Typical work: back-office systems such as inventory, customer records (CRM), work orders and maintenance requests.
 - No spec document needed: describe how the business runs in plain words.
 - Usually takes weeks, not months. Only the features the client will use.
 - The client owns the data; changes and support continue after delivery.
-- Recent project: a manufacturing system for a woven-sack factory covering breakdown reports, maintenance work orders and spare-parts inventory on phones, tablets and desktops.
 
 ## Prices (starting, THB)
 

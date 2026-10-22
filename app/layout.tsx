@@ -70,7 +70,7 @@ const JSON_LD = {
       knowsLanguage: ["th", "en"],
       sameAs: [TIKTOK_URL, LINE_URL, FASTWORK_URL, GANK_URL],
       priceRange: "฿500–฿4,500+",
-      knowsAbout: ["Custom software development", "Custom application development", "Web applications", "Windows desktop applications", "Inventory systems", "CRM", "Manufacturing execution systems"],
+      knowsAbout: ["Custom software development", "Custom application development", "Web applications", "Windows desktop applications", "Inventory systems", "CRM"],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Services",
