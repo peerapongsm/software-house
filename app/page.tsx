@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
+import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -39,6 +39,7 @@ const COPY = {
     navCustom: "รับทำแอป",
     navAbout: "เกี่ยวกับ",
     navContact: "ติดต่อ",
+    navSupport: "สนับสนุนผม",
     h1: "โปรแกรมฟรี",
     heroSub:
       "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
@@ -72,12 +73,17 @@ const COPY = {
         ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
       ],
       note: "ฟรี ไม่ต้องสมัครสมาชิก",
+      support: "ชอบโปรแกรมนี้ไหม สนับสนุนผมได้ที่ Gank",
       close: "ปิด",
       features: "ทำอะไรได้บ้าง",
       prev: "ภาพก่อนหน้า",
       next: "ภาพถัดไป",
       shot: "ภาพที่",
     },
+    supportTitle: "ใช้แล้วชอบไหม",
+    supportBody:
+      "ทุกตัวยังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม ได้ที่ Gank ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
+    supportButton: "สนับสนุนผมที่ Gank",
     customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
     customSub:
       "งานบางอย่างไม่มีโปรแกรมสำเร็จรูปที่พอดี ถ้างานของร้านคุณยังติดอยู่ในสมุดหรือสเปรดชีต เราทำแอปเล็ก ๆ ให้ตรงกับวิธีทำงานของคุณ",
@@ -120,6 +126,7 @@ const COPY = {
     navCustom: "Custom apps",
     navAbout: "About",
     navContact: "Contact",
+    navSupport: "Support me",
     h1: "Free software",
     heroSub:
       "Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
@@ -152,12 +159,17 @@ const COPY = {
         ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
       ],
       note: "Free, no account needed.",
+      support: "Like this app? Support me on Gank",
       close: "Close",
       features: "What it does",
       prev: "Previous screenshot",
       next: "Next screenshot",
       shot: "Screenshot",
     },
+    supportTitle: "Do these apps help your work?",
+    supportBody:
+      "Every app stays free, with nothing locked behind a payment. If you'd like to say thanks, you can send me a tip on Gank. It helps me keep building new apps.",
+    supportButton: "Support me on Gank",
     customTitle: "Custom app development",
     customSub:
       "Some work has no off-the-shelf program that fits. If your shop still runs on a notebook or a spreadsheet, we build a small app around the way you already work.",
@@ -323,13 +335,23 @@ export default function Home() {
         <a href="#top" className="flex items-baseline gap-2 leading-none">
           <span className="font-display text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
         </a>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 md:gap-6">
           <nav className="hidden items-center gap-6 font-semibold text-graphite md:flex">
             <a href="#apps" className="hover:text-ink">{t.navApps}</a>
             <a href="#custom" className="hover:text-ink">{t.navCustom}</a>
             <a href="#about" className="hover:text-ink">{t.navAbout}</a>
             <a href="#contact" className="hover:text-ink">{t.navContact}</a>
           </nav>
+          {/* Shown at every width (the nav above hides on mobile) so support is always one tap away. */}
+          <a
+            href={GANK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whitespace-nowrap rounded-full bg-tip px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-tip-deep sm:px-4"
+          >
+            <span aria-hidden="true">♥ </span>
+            {t.navSupport}
+          </a>
           <LangSwitcher lang={lang} onChange={setLang} />
         </div>
       </header>
@@ -393,6 +415,25 @@ export default function Home() {
               );
             })}
           </ul>
+        </div>
+      </section>
+
+      {/* ── Support: right after the free apps, where thanks is most likely ── */}
+      <section id="support" className="bg-tip text-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-12 sm:px-8 sm:py-16 md:flex-row md:items-center md:justify-between md:gap-10">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{t.supportTitle}</h2>
+            <p className="mt-3 text-lg leading-relaxed text-white/90">{t.supportBody}</p>
+          </div>
+          <a
+            href={GANK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 rounded-xl bg-white px-7 py-4 text-center text-lg font-bold text-tip-deep transition-colors hover:bg-paper"
+          >
+            <span aria-hidden="true">♥ </span>
+            {t.supportButton}
+          </a>
         </div>
       </section>
 
@@ -590,6 +631,15 @@ export default function Home() {
             <p className="mt-2 text-center text-sm text-graphite">
               {t.dl.size} · {t.dl.note}
             </p>
+            <a
+              href={GANK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 block rounded-xl border-2 border-tip px-6 py-3 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
+            >
+              <span aria-hidden="true">♥ </span>
+              {t.dl.support}
+            </a>
           </div>
         )}
       </dialog>

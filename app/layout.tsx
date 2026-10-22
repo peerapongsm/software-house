@@ -14,7 +14,7 @@ import "@fontsource/ibm-plex-sans-thai-looped/latin-600.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-700.css";
 import "./globals.css";
 import { APPS, downloadUrl } from "./apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
+import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
 
 const TITLE = "PeerapoS Software House | รับทำแอปและเขียนโปรแกรมตามสั่ง + โปรแกรมฟรีสำหรับ SME";
 const DESCRIPTION =
@@ -68,7 +68,7 @@ const JSON_LD = {
       founder: { "@id": `${SITE_URL}/#peter` },
       areaServed: { "@type": "Country", name: "Thailand" },
       knowsLanguage: ["th", "en"],
-      sameAs: [TIKTOK_URL, LINE_URL, FASTWORK_URL],
+      sameAs: [TIKTOK_URL, LINE_URL, FASTWORK_URL, GANK_URL],
       priceRange: "฿500–฿4,500+",
       knowsAbout: ["Custom software development", "Custom application development", "Web applications", "Windows desktop applications", "Inventory systems", "CRM", "Manufacturing execution systems"],
       hasOfferCatalog: {

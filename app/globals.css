@@ -9,6 +9,9 @@
   --color-line: #dde1e8;
   --color-indigo: #3b3fb6;
   --color-indigo-deep: #2a2d8c;
+  /* Support/tip accent: the one warm colour, so the Gank links stand out. */
+  --color-tip: #c2410c;
+  --color-tip-deep: #9a3412;
 
   --font-display: "Bricolage Grotesque", "IBM Plex Sans Thai Looped", sans-serif;
   --font-body: "IBM Plex Sans Thai Looped", sans-serif;
