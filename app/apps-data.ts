@@ -404,4 +404,24 @@ export const APPS: DesktopApp[] = [
       features: ["Bed and room cards with time left", "Near-end and over-time alerts", "Time board by therapist or by bed", "Automatic therapist queue with requests", "Walk-ins and bookings with no double-booking", "Extensions, add-ons, discounts and split payments", "Receipts and full tax invoices with PromptPay QR", "Massage courses used hour by hour, with expiry reminders", "Therapist pay per session or by percentage, with daily minimum, tips and advances", "Payout slips by pay period", "Day close with a cash-drawer count", "Sales, per-therapist and sales-tax reports"],
     },
   },
+  {
+    name: "PeerapoS Budget",
+    icon: "/apps/budget.png",
+    shots: 5,
+    uiLang: "th",
+    th: {
+      tagline: "ระบบคุมงบประมาณสำหรับกลุ่มบริษัทเล็ก",
+      description:
+        "วางแผนงบประจำปีของทุกบริษัทในที่เดียว แตกรายการย่อย กระจายงบรายเดือน แล้วส่งขออนุมัติตามขั้นที่ตั้งไว้ พอแผนอนุมัติแล้ว จะปรับงบหรือโอนงบต้องทำผ่านเอกสารที่มีผู้อนุมัติ PO ที่อนุมัติแล้วกันงบไว้ทันที ค่าใช้จ่ายที่ Post แล้วกลายเป็นยอดใช้จริง และดูงบเทียบใช้จริงกับพยากรณ์สิ้นปีได้ทุกเมื่อ ใช้ฟรี ข้อมูลอยู่ในเครื่องของคุณ ไม่ต้องต่ออินเทอร์เน็ต",
+      chips: ["แผนงบประจำปี", "ขั้นอนุมัติ", "ภาระผูกพัน PO", "งบเทียบใช้จริง", "หลายบริษัท"],
+      features: ["แผนงบของทุกบริษัทและทุกปีงบในไฟล์เดียว", "รายการหัวข้อและรายการย่อย แยกงบประจำกับงบโครงการ", "กระจายงบรายเดือนแบบเท่ากัน รายไตรมาส ครั้งเดียว หรือกำหนดเอง", "ส่งขออนุมัติหลายขั้น บันทึกชื่อผู้อนุมัติทุกขั้น", "ปรับปรุงงบและโอนงบผ่านเอกสารที่มีผู้อนุมัติ", "PO กันงบ และค่าใช้จ่ายพร้อม VAT หัก ณ ที่จ่าย และไฟล์แนบ", "สัญญาและการต่ออายุ พร้อมเตือนก่อนครบกำหนด", "แดชบอร์ด งบเทียบใช้จริง Pivot และพยากรณ์สิ้นปี", "รายงานมาตรฐาน 15 แบบ ส่งออก Excel, CSV และ PDF", "นำเข้างบจาก Excel พร้อมกระทบยอด", "ประวัติการแก้ไขที่ตรวจย้อนได้ และสำรองข้อมูลแบบเข้ารหัส"],
+    },
+    en: {
+      tagline: "Budget control for a small group of companies.",
+      description:
+        "Plan every company's annual budget in one place: break it into lines, spread them over the months, and submit the plan through your approval steps. Once a plan is approved, budgets change only through adjustments and transfers that someone approves. An approved PO reserves budget at once, posted expenses become actuals, and budget vs actual and the year-end forecast are always up to date. Free, with your data kept on your own PC and no internet needed.",
+      chips: ["Annual plans", "Approval steps", "PO commitments", "Budget vs actual", "Multi-company"],
+      features: ["Every company and fiscal year in one file", "Header and sub-lines, recurring and project budgets", "Monthly spread: even, quarterly, one-time or custom", "Multi-step approval with every approver's name recorded", "Adjustments and transfers through approved documents", "POs that reserve budget, and expenses with VAT, withholding tax and attachments", "Contracts and renewals with notice reminders", "Dashboard, budget vs actual, pivot and year-end forecast", "15 standard reports exported to Excel, CSV and PDF", "Excel import with reconciliation", "Tamper-evident change history and encrypted backups"],
+    },
+  },
 ];
