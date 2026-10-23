@@ -382,8 +382,8 @@ export default function Home() {
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.appsSub}</p>
           <p className="mt-2 max-w-2xl text-sm font-semibold text-graphite">{t.winOnly}</p>
 
-          {/* mobile: compact one-line rows; tablet: two columns, desktop: three, with the feature chips */}
-          <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-3">
+          {/* mobile: compact one-line rows; tablet: two columns, desktop: four, with the feature chips */}
+          <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
             {APPS.map((a) => {
               const c = a[lang];
               return (
