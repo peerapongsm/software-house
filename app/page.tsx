@@ -40,6 +40,7 @@ const COPY = {
     navAbout: "เกี่ยวกับ",
     navContact: "ติดต่อ",
     navSupport: "เลี้ยงชาบูผม",
+    banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมที่ Gank ได้",
     h1: "โปรแกรมฟรี",
     heroSub:
       "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
@@ -127,6 +128,7 @@ const COPY = {
     navAbout: "About",
     navContact: "Contact",
     navSupport: "Support me",
+    banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me on Gank so I can publish them.",
     h1: "Free software",
     heroSub:
       "Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
@@ -330,6 +332,14 @@ export default function Home() {
 
   return (
     <main className="overflow-x-clip">
+      <a
+        href={GANK_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block bg-tip px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-tip-deep"
+      >
+        {t.banner}
+      </a>
       {/* ── Header ─────────────────────────────────────── */}
       <header className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-8 sm:py-6">
         <a href="#top" className="flex items-baseline gap-2 leading-none">
