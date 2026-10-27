@@ -342,7 +342,8 @@ export default function Home() {
       </a>
       {/* ── Header ─────────────────────────────────────── */}
       <header className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-8 sm:py-6">
-        <a href="#top" className="flex items-baseline gap-2 leading-none">
+        <a href="#top" className="flex items-center gap-2 leading-none">
+          <img src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 sm:h-9 sm:w-9" />
           <span className="font-display text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
         </a>
         <div className="flex items-center gap-3 md:gap-6">

@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     locale: "th_TH",
     alternateLocale: ["en_US"],
-    images: [{ url: "/apps/shots/stock-1.webp", width: 1920, height: 1080, alt: "PeerapoS Stock" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "PeerapoS Software House: custom apps and free apps for SMEs" }],
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/apps/shots/stock-1.webp"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.jpg"] },
   robots: { index: true, follow: true, googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
 };
 
@@ -63,7 +63,8 @@ const JSON_LD = {
       alternateName: "PeerapoS Software House",
       description: DESCRIPTION,
       url: SITE_URL,
-      image: `${SITE_URL}/apps/shots/stock-1.webp`,
+      image: `${SITE_URL}/og.jpg`,
+      logo: `${SITE_URL}/logo.png`,
       email: EMAIL,
       founder: { "@id": `${SITE_URL}/#peter` },
       areaServed: { "@type": "Country", name: "Thailand" },
