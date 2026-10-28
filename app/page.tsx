@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
-import { CLIENTS, EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
+import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -46,9 +46,6 @@ const COPY = {
       "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
     heroApps: "ดูโปรแกรมทั้งหมด",
     heroCustom: "คุยเรื่องทำแอป",
-    trustedBy: "บริษัทที่จ้างเราทำระบบ",
-    clientsTitle: "บริษัทที่ไว้ใจให้เราทำระบบ",
-    clientsWork: "ระบบที่เราทำ",
     wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
     appsTitle: "เลือกตัวที่ตรงกับงานของคุณ",
     appsSub: "ทุกตัวฟรี ทำงานได้โดยไม่ต้องต่อเน็ต และสำรองข้อมูลเก็บไว้เองได้",
@@ -139,9 +136,6 @@ const COPY = {
     heroCustom: "Talk about a custom app",
     wallLabel: "All apps. Select one for details.",
     appsTitle: "Pick the one that fits your work",
-    trustedBy: "Companies that hired us",
-    clientsTitle: "Companies that trust us with their systems",
-    clientsWork: "What we built",
     appsSub: "Every app is free, runs without an internet connection, and lets you keep your own backups.",
     winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
     uiLang: { th: "Thai interface", en: "English interface" },
@@ -390,24 +384,6 @@ export default function Home() {
         <div className="rounded-3xl border border-line bg-sheet p-3 sm:p-6 lg:w-[30rem]">
           <TileWall label={t.wallLabel} onOpen={openApp} />
         </div>
-          {/* "Trusted by" strip: client logos, details in #clients.
-              mix-blend-multiply drops the Waterlife JPEG's white box on the grey page. */}
-          <a href="#clients" className="mt-10 block border-t border-line pt-5">
-            <span className="text-sm font-semibold text-graphite">{t.trustedBy}</span>
-            <span className="mt-3 flex flex-wrap items-center gap-x-10 gap-y-3">
-              {CLIENTS.map((c) => (
-                <Image
-                  key={c.name}
-                  src={c.logo.src}
-                  alt={c.name}
-                  width={c.logo.width}
-                  height={c.logo.height}
-                  // square marks get more height so both logos carry the same visual weight
-                  className={`w-auto mix-blend-multiply ${c.logo.width > c.logo.height ? "h-12 sm:h-14" : "h-[4.5rem] sm:h-20"}`}
-                />
-              ))}
-            </span>
-          </a>
       </section>
 
       {/* ── Apps ───────────────────────────────────────── */}
@@ -484,33 +460,7 @@ export default function Home() {
             ))}
           </ol>
 
-          {/* ── Clients banner ── */}
-          <div id="clients" className="mt-16 scroll-mt-6 rounded-2xl bg-ink p-6 text-white sm:p-10">
-            <h3 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">{t.clientsTitle}</h3>
-            <ul className="mt-6 grid gap-4 md:grid-cols-2">
-              {CLIENTS.map((c) => (
-                <li key={c.name} className="rounded-xl border border-white/15 bg-white/5 p-5 sm:p-6">
-                  {/* logos are drawn for white paper, so they sit on a white plate */}
-                  <div className="mb-5 flex h-28 items-center rounded-lg bg-white px-5">
-                    <Image
-                      src={c.logo.src}
-                      alt=""
-                      width={c.logo.width}
-                      height={c.logo.height}
-                      className={`w-auto ${c.logo.width > c.logo.height ? "h-16" : "h-24"}`}
-                    />
-                  </div>
-                  <p className="font-display text-3xl font-bold tracking-tight">{c.name}</p>
-                  <p className="mt-1 text-sm text-white/70">{c.legal[lang]}</p>
-                  <p className="text-sm text-white/70">{c.industry[lang]}</p>
-                  <p className="mt-4 text-sm font-semibold text-white/60">{t.clientsWork}</p>
-                  <p className="mt-1 leading-relaxed text-white/90">{c.work[lang]}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-line bg-sheet p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="mt-16 flex flex-col gap-3 rounded-2xl border border-line bg-sheet p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>
               <h3 className="font-display text-xl font-bold">{t.armoryTitle}</h3>
               <p className="mt-1 leading-relaxed text-graphite">{t.armoryBody}</p>

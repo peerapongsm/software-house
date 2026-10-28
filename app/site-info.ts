@@ -17,31 +17,6 @@ export const SERVICES = [
   { th: "สอน Vibe Coding สร้างเว็บแอปด้วย AI (Claude Code) ตัวต่อตัว", en: "1:1 vibe coding lessons: build web apps with AI (Claude Code)", type: "Training", price: 500, unit: "hour" },
 ] as const;
 
-// Companies that hired us. Names and logos only, no client data (contracts keep their data confidential).
-// Logos: Leelapoly from leelapoly.com header, Waterlife from its own delivery-bill letterhead.
-export const CLIENTS = [
-  {
-    name: "Leelapoly",
-    logo: { src: "/clients/leelapoly.png", width: 355, height: 98 },
-    legal: { th: "บริษัท ลีลาโพลี จำกัด", en: "Leelapoly Co., Ltd." },
-    industry: { th: "โรงงานผลิตกระสอบพลาสติกสาน", en: "PP woven sack factory" },
-    work: {
-      th: "ระบบโรงงาน (MES) แจ้งซ่อม ใบสั่งงาน สต็อกอะไหล่ และรายงาน ใช้ได้ทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์",
-      en: "Factory system (MES): maintenance requests, work orders, spare-parts stock and reports, on phones, tablets and desktops.",
-    },
-  },
-  {
-    name: "Waterlife",
-    logo: { src: "/clients/waterlife.png", width: 130, height: 149 },
-    legal: { th: "บริษัท เอส ดับบลิว วอเตอร์ไลฟ์ จำกัด", en: "S W Water Life Co., Ltd." },
-    industry: { th: "น้ำดื่มส่งถึงที่", en: "Drinking water delivery" },
-    work: {
-      th: "ระบบจัดส่งน้ำ สายส่งประจำวัน คูปองและถังน้ำ และวางบิลตามวันตัดรอบของลูกค้า",
-      en: "Delivery and billing system: daily routes, coupons and bottle returns, and month-end bills on each customer's cut-off day.",
-    },
-  },
-] as const;
-
 export type Faq = { q: string; a: string };
 
 export const FAQ: Record<"th" | "en", Faq[]> = {
