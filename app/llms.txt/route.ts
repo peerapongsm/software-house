@@ -1,5 +1,5 @@
 import { APPS, downloadUrl } from "../apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
+import { CLIENTS, EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
 
@@ -20,6 +20,10 @@ Support / tips: ${GANK_URL}
 - No spec document needed: describe how the business runs in plain words.
 - Usually takes weeks, not months. Only the features the client will use.
 - The client owns the data; changes and support continue after delivery.
+
+## Clients
+
+${CLIENTS.map((c) => `- ${c.name} (${c.legal.en}, ${c.industry.en}): ${c.work.en}`).join("\n")}
 
 ## Prices (starting, THB)
 
