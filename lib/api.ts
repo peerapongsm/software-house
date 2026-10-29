@@ -15,6 +15,9 @@ export type Catalogue = {
   onSale: string[];
 };
 
+/** GET /api/account → licence. null = nothing bought yet. */
+export type Licence = { id: string; name: string; apps: string[]; tier: null | { t: "pro" | "max"; until: string } };
+
 export type ApiResult<T> =
   | { ok: true; data: T }
   | { ok: false; status: number; error: string; message?: Msg; data?: any };
