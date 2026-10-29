@@ -341,10 +341,13 @@ export default function PayStep({ lang, id, signedIn }: { lang: Lang; id: string
         <h1 className={h1}>{review ? t.reviewH : t.closedH}</h1>
         <p role="status">{msg}</p>
         {review ? (
-          <button type="button" onClick={() => load()} disabled={busy} className={out}>
-            {busy && <Spinner />}
-            {t.recheck}
-          </button>
+          <>
+            <button type="button" onClick={() => load()} disabled={busy} className={out}>
+              {busy && <Spinner />}
+              {t.recheck}
+            </button>
+            {loadErr && <p role="alert" className="font-semibold text-red-700">{loadErr[lang]}</p>}
+          </>
         ) : (
           <a href="/buy" className={dark}>{t.again}</a>
         )}

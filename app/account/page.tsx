@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { appName } from "@/components/account/BuyPicker";
 import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
@@ -28,6 +28,9 @@ const COPY = {
     apps: "แอปที่ซื้อแล้ว",
     noApps: "ยังไม่ได้ซื้อแอป",
     download: "ดาวน์โหลด",
+    noFile: "ยังไม่มีไฟล์ติดตั้ง ลองใหม่ภายหลัง",
+    tooMany: "ดาวน์โหลดถี่เกินไป รอ 1 นาทีแล้วลองใหม่",
+    net: "เชื่อมต่อไม่ได้ ลองอีกครั้ง",
     buyApp: "ซื้อแอปเพิ่ม",
     pcs: "เครื่องที่เชื่อมไว้",
     noPcs: "เปิดแอป PeerapoS แล้วกด เปิดใช้",
@@ -50,6 +53,9 @@ const COPY = {
     apps: "Apps you own",
     noApps: "No apps bought yet",
     download: "Download",
+    noFile: "The installer isn't ready yet. Try again later.",
+    tooMany: "Too many downloads. Wait a minute and try again.",
+    net: "Can't connect. Try again.",
     buyApp: "Buy more apps",
     pcs: "Linked PCs",
     noPcs: "Open a PeerapoS app and press Activate",
@@ -139,15 +145,38 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
 
 function Apps({ t, lic }: { t: T; lic: Licence }) {
   const apps = ownedPaid(lic.apps);
+  const [dl, setDl] = useState<{ slug: string; msg: string } | null>(null);
+  const [checking, setChecking] = useState<string | null>(null);
+  // HEAD first: a missing installer, the rate limit or a lost session shows one line here, not a JSON tab
+  async function download(e: MouseEvent<HTMLAnchorElement>, slug: string) {
+    e.preventDefault();
+    const href = e.currentTarget.href;
+    setDl(null);
+    setChecking(slug);
+    let status = 0;
+    try {
+      status = (await fetch(href, { method: "HEAD", credentials: "include" })).status;
+    } catch {}
+    setChecking(null);
+    if (status === 200) location.href = href;
+    else if (status === 401) location.href = "/login?next=" + encodeURIComponent("/account");
+    else setDl({ slug, msg: status === 404 ? t.noFile : status === 429 ? t.tooMany : t.net });
+  }
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
       <h2 className={cardTitle}>{t.apps}</h2>
       {apps.length ? (
         apps.map((slug) => (
-          <div key={slug} className="flex items-center gap-3">
-            <Icon slug={slug} size="size-10" />
-            <b className="min-w-0 flex-1">PeerapoS {appName(slug)}</b>
-            <a href={`${API_BASE}/api/download/${slug}`} className={outSm}>{t.download}</a>
+          <div key={slug} className="flex flex-col gap-1">
+            <div className="flex items-center gap-3">
+              <Icon slug={slug} size="size-10" />
+              <b className="min-w-0 flex-1">PeerapoS {appName(slug)}</b>
+              <a href={`${API_BASE}/api/download/${slug}`} onClick={(e) => download(e, slug)} aria-busy={checking === slug} className={outSm}>
+                {checking === slug && <Spinner />}
+                {t.download}
+              </a>
+            </div>
+            {dl?.slug === slug && <p role="alert" className="text-sm font-semibold text-red-700">{dl.msg}</p>}
           </div>
         ))
       ) : (
