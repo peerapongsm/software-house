@@ -41,3 +41,6 @@ export function lastUsed(iso: string | null, now: number): Msg {
 
 /** Owned apps that have a download, in catalogue order. */
 export const ownedPaid = (apps: string[]): PaidApp[] => PAID.filter((p) => apps.includes(p));
+
+/** After "ยกเลิกทุกเครื่อง": the server's count of PCs it removed. */
+export const removedAll = (n: number): Msg => ({ th: `ยกเลิกแล้ว ${n} เครื่อง`, en: `${n} ${n === 1 ? "PC" : "PCs"} removed` });

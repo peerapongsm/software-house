@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { day, lastUsed, ownedPaid, pillText } from "./account.ts";
+import { day, lastUsed, ownedPaid, pillText, removedAll } from "./account.ts";
 
 const NOW = Date.parse("2026-10-30T15:00:00+07:00");
 
@@ -43,4 +43,9 @@ test("lastUsed: never seen, or a clock ahead of ours", () => {
 test("ownedPaid: only known paid apps, in catalogue order", () => {
   assert.deepEqual(ownedPaid(["wellness", "account", "../x", "wash"]), ["account", "wellness"]);
   assert.deepEqual(ownedPaid([]), []);
+});
+
+test("removedAll: how many PCs “ยกเลิกทุกเครื่อง” removed", () => {
+  assert.deepEqual(removedAll(3), { th: "ยกเลิกแล้ว 3 เครื่อง", en: "3 PCs removed" });
+  assert.deepEqual(removedAll(1), { th: "ยกเลิกแล้ว 1 เครื่อง", en: "1 PC removed" });
 });

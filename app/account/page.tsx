@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
+import AiCard from "@/components/account/AiCard.ts";
 import { appName } from "@/components/account/BuyPicker";
 import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
-import { day, lastUsed, ownedPaid, pillText, type AccountData, type Device } from "@/lib/account.ts";
+import { day, lastUsed, ownedPaid, pillText, removedAll, type AccountData, type Device } from "@/lib/account.ts";
+import type { Grant } from "@/lib/ai.ts";
 import { api, API_BASE, type Licence, type Msg } from "@/lib/api.ts";
 import { orderError } from "@/lib/buy.ts";
 import { useLang, type Lang } from "@/lib/lang.ts";
@@ -36,6 +38,11 @@ const COPY = {
     noPcs: "เปิดแอป PeerapoS แล้วกด “เปิดใช้”",
     over: "เกินโควตา",
     remove: "ยกเลิก",
+    resetKey: "รีเซ็ตกุญแจเครื่องนี้",
+    keyReset: "รีเซ็ตแล้ว ปิดแล้วเปิดแอปบนเครื่องนี้ใหม่",
+    removeAll: "ยกเลิกทุกเครื่อง",
+    removeAllAsk: "ยกเลิกทุกเครื่องที่เชื่อมไว้ไหม เครื่องที่ยังใช้ต้องกด “เปิดใช้” ในแอปใหม่",
+    replaced: "ถ้าแอปขึ้นว่า “ร้านนี้เปิดอยู่บนอีกเครื่อง” แต่เครื่องนั้นไม่ใช่ของคุณ กด “ยกเลิกทุกเครื่อง” แล้วเปิดใช้เครื่องของคุณใหม่",
   },
   en: {
     title: "My account",
@@ -61,6 +68,11 @@ const COPY = {
     noPcs: "Open a PeerapoS app and press “Activate”",
     over: "Over limit",
     remove: "Remove",
+    resetKey: "Reset this PC's key",
+    keyReset: "Key reset. Close and reopen the app on this PC.",
+    removeAll: "Remove all PCs",
+    removeAllAsk: "Remove every linked PC? A PC you still use needs “Activate” in the app again.",
+    replaced: "If the app says “This shop is open on another PC” and that PC isn't yours, press “Remove all PCs”, then activate your own PC again.",
   },
 };
 
@@ -195,16 +207,26 @@ function Pcs({
   now,
   removing,
   err,
+  note,
+  keyDone,
   onRemove,
+  onReset,
+  onRemoveAll,
 }: {
   t: T;
   lang: Lang;
   devices: Device[];
   limit: number;
   now: number;
+  /** what is running: a PC id (remove), `key:<id>` (key reset) or `*` (remove all) */
   removing: string | null;
   err: Msg | null;
+  note: Msg | null;
+  /** the PC whose relay key was just reset */
+  keyDone: string | null;
   onRemove: (id: string) => void;
+  onReset: (id: string) => void;
+  onRemoveAll: () => void;
 }) {
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
@@ -214,6 +236,15 @@ function Pcs({
           {devices.length} / {limit}
         </span>
       </div>
+      {devices.length > 0 && (
+        <div className="flex flex-col gap-2 rounded-xl bg-paper px-3.5 py-3">
+          <p className="text-sm text-graphite">{t.replaced}</p>
+          <button type="button" disabled={removing !== null} onClick={onRemoveAll} className={`${outSm} self-start disabled:opacity-40`}>
+            {removing === "*" && <Spinner />}
+            {t.removeAll}
+          </button>
+        </div>
+      )}
       {devices.length ? (
         devices.map((d) => (
           <div key={d.id} className="flex items-center gap-3">
@@ -224,6 +255,19 @@ function Pcs({
                 {d.over && <Pill tone="warn">{t.over}</Pill>}
               </span>
               <span className="block text-sm text-graphite">{lastUsed(d.lastSeen, now)[lang]}</span>
+              {keyDone === d.id ? (
+                <span role="status" className="block text-sm font-semibold text-green-700">{t.keyReset}</span>
+              ) : (
+                <button
+                  type="button"
+                  disabled={removing !== null}
+                  onClick={() => onReset(d.id)}
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-indigo underline disabled:opacity-40"
+                >
+                  {removing === `key:${d.id}` && <Spinner />}
+                  {t.resetKey}
+                </button>
+              )}
             </span>
             <button type="button" disabled={removing !== null} onClick={() => onRemove(d.id)} className={`${outSm} disabled:opacity-40`}>
               {removing === d.id && <Spinner />}
@@ -237,6 +281,11 @@ function Pcs({
           <span>{t.noPcs}</span>
         </div>
       )}
+      {note && (
+        <p role="status" className="font-semibold text-green-700">
+          {note[lang]}
+        </p>
+      )}
       {err && (
         <p role="alert" className="font-semibold text-red-700">
           {err[lang]}
@@ -246,7 +295,7 @@ function Pcs({
   );
 }
 
-// Signed-in only: plan, owned apps with their downloads, and the PCs linked to this account.
+// Signed-in only: plan, owned apps with their downloads, the PCs linked to this account and the AI apps connected to it.
 export default function Account() {
   const [lang, setLang] = useLang();
   const t = COPY[lang];
@@ -256,6 +305,11 @@ export default function Account() {
   const [busy, setBusy] = useState(false);
   const [removing, setRemoving] = useState<string | null>(null);
   const [pcErr, setPcErr] = useState<Msg | null>(null);
+  const [pcNote, setPcNote] = useState<Msg | null>(null);
+  const [keyDone, setKeyDone] = useState<string | null>(null);
+  const [grants, setGrants] = useState<Grant[] | null>(null);
+  const [revoking, setRevoking] = useState<string | null>(null);
+  const [aiErr, setAiErr] = useState<Msg | null>(null);
 
   useEffect(() => {
     document.title = `${t.title} · PeerapoS`;
@@ -278,12 +332,22 @@ export default function Account() {
     if (!r.ok && r.status !== 401) setErr(orderError(r));
   }
 
+  async function loadGrants() {
+    const r = await api<{ grants: Grant[] }>("/api/ai/grants");
+    if (r.ok) setGrants(r.data.grants);
+    else if (r.status === 401) location.replace("/login?next=/account");
+    else setAiErr(orderError(r));
+  }
+
   useEffect(() => {
     start();
+    loadGrants();
   }, []);
 
   async function remove(id: string) {
     setPcErr(null);
+    setPcNote(null);
+    setKeyDone(null);
     setRemoving(id);
     const r = await api(`/api/devices/${encodeURIComponent(id)}/remove`, { method: "POST" });
     if (r.ok) {
@@ -293,6 +357,45 @@ export default function Account() {
     } else if (r.status === 401) location.replace("/login?next=/account");
     else setPcErr(orderError(r));
     setRemoving(null);
+  }
+
+  /** The PC may register a new relay key (lost with a Windows reinstall, spec §3.1). */
+  async function resetKey(id: string) {
+    setPcErr(null);
+    setPcNote(null);
+    setKeyDone(null);
+    setRemoving(`key:${id}`);
+    const r = await api(`/api/devices/${encodeURIComponent(id)}/relay-key/reset`, { method: "POST" });
+    if (r.ok) setKeyDone(id);
+    else if (r.status === 401) location.replace("/login?next=/account");
+    else setPcErr(orderError(r));
+    setRemoving(null);
+  }
+
+  /** "Not my PC" in an app ends here: every PC goes, and the relay closes their connections. */
+  async function removeAll() {
+    if (!confirm(t.removeAllAsk)) return;
+    setPcErr(null);
+    setPcNote(null);
+    setKeyDone(null);
+    setRemoving("*");
+    const r = await api<{ removed: number }>("/api/devices/revoke-all", { method: "POST" });
+    if (r.ok) {
+      setPcNote(removedAll(r.data.removed));
+      await load();
+    } else if (r.status === 401) location.replace("/login?next=/account");
+    else setPcErr(orderError(r));
+    setRemoving(null);
+  }
+
+  async function revokeGrant(id: string) {
+    setAiErr(null);
+    setRevoking(id);
+    const r = await api(`/api/ai/grants/${encodeURIComponent(id)}/revoke`, { method: "POST" });
+    if (r.ok) setGrants((g) => g && g.filter((x) => x.id !== id));
+    else if (r.status === 401) location.replace("/login?next=/account");
+    else setAiErr(orderError(r));
+    setRevoking(null);
   }
 
   const lic = data?.licence ?? null;
@@ -332,8 +435,13 @@ export default function Account() {
                 now={now}
                 removing={removing}
                 err={pcErr}
+                note={pcNote}
+                keyDone={keyDone}
                 onRemove={remove}
+                onReset={resetKey}
+                onRemoveAll={removeAll}
               />
+              <AiCard lang={lang} grants={grants} revoking={revoking} err={aiErr} onRevoke={revokeGrant} spin={<Spinner />} />
             </div>
           ) : (
             <Empty t={t} />
