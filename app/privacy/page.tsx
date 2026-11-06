@@ -96,8 +96,8 @@ const TH: Sec[] = [
   {
     title: "เข้าสู่ระบบด้วย Google และ Google Play",
     p: [
-      "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android Google ส่งรหัสบัญชีที่คงที่ อีเมล และชื่อให้เรา เราไม่ได้รหัสผ่าน Google ของคุณ",
-      "ถ้าคุณสมัคร Pro บน Google Play Google เป็นผู้คิดเงินและเก็บข้อมูลบัตร เราเห็นแค่ข้อมูลการซื้อที่ระบุข้างบน เพื่อตรวจการซื้อ เราส่งข้อมูลที่จำเป็นให้ Google Play (โทเคนการซื้อและสินค้า) และ Google ส่งการแจ้งเมื่อการสมัครเปลี่ยน เช่น ต่ออายุ ยกเลิก หมดอายุ หรือคืนเงิน",
+      "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android ตอนเข้าสู่ระบบ Google ส่งรหัสบัญชีที่คงที่ อีเมล และชื่อให้เรา เราไม่ได้รหัสผ่าน Google ของคุณ",
+      "ถ้าคุณสมัคร Pro บน Google Play Google เป็นผู้คิดเงินและเก็บข้อมูลบัตร เราเห็นแค่ข้อมูลการซื้อที่ระบุข้างบน เพื่อตรวจการซื้อ เราส่งข้อมูลที่จำเป็นให้ Google Play (โทเคนการซื้อและสินค้า) และ Google แจ้งเราเมื่อการสมัครเปลี่ยน เช่น ต่ออายุ ยกเลิก หมดอายุ หรือคืนเงิน",
       "การลบบัญชีไม่ยกเลิกการสมัครบน Google Play ให้ยกเลิกใน Google Play เอง",
     ],
   },
@@ -147,7 +147,7 @@ const TH: Sec[] = [
   {
     title: "เว็บไซต์ peerapongsm.dev",
     p: [
-      "เว็บไซต์ใช้ Cloudflare Web Analytics นับจำนวนผู้เข้าชม โดยไม่ใช้คุกกี้ หน้าแรกเรียกตัวนับผู้เข้าชมจาก abacus.jasoncameron.dev ซึ่งเห็นที่อยู่ IP ของคุณตามปกติของการเปิดเว็บ หน้าเข้าสู่ระบบอาจโหลด Cloudflare Turnstile เพื่อกันบอต",
+      "เว็บไซต์ใช้ Cloudflare Web Analytics นับจำนวนผู้เข้าชม โดยไม่ใช้คุกกี้ หน้าแรกเรียกตัวนับผู้เข้าชมจาก abacus.jasoncameron.dev ซึ่งเห็นที่อยู่ IP ของคุณตามปกติของการเปิดเว็บ หน้าเข้าสู่ระบบโหลดปุ่มเข้าสู่ระบบจาก Google",
     ],
   },
   {
@@ -180,7 +180,7 @@ const TH: Sec[] = [
     title: "สิทธิ์ของคุณและการลบ",
     p: [
       "ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล คุณขอเข้าถึงหรือขอสำเนา ขอแก้ไข ขอลบ ขอให้หยุดใช้ หรือคัดค้านการใช้ข้อมูลของคุณที่เราควบคุมได้ และร้องเรียนต่อสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลได้",
-      `ลบบัญชีได้เองที่หน้า /account หรือในแอป การลบจะลบบัญชี การเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play คำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
+      `ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
       "ถ้าคุณสมัคร Pro อยู่ ให้ยกเลิกใน Google Play ก่อนลบบัญชี การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้ว ผูกกับบัญชีใหม่ไม่ได้",
       "ในเครื่องของคุณ ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่อง ยกเลิกการเชื่อมเครื่องได้ที่หน้าบัญชีของฉัน",
     ],
@@ -283,7 +283,7 @@ const EN: Sec[] = [
   {
     title: "The website, peerapongsm.dev",
     p: [
-      "The site uses Cloudflare Web Analytics to count visits, without cookies. The home page fetches a visitor counter from abacus.jasoncameron.dev, which sees your IP address as any site you open would. The sign-in page may load Cloudflare Turnstile to keep bots out.",
+      "The site uses Cloudflare Web Analytics to count visits, without cookies. The home page fetches a visitor counter from abacus.jasoncameron.dev, which sees your IP address as any site you open would. The sign-in page loads the sign-in button from Google.",
     ],
   },
   {
@@ -316,7 +316,7 @@ const EN: Sec[] = [
     title: "Your rights and deleting your data",
     p: [
       "Under Thailand's Personal Data Protection Act you may ask to access or get a copy of, correct, delete, restrict or object to our use of your data that we control, and you may complain to the Personal Data Protection Committee.",
-      `You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
+      `You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
       "If you have Pro, cancel it in Google Play before you delete the account. Deleting the account does NOT cancel a Google Play subscription: you will keep being charged, and a subscription from a deleted account cannot be attached to a new account.",
       "On your own PC, uninstall the app or delete its data folder and the data is gone. You can unlink a PC on My account.",
     ],

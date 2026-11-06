@@ -49,7 +49,7 @@ const TH: Sec[] = [
     title: "1. ใครให้บริการ",
     p: [
       "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Go และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Go ตัวเชื่อม AI หน้าลูกค้า)",
-      "ติ๊กยอมรับตอนสั่งซื้อ หรือใช้แอปต่อไปหลังเราประกาศข้อกำหนดนี้ ถือว่าคุณตกลงตามนี้",
+      "ติ๊กยอมรับตอนสั่งซื้อ เข้าสู่ระบบ หรือใช้แอปต่อไปหลังเราประกาศข้อกำหนดนี้ ถือว่าคุณตกลงตามนี้",
     ],
   },
   {
@@ -58,7 +58,7 @@ const TH: Sec[] = [
       "แอปฟรีใช้ได้ฟรีตามขีดจำกัดของแต่ละแอป เช่น จำนวนเครื่อง ดูรายละเอียดในแอป",
       "แอปแบบซื้อขาด (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) ซื้อครั้งเดียวที่หน้า /buy จ่ายด้วย PromptPay อัปเดตให้ฟรีตลอด ไม่หมดอายุ ราคาดูที่หน้า /buy",
       "PeerapoS Pro 159 บาทต่อเดือน หรือ 1,590 บาทต่อปี มีแค่สองแบบนี้ ขายในแอปบนร้านแอปเท่านั้น ตอนนี้คือ Google Play (PeerapoS Go และ PeerapoS Plan) ส่วน Apple App Store มาทีหลัง ไม่ขายบนเว็บไซต์นี้ ราคาที่คิดคือราคาที่ร้านแอปแสดงตอนคุณสมัคร",
-      "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI และ PeerapoS Go ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ Pro หนึ่งอันใช้ได้กับทุกแอปในบัญชีเดียวกัน",
+      "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI และ PeerapoS Go ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ สมัครครั้งเดียวใช้ได้กับทุกแอปในบัญชีเดียวกัน",
       "ผู้สมัครใหม่บน Google Play อาจได้ทดลองใช้ฟรี ระยะเวลาเท่าที่ร้านแอปแสดงตอนสมัคร",
       "PeerapoS Plan บนมือถือลงฟรีจากร้านแอป แต่ต้องมี Pro ที่ยังใช้งานได้ถึงจะใช้ได้",
     ],
@@ -79,7 +79,7 @@ const TH: Sec[] = [
     li: [
       "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android ไม่มีรหัสเข้าสู่ระบบทางอีเมล",
       "ถ้าเราเพิ่มการเข้าสู่ระบบด้วย Apple ภายหลัง บัญชี Apple หนึ่งบัญชีผูกกับบัญชี Google หนึ่งบัญชีได้ครั้งเดียว",
-      "ลบบัญชีได้เองที่หน้า /account หรือในแอป การลบจะลบบัญชี การเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play คำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะเป็นหลักฐานทางภาษี",
+      "ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะเป็นหลักฐานทางภาษี",
     ],
     after: [
       "ถ้าคุณสมัคร Pro อยู่ ให้ยกเลิกใน Google Play ก่อนลบบัญชี การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้ว ผูกกับบัญชีใหม่ไม่ได้",
@@ -96,20 +96,20 @@ const TH: Sec[] = [
   {
     title: "6. เมื่อ Pro สิ้นสุด",
     li: [
-      "Pro สิ้นสุดเมื่อคุณยกเลิกแล้วรอบที่จ่ายไว้หมด เมื่อการจ่ายเงินไม่สำเร็จ หรือเมื่อ Google คืนเงินหรือเพิกถอนการซื้อ",
-      "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วัน ช่วงนี้ยังใช้ฟีเจอร์ Pro ได้ตามปกติ",
+      "Pro สิ้นสุดเมื่อคุณยกเลิกแล้วรอบที่จ่ายไว้หมด เมื่อ Google Play เก็บเงินไม่สำเร็จจนหมดเวลาที่ Google Play ให้แก้ไข หรือเมื่อ Google คืนเงินหรือเพิกถอนการซื้อ",
+      "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วัน ช่วงนี้ยังใช้ฟีเจอร์ Pro ได้ตามปกติ แต่ถ้า Google คืนเงินหรือเพิกถอนการซื้อ จะไม่มีช่วงผ่อนผันนี้",
       "เกิน 14 วัน ฟีเจอร์ Pro จะหยุด ซึ่งรวมบริการออนไลน์ที่ต้องมี Pro ด้วย",
       "เครื่องที่ไม่ได้ออนไลน์เช็กสิทธิ์เกิน 30 วัน ก็เข้าช่วงผ่อนผัน 14 วันแบบเดียวกัน แล้วกลับมาปกติเมื่อเช็กสำเร็จ",
-      "แอปยังใช้งานต่อได้ ข้อมูลไม่ถูกล็อก ดูและส่งออกข้อมูลได้เสมอ",
+      "แอปบนคอมพิวเตอร์ยังใช้งานต่อได้ ข้อมูลไม่ถูกล็อก ดูและส่งออกข้อมูลได้เสมอ",
       "ถ้าร้านมีข้อมูลเกินขีดจำกัดของรุ่นฟรี ข้อมูลทั้งหมดยังอยู่และใช้ได้ แค่เพิ่มเกินขีดจำกัดไม่ได้",
       "แอปซื้อขาดที่คุณซื้อเองเป็นของคุณตลอด ไม่หมดอายุ ไม่ผูกกับ Pro และไม่ล็อกเมื่อออฟไลน์ เว้นแต่เครื่องนั้นถูกยกเลิกการเชื่อมจากบัญชี",
     ],
   },
   {
-    title: "7. ไม่คืนเงิน",
+    title: "7. การคืนเงิน",
     p: [
-      "ทุกการขายถือเป็นที่สิ้นสุด เราไม่คืนเงิน ยกเว้นมีข้อบกพร่องที่เราแก้ไม่ได้ หรือกฎหมายบังคับให้คืน",
-      "Pro คืนเงินตามกฎการคืนเงินของ Google Play เราคืนเงินที่ Google Play คิดไปแล้วเองไม่ได้ ถ้า Google คืนเงินหรือเพิกถอนการซื้อ Pro จะสิ้นสุด",
+      "แอปแบบซื้อขาด ซื้อแล้วถือเป็นที่สิ้นสุด เราไม่คืนเงิน ยกเว้นมีข้อบกพร่องที่เราแก้ไม่ได้ หรือกฎหมายบังคับให้คืน",
+      "Pro คืนเงินตามกฎการคืนเงินของ Google Play เงินที่ Google Play เก็บไปแล้ว เราคืนเองไม่ได้ ถ้า Google คืนเงินหรือเพิกถอนการซื้อ Pro จะสิ้นสุด",
       "Pro ยกเลิกได้ทุกเมื่อใน Google Play การยกเลิกมีผลเมื่อสิ้นรอบที่จ่ายไว้แล้ว สิทธิ์ใช้ได้ถึงตอนนั้น",
       "ข้อนี้ไม่จำกัดสิทธิ์ของคุณตามกฎหมายคุ้มครองผู้บริโภคของไทย",
     ],
@@ -211,7 +211,7 @@ const EN: Sec[] = [
     li: [
       "Sign-in is with a Google account only, on the website and on Android. There is no email-code login.",
       "If we add Apple sign-in later, one Apple login can be linked to one Google account, once.",
-      "You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Orders and the receipt email stay, as tax records.",
+      "You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the receipt email stay, as tax records.",
     ],
     after: [
       "If you have Pro, cancel it in Google Play before you delete the account. Deleting the account does NOT cancel a Google Play subscription: you will keep being charged, and a subscription from a deleted account cannot be attached to a new account.",
@@ -228,19 +228,19 @@ const EN: Sec[] = [
   {
     title: "6. When Pro ends",
     li: [
-      "Pro ends when you cancel and the paid period runs out, when a payment fails, or when Google refunds or revokes the purchase.",
-      "After the end date there is a 14-day grace period. Pro features keep working during it.",
+      "Pro ends when you cancel and the paid period runs out, when Google Play cannot collect payment within the time it allows to fix it, or when Google refunds or revokes the purchase.",
+      "After the end date there is a 14-day grace period. Pro features keep working during it. If Google refunds or revokes the purchase, there is no grace period.",
       "After 14 days Pro features stop. This includes the online services that need Pro.",
       "A PC that has not checked in online for more than 30 days enters the same 14-day grace, and returns to normal after a successful check.",
-      "The app keeps working. Your data is never locked: you can always read and export it.",
+      "Apps on your computer keep working. Your data is never locked: you can always read and export it.",
       "If a shop holds more data than the free limit allows, it keeps all of it and can use all of it. Only adding more stops.",
       "A paid app you bought yourself stays yours, never expires, does not depend on Pro, and does not lock when offline, unless that PC is unlinked from the account.",
     ],
   },
   {
-    title: "7. No refunds",
+    title: "7. Refunds",
     p: [
-      "All sales are final. We do not give refunds, except for a defect we cannot fix, or where the law requires a refund.",
+      "Paid app sales are final. We do not give refunds, except for a defect we cannot fix, or where the law requires a refund.",
       "Refunds for Pro follow Google Play's refund rules. We cannot refund a Google Play charge ourselves. If Google refunds or revokes a purchase, Pro ends.",
       "You can cancel Pro at any time in Google Play. Cancelling takes effect at the end of the period already paid, and Pro works until then.",
       "This does not limit your rights under Thai consumer law.",
