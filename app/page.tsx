@@ -43,7 +43,7 @@ const COPY = {
     banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมที่ Gank ได้",
     h1: "โปรแกรมฟรี",
     heroSub:
-      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
+      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่ต้องสมัครสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
     heroApps: "ดูโปรแกรมทั้งหมด",
     heroCustom: "คุยเรื่องทำแอป",
     wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
@@ -83,7 +83,7 @@ const COPY = {
     },
     supportTitle: "ใช้แล้วชอบไหม",
     supportBody:
-      "ทุกตัวยังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สามารถทำได้ที่ Gank ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
+      "ทุกตัวยังฟรีเหมือนเดิม ใช้ได้เต็มที่ภายในขีดจำกัดของแต่ละตัว ถ้าอยากปลดขีดจำกัดก็มี PeerapoS Pro แต่ถ้าอยากเลี้ยงชาบูผม สามารถทำได้ที่ Gank ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
     supportButton: "เลี้ยงชาบูผมที่ Gank",
     customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
     customSub:
@@ -132,7 +132,7 @@ const COPY = {
     banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me on Gank so I can publish them.",
     h1: "Free software",
     heroSub:
-      "Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
+      "Windows apps that work offline. Your data stays on your PC. No subscription needed, no ads. If none of them fits your work, we'll build one that does.",
     heroApps: "See all apps",
     heroCustom: "Talk about a custom app",
     wallLabel: "All apps. Select one for details.",
@@ -171,7 +171,7 @@ const COPY = {
     },
     supportTitle: "Do these apps help your work?",
     supportBody:
-      "Every app stays free, with nothing locked behind a payment. If you'd like to say thanks, you can send me a tip on Gank. It helps me keep building new apps.",
+      "Every app stays free within its limits, and PeerapoS Pro lifts them. If you'd like to say thanks, you can send me a tip on Gank. It helps me keep building new apps.",
     supportButton: "Support me on Gank",
     customTitle: "Custom app development",
     customSub:

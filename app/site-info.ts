@@ -47,7 +47,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "โปรแกรมฟรีจริงไหม",
-      a: "ฟรีจริง ไม่มีค่าสมาชิก ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง ถ้าอยากสนับสนุน ส่งทิปผ่าน Gank ได้ที่ ganknow.com/peerapos",
+      a: "ฟรีจริง ใช้ได้ภายในขีดจำกัดของแต่ละตัว ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ถ้าอยากปลดขีดจำกัดมี PeerapoS Pro แบบสมัครสมาชิกให้เลือก ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง ถ้าอยากสนับสนุน ส่งทิปผ่าน Gank ได้ที่ ganknow.com/peerapos",
     },
   ],
   en: [
@@ -77,7 +77,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "Are the free apps really free?",
-      a: "Yes. No subscription, no ads, no account. Every app works offline on Windows 10 and 11, and your data stays on your own PC. If you want to support the work, you can tip on Gank at ganknow.com/peerapos.",
+      a: "Yes, within each app's limits. No ads, no account needed, and the optional PeerapoS Pro subscription lifts the limits. Every app works offline on Windows 10 and 11, and your data stays on your own PC. If you want to support the work, you can tip on Gank at ganknow.com/peerapos.",
     },
   ],
 };

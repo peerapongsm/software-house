@@ -33,7 +33,7 @@ Peerapong (Peter) Saksommon: Software Architect at the Bank of Thailand, former 
 
 ## Free Windows apps
 
-Free, no subscription, no ads, no account. Optional tips on Gank (${GANK_URL}). Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
+Free within each app's limits, no ads, no account needed. Optional PeerapoS Pro subscription lifts the limits. Optional tips on Gank (${GANK_URL}). Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
 
 ${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}`).join("\n")}
 
