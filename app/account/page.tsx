@@ -20,7 +20,7 @@ const COPY = {
     out: "ออกจากระบบ",
     retry: "ลองอีกครั้ง",
     empty: "ยังไม่ได้ซื้ออะไร",
-    choose: "เลือกสินค้า",
+    choose: "เลือกแอป",
     noTier: "ยังไม่มี Pro",
     subscribe: "ดู PeerapoS Pro",
     manage: "จัดการใน Google Play",
@@ -49,7 +49,7 @@ const COPY = {
     out: "Sign out",
     retry: "Try again",
     empty: "Nothing bought yet",
-    choose: "Choose product",
+    choose: "Choose apps",
     noTier: "No Pro yet",
     subscribe: "See PeerapoS Pro",
     manage: "Manage in Google Play",
@@ -109,7 +109,10 @@ function Empty({ t }: { t: T }) {
         ))}
       </div>
       <p className={cardTitle}>{t.empty}</p>
-      <a href="/buy" className={dark}>{t.choose}</a>
+      <div className="flex flex-wrap justify-center gap-2">
+        <a href="/buy" className={dark}>{t.choose}</a>
+        <a href="/pro" className={out}>{t.subscribe}</a>
+      </div>
     </div>
   );
 }
@@ -119,7 +122,7 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
   const view = proView(tier, now);
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
         <p className="font-display text-[2rem] font-extrabold leading-[1.1] tracking-tight lg:text-[2.5rem]">
           {tier ? "PeerapoS Pro" : t.noTier}
         </p>

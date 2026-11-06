@@ -51,6 +51,7 @@ const COPY = {
 
 const btn = "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors whitespace-nowrap";
 const danger = `${btn} min-h-[52px] px-6 py-3 bg-red-700 text-white hover:bg-red-800 disabled:opacity-40`;
+const dangerOut = `${btn} min-h-11 px-4 py-2 text-[0.9375rem] border border-red-700 text-red-700 bg-sheet hover:bg-red-50 disabled:opacity-40`;
 const outSm = `${btn} min-h-11 px-4 py-2 text-[0.9375rem] border border-ink/25 bg-sheet hover:border-ink`;
 
 /** Signed-in only, the bottom of /account. A typed DELETE, then one more confirm if a Play subscription still runs. */
@@ -93,15 +94,15 @@ export default function DeleteAccount({ lang }: { lang: Lang }) {
           <p className="text-sm text-amber-900">{t.subBody}</p>
           <div className="flex flex-wrap gap-2">
             <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={outSm}>{t.play}</a>
-            <button type="button" disabled={busy} onClick={() => submit(true)} className={danger}>
+            <button type="button" disabled={busy} onClick={() => setSub(false)} className={outSm}>{t.back}</button>
+            <button type="button" disabled={busy} onClick={() => submit(true)} className={dangerOut}>
               {busy && <Spinner />}
               {t.force}
             </button>
-            <button type="button" disabled={busy} onClick={() => setSub(false)} className={outSm}>{t.back}</button>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex max-w-md flex-col gap-3">
           <label className="flex flex-col gap-1.5 text-sm font-semibold">
             {t.typeLabel}
             <input
