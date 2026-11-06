@@ -118,6 +118,7 @@ const COPY = {
     ],
     contactTitle: "เล่าให้ฟังว่าอะไรกินเวลาคุณทุกวัน",
     contactSub: "ส่งอีเมลหรือทัก LINE มาได้เลย ถ้าแอปเล็ก ๆ ช่วยได้ เราจะบอกว่าทำอะไรได้บ้างและใช้เวลาเท่าไร",
+    terms: "ข้อกำหนดการใช้งาน",
     privacy: "นโยบายความเป็นส่วนตัว",
     visitor: "คุณคือผู้เข้าชมคนที่",
   },
@@ -205,6 +206,7 @@ const COPY = {
     ],
     contactTitle: "Tell us what eats your time every day",
     contactSub: "Send an email or message us on LINE. If a small app can help, we'll tell you what it would do and how long it would take.",
+    terms: "Terms of use",
     privacy: "Privacy policy",
     visitor: "You are visitor no.",
   },
@@ -556,7 +558,10 @@ export default function Home() {
                 </span>
               </span>
             )}
-            <a href="/privacy" className="hover:text-white">{t.privacy}</a>
+            <span className="flex gap-4">
+              <a href="/terms" className="hover:text-white">{t.terms}</a>
+              <a href="/privacy" className="hover:text-white">{t.privacy}</a>
+            </span>
           </footer>
         </div>
       </section>
