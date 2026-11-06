@@ -181,7 +181,7 @@ const EN: Sec[] = [
     title: "1. Who provides the service",
     p: [
       "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Go and PeerapoS Plan), the one-time paid apps, and the opt-in online services (relay, PeerapoS Go, the AI connector, customer pages).",
-      "Ticking the box when you order, or continuing to use the apps after we publish these Terms, means you agree to them.",
+      "Ticking the box when you order, signing in, or continuing to use the apps after we publish these Terms, means you agree to them.",
     ],
   },
   {
