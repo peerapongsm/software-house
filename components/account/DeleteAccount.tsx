@@ -94,7 +94,7 @@ export default function DeleteAccount({ lang }: { lang: Lang }) {
           <p className="text-sm text-amber-900">{t.subBody}</p>
           <div className="flex flex-wrap gap-2">
             <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={outSm}>{t.play}</a>
-            <button type="button" disabled={busy} onClick={() => setSub(false)} className={outSm}>{t.back}</button>
+            <button type="button" disabled={busy} onClick={() => { setSub(false); setTyped(""); }} className={outSm}>{t.back}</button>
             <button type="button" disabled={busy} onClick={() => submit(true)} className={dangerOut}>
               {busy && <Spinner />}
               {t.force}

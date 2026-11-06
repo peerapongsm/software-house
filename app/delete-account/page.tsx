@@ -12,7 +12,7 @@ const COPY = {
     stepsH: "ลบบัญชีทำยังไง",
     steps: [
       "บนเว็บ เข้า “บัญชีของฉัน” เลื่อนลงไปสุด กด “ลบบัญชี” แล้วพิมพ์ DELETE เพื่อยืนยัน",
-      "ในแอป PeerapoS Go บนมือถือ เปิดหน้าบัญชี แล้วกดลบบัญชี",
+      "ในแอป PeerapoS Go บนมือถือ เปิดตั้งค่า เข้าหน้า Pro แล้วกดลบบัญชี",
     ],
     goneH: "ลบแล้วจะหายไป",
     gone: [
@@ -42,7 +42,7 @@ const COPY = {
     stepsH: "How to delete",
     steps: [
       "On the website, open My account, scroll to the bottom, press Delete account and type DELETE to confirm.",
-      "In the PeerapoS Go app on your phone, open the account page and press Delete account.",
+      "In the PeerapoS Go app on your phone, open Settings, go to Pro and press Delete account.",
     ],
     goneH: "What is removed",
     gone: [

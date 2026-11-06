@@ -58,7 +58,7 @@ test("orderItems: each line is just the app id", () => {
 test("exact: amount to transfer, always two decimals", () => {
   assert.equal(exact(15937), "159.37");
   assert.equal(exact(899000), "8990.00");
-  assert.equal(exact(34905), "349.05");
+  assert.equal(exact(25905), "259.05");
 });
 
 test("payStep: which step an order status shows", () => {

@@ -29,7 +29,8 @@ const COPY = {
   },
 };
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
+// public id; the override is for a local test client
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "338082968816-lgdtlise8mq3t18pqjet3u7gqarmk1fh.apps.googleusercontent.com";
 const SETUP = clientIdError(CLIENT_ID);
 
 type Gis = {
@@ -92,6 +93,7 @@ export default function Login() {
       client_id: CLIENT_ID,
       callback: (r: { credential: string }) => onCredential.current(r.credential),
     });
+    box.current.replaceChildren(); // a language change renders it again
     g.accounts.id.renderButton(box.current, {
       type: "standard",
       theme: "outline",

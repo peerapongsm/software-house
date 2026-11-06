@@ -24,7 +24,8 @@ const COPY = {
     over: "เกินโควตา",
     remove: "ยกเลิก",
     nothing: "ยังไม่ได้ซื้ออะไร",
-    choose: "เลือกสินค้า",
+    choose: "เลือกแอป",
+    seePro: "ดู PeerapoS Pro",
     linked: "เชื่อมแล้ว กลับไปที่แอปได้เลย",
     denied: "ยกเลิกแล้ว",
     gone: "รหัสนี้หมดอายุแล้ว กดเปิดใช้ในแอปอีกครั้ง",
@@ -43,7 +44,8 @@ const COPY = {
     over: "Over limit",
     remove: "Remove",
     nothing: "Nothing bought yet",
-    choose: "Choose product",
+    choose: "Choose apps",
+    seePro: "See PeerapoS Pro",
     linked: "Linked. You can go back to the app.",
     denied: "Cancelled",
     gone: "This code has expired. Press “Activate” in the app again.",
@@ -348,6 +350,7 @@ export default function LinkPc() {
       <div className={`${sheet} items-center px-5 py-10 text-center`}>
         <p className="font-display text-xl font-bold leading-tight">{t.nothing}</p>
         <a href="/buy" className={dark}>{t.choose}</a>
+        <a href="/pro" className="font-semibold text-indigo underline-offset-4 hover:underline">{t.seePro}</a>
       </div>
     );
   } else {

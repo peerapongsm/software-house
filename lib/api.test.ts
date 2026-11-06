@@ -28,9 +28,9 @@ test("GET sends the session cookie and returns the data", async () => {
 test("POST sends JSON, {} when there is no body", async () => {
   const calls = fakeFetch(() => json(200, { ok: true }));
   await api("/api/logout", { method: "POST" });
-  await api("/api/login/start", { method: "POST", body: { email: "a@b.co" } });
+  await api("/api/login/google", { method: "POST", body: { credential: "x" } });
   assert.equal(calls[0].init.body, "{}");
-  assert.equal(calls[1].init.body, JSON.stringify({ email: "a@b.co" }));
+  assert.equal(calls[1].init.body, JSON.stringify({ credential: "x" }));
   assert.equal(new Headers(calls[1].init.headers).get("content-type"), "application/json");
 });
 
@@ -44,7 +44,7 @@ test("form posts go as multipart without a JSON content type", async () => {
 
 test("API errors keep status, code, message and the body", async () => {
   fakeFetch(() => json(400, { ok: false, error: "wrongCode", left: 2, message: { th: "ผิด", en: "Wrong" } }));
-  const r = await api("/api/login/verify", { method: "POST", body: { email: "a@b.co", code: "000000" } });
+  const r = await api("/api/account/delete", { method: "POST", body: { confirm: "DELETE" } });
   assert.equal(r.ok, false);
   if (r.ok) return;
   assert.equal(r.status, 400);

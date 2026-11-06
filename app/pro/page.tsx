@@ -30,7 +30,7 @@ const COPY = {
       "สมัครได้เฉพาะในแอปบน Google Play ไม่ขายบนเว็บนี้",
       "ยังไม่มีบน iPhone จะมาทีหลัง",
     ],
-    buyApps: "แอปแบบซื้อขาด ซื้อได้ที่หน้า /buy",
+    buyApps: "ซื้อแอปแบบซื้อขาด",
   },
   en: {
     h1: "PeerapoS Pro",
@@ -56,7 +56,7 @@ const COPY = {
       "Bought only in the store app. This website does not sell Pro.",
       "Not on iPhone yet. It comes later.",
     ],
-    buyApps: "Paid apps are bought at /buy",
+    buyApps: "Buy paid apps",
   },
 };
 
