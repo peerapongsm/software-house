@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 
-// Privacy policy for the PeerapoS apps, accounts and opt-in online services (linked from the site footer and /buy).
-// Facts checked against code 2026-11-06: peerapos-licence feat/accounts (D1 schema, mail.ts, slipok.ts, index.ts),
+// Privacy policy for the PeerapoS apps, accounts (Google-only sign-in), Google Play purchases of the one PeerapoS Pro
+// subscription, PromptPay orders for the paid apps, and the opt-in online services (linked from the site footer and /buy).
+// Owner decisions 2026-11-06 (Google sign-in, Play purchase data, account deletion); earlier facts checked against code:
+// peerapos-licence feat/accounts (D1 schema, mail.ts, slipok.ts, index.ts),
 // peerapos-feedback worker, peerapos-go feat/go specs + docs/privacy-ai.md, each app's netPolicy.ts.
 // The AI paragraph is the one in peerapos-go/docs/privacy-ai.md; keep it in step with licence worker/src/consent.ts.
 // Marketplace sync is not built and is left out. Not reviewed by a lawyer.
 
 export const metadata: Metadata = {
   title: "นโยบายความเป็นส่วนตัว · Privacy Policy — PeerapoS",
-  description: "Privacy policy for the PeerapoS apps, accounts and online services by PeerapoS.",
+  description: "Privacy policy for the PeerapoS apps, Google sign-in, Google Play purchases of PeerapoS Pro, paid-app orders and online services, by PeerapoS.",
   // override the layout's "/" canonical and og:url
   alternates: { canonical: "/privacy" },
   openGraph: { url: "/privacy" },
@@ -73,34 +75,43 @@ const TH: Sec[] = [
     ],
   },
   {
-    title: "บัญชี Pro Max และแอปแบบซื้อขาด",
+    title: "บัญชี Pro และแอปแบบซื้อขาด",
     p: [
-      "แอปที่ใช้ Pro หรือ Max และแอปแบบซื้อขาด ต้องมีบัญชี และติดต่อ peerapongsm.dev เพื่อตรวจสิทธิ์ตอนเปิดแอป ตอนกลับมาที่หน้าต่างแอป และวันละครั้งขณะเปิดอยู่ แอปแบบซื้อขาดอัปเดตจาก peerapongsm.dev ด้วย แทน GitHub",
+      "แอปที่ใช้ Pro และแอปแบบซื้อขาด ต้องมีบัญชี และติดต่อ peerapongsm.dev เพื่อตรวจสิทธิ์ตอนเปิดแอป ตอนกลับมาที่หน้าต่างแอป และวันละครั้งขณะเปิดอยู่ แอปแบบซื้อขาดอัปเดตจาก peerapongsm.dev ด้วย แทน GitHub",
       "สิ่งที่เราเก็บ",
     ],
     li: [
-      "บัญชี: อีเมล และเวลาที่สร้างบัญชี",
-      "สิทธิ์: ชื่อที่คุณตั้ง (แสดงในแอป) แอปที่ซื้อ Pro หรือ Max และวันสิ้นสุด",
+      "บัญชี: รหัสบัญชี Google ที่คงที่ อีเมล และชื่อ ที่ Google ส่งให้ตอนเข้าสู่ระบบ ใช้สร้างบัญชีและเป็นชื่อในสิทธิ์ และเวลาที่สร้างบัญชี",
+      "สิทธิ์: ชื่อในสิทธิ์ (แสดงในแอป) แอปที่ซื้อ สถานะ Pro และวันสิ้นสุด",
+      "การซื้อ Pro บน Google Play: เก็บแค่แฮชของโทเคนการซื้อ สินค้า สถานะ และวันหมดอายุ ไม่เก็บข้อมูลบัตร Google เก็บเอง",
       "คำสั่งซื้อ: รายการ ยอดเงิน เวลา สถานะ อีเมลรับใบยืนยัน ชื่อ รหัสอ้างอิงธุรกรรมจากสลิป และการติ๊กยอมรับข้อกำหนด",
       "เครื่องที่เชื่อม: ชื่อเครื่อง (ตามที่แอปส่ง) แอปที่ใช้เชื่อม รหัสเครื่องที่แฮชแล้ว (ไม่ใช่รหัสเดิมของ Windows) เวลาที่เชื่อม ใช้ล่าสุด และเลิกใช้",
-      "การเข้าสู่ระบบ: รหัส 6 หลักที่เก็บเป็นแฮช อยู่ 10 นาที และเซสชันที่เก็บเป็นแฮช อยู่ 30 วัน เบราว์เซอร์เก็บคุกกี้เซสชันที่จำเป็นต่อการเข้าสู่ระบบ ไม่มีคุกกี้โฆษณา",
+      "การเข้าสู่ระบบ: เซสชันที่เก็บเป็นแฮช อยู่ 30 วัน เบราว์เซอร์เก็บคุกกี้เซสชันที่จำเป็นต่อการเข้าสู่ระบบ ไม่มีคุกกี้โฆษณา",
       "บันทึกการตรวจสลิป: คำสั่งซื้อ เดือน เวลา และผลตรวจ ไม่มีรูปสลิป",
     ],
     after: [
-      "เราส่งอีเมลถึงคุณสองแบบ คือรหัสเข้าสู่ระบบ และอีเมลยืนยันการชำระเงิน ไม่ส่งอีเมลการตลาด นอกจากนี้เราส่งอีเมลหาตัวเองเมื่อมีสลิปที่ต้องตรวจเอง",
+      "เราส่งอีเมลถึงคุณแบบเดียว คืออีเมลยืนยันการชำระเงินของแอปแบบซื้อขาด ไม่ส่งอีเมลการตลาด นอกจากนี้เราส่งอีเมลหาตัวเองเมื่อมีสลิปที่ต้องตรวจเอง",
+    ],
+  },
+  {
+    title: "เข้าสู่ระบบด้วย Google และ Google Play",
+    p: [
+      "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android Google ส่งรหัสบัญชีที่คงที่ อีเมล และชื่อให้เรา เราไม่ได้รหัสผ่าน Google ของคุณ",
+      "ถ้าคุณสมัคร Pro บน Google Play Google เป็นผู้คิดเงินและเก็บข้อมูลบัตร เราเห็นแค่ข้อมูลการซื้อที่ระบุข้างบน เพื่อตรวจการซื้อ เราส่งข้อมูลที่จำเป็นให้ Google Play (โทเคนการซื้อและสินค้า) และ Google ส่งการแจ้งเมื่อการสมัครเปลี่ยน เช่น ต่ออายุ ยกเลิก หมดอายุ หรือคืนเงิน",
+      "การลบบัญชีไม่ยกเลิกการสมัครบน Google Play ให้ยกเลิกใน Google Play เอง",
     ],
   },
   {
     title: "จ่ายเงินและตรวจสลิป",
     p: [
-      "เงินจ่ายผ่าน PromptPay เข้าบัญชีของเรา ไม่ผ่านบัตร ตอนตรวจ เราส่งรูปสลิปไปที่ SlipOK เพื่อตรวจว่าเป็นสลิปจริง ยอดตรง และผู้รับตรง",
+      "แอปแบบซื้อขาดจ่ายผ่าน PromptPay เข้าบัญชีของเรา ไม่ผ่านบัตร ตอนตรวจ เราส่งรูปสลิปไปที่ SlipOK เพื่อตรวจว่าเป็นสลิปจริง ยอดตรง และผู้รับตรง",
       "ถ้า SlipOK ตัดสินไม่ได้ สลิปจะถูกเก็บไว้ที่ที่เก็บไฟล์ส่วนตัวของเราเพื่อให้เราตรวจเอง แล้วลบทิ้งเมื่อเราอนุมัติหรือปฏิเสธ",
     ],
   },
   {
     title: "บริการออนไลน์ที่ให้เปิดใช้เอง",
     p: [
-      "บริการเหล่านี้ปิดอยู่เป็นค่าเริ่มต้น ต้องมี Pro หรือ Max และต้องเปิดเองในแอป เปิดและปิดได้ทุกเมื่อ",
+      "บริการเหล่านี้ปิดอยู่เป็นค่าเริ่มต้น ต้องมี Pro และต้องเปิดเองในแอป เปิดและปิดได้ทุกเมื่อ",
     ],
   },
   {
@@ -143,7 +154,8 @@ const TH: Sec[] = [
     title: "ใครรับข้อมูลบ้าง และส่งไปนอกประเทศไหม",
     li: [
       "Cloudflare: เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ เว็บไซต์ และ Turnstile",
-      "Resend: ส่งอีเมลรหัสเข้าสู่ระบบและอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
+      "Google: เข้าสู่ระบบด้วยบัญชี Google และตรวจการซื้อ Pro บน Google Play",
+      "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       "SlipOK: ตรวจรูปสลิป",
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
       "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Go",
@@ -156,18 +168,20 @@ const TH: Sec[] = [
   {
     title: "เก็บนานแค่ไหน",
     li: [
-      "รหัสเข้าสู่ระบบ 10 นาที เซสชัน 30 วัน",
+      "เซสชัน 30 วัน",
       "บันทึกเส้นทางของรีเลย์ 7 วัน คำขอจากหน้าลูกค้าที่พักไว้ 14 วัน",
       "รูปสลิปที่รอตรวจเอง จนกว่าเราจะตัดสิน",
       "สำเนารายงานปัญหา จนกว่าเราจะดึงไปอ่านแล้วลบ",
-      "บัญชี คำสั่งซื้อ และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และเท่าที่กฎหมายภาษีและบัญชีให้เก็บเอกสารการขาย",
+      "บัญชี ข้อมูลการซื้อบน Play และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบเมื่อคุณลบบัญชี",
+      "คำสั่งซื้อและอีเมลยืนยันการชำระเงิน เก็บเท่าที่กฎหมายภาษีและบัญชีให้เก็บเอกสารการขาย แม้ลบบัญชีแล้ว",
     ],
   },
   {
     title: "สิทธิ์ของคุณและการลบ",
     p: [
       "ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล คุณขอเข้าถึงหรือขอสำเนา ขอแก้ไข ขอลบ ขอให้หยุดใช้ หรือคัดค้านการใช้ข้อมูลของคุณที่เราควบคุมได้ และร้องเรียนต่อสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลได้",
-      `ยังไม่มีปุ่มลบบัญชีในเว็บไซต์ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วลบหรือเลิกใช้ข้อมูลของบัญชี เว้นส่วนที่กฎหมายให้เก็บ (เช่นเอกสารการขาย) เราตอบภายใน 30 วัน จะเปลี่ยนอีเมลของบัญชีก็ให้ติดต่อมาเช่นกัน`,
+      `ลบบัญชีได้เองที่หน้า /account หรือในแอป การลบจะลบบัญชี การเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play คำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
+      "ถ้าคุณสมัคร Pro อยู่ ให้ยกเลิกใน Google Play ก่อนลบบัญชี การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้ว ผูกกับบัญชีใหม่ไม่ได้",
       "ในเครื่องของคุณ ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่อง ยกเลิกการเชื่อมเครื่องได้ที่หน้าบัญชีของฉัน",
     ],
   },
@@ -199,33 +213,42 @@ const EN: Sec[] = [
     ],
   },
   {
-    title: "Accounts, Pro, Max and paid apps",
+    title: "Accounts, Pro and paid apps",
     p: [
-      "Apps using Pro or Max, and the one-time paid apps, need an account and contact peerapongsm.dev to check the licence: when the app starts, when its window regains focus, and once a day while open. The paid apps also update from peerapongsm.dev instead of GitHub.",
+      "Apps using Pro, and the one-time paid apps, need an account and contact peerapongsm.dev to check the licence: when the app starts, when its window regains focus, and once a day while open. The paid apps also update from peerapongsm.dev instead of GitHub.",
       "What we store:",
     ],
     li: [
-      "Account: your email and when it was created.",
-      "Licence: the name you set (shown in the apps), the apps you bought, Pro or Max and its end date.",
+      "Account: the stable Google account id, email and name that Google sends when you sign in, used for the account and as the licence name, and when the account was created.",
+      "Licence: the licence name (shown in the apps), the apps you bought, Pro status and its end date.",
+      "Pro purchases on Google Play: only a hash of the purchase token, the product, the state and the expiry. No card details: Google holds those.",
       "Orders: items, amount, time, status, the receipt email, the name, the bank transaction reference from the slip, and your ticking of the Terms.",
       "Linked PCs: the PC name (as the app sends it), the app used to link, a hashed machine ID (not the raw Windows ID), and when it was linked, last used and removed.",
-      "Sign-in: a 6-digit code stored as a hash for 10 minutes, and a session stored as a hash for 30 days. Your browser keeps a session cookie that sign-in needs. No advertising cookies.",
+      "Sign-in: a session stored as a hash for 30 days. Your browser keeps a session cookie that sign-in needs. No advertising cookies.",
       "Slip check log: order, month, time and result. No slip image.",
     ],
     after: [
-      "We email you two kinds of message: the sign-in code and the payment confirmation. No marketing. We also email ourselves when a slip needs a manual check.",
+      "We email you one kind of message: the payment confirmation for a paid-app order. No marketing. We also email ourselves when a slip needs a manual check.",
+    ],
+  },
+  {
+    title: "Google sign-in and Google Play",
+    p: [
+      "Sign-in is with a Google account only, on the website and on Android. Google sends us the stable account id, email and name. We do not get your Google password.",
+      "If you subscribe to Pro on Google Play, Google takes the payment and holds the card details. We see only the purchase data listed above. To check a purchase we send Google Play what it needs (the purchase token and the product), and Google sends us notifications when a subscription changes, such as renewal, cancellation, expiry or refund.",
+      "Deleting your account does not cancel a Google Play subscription. Cancel it in Google Play yourself.",
     ],
   },
   {
     title: "Payment and slip checks",
     p: [
-      "You pay by PromptPay into our account, not by card. To check, we send the slip image to SlipOK, which checks that the slip is genuine and the amount and receiver match.",
+      "You pay for paid apps by PromptPay into our account, not by card. To check, we send the slip image to SlipOK, which checks that the slip is genuine and the amount and receiver match.",
       "If SlipOK cannot settle it, the slip is kept in our private file storage so we can check it by hand, then deleted when we approve or reject it.",
     ],
   },
   {
     title: "Opt-in online services",
-    p: ["These are off by default. They need Pro or Max and you turn them on yourself in the app. You can turn them on and off at any time."],
+    p: ["These are off by default. They need Pro and you turn them on yourself in the app. You can turn them on and off at any time."],
   },
   {
     title: "PeerapoS Go relay and customer pages",
@@ -267,7 +290,8 @@ const EN: Sec[] = [
     title: "Who receives data, and transfers abroad",
     li: [
       "Cloudflare: servers, databases, file storage, the relay, the website and Turnstile.",
-      "Resend: sends the sign-in code and payment confirmation emails, so it receives the recipient address and the message.",
+      "Google: Google sign-in, and checking Pro purchases on Google Play.",
+      "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       "SlipOK: checks slip images.",
       "GitHub: update checks for the free apps.",
       "Google Firebase Cloud Messaging: phone alerts for PeerapoS Go.",
@@ -280,18 +304,20 @@ const EN: Sec[] = [
   {
     title: "How long we keep it",
     li: [
-      "Sign-in codes 10 minutes, sessions 30 days.",
+      "Sessions 30 days.",
       "Relay routing records 7 days; held customer-page requests 14 days.",
       "Slip images waiting for a manual check, until we decide.",
       "Problem report copies, until we pull and delete them.",
-      "Accounts, orders and linked PCs have no automatic deletion. We keep them while the account exists, and as long as tax and accounting law has us keep sales records.",
+      "Accounts, Play purchase records and linked PCs have no automatic deletion. We keep them while the account exists, and delete them when you delete the account.",
+      "Orders and the payment confirmation email are kept as long as tax and accounting law has us keep sales records, even after the account is deleted.",
     ],
   },
   {
     title: "Your rights and deleting your data",
     p: [
       "Under Thailand's Personal Data Protection Act you may ask to access or get a copy of, correct, delete, restrict or object to our use of your data that we control, and you may complain to the Personal Data Protection Committee.",
-      `There is no delete-account button on the website yet. Email ${EMAIL} from the account's email address. We check it is you, then delete or stop using the account's data, except what the law has us keep (such as sales records). We answer within 30 days. To change the account's email, contact us too.`,
+      `You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
+      "If you have Pro, cancel it in Google Play before you delete the account. Deleting the account does NOT cancel a Google Play subscription: you will keep being charged, and a subscription from a deleted account cannot be attached to a new account.",
       "On your own PC, uninstall the app or delete its data folder and the data is gone. You can unlink a PC on My account.",
     ],
   },
