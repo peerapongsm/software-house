@@ -18,14 +18,14 @@ test("googleError: no connection says to try again", () => {
 
 test("googleError: rate limit says to wait a moment", () => {
   assert.deepEqual(googleError(fail(429, "rateLimited")), {
-    th: "ลองหลายครั้งเกินไป รอสักครู่แล้วลองใหม่",
+    th: "ลองถี่เกินไป รอสักครู่แล้วลองใหม่",
     en: "Too many tries. Wait a moment and try again.",
   });
 });
 
 test("googleError: every refused Google token says so, and what to do", () => {
   const refused = {
-    th: "Google ไม่ยอมรับการเข้าสู่ระบบนี้ ลองใหม่ หรือใช้บัญชี Google อื่น",
+    th: "Google ปฏิเสธการเข้าสู่ระบบนี้ ลองใหม่ หรือใช้บัญชี Google อื่น",
     en: "Google refused this sign-in. Try again, or use another Google account.",
   };
   for (const e of ["malformed", "alg", "kid", "signature", "iss", "aud", "expired", "unverified"]) {
@@ -35,7 +35,7 @@ test("googleError: every refused Google token says so, and what to do", () => {
 
 test("googleError: signed out of Google says to sign in to Google again", () => {
   assert.deepEqual(googleError(fail(401, "signedOut")), {
-    th: "ถ้ายังไม่ได้เข้า Google ในเบราว์เซอร์นี้ ให้เข้า Google ก่อนแล้วลองอีกครั้ง",
+    th: "ถ้ายังไม่ได้เข้าสู่ระบบ Google ในเบราว์เซอร์นี้ ให้เข้าก่อนแล้วลองอีกครั้ง",
     en: "You are signed out of Google here. Sign in to Google, then try again.",
   });
 });
@@ -58,7 +58,7 @@ test("clientIdError: no client id stops the button with one clear line", () => {
 
 test("SCRIPT_FAILED: the Google button did not load, and what to do", () => {
   assert.deepEqual(SCRIPT_FAILED, {
-    th: "ถ้าโหลดปุ่ม Google ไม่ได้ ให้ปิดตัวบล็อกโฆษณาแล้วโหลดหน้าใหม่",
+    th: "โหลดปุ่ม Google ไม่ได้ ลองปิดตัวบล็อกโฆษณาแล้วโหลดหน้าใหม่",
     en: "Could not load the Google button. Turn off the blocker and reload.",
   });
 });
