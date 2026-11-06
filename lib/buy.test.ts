@@ -1,13 +1,19 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { exact, forSale, maxActive, orderError, orderId, orderItems, payStep, perMonth, slipError, startSel } from "./buy.ts";
+import { exact, forSale, orderError, orderId, orderItems, payStep, proRedirect, slipError, startPick } from "./buy.ts";
 import type { Catalogue, Licence } from "./api.ts";
 
-const NOW = Date.parse("2026-10-30T12:00:00+07:00");
-const DAY = 864e5;
-const iso = (d: number) => new Date(NOW + d * DAY).toISOString();
-const lic = (tier: Licence["tier"], apps: string[] = []): Licence => ({ id: "L-ABCDEFGH", name: "ร้านสมใจ", apps, tier });
+const lic = (apps: string[] = []): Licence => ({ id: "L-ABCDEFGH", name: "ร้านสมใจ", apps, tier: null });
 const q = (s: string) => new URLSearchParams(s);
+
+const cat: Catalogue = {
+  pro: { monthly: 15900, annual: 159000 },
+  apps: [
+    { id: "account", price: 999000 },
+    { id: "wholesale", price: 899000 },
+  ],
+  onSale: ["account", "wholesale"],
+};
 
 test("orderId: only a well-formed order id from ?order=", () => {
   assert.equal(orderId(q("order=O-0123456789")), "O-0123456789");
@@ -18,59 +24,35 @@ test("orderId: only a well-formed order id from ?order=", () => {
   assert.equal(orderId(q("")), null);
 });
 
-test("maxActive: Max until in the future only", () => {
-  assert.equal(maxActive(null, NOW), false);
-  assert.equal(maxActive(lic(null), NOW), false);
-  assert.equal(maxActive(lic({ t: "pro", until: iso(30) }), NOW), false);
-  assert.equal(maxActive(lic({ t: "max", until: iso(30) }), NOW), true);
-  assert.equal(maxActive(lic({ t: "max", until: iso(-1) }), NOW), false);
+test("proRedirect: old ?max and ?pro links go to /pro, nothing else", () => {
+  assert.equal(proRedirect(q("max")), "/pro");
+  assert.equal(proRedirect(q("pro")), "/pro");
+  assert.equal(proRedirect(q("max&app=account")), "/pro");
+  assert.equal(proRedirect(q("app=account")), null);
+  assert.equal(proRedirect(q("renew")), null);
+  assert.equal(proRedirect(q("")), null);
 });
 
-test("startSel: plain /buy picks Pro monthly on the tier tab", () => {
-  assert.deepEqual(startSel(q(""), null, NOW), {
-    sel: { kind: "tier", tier: "pro", period: "m", apps: [], addMax: false },
-    renewFrom: null,
-  });
+test("startPick: ?app=<id> preselects that app when it is on sale and not owned", () => {
+  assert.deepEqual(startPick(q("app=wholesale"), cat, null), ["wholesale"]);
+  assert.deepEqual(startPick(q("app=wholesale"), cat, lic(["account"])), ["wholesale"]);
 });
 
-test("startSel: ?app opens the app tab, ?max picks Max", () => {
-  assert.equal(startSel(q("app"), null, NOW).sel.kind, "app");
-  const m = startSel(q("max"), lic({ t: "pro", until: iso(30) }), NOW);
-  assert.equal(m.sel.kind, "tier");
-  assert.equal(m.sel.tier, "max");
+test("startPick: nothing preselected for owned, unknown, or bare ?app", () => {
+  assert.deepEqual(startPick(q("app=wholesale"), cat, lic(["wholesale"])), []);
+  assert.deepEqual(startPick(q("app=property"), cat, null), []); // not in the catalogue's apps
+  assert.deepEqual(startPick(q("app"), cat, null), []);
+  assert.deepEqual(startPick(q(""), cat, null), []);
 });
 
-test("startSel: ?renew picks the current tier and notes the date it extends from", () => {
-  const until = iso(15);
-  assert.deepEqual(startSel(q("renew"), lic({ t: "pro", until }), NOW), {
-    sel: { kind: "tier", tier: "pro", period: "m", apps: [], addMax: false },
-    renewFrom: until,
-  });
-  // past until: the renewal starts at payment, so no date to show
-  const late = startSel(q("renew"), lic({ t: "max", until: iso(-3) }), NOW);
-  assert.equal(late.sel.tier, "max");
-  assert.equal(late.renewFrom, null);
-  // nothing to renew
-  assert.equal(startSel(q("renew"), lic(null, ["account"]), NOW).renewFrom, null);
-});
-
-test("startSel: active Max can't pick Pro", () => {
-  assert.equal(startSel(q(""), lic({ t: "max", until: iso(100) }), NOW).sel.tier, "max");
-});
-
-test("orderItems: apps carry no months, tiers carry 1 or 12", () => {
+test("orderItems: each line is just the app id", () => {
   assert.deepEqual(
     orderItems([
-      { id: "wholesale", months: null, price: 899000 },
-      { id: "max", months: 12, price: 349000 },
+      { id: "wholesale", price: 899000 },
+      { id: "account", price: 999000 },
     ]),
-    [{ id: "wholesale" }, { id: "max", months: 12 }],
+    [{ id: "wholesale" }, { id: "account" }],
   );
-});
-
-test("perMonth: annual price over 12, to the satang", () => {
-  assert.equal(perMonth(349000), 29083);
-  assert.equal(perMonth(159000), 13250);
 });
 
 test("exact: amount to transfer, always two decimals", () => {
@@ -97,22 +79,23 @@ test("slipError: JPG, PNG or WebP up to 2 MB", () => {
   assert.match(slipError({ size: 1000, type: "application/pdf" })!.en, /JPG/);
 });
 
-test("forSale: drops items the catalogue does not sell", () => {
-  const cat: Catalogue = {
-    tiers: [
-      { id: "pro", monthly: 15900, annual: 159000 },
-      { id: "max", monthly: 34900, annual: 349000 },
-    ],
+test("forSale: keeps only the paid apps on sale, the catalogue's Pro price stays", () => {
+  const wide: Catalogue = {
+    pro: { monthly: 15900, annual: 159000 },
     apps: [
       { id: "account", price: 999000 },
       { id: "wholesale", price: 899000 },
+      { id: "service", price: 599000 },
     ],
-    onSale: ["pro", "account"],
+    onSale: ["account", "service"],
   };
-  assert.deepEqual(forSale(cat), {
-    tiers: [{ id: "pro", monthly: 15900, annual: 159000 }],
-    apps: [{ id: "account", price: 999000 }],
-    onSale: ["pro", "account"],
+  assert.deepEqual(forSale(wide), {
+    pro: { monthly: 15900, annual: 159000 },
+    apps: [
+      { id: "account", price: 999000 },
+      { id: "service", price: 599000 },
+    ],
+    onSale: ["account", "service"],
   });
 });
 

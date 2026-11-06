@@ -1,8 +1,8 @@
-// /buy page rules: the starting pick from the query, what the account may still buy,
-// the order body, and which step an order shows. Copy for the one error line in the order box.
+// /buy page rules (paid apps only): the starting pick from the query, the order body, and which
+// step an order shows. Copy for the one error line in the order box.
 
 import type { ApiResult, Catalogue, Licence, Msg } from "./api.ts";
-import type { Line, Selection } from "./cart.ts";
+import type { Line } from "./cart.ts";
 
 const ORDER_RE = /^O-[0-9A-HJKMNP-TV-Z]{10}$/;
 export const SLIP_MAX = 2 * 1024 * 1024;
@@ -19,25 +19,18 @@ export function orderId(q: URLSearchParams): string | null {
   return id && ORDER_RE.test(id) ? id : null;
 }
 
-/** Max still running: Pro can't be bought and the Max add-on is hidden. */
-export const maxActive = (lic: Licence | null, now: number) => lic?.tier?.t === "max" && Date.parse(lic.tier.until) > now;
+/** Old ?max and ?pro links: Pro is not sold on the website, so they land on /pro. */
+export const proRedirect = (q: URLSearchParams): string | null => (q.has("max") || q.has("pro") ? "/pro" : null);
 
-/** First pick from ?renew / ?app / ?max. `renewFrom`: the date a renewal extends from, when it is still ahead. */
-export function startSel(q: URLSearchParams, lic: Licence | null, now: number): { sel: Selection; renewFrom: string | null } {
-  const tier = lic?.tier ?? null;
-  const renew = q.has("renew") && tier !== null;
-  const pick: Selection["tier"] = renew ? tier.t : q.has("max") || maxActive(lic, now) ? "max" : "pro";
-  return {
-    sel: { kind: q.has("app") && !renew ? "app" : "tier", tier: pick, period: "m", apps: [], addMax: false },
-    renewFrom: renew && Date.parse(tier.until) > now ? tier.until : null,
-  };
+/** First pick from ?app=<id>: that app, if it can be bought now and the account does not own it yet. */
+export function startPick(q: URLSearchParams, cat: Catalogue, lic: Licence | null): string[] {
+  const id = q.get("app");
+  if (!id || lic?.apps.includes(id) || !cat.apps.some((a) => a.id === id)) return [];
+  return [id];
 }
 
-/** POST /api/order items. */
-export const orderItems = (lines: Line[]) => lines.map((l) => (l.months ? { id: l.id, months: l.months } : { id: l.id }));
-
-/** Annual price shown per month, in satang. */
-export const perMonth = (annual: number) => Math.round(annual / 12);
+/** POST /api/order items: the app ids only, the Worker prices them. */
+export const orderItems = (lines: Line[]) => lines.map((l) => ({ id: l.id }));
 
 /** Amount to transfer, exact to the satang ("159.37"). */
 export const exact = (satang: number) => (satang / 100).toFixed(2);
@@ -59,7 +52,7 @@ export function slipError(f: { size: number; type: string }): Msg | null {
 /** Only what is on sale gets a card. */
 export function forSale(cat: Catalogue): Catalogue {
   const on = new Set(cat.onSale);
-  return { ...cat, tiers: cat.tiers.filter((t) => on.has(t.id)), apps: cat.apps.filter((a) => on.has(a.id)) };
+  return { ...cat, apps: cat.apps.filter((a) => on.has(a.id)) };
 }
 
 export const orderError = (r: ApiResult<unknown> & { ok: false }): Msg => (r.status === 0 ? NET : (r.message ?? OOPS));

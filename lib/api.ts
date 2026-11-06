@@ -8,9 +8,9 @@ export type PaidApp = (typeof PAID)[number];
 
 export type Msg = { th: string; en: string };
 
-/** GET /api/catalogue. Prices in satang. */
+/** GET /api/catalogue. Prices in satang. `pro` is for display only: Pro is not sold on the website. */
 export type Catalogue = {
-  tiers: { id: "pro" | "max"; monthly: number; annual: number }[];
+  pro: { monthly: number; annual: number };
   apps: { id: string; price: number }[];
   onSale: string[];
 };

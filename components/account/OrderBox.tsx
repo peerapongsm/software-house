@@ -16,8 +16,6 @@ const COPY = {
     namePh: "ชื่อร้าน บริษัท หรือชื่อคุณ",
     nameHint: "ชื่อนี้แสดงในแอป",
     pick: "เลือกแอปที่ต้องการ",
-    m: "รายเดือน",
-    y: "รายปี",
     receipt: "ส่งใบยืนยันการชำระเงินไปที่",
     total: "ยอดชำระ",
     pay: "สั่งซื้อและรับ QR",
@@ -31,8 +29,6 @@ const COPY = {
     namePh: "Shop, company or your name",
     nameHint: "Shown in the apps.",
     pick: "Pick the apps you want",
-    m: "monthly",
-    y: "annual",
     receipt: "Send the payment confirmation to",
     total: "Total",
     pay: "Order and get the QR",
@@ -71,8 +67,7 @@ export default function OrderBox({
   const [err, setErr] = useState<Msg | null>(null);
   const sum = total(lines);
 
-  const label = (l: Line) =>
-    l.months ? `PeerapoS ${l.id === "max" ? "Max" : "Pro"} ${l.months === 12 ? t.y : t.m}` : `PeerapoS ${appName(l.id)}`;
+  const label = (l: Line) => `PeerapoS ${appName(l.id)}`;
 
   async function order(e: React.FormEvent) {
     e.preventDefault();

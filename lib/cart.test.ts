@@ -4,10 +4,7 @@ import { baht, cartLines, total } from "./cart.ts";
 import type { Catalogue } from "./api.ts";
 
 const cat: Catalogue = {
-  tiers: [
-    { id: "pro", monthly: 15900, annual: 159000 },
-    { id: "max", monthly: 34900, annual: 349000 },
-  ],
+  pro: { monthly: 15900, annual: 159000 },
   apps: [
     { id: "account", price: 999000 },
     { id: "wholesale", price: 899000 },
@@ -17,28 +14,22 @@ const cat: Catalogue = {
     { id: "contractor", price: 599000 },
     { id: "wellness", price: 499000 },
   ],
-  onSale: ["pro", "max", "account", "wholesale", "property", "academy", "service", "contractor", "wellness"],
+  onSale: ["account", "wholesale", "property", "academy", "service", "contractor", "wellness"],
 };
 
-test("app tab: each picked app plus the Max add-on", () => {
-  const lines = cartLines({ kind: "app", tier: "pro", period: "y", apps: ["wholesale", "service"], addMax: true }, cat);
+test("cart: one line per picked app, priced from the catalogue", () => {
+  const lines = cartLines(["wholesale", "service"], cat);
   assert.deepEqual(lines, [
-    { id: "wholesale", months: null, price: 899000 },
-    { id: "service", months: null, price: 599000 },
-    { id: "max", months: 12, price: 349000 },
+    { id: "wholesale", price: 899000 },
+    { id: "service", price: 599000 },
   ]);
-  assert.equal(total(lines), 899000 + 599000 + 349000);
+  assert.equal(total(lines), 899000 + 599000);
 });
 
-test("app tab without the add-on has no tier line", () => {
-  const lines = cartLines({ kind: "app", tier: "max", period: "m", apps: ["account"], addMax: false }, cat);
-  assert.deepEqual(lines, [{ id: "account", months: null, price: 999000 }]);
-});
-
-test("tier tab: one line for the picked tier and period", () => {
-  const lines = cartLines({ kind: "tier", tier: "max", period: "m", apps: ["wholesale"], addMax: true }, cat);
-  assert.deepEqual(lines, [{ id: "max", months: 1, price: 34900 }]);
-  assert.equal(total(lines), 34900);
+test("cart: ids the catalogue does not list are dropped", () => {
+  assert.deepEqual(cartLines(["pro", "max", "account"], cat), [{ id: "account", price: 999000 }]);
+  assert.deepEqual(cartLines([], cat), []);
+  assert.equal(total([]), 0);
 });
 
 test("baht shows satang only when there are some", () => {

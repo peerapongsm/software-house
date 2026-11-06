@@ -7,19 +7,16 @@ import PayStep from "@/components/account/PayStep";
 import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
 import { api, type Catalogue, type Licence, type Msg } from "@/lib/api.ts";
-import { forSale, maxActive, orderError, orderId, startSel } from "@/lib/buy.ts";
-import { cartLines, type Selection } from "@/lib/cart.ts";
-import { useLang, type Lang } from "@/lib/lang.ts";
+import { forSale, orderError, orderId, proRedirect, startPick } from "@/lib/buy.ts";
+import { cartLines } from "@/lib/cart.ts";
+import { useLang } from "@/lib/lang.ts";
 
 const COPY = {
-  th: { title: "เลือกสินค้า", renew: (d: string) => `ต่ออายุต่อจากวันที่ ${d}`, retry: "ลองอีกครั้ง" },
-  en: { title: "Choose product", renew: (d: string) => `Extends from ${d}`, retry: "Try again" },
+  th: { title: "เลือกแอป", retry: "ลองอีกครั้ง" },
+  en: { title: "Choose apps", retry: "Try again" },
 };
 
 type Account = { email: string; licence: Licence | null };
-
-const day = (iso: string, lang: Lang) =>
-  new Date(iso).toLocaleDateString(lang === "th" ? "th-TH" : "en-GB", { timeZone: "Asia/Bangkok", day: "numeric", month: "short", year: "numeric" });
 
 // Buying needs a session; only ?order=<id> (the phone-upload QR) opens without one.
 export default function Buy() {
@@ -29,9 +26,7 @@ export default function Buy() {
   const [order, setOrder] = useState<string | null>(null);
   const [acct, setAcct] = useState<Account | null>(null);
   const [cat, setCat] = useState<Catalogue | null>(null);
-  const [sel, setSel] = useState<Selection | null>(null);
-  const [renewFrom, setRenewFrom] = useState<string | null>(null);
-  const [now, setNow] = useState(0);
+  const [sel, setSel] = useState<string[] | null>(null);
   const [err, setErr] = useState<Msg | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -41,6 +36,8 @@ export default function Buy() {
 
   async function start() {
     const q = new URLSearchParams(location.search);
+    const to = proRedirect(q);
+    if (to) return location.replace(to);
     const oid = orderId(q);
     setOrder(oid);
     setErr(null);
@@ -55,13 +52,10 @@ export default function Buy() {
     if (!c) return; // ?order: the pay step loads the order itself
     if (!a.ok) return setErr(orderError(a));
     if (!c.ok) return setErr(orderError(c));
-    const at = Date.now();
-    const s = startSel(q, a.data.licence, at);
-    setNow(at);
+    const shop = forSale(c.data);
     setAcct(a.data);
-    setCat(forSale(c.data));
-    setSel(s.sel);
-    setRenewFrom(s.renewFrom);
+    setCat(shop);
+    setSel(startPick(q, shop, a.data.licence));
   }
 
   useEffect(() => {
@@ -74,7 +68,7 @@ export default function Buy() {
   }
 
   const lic = acct?.licence ?? null;
-  const lines = cat && sel ? cartLines({ ...sel, addMax: sel.addMax && !maxActive(lic, now) }, cat) : [];
+  const lines = cat && sel ? cartLines(sel, cat) : [];
 
   return (
     <Shell lang={lang} setLang={setLang} signedIn={signedIn}>
@@ -100,9 +94,8 @@ export default function Buy() {
       ) : (
         <>
           <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t.title}</h1>
-          {renewFrom && <p className="mt-1.5 text-graphite">{t.renew(day(renewFrom, lang))}</p>}
           <div className="mt-5 flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8">
-            <BuyPicker lang={lang} cat={cat} lic={lic} sel={sel} onSel={setSel} now={now} />
+            <BuyPicker lang={lang} cat={cat} lic={lic} sel={sel} onSel={setSel} />
             <OrderBox lang={lang} lines={lines} lic={lic} email={acct.email} onOrdered={ordered} />
           </div>
         </>
