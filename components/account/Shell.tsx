@@ -4,8 +4,8 @@ import { EMAIL, GANK_URL } from "@/app/site-info";
 import type { Lang } from "@/lib/lang.ts";
 
 const COPY = {
-  th: { apps: "แอป", contact: "ติดต่อ", support: "สนับสนุน", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", menu: "เมนู" },
-  en: { apps: "Apps", contact: "Contact", support: "Support", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", menu: "Menu" },
+  th: { apps: "แอป", contact: "ติดต่อ", support: "สนับสนุน", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", delete: "ลบบัญชี", menu: "เมนู" },
+  en: { apps: "Apps", contact: "Contact", support: "Support", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", delete: "Delete account", menu: "Menu" },
 };
 
 function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
@@ -79,10 +79,11 @@ export default function Shell({
 
       <footer className="bg-ink text-sm text-white/60">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 md:flex-row md:justify-between md:px-8">
-          <span>© 2026 PeerapoS</span>
+          <span>© 2026 พีระพอส (PeerapoS)</span>
           <span className="flex flex-wrap gap-x-4 gap-y-1">
             <a href="/terms" className="whitespace-nowrap text-white/85 hover:text-white">{t.terms}</a>
             <a href="/privacy" className="whitespace-nowrap text-white/85 hover:text-white">{t.privacy}</a>
+            <a href="/delete-account" className="whitespace-nowrap text-white/85 hover:text-white">{t.delete}</a>
             <a href={`mailto:${EMAIL}`} className="whitespace-nowrap text-white/85 hover:text-white">{EMAIL}</a>
           </span>
         </div>

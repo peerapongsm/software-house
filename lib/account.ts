@@ -1,9 +1,9 @@
 // /account page rules: the plan pill, dates in Bangkok time, "last used" for a linked PC,
 // and which owned apps get a download row.
 
-import { PAID, type Licence, type Msg, type PaidApp } from "./api.ts";
+import { PAID, type ApiResult, type Licence, type Msg, type PaidApp } from "./api.ts";
 import type { Lang } from "./lang.ts";
-import type { PlanStatus } from "./status.ts";
+import { planStatus, type PlanStatus } from "./status.ts";
 
 const DAY = 864e5;
 const BKK = 7 * 36e5;
@@ -44,3 +44,16 @@ export const ownedPaid = (apps: string[]): PaidApp[] => PAID.filter((p) => apps.
 
 /** After "ยกเลิกทุกเครื่อง": the server's count of PCs it removed. */
 export const removedAll = (n: number): Msg => ({ th: `ยกเลิกแล้ว ${n} เครื่อง`, en: `${n} ${n === 1 ? "PC" : "PCs"} removed` });
+
+/** Pro on /account: no Pro → the /pro link; a Pro tier → the Play link, and /pro again only once it has ended. */
+export function proView(tier: { until: string } | null, now: number): { status: PlanStatus | null; manage: boolean; subscribe: boolean } {
+  if (!tier) return { status: null, manage: false, subscribe: true };
+  const status = planStatus(tier.until, now);
+  return { status, manage: true, subscribe: status.kind === "expired" };
+}
+
+/** The delete form: the typed word, spaces at the ends ignored, nothing else. */
+export const isDeleteConfirm = (typed: string) => typed.trim() === "DELETE";
+
+/** POST /api/account/delete answered 409 activeSub: a Play subscription is still running. */
+export const deleteNeedsAck = (r: ApiResult<unknown> & { ok: false }) => r.status === 409 && r.error === "activeSub";

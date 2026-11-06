@@ -120,6 +120,7 @@ const COPY = {
     contactSub: "ส่งอีเมลหรือทัก LINE มาได้เลย ถ้าแอปเล็ก ๆ ช่วยได้ เราจะบอกว่าทำอะไรได้บ้างและใช้เวลาเท่าไร",
     terms: "ข้อกำหนดการใช้งาน",
     privacy: "นโยบายความเป็นส่วนตัว",
+    deleteAccount: "ลบบัญชี",
     visitor: "คุณคือผู้เข้าชมคนที่",
   },
   en: {
@@ -208,6 +209,7 @@ const COPY = {
     contactSub: "Send an email or message us on LINE. If a small app can help, we'll tell you what it would do and how long it would take.",
     terms: "Terms of use",
     privacy: "Privacy policy",
+    deleteAccount: "Delete account",
     visitor: "You are visitor no.",
   },
 } as const;
@@ -549,7 +551,7 @@ export default function Home() {
           </ul>
 
           <footer className="mt-16 flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:justify-between">
-            <span>© 2026 PeerapoS</span>
+            <span>© 2026 พีระพอส (PeerapoS)</span>
             {visits !== null && (
               <span className="flex items-center gap-2">
                 {t.visitor}
@@ -561,6 +563,7 @@ export default function Home() {
             <span className="flex gap-4">
               <a href="/terms" className="hover:text-white">{t.terms}</a>
               <a href="/privacy" className="hover:text-white">{t.privacy}</a>
+              <a href="/delete-account" className="hover:text-white">{t.deleteAccount}</a>
             </span>
           </footer>
         </div>

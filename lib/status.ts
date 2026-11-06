@@ -1,4 +1,4 @@
-// Plan status pill on /account. Grace matches the apps: Pro/Max keep working 14 days past `until`.
+// Plan status pill on /account. Grace matches the apps: Pro keeps working 14 days past `until`.
 
 const DAY = 864e5;
 const GRACE_DAYS = 14;

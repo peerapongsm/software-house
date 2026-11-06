@@ -1,0 +1,128 @@
+"use client";
+
+import { useState } from "react";
+import Spinner from "@/components/account/Spinner";
+import { deleteNeedsAck, isDeleteConfirm } from "@/lib/account.ts";
+import { api } from "@/lib/api.ts";
+import { orderError } from "@/lib/buy.ts";
+import type { Lang } from "@/lib/lang.ts";
+import { PLAY_SUBS_URL } from "@/lib/pro.ts";
+
+const COPY = {
+  th: {
+    title: "ลบบัญชี",
+    gone: "ลบแล้วกู้คืนไม่ได้ สิ่งที่จะหายไป:",
+    items: [
+      "บัญชี รหัสเข้าสู่ระบบ และการเข้าสู่ระบบทุกเครื่อง",
+      "เครื่องที่เชื่อมไว้ทั้งหมด และการเชื่อมตัวเชื่อม AI",
+      "สิทธิ์ PeerapoS Pro และข้อมูลการซื้อบน Google Play ที่เก็บไว้",
+      "แอปแบบซื้อขาดที่ซื้อไว้ จะใช้ไม่ได้ และกู้คืนให้ไม่ได้",
+    ],
+    stays: "คำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ",
+    typeLabel: "พิมพ์ DELETE เพื่อยืนยัน",
+    btn: "ลบบัญชีของฉัน",
+    subTitle: "ยังมีการสมัคร PeerapoS Pro ใน Google Play",
+    subBody: "การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะยังถูกคิดเงินต่อ และการสมัครนี้ย้ายไปบัญชีใหม่ไม่ได้ ให้ยกเลิกใน Google Play ก่อน",
+    play: "จัดการใน Google Play",
+    force: "ลบต่อ ทั้งที่การสมัคร Google Play ยังอยู่",
+    back: "ยกเลิก",
+    how: "ดูวิธีลบบัญชีและสิ่งที่ยังเหลือ",
+  },
+  en: {
+    title: "Delete account",
+    gone: "Deleting cannot be undone. This removes:",
+    items: [
+      "The account, its sign-in and every signed-in device",
+      "All linked PCs and the AI connector links",
+      "PeerapoS Pro and the Google Play purchase records kept with it",
+      "Paid apps you bought stop working, and we cannot restore them",
+    ],
+    stays: "Orders and the payment confirmation email stay, because tax law requires us to keep them.",
+    typeLabel: "Type DELETE to confirm",
+    btn: "Delete my account",
+    subTitle: "A PeerapoS Pro subscription is still running on Google Play",
+    subBody: "Deleting the account does NOT cancel the Google Play subscription. You keep being charged, and that subscription cannot move to a new account. Cancel it in Google Play first.",
+    play: "Manage in Google Play",
+    force: "Delete anyway, the Google Play subscription stays",
+    back: "Cancel",
+    how: "How deleting works, and what stays",
+  },
+};
+
+const btn = "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors whitespace-nowrap";
+const danger = `${btn} min-h-[52px] px-6 py-3 bg-red-700 text-white hover:bg-red-800 disabled:opacity-40`;
+const outSm = `${btn} min-h-11 px-4 py-2 text-[0.9375rem] border border-ink/25 bg-sheet hover:border-ink`;
+
+/** Signed-in only, the bottom of /account. A typed DELETE, then one more confirm if a Play subscription still runs. */
+export default function DeleteAccount({ lang }: { lang: Lang }) {
+  const t = COPY[lang];
+  const [typed, setTyped] = useState("");
+  const [sub, setSub] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function submit(acceptSub: boolean) {
+    setErr(null);
+    setBusy(true);
+    const r = await api("/api/account/delete", { method: "POST", body: { confirm: "DELETE", acceptSub } });
+    if (r.ok) {
+      location.href = "/";
+      return;
+    }
+    setBusy(false);
+    if (deleteNeedsAck(r)) setSub(true);
+    else setErr(orderError(r)[lang]);
+  }
+
+  return (
+    <section className="mt-6 flex flex-col gap-4 rounded-2xl border border-red-200 bg-sheet p-5">
+      <h2 className="font-display text-xl font-bold leading-tight">{t.title}</h2>
+      <div className="flex flex-col gap-2 text-sm">
+        <p className="font-semibold">{t.gone}</p>
+        <ul className="list-disc space-y-1 pl-5 text-graphite">
+          {t.items.map((x) => (
+            <li key={x}>{x}</li>
+          ))}
+        </ul>
+        <p className="text-graphite">{t.stays}</p>
+        <a href="/delete-account" className="font-semibold text-indigo underline">{t.how}</a>
+      </div>
+      {sub ? (
+        <div role="alert" className="flex flex-col gap-3 rounded-xl bg-amber-50 px-3.5 py-3">
+          <p className="font-bold text-amber-900">{t.subTitle}</p>
+          <p className="text-sm text-amber-900">{t.subBody}</p>
+          <div className="flex flex-wrap gap-2">
+            <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={outSm}>{t.play}</a>
+            <button type="button" disabled={busy} onClick={() => submit(true)} className={danger}>
+              {busy && <Spinner />}
+              {t.force}
+            </button>
+            <button type="button" disabled={busy} onClick={() => setSub(false)} className={outSm}>{t.back}</button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3">
+          <label className="flex flex-col gap-1.5 text-sm font-semibold">
+            {t.typeLabel}
+            <input
+              value={typed}
+              onChange={(e) => setTyped(e.target.value)}
+              autoComplete="off"
+              spellCheck={false}
+              className="min-h-12 rounded-xl border border-line bg-paper px-3.5 py-2 font-mono text-base tracking-wider"
+            />
+          </label>
+          <button type="button" disabled={busy || !isDeleteConfirm(typed)} onClick={() => submit(false)} className={`${danger} self-start`}>
+            {busy && <Spinner />}
+            {t.btn}
+          </button>
+        </div>
+      )}
+      {err && (
+        <p role="alert" className="font-semibold text-red-700">
+          {err}
+        </p>
+      )}
+    </section>
+  );
+}

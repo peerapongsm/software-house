@@ -4,14 +4,15 @@ import Image from "next/image";
 import { useEffect, useState, type MouseEvent } from "react";
 import AiCard from "@/components/account/AiCard.ts";
 import { appName } from "@/components/account/BuyPicker";
+import DeleteAccount from "@/components/account/DeleteAccount";
 import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
-import { day, lastUsed, ownedPaid, pillText, removedAll, type AccountData, type Device } from "@/lib/account.ts";
+import { day, lastUsed, ownedPaid, pillText, proView, removedAll, type AccountData, type Device } from "@/lib/account.ts";
 import type { Grant } from "@/lib/ai.ts";
 import { api, API_BASE, type Licence, type Msg } from "@/lib/api.ts";
 import { orderError } from "@/lib/buy.ts";
 import { useLang, type Lang } from "@/lib/lang.ts";
-import { planStatus } from "@/lib/status.ts";
+import { PLAY_SUBS_URL } from "@/lib/pro.ts";
 
 const COPY = {
   th: {
@@ -21,11 +22,10 @@ const COPY = {
     empty: "ยังไม่ได้ซื้ออะไร",
     choose: "เลือกสินค้า",
     noTier: "ยังไม่มี Pro",
-    subscribe: "สมัคร Pro หรือ Max",
+    subscribe: "ดู PeerapoS Pro",
+    manage: "จัดการใน Google Play",
     until: "ใช้ได้ถึง",
     name: "ชื่อ",
-    renew: "ต่ออายุ",
-    upgrade: "อัปเกรดเป็น Max",
     id: "รหัสลูกค้า",
     apps: "แอปที่ซื้อแล้ว",
     noApps: "ยังไม่ได้ซื้อแอป",
@@ -51,11 +51,10 @@ const COPY = {
     empty: "Nothing bought yet",
     choose: "Choose product",
     noTier: "No Pro yet",
-    subscribe: "Subscribe to Pro or Max",
+    subscribe: "See PeerapoS Pro",
+    manage: "Manage in Google Play",
     until: "Valid until",
     name: "Name",
-    renew: "Renew",
-    upgrade: "Upgrade to Max",
     id: "Customer ID",
     apps: "Apps you own",
     noApps: "No apps bought yet",
@@ -117,14 +116,14 @@ function Empty({ t }: { t: T }) {
 
 function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: number }) {
   const tier = lic.tier;
-  const st = tier && planStatus(tier.until, now);
+  const view = proView(tier, now);
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
       <div className="flex items-start justify-between gap-3">
         <p className="font-display text-[2rem] font-extrabold leading-[1.1] tracking-tight lg:text-[2.5rem]">
-          {tier ? `PeerapoS ${tier.t === "max" ? "Max" : "Pro"}` : t.noTier}
+          {tier ? "PeerapoS Pro" : t.noTier}
         </p>
-        {st && <Pill tone={st.tone}>{pillText(st)[lang]}</Pill>}
+        {view.status && <Pill tone={view.status.tone}>{pillText(view.status)[lang]}</Pill>}
       </div>
       <dl className={`grid gap-3 rounded-xl bg-paper px-3.5 py-3 ${tier ? "grid-cols-2" : ""}`}>
         {tier && (
@@ -138,16 +137,14 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
           <dd className="font-bold [overflow-wrap:anywhere]">{lic.name}</dd>
         </div>
       </dl>
-      <div className="flex flex-wrap gap-2">
-        {tier ? (
-          <>
-            <a href="/buy?renew" className={dark}>{t.renew}</a>
-            {tier.t === "pro" && <a href="/buy?max" className={out}>{t.upgrade}</a>}
-          </>
-        ) : (
-          <a href="/buy" className={dark}>{t.subscribe}</a>
-        )}
-      </div>
+      {(view.manage || view.subscribe) && (
+        <div className="flex flex-wrap gap-2">
+          {view.manage && (
+            <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={out}>{t.manage}</a>
+          )}
+          {view.subscribe && <a href="/pro" className={dark}>{t.subscribe}</a>}
+        </div>
+      )}
       <p className="text-[0.8125rem] text-graphite">
         {t.id} <span className="whitespace-nowrap">{lic.id}</span>
       </p>
@@ -446,6 +443,7 @@ export default function Account() {
           ) : (
             <Empty t={t} />
           )}
+          <DeleteAccount lang={lang} />
         </>
       )}
     </Shell>

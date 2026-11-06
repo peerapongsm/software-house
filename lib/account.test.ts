@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { day, lastUsed, ownedPaid, pillText, removedAll } from "./account.ts";
+import { day, deleteNeedsAck, isDeleteConfirm, lastUsed, ownedPaid, pillText, proView, removedAll } from "./account.ts";
 
 const NOW = Date.parse("2026-10-30T15:00:00+07:00");
 
@@ -48,4 +48,31 @@ test("ownedPaid: only known paid apps, in catalogue order", () => {
 test("removedAll: how many PCs “ยกเลิกทุกเครื่อง” removed", () => {
   assert.deepEqual(removedAll(3), { th: "ยกเลิกแล้ว 3 เครื่อง", en: "3 PCs removed" });
   assert.deepEqual(removedAll(1), { th: "ยกเลิกแล้ว 1 เครื่อง", en: "1 PC removed" });
+});
+
+test("isDeleteConfirm: the typed word DELETE, spaces around it ignored, nothing else", () => {
+  assert.equal(isDeleteConfirm("DELETE"), true);
+  assert.equal(isDeleteConfirm("  DELETE "), true);
+  assert.equal(isDeleteConfirm("delete"), false);
+  assert.equal(isDeleteConfirm("DELETE ACCOUNT"), false);
+  assert.equal(isDeleteConfirm(""), false);
+});
+
+test("deleteNeedsAck: 409 activeSub means a Play subscription is still running", () => {
+  assert.equal(deleteNeedsAck({ ok: false, status: 409, error: "activeSub" }), true);
+  assert.equal(deleteNeedsAck({ ok: false, status: 409, error: "other" }), false);
+  assert.equal(deleteNeedsAck({ ok: false, status: 500, error: "http" }), false);
+});
+
+test("proView: no Pro shows the link to /pro; Pro shows the Play link, and /pro again only once expired", () => {
+  assert.deepEqual(proView(null, NOW), { status: null, manage: false, subscribe: true });
+  const active = proView({ until: "2026-12-30T00:00:00+07:00" }, NOW);
+  assert.equal(active.status?.kind, "active");
+  assert.deepEqual([active.manage, active.subscribe], [true, false]);
+  const grace = proView({ until: "2026-10-25T00:00:00+07:00" }, NOW);
+  assert.equal(grace.status?.kind, "grace");
+  assert.deepEqual([grace.manage, grace.subscribe], [true, false]);
+  const ended = proView({ until: "2026-09-01T00:00:00+07:00" }, NOW);
+  assert.equal(ended.status?.kind, "expired");
+  assert.deepEqual([ended.manage, ended.subscribe], [true, true]);
 });
