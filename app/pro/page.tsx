@@ -14,7 +14,7 @@ const COPY = {
     get: "ดาวน์โหลดจาก Google Play",
     stepsH: "ทำตาม 3 ขั้นตอนนี้",
     steps: [
-      "ติดตั้ง PeerapoS Go จาก Google Play",
+      "ติดตั้ง PeerapoS Pair จาก Google Play",
       "เข้าสู่ระบบด้วย Google แล้วสมัคร PeerapoS Pro",
       "บนคอมพิวเตอร์ กด “เชื่อมเครื่องนี้” แล้วเข้าสู่ระบบด้วยบัญชี Google เดียวกัน",
     ],
@@ -22,7 +22,7 @@ const COPY = {
     gets: [
       "ฟีเจอร์ Pro ในแอปฟรีทุกตัว",
       "ฟีเจอร์ Pro ในแอปแบบซื้อขาดที่คุณเป็นเจ้าของ",
-      "รีเลย์ ตัวเชื่อม AI และ PeerapoS Go",
+      "รีเลย์ ตัวเชื่อม AI และ PeerapoS Pair",
     ],
     factsH: "ก่อนสมัคร",
     facts: [
@@ -40,7 +40,7 @@ const COPY = {
     get: "Get it on Google Play",
     stepsH: "Three steps",
     steps: [
-      "Install PeerapoS Go from Google Play.",
+      "Install PeerapoS Pair from Google Play.",
       "Sign in with Google, then subscribe to PeerapoS Pro.",
       "On the PC, press “Link this PC” and sign in with the same Google account.",
     ],
@@ -48,7 +48,7 @@ const COPY = {
     gets: [
       "Pro features in every free app",
       "Pro features in the paid apps you own",
-      "Relay, the AI connector and PeerapoS Go",
+      "Relay, the AI connector and PeerapoS Pair",
     ],
     factsH: "Before you subscribe",
     facts: [

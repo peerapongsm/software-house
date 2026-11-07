@@ -60,7 +60,7 @@ const TH: Sec[] = [
       "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา",
       "ข้อมูลลูกค้าและพนักงานที่ร้านกรอกในแอป ร้านเป็นผู้ควบคุมข้อมูลเอง เราไม่เห็นข้อมูลนั้น",
       "ข้อมูลบัญชี คำสั่งซื้อ และรายงานปัญหาที่ส่งมา เราเป็นผู้ควบคุมข้อมูลเอง",
-      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Go ตัวเชื่อม AI หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
+      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
     ],
   },
   {
@@ -115,9 +115,9 @@ const TH: Sec[] = [
     ],
   },
   {
-    title: "รีเลย์ PeerapoS Go และหน้าลูกค้า",
+    title: "รีเลย์ PeerapoS Pair และหน้าลูกค้า",
     p: [
-      "เมื่อเปิด เครื่องหลักของร้านเชื่อมออกไปที่ relay.peerapongsm.dev ค้างไว้ เพื่อให้มือถือ PeerapoS Go และหน้าลูกค้า (เปิดจาก QR) คุยกับเครื่องหลักได้ตอนอยู่นอกร้าน เบราว์เซอร์ของลูกค้าเปิดหน้าจาก go.peerapongsm.dev",
+      "เมื่อเปิด เครื่องหลักของร้านเชื่อมออกไปที่ relay.peerapongsm.dev ค้างไว้ เพื่อให้มือถือ PeerapoS Pair และหน้าลูกค้า (เปิดจาก QR) คุยกับเครื่องหลักได้ตอนอยู่นอกร้าน เบราว์เซอร์ของลูกค้าเปิดหน้าจาก go.peerapongsm.dev",
     ],
     li: [
       "เนื้อหาเข้ารหัสปลายทางระหว่างเครื่องหลักกับมือถือหรือหน้าลูกค้า เราเห็นแค่ข้อมูลเส้นทาง คือ เวลา ชนิด ขนาด และผลของแต่ละข้อความ เก็บ 7 วันแล้วลบ ไม่เก็บที่อยู่ IP",
@@ -125,7 +125,7 @@ const TH: Sec[] = [
       "หน้าลูกค้าเข้ารหัสด้วยโค้ดที่เราส่งให้เบราว์เซอร์จาก go.peerapongsm.dev ลูกค้าจึงต้องเชื่อใจโค้ดนั้น ซึ่งเราเป็นผู้ให้",
       "ฟอร์มบนหน้าลูกค้าใช้ Cloudflare Turnstile กันบอต",
       "การแจ้งเตือนเข้ามือถือส่งผ่าน Google Firebase Cloud Messaging มีแค่ชื่อสาขาที่ร้านตั้ง ชนิดเหตุการณ์ และจำนวน เช่น \"ออร์เดอร์ใหม่ 3 รายการ\" ไม่มีข้อมูลธุรกิจ",
-      "ปิดได้ที่ ตั้งค่า › Go ในแอป เมื่อปิด เครื่องหลักตัดการเชื่อมออก",
+      "ปิดได้ที่ ตั้งค่า › Pair ในแอป เมื่อปิด เครื่องหลักตัดการเชื่อมออก",
     ],
     after: ["ร้านเป็นผู้ควบคุมข้อมูลของลูกค้าที่กรอกผ่านหน้าลูกค้า และเป็นผู้ตั้งข้อความความเป็นส่วนตัวของร้าน ใครอยากใช้สิทธิ์เกี่ยวกับข้อมูลนั้น ให้ติดต่อร้านนั้นก่อน"],
   },
@@ -158,7 +158,7 @@ const TH: Sec[] = [
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       "SlipOK: ตรวจรูปสลิป",
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
-      "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Go",
+      "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Pair",
       "ผู้ให้บริการ AI ที่ร้านเลือกเอง: รับข้อมูลที่ร้านตัดสินใจส่ง ตามเงื่อนไขของผู้ให้บริการนั้น",
     ],
     after: [
@@ -198,7 +198,7 @@ const EN: Sec[] = [
       "The provider is พีระพอส (PeerapoS), a sole proprietorship.",
       "The shop is the data controller for the customer and staff data it enters in the apps. We do not see that data.",
       "We are the data controller for account data, orders and the problem reports sent to us.",
-      "If a shop turns on an opt-in online service (relay, PeerapoS Go, the AI connector, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
+      "If a shop turns on an opt-in online service (relay, PeerapoS Pair, the AI connector, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
     ],
   },
   {
@@ -251,9 +251,9 @@ const EN: Sec[] = [
     p: ["These are off by default. They need Pro and you turn them on yourself in the app. You can turn them on and off at any time."],
   },
   {
-    title: "PeerapoS Go relay and customer pages",
+    title: "PeerapoS Pair relay and customer pages",
     p: [
-      "When on, the shop PC keeps one outbound connection to relay.peerapongsm.dev so the PeerapoS Go phone app and customer pages (opened from a QR) can reach it away from the shop. The customer's browser loads the page from go.peerapongsm.dev.",
+      "When on, the shop PC keeps one outbound connection to relay.peerapongsm.dev so the PeerapoS Pair phone app and customer pages (opened from a QR) can reach it away from the shop. The customer's browser loads the page from go.peerapongsm.dev.",
     ],
     li: [
       "Content is end-to-end encrypted between the shop PC and the phone or customer page. We see only routing data: time, type, size and outcome of each message. It is kept 7 days, then deleted. We do not keep IP addresses.",
@@ -261,7 +261,7 @@ const EN: Sec[] = [
       "A customer page is encrypted by code that we serve to the browser from go.peerapongsm.dev, so the customer has to trust that code, and we supply it.",
       "Forms on customer pages use Cloudflare Turnstile to keep bots out.",
       "Phone alerts go through Google Firebase Cloud Messaging. They carry only the branch name the shop set, the type of event and a count, such as \"3 new orders\". No business data.",
-      "Turn it off in Settings › Go in the app. When off, the shop PC drops the connection.",
+      "Turn it off in Settings › Pair in the app. When off, the shop PC drops the connection.",
     ],
     after: ["The shop is the data controller for what customers enter on its customer pages and sets its own privacy text. To use your rights over that data, contact that shop first."],
   },
@@ -294,7 +294,7 @@ const EN: Sec[] = [
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       "SlipOK: checks slip images.",
       "GitHub: update checks for the free apps.",
-      "Google Firebase Cloud Messaging: phone alerts for PeerapoS Go.",
+      "Google Firebase Cloud Messaging: phone alerts for PeerapoS Pair.",
       "The AI provider the shop chooses: receives what the shop decides to send, under that provider's terms.",
     ],
     after: [
@@ -339,7 +339,7 @@ export default function Privacy() {
         <h1 className="font-display text-4xl font-bold tracking-tight">นโยบายความเป็นส่วนตัว</h1>
         <p className="mt-2 text-graphite">แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 6 พฤศจิกายน 2569</p>
         <p className="mt-4 leading-relaxed text-graphite">
-          ใช้กับแอปฟรี {APPS_FREE} แอปแบบซื้อขาด {APPS_PAID} และ PeerapoS Go อ่านคู่กับ{" "}
+          ใช้กับแอปฟรี {APPS_FREE} แอปแบบซื้อขาด {APPS_PAID} และ PeerapoS Pair อ่านคู่กับ{" "}
           <a href="/terms" className="text-indigo underline">ข้อกำหนดการใช้งาน</a>
         </p>
         <Secs list={TH} />
@@ -352,7 +352,7 @@ export default function Privacy() {
         <h2 className="font-display text-4xl font-bold tracking-tight">Privacy Policy</h2>
         <p className="mt-2 text-graphite">PeerapoS apps, accounts and services. Last updated 6 November 2026</p>
         <p className="mt-4 leading-relaxed text-graphite">
-          Applies to the free apps {APPS_FREE_EN}, the paid apps {APPS_PAID_EN}, and PeerapoS Go. Read together with the{" "}
+          Applies to the free apps {APPS_FREE_EN}, the paid apps {APPS_PAID_EN}, and PeerapoS Pair. Read together with the{" "}
           <a href="/terms" className="text-indigo underline">Terms of Use</a>.
         </p>
         <Secs list={EN} />

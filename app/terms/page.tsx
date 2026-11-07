@@ -48,7 +48,7 @@ const TH: Sec[] = [
   {
     title: "1. ใครให้บริการ",
     p: [
-      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Go และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Go ตัวเชื่อม AI หน้าลูกค้า)",
+      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า)",
       "ติ๊กยอมรับตอนสั่งซื้อ เข้าสู่ระบบ หรือใช้แอปต่อไปหลังเราประกาศข้อกำหนดนี้ ถือว่าคุณตกลงตามนี้",
     ],
   },
@@ -57,8 +57,8 @@ const TH: Sec[] = [
     li: [
       "แอปฟรีใช้ได้ฟรีตามขีดจำกัดของแต่ละแอป เช่น จำนวนเครื่อง ดูรายละเอียดในแอป",
       "แอปแบบซื้อขาด (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) ซื้อครั้งเดียวที่หน้า /buy จ่ายด้วย PromptPay อัปเดตให้ฟรีตลอด ไม่หมดอายุ ราคาดูที่หน้า /buy",
-      "PeerapoS Pro 159 บาทต่อเดือน หรือ 1,590 บาทต่อปี มีแค่สองแบบนี้ ขายในแอปบนร้านแอปเท่านั้น ตอนนี้คือ Google Play (PeerapoS Go และ PeerapoS Plan) ส่วน Apple App Store มาทีหลัง ไม่ขายบนเว็บไซต์นี้ ราคาที่คิดคือราคาที่ร้านแอปแสดงตอนคุณสมัคร",
-      "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI และ PeerapoS Go ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ สมัครครั้งเดียวใช้ได้กับทุกแอปในบัญชีเดียวกัน",
+      "PeerapoS Pro 159 บาทต่อเดือน หรือ 1,590 บาทต่อปี มีแค่สองแบบนี้ ขายในแอปบนร้านแอปเท่านั้น ตอนนี้คือ Google Play (PeerapoS Pair และ PeerapoS Plan) ส่วน Apple App Store มาทีหลัง ไม่ขายบนเว็บไซต์นี้ ราคาที่คิดคือราคาที่ร้านแอปแสดงตอนคุณสมัคร",
+      "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI และ PeerapoS Pair ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ สมัครครั้งเดียวใช้ได้กับทุกแอปในบัญชีเดียวกัน",
       "ผู้สมัครใหม่บน Google Play อาจได้ทดลองใช้ฟรี ระยะเวลาเท่าที่ร้านแอปแสดงตอนสมัคร",
       "PeerapoS Plan บนมือถือลงฟรีจากร้านแอป แต่ต้องมี Pro ที่ยังใช้งานได้ถึงจะใช้ได้",
     ],
@@ -133,7 +133,7 @@ const TH: Sec[] = [
     title: "10. ข้อมูลของคุณ",
     p: [
       "ข้อมูลธุรกิจที่คุณกรอกในแอปอยู่ในเครื่องคุณ ร้านเป็นผู้ควบคุมข้อมูลของลูกค้าและพนักงานของร้านเอง และรับผิดชอบเรื่องความยินยอมและการแจ้งเจ้าของข้อมูล เราไม่เห็นข้อมูลนั้น",
-      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Go ตัวเชื่อม AI หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
+      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
       "ข้อมูลบัญชี คำสั่งซื้อ และรายงานปัญหาที่ส่งมา เราเป็นผู้ควบคุมข้อมูลเอง รายละเอียดอยู่ในนโยบายความเป็นส่วนตัว",
     ],
   },
@@ -157,7 +157,7 @@ const TH: Sec[] = [
   {
     title: "13. เปลี่ยนแปลงและยุติบริการออนไลน์",
     p: [
-      "บริการออนไลน์ (เว็บไซต์ บัญชี รีเลย์ PeerapoS Go ตัวเชื่อม AI หน้าลูกค้า การอัปเดตแอปซื้อขาด) เราอาจปรับ ระงับ หรือเลิกได้ ถ้าจะเลิกบริการที่คุณใช้อยู่ เราแจ้งล่วงหน้าทางอีเมลของบัญชีหรือบนเว็บไซต์",
+      "บริการออนไลน์ (เว็บไซต์ บัญชี รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า การอัปเดตแอปซื้อขาด) เราอาจปรับ ระงับ หรือเลิกได้ ถ้าจะเลิกบริการที่คุณใช้อยู่ เราแจ้งล่วงหน้าทางอีเมลของบัญชีหรือบนเว็บไซต์",
       "แอปที่ติดตั้งแล้วใช้งานในเครื่องต่อได้ และข้อมูลของคุณยังอยู่ในเครื่อง",
     ],
   },
@@ -180,7 +180,7 @@ const EN: Sec[] = [
   {
     title: "1. Who provides the service",
     p: [
-      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Go and PeerapoS Plan), the one-time paid apps, and the opt-in online services (relay, PeerapoS Go, the AI connector, customer pages).",
+      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (relay, PeerapoS Pair, the AI connector, customer pages).",
       "Ticking the box when you order, signing in, or continuing to use the apps after we publish these Terms, means you agree to them.",
     ],
   },
@@ -189,8 +189,8 @@ const EN: Sec[] = [
     li: [
       "Free apps are free to use within each app's limits, such as the number of PCs. The app shows the details.",
       "The paid apps (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) are bought once on /buy, paid by PromptPay, with free updates forever. They never expire. Prices are on /buy.",
-      "PeerapoS Pro is 159 baht a month or 1,590 baht a year, and those are the only two options. It is sold only inside store apps: Google Play now (PeerapoS Go and PeerapoS Plan), Apple App Store later. It is not sold on this website. The price charged is the one the store shows when you subscribe.",
-      "Pro turns on Pro features in all the free apps, the paid apps you own, the relay, the AI connector and PeerapoS Go. It does not open paid apps you have not bought. One Pro works across all apps on the same account.",
+      "PeerapoS Pro is 159 baht a month or 1,590 baht a year, and those are the only two options. It is sold only inside store apps: Google Play now (PeerapoS Pair and PeerapoS Plan), Apple App Store later. It is not sold on this website. The price charged is the one the store shows when you subscribe.",
+      "Pro turns on Pro features in all the free apps, the paid apps you own, the relay, the AI connector and PeerapoS Pair. It does not open paid apps you have not bought. One Pro works across all apps on the same account.",
       "A new subscriber on Google Play may get a free trial, for the length the store shows when you subscribe.",
       "PeerapoS Plan on a phone is a free download, but it needs an active Pro to use at all.",
     ],
@@ -265,7 +265,7 @@ const EN: Sec[] = [
     title: "10. Your data",
     p: [
       "The business data you enter in the apps stays on your PC. The shop is the data controller for its own customers and staff, and is responsible for consent and notices to them. We do not see that data.",
-      "If you turn on an online service (relay, PeerapoS Go, the AI connector, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
+      "If you turn on an online service (relay, PeerapoS Pair, the AI connector, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
       "For account data, orders and the problem reports you send, we are the data controller. Details are in the Privacy Policy.",
     ],
   },
@@ -289,7 +289,7 @@ const EN: Sec[] = [
   {
     title: "13. Changing or ending online services",
     p: [
-      "We may change, pause or end the online services (the website, accounts, relay, PeerapoS Go, the AI connector, customer pages, paid-app updates). If we end one you use, we tell you ahead by email to the account or on the website.",
+      "We may change, pause or end the online services (the website, accounts, relay, PeerapoS Pair, the AI connector, customer pages, paid-app updates). If we end one you use, we tell you ahead by email to the account or on the website.",
       "Apps already installed keep working on your PC, and your data stays on it.",
     ],
   },
