@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
+import { BANK, EMAIL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -40,7 +40,7 @@ const COPY = {
     navAbout: "เกี่ยวกับ",
     navContact: "ติดต่อ",
     navSupport: "เลี้ยงชาบูผม",
-    banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมที่ Gank ได้",
+    banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
     h1: "โปรแกรมฟรี",
     heroSub:
       "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
@@ -74,7 +74,7 @@ const COPY = {
         ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
       ],
       note: "ฟรี ไม่ต้องสมัครสมาชิก",
-      support: "ชอบโปรแกรมนี้ไหม เลี้ยงชาบูผมได้ที่ Gank",
+      support: "ชอบโปรแกรมนี้ไหม เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
       close: "ปิด",
       features: "ทำอะไรได้บ้าง",
       prev: "ภาพก่อนหน้า",
@@ -83,8 +83,8 @@ const COPY = {
     },
     supportTitle: "ใช้แล้วชอบไหม",
     supportBody:
-      "ทุกตัวยังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สามารถทำได้ที่ Gank ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
-    supportButton: "เลี้ยงชาบูผมที่ Gank",
+      "ทุกตัวยังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สแกน QR หรือโอนเข้าบัญชีนี้ได้เลย ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
+    bank: { bankLabel: "ธนาคาร", name: BANK.th, accountName: "ชื่อบัญชี", accountNo: "เลขที่บัญชี", holder: `${BANK.nameTh} (${BANK.nameEn})`, copy: "คัดลอก", copied: "คัดลอกแล้ว", qrAlt: "QR พร้อมเพย์ของพีระพอส (PeerapoS)", qrHint: "สแกนด้วยแอปธนาคารไหนก็ได้ ถ้าเปิดหน้านี้บนมือ⁠ถือ บันทึกรูป QR ไว้ก่อน แล้วเลือกรูปจากอัลบั้มในแอปธนาคาร", saveQr: "บันทึกรูป QR" },
     customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
     customSub:
       "งานบางอย่างไม่มีโปรแกรมสำเร็จรูปที่พอดี ถ้างานของร้านคุณยังติดอยู่ในสมุดหรือสเปรดชีต เราทำแอปเล็ก ๆ ให้ตรงกับวิธีทำงานของคุณ",
@@ -128,7 +128,7 @@ const COPY = {
     navAbout: "About",
     navContact: "Contact",
     navSupport: "Support me",
-    banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me on Gank so I can publish them.",
+    banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me via PromptPay so I can publish them.",
     h1: "Free software",
     heroSub:
       "Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
@@ -161,7 +161,7 @@ const COPY = {
         ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
       ],
       note: "Free, no account needed.",
-      support: "Like this app? Support me on Gank",
+      support: "Like this app? Support me via PromptPay",
       close: "Close",
       features: "What it does",
       prev: "Previous screenshot",
@@ -170,8 +170,8 @@ const COPY = {
     },
     supportTitle: "Do these apps help your work?",
     supportBody:
-      "Every app stays free, with nothing locked behind a payment. If you'd like to say thanks, you can send me a tip on Gank. It helps me keep building new apps.",
-    supportButton: "Support me on Gank",
+      "Every app stays free, with nothing locked behind a payment. If you'd like to say thanks, scan the QR or transfer to this account. It helps me keep building new apps.",
+    bank: { bankLabel: "Bank", name: BANK.en, accountName: "Account name", accountNo: "Account number", holder: `${BANK.nameEn} (${BANK.nameTh})`, copy: "Copy", copied: "Copied", qrAlt: "PromptPay QR for PeerapoS", qrHint: "Scan with any Thai banking app. On a phone, save the QR first, then pick it from your gallery in the banking app.", saveQr: "Save QR image" },
     customTitle: "Custom app development",
     customSub:
       "Some work has no off-the-shelf program that fits. If your shop still runs on a notebook or a spreadsheet, we build a small app around the way you already work.",
@@ -304,6 +304,57 @@ function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) =>
   );
 }
 
+/** Support card: PromptPay QR + KBank account, with copy and save for phone visitors who can't scan their own screen. */
+function BankCard({ t }: { t: { bankLabel: string; name: string; accountName: string; accountNo: string; holder: string; copy: string; copied: string; qrAlt: string; qrHint: string; saveQr: string } }) {
+  const [copied, setCopied] = useState(false);
+  function copy() {
+    navigator.clipboard
+      ?.writeText(BANK.accountNo.replace(/-/g, ""))
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
+  }
+  return (
+    <div className="w-full shrink-0 rounded-2xl bg-white p-5 text-ink shadow-lg sm:p-6 md:w-[22rem]">
+      <img src="/support/promptpay-qr.jpg" alt={t.qrAlt} width={830} height={1200} className="mx-auto h-auto w-full max-w-[15rem] rounded-lg" />
+      <p className="mt-3 text-center text-sm leading-relaxed text-graphite">{t.qrHint}</p>
+      <a
+        href="/support/promptpay-qr.jpg"
+        download="PeerapoS-PromptPay-QR.jpg"
+        className="mt-3 block rounded-xl border-2 border-tip px-4 py-2.5 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
+      >
+        {t.saveQr}
+      </a>
+      <dl className="mt-5 space-y-2 border-t border-ink/10 pt-4 text-sm">
+        <div className="flex justify-between gap-3">
+          <dt className="text-graphite">{t.bankLabel}</dt>
+          <dd className="text-right font-semibold">{t.name}</dd>
+        </div>
+        <div className="flex justify-between gap-3">
+          <dt className="text-graphite">{t.accountName}</dt>
+          <dd className="text-right font-semibold">{t.holder}</dd>
+        </div>
+        <div className="flex items-center justify-between gap-3">
+          <dt className="text-graphite">{t.accountNo}</dt>
+          <dd className="flex items-center gap-2">
+            <span className="font-mono text-base font-bold tracking-wide">{BANK.accountNo}</span>
+            <button
+              type="button"
+              onClick={copy}
+              aria-live="polite"
+              className="rounded-lg bg-tip px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-tip-deep"
+            >
+              {copied ? t.copied : t.copy}
+            </button>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const t = COPY[lang];
@@ -333,9 +384,7 @@ export default function Home() {
   return (
     <main className="overflow-x-clip">
       <a
-        href={GANK_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#support"
         className="block bg-tip px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-tip-deep"
       >
         {t.banner}
@@ -355,9 +404,7 @@ export default function Home() {
           </nav>
           {/* Shown at every width (the nav above hides on mobile) so support is always one tap away. */}
           <a
-            href={GANK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#support"
             className="whitespace-nowrap rounded-full bg-tip px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-tip-deep sm:px-4"
           >
             {t.navSupport}
@@ -435,14 +482,7 @@ export default function Home() {
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{t.supportTitle}</h2>
             <p className="mt-3 text-lg leading-relaxed text-white/90">{t.supportBody}</p>
           </div>
-          <a
-            href={GANK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-xl bg-white px-7 py-4 text-center text-lg font-bold text-tip-deep transition-colors hover:bg-paper"
-          >
-            {t.supportButton}
-          </a>
+          <BankCard t={t.bank} />
         </div>
       </section>
 
@@ -641,9 +681,8 @@ export default function Home() {
               {t.dl.size} · {t.dl.note}
             </p>
             <a
-              href={GANK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#support"
+              onClick={() => dialogRef.current?.close()}
               className="mt-4 block rounded-xl border-2 border-tip px-6 py-3 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
             >
               {t.dl.support}

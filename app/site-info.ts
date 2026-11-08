@@ -7,7 +7,8 @@ export const LINE_URL = "https://line.me/ti/p/sx3m1nEg53";
 export const TIKTOK_URL = "https://www.tiktok.com/@peera.pos";
 
 export const FASTWORK_URL = "https://fastwork.com/user/peerapos";
-export const GANK_URL = "https://ganknow.com/peerapos";
+// Support / tips: PeerapoS business account (KBank). The QR image is public/support/promptpay-qr.jpg.
+export const BANK = { th: "ธนาคารกสิกรไทย", en: "Kasikornbank (KBank)", accountNo: "233-1-23559-0", nameTh: "พีระพอส", nameEn: "PeerapoS" };
 
 // Starting prices as listed on Fastwork (checked 2026-10-16). Update both here and the FAQ text when they change.
 export const SERVICES = [
@@ -47,7 +48,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "โปรแกรมฟรีจริงไหม",
-      a: "ฟรีจริง ไม่มีค่าสมาชิก ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง ถ้าอยากสนับสนุน ส่งทิปผ่าน Gank ได้ที่ ganknow.com/peerapos",
+      a: "ฟรีจริง ไม่มีค่าสมาชิก ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง ถ้าอยากสนับสนุน สแกน QR พร้อมเพย์หรือโอนเข้าบัญชีกสิกรไทย 233-1-23559-0 (พีระพอส) ได้ที่ส่วน \"สนับสนุน\" บนหน้าเว็บ",
     },
   ],
   en: [
@@ -77,7 +78,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "Are the free apps really free?",
-      a: "Yes. No subscription, no ads, no account. Every app works offline on Windows 10 and 11, and your data stays on your own PC. If you want to support the work, you can tip on Gank at ganknow.com/peerapos.",
+      a: "Yes. No subscription, no ads, no account. Every app works offline on Windows 10 and 11, and your data stays on your own PC. If you want to support the work, scan the PromptPay QR or transfer to KBank 233-1-23559-0 (PeerapoS), shown in the Support section of the site.",
     },
   ],
 };

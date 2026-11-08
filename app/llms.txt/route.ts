@@ -1,5 +1,5 @@
 import { APPS, downloadUrl } from "../apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
+import { BANK, EMAIL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
 
@@ -11,7 +11,7 @@ export function GET() {
 
 Website: ${SITE_URL}
 Contact: ${EMAIL} · LINE ${LINE_URL} · Fastwork ${FASTWORK_URL}
-Support / tips: ${GANK_URL}
+Support / tips: PromptPay QR or bank transfer, ${BANK.en} ${BANK.accountNo} (${BANK.nameTh} / ${BANK.nameEn}), ${SITE_URL}/#support
 
 ## Custom app development (รับทำแอปตามสั่ง)
 
@@ -33,7 +33,7 @@ Peerapong (Peter) Saksommon: Software Architect at the Bank of Thailand, former 
 
 ## Free Windows apps
 
-Free, no subscription, no ads, no account. Optional tips on Gank (${GANK_URL}). Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
+Free, no subscription, no ads, no account. Optional tips by PromptPay or bank transfer (${SITE_URL}/#support). Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
 
 ${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}`).join("\n")}
 
