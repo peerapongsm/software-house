@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
-import { api, type Msg } from "@/lib/api.ts";
+import { api, API_BASE, type Msg } from "@/lib/api.ts";
 import { useLang } from "@/lib/lang.ts";
 import { clientIdError, GOOGLE_SCRIPT, googleError, SCRIPT_FAILED } from "@/lib/login.ts";
 import { safeNext } from "@/lib/next.ts";
@@ -42,7 +42,10 @@ type Gis = {
   };
 };
 
-const go = () => location.replace(safeNext(new URLSearchParams(location.search).get("next"), location.origin));
+const go = () => {
+  const n = safeNext(new URLSearchParams(location.search).get("next"), location.origin);
+  location.replace(n.startsWith("/api/") ? API_BASE + n : n); // an AI connector's authorize request lives on the API host
+};
 
 export default function Login() {
   const [lang, setLang] = useLang();

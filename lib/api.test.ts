@@ -19,7 +19,7 @@ test("GET sends the session cookie and returns the data", async () => {
   const calls = fakeFetch(() => json(200, { ok: true, email: "a@b.co" }));
   const r = await api<{ email: string }>("/api/me");
   assert.deepEqual(r, { ok: true, data: { ok: true, email: "a@b.co" } });
-  assert.equal(calls[0].url, "/api/me");
+  assert.equal(calls[0].url, "https://api.peerapongsm.dev/api/me");
   assert.equal(calls[0].init.method, "GET");
   assert.equal(calls[0].init.credentials, "include");
   assert.equal(calls[0].init.body, undefined);

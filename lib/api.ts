@@ -1,7 +1,7 @@
-// Client for the licence Worker's /api/*. Same origin in production (empty base); in dev
-// NEXT_PUBLIC_API_BASE points at the local Worker, which allows this one origin with credentials.
+// Client for the licence Worker's /api/* on api.peerapongsm.dev (credentialed CORS for this site's origin).
+// In dev NEXT_PUBLIC_API_BASE points at the local Worker, which allows the dev origin the same way.
 
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "";
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "https://api.peerapongsm.dev";
 
 export const PAID = ["account", "wholesale", "property", "academy", "service", "contractor", "wellness"] as const;
 export type PaidApp = (typeof PAID)[number];
