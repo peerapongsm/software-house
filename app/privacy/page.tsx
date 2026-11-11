@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 // Privacy policy for the Windows desktop apps (linked from the site footer).
-// Facts verified against app code 2026-10-07: data stays local; network = GitHub update
+// Facts verified against app code 2026-10-07 (Pharmacy, POS, Massage, Budget 2026-11-11): data stays local; network = GitHub update
 // check + user-sent feedback/crash reports via feedback.peerapongsm.dev,
 // which emails the report and uses the IP only for rate limiting.
 
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const EMAIL = "contact@peerapongsm.dev";
 const APPS =
-  "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair and Studio";
+  "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair, Studio, Pharmacy, POS, Massage and Budget";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
