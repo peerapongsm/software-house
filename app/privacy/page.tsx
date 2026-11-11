@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const EMAIL = "contact@peerapongsm.dev";
 const APPS =
-  "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair, Studio and Account";
+  "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair and Studio";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -52,7 +52,6 @@ export default function Privacy() {
           <ul className="list-disc space-y-2 pl-5">
             <li>
               <strong>ตรวจหาเวอร์ชันใหม่</strong> แอปจะถาม GitHub Releases ว่ามีเวอร์ชันใหม่ไหม ไม่ส่งข้อมูลของคุณไปด้วย
-              ยกเว้น PeerapoS Account ที่ไม่ตรวจเอง เพราะ Microsoft Store อัปเดตให้
             </li>
             <li>
               <strong>รายงานปัญหาหรือส่งความเห็น</strong> ส่งเฉพาะตอนที่คุณกดส่งเองเท่านั้น
@@ -102,7 +101,7 @@ export default function Privacy() {
           <ul className="list-disc space-y-2 pl-5">
             <li>
               <strong>Update check.</strong> The app asks GitHub Releases whether a new version exists. None of your data
-              is sent. PeerapoS Account skips this: the Microsoft Store updates it.
+              is sent.
             </li>
             <li>
               <strong>Problem reports and feedback</strong>, only when you choose to send one. A report contains the text
