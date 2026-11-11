@@ -1,4 +1,4 @@
-import { APPS, downloadUrl } from "../apps-data";
+import { APPS, PAID_APPS, downloadUrl } from "../apps-data";
 import { BANK, EMAIL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
@@ -35,7 +35,11 @@ Peerapong (Peter) Saksommon: Software Architect at the Bank of Thailand, former 
 
 Free, no subscription, no ads, no account. Optional tips by PromptPay or bank transfer (${SITE_URL}/#support). Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
 
-${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] ${a.storeUrl ? "Microsoft Store (paid)" : "Download"}: ${downloadUrl(a)}`).join("\n")}
+${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}`).join("\n")}
+
+## Paid Windows apps (coming soon, not on sale yet)
+
+${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} (not on sale yet)`).join("\n")}
 
 ## FAQ
 

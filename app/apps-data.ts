@@ -8,7 +8,7 @@ export type DesktopApp = {
   icon: string;
   shots: number; // screenshot count in /apps/shots/<icon-name>-<1..n>.webp
   uiLang: "th" | "en";
-  storeUrl?: string; // paid app sold on the Microsoft Store: links there instead of the GitHub installer
+  price?: number; // paid apps only: one-time price in baht, same as peerapos-licence worker/src/catalogue.ts
   th: Copy;
   en: Copy;
 };
@@ -16,7 +16,6 @@ export type DesktopApp = {
 // Goes through the peerapos-dl Worker (electron/peerapos-dl), which 302s to the latest GitHub
 // release asset; GitHub answers with Content-Disposition: attachment, so the download starts in place. Slug comes from the icon name (/apps/wash.png → wash).
 export const downloadUrl = (a: DesktopApp) => {
-  if (a.storeUrl) return a.storeUrl;
   const slug = a.icon.slice("/apps/".length, -".png".length);
   return `https://dl.peerapongsm.dev/${slug}`;
 };
@@ -424,6 +423,158 @@ export const APPS: DesktopApp[] = [
         "Plan every company's annual budget in one place: break it into lines, spread them over the months, and submit the plan through your approval steps. Once a plan is approved, budgets change only through adjustments and transfers that someone approves. An approved PO reserves budget at once, posted expenses become actuals, and budget vs actual and the year-end forecast are always up to date. Free, with your data kept on your own PC and no internet needed.",
       chips: ["Annual plans", "Approval steps", "PO commitments", "Budget vs actual", "Multi-company"],
       features: ["Every company and fiscal year in one file", "Header and sub-lines, recurring and project budgets", "Monthly spread: even, quarterly, one-time or custom", "Multi-step approval with every approver's name recorded", "Adjustments and transfers through approved documents", "POs that reserve budget, and expenses with VAT, withholding tax and attachments", "Contracts and renewals with notice reminders", "Dashboard, budget vs actual, pivot and year-end forecast", "15 standard reports exported to Excel, CSV and PDF", "Excel import with reconciliation", "Tamper-evident change history and encrypted backups"],
+    },
+  },
+];
+
+// Paid apps: not on sale yet, shown as "coming soon". Prices are one-time and must match the licence
+// server catalogue (electron/peerapos-licence worker/src/catalogue.ts). Copy from each app's docs/spec.md.
+export const PAID_APPS: DesktopApp[] = [
+  {
+    name: "PeerapoS Account",
+    icon: "/apps/account.png",
+    shots: 5,
+    uiLang: "th",
+    price: 9990,
+    th: {
+      tagline: "โปรแกรมบัญชีสำหรับบริษัทและสำนักงานบัญชี ไม่ขึ้นคลาวด์",
+      description:
+        "ลงบัญชีคู่จากเอกสารประจำวัน ออกใบกำกับภาษี ทำรายงานภาษีซื้อภาษีขายและตัวเลข ภ.พ.30 ออก 50 ทวิ และ ภ.ง.ด.3/53 พร้อมไฟล์สำหรับ RD Prep ปิดงบปลายปีเรียงตามรายการของกรมพัฒนาธุรกิจการค้า ย้ายข้อมูลจากโปรแกรมเดิมด้วย Excel หรือ DBF ใช้หลายเครื่องในออฟฟิศผ่าน LAN ข้อมูลบัญชีเข้ารหัสและอยู่ในเครื่องของคุณเท่านั้น",
+      chips: ["บัญชีคู่", "ใบกำกับภาษี", "ภ.พ.30", "50 ทวิ", "หลายเครื่องผ่าน LAN"],
+      features: ["สมุดรายวัน บัญชีแยกประเภท และงบทดลองที่ลงตัวทุกสตางค์", "ใบเสนอราคา ใบแจ้งหนี้ ใบกำกับภาษี ใบเสร็จ ใบลดหนี้ และใบเพิ่มหนี้", "ซื้อและจ่ายเงิน พร้อมหัก ณ ที่จ่ายและหนังสือรับรอง 50 ทวิ", "รายงานภาษีซื้อ ภาษีขาย และตัวเลขสำหรับ ภ.พ.30", "ภ.ง.ด.3 และ ภ.ง.ด.53 พร้อมไฟล์สำหรับ RD Prep", "กระทบยอดธนาคาร เช็ครับและเช็คจ่าย", "สินค้าคงเหลือ และสินทรัพย์ถาวรพร้อมค่าเสื่อมราคา", "ปิดบัญชีปลายปี งบการเงินตามรายการของ DBD และกระดาษทำการภาษีเงินได้นิติบุคคล", "ย้ายข้อมูลจากโปรแกรมเดิมด้วย Excel, CSV หรือ DBF", "หลายบริษัทในเครื่องเดียว", "ใช้หลายเครื่องพร้อมกันผ่าน LAN ข้อมูลที่ส่งถึงกันเข้ารหัส", "ผู้ใช้และสิทธิ์ ประวัติการแก้ไขที่ตรวจย้อนได้ และสำรองข้อมูลแบบเข้ารหัส"],
+    },
+    en: {
+      tagline: "Accounting for companies and accounting offices, without the cloud.",
+      description:
+        "Turn daily documents into double-entry books. Issue tax invoices, produce the purchase and sales tax reports and the PP.30 figures, issue 50 Tawi certificates and PND 3/53 with the RD Prep file, and close the year with statements in DBD line-item order. Move your data in from your old program via Excel or DBF, and work on the same books from several PCs over the office LAN. Your books are encrypted and stay on your own PCs.",
+      chips: ["Double entry", "Tax invoices", "PP.30", "50 Tawi", "Multi-PC over LAN"],
+      features: ["Journals, ledgers and a trial balance that balances to the satang", "Quotations, invoices, tax invoices, receipts, credit and debit notes", "Purchases and payments with withholding tax and 50 Tawi certificates", "Purchase and sales tax reports with PP.30 figures", "PND 3 and PND 53 with the RD Prep file", "Bank reconciliation, cheques received and issued", "Inventory, and fixed assets with depreciation", "Year-end close, DBD line-item statements and a corporate income tax worksheet", "Move in from your old program via Excel, CSV or DBF", "Many companies on one PC", "Several PCs at once over the office LAN, encrypted between them", "Users and roles, a tamper-evident change history and encrypted backups"],
+    },
+  },
+  {
+    name: "PeerapoS Wholesale",
+    icon: "/apps/wholesale.png",
+    shots: 0,
+    uiLang: "th",
+    price: 8990,
+    th: {
+      tagline: "หน้าร้าน ใบส่งของ และเครดิตลูกค้า สำหรับร้านวัสดุก่อสร้าง",
+      description:
+        "ขายหน้าร้าน เสนอราคา ขายเชื่อ ส่งของด้วยรถ วางบิล และตามหนี้ลูกค้า สต็อกนับได้หลายหน่วย เช่น เหล็กเส้นเป็นเส้นหรือเป็นตัน เหมาะกับร้านวัสดุก่อสร้างและร้านขายส่ง",
+      chips: ["ขายหน้าร้าน", "ขายเชื่อ", "ใบส่งของ", "วางบิล", "ระดับราคา"],
+      features: ["ขายหน้าร้านและเสนอราคา", "ขายเชื่อและส่งของด้วยรถ", "ใบส่งของ/ใบกำกับภาษี/ใบแจ้งหนี้ในใบเดียว", "ติดตามของค้างส่ง", "วางบิล ใบเสร็จ และหัก ณ ที่จ่าย", "เช็คและอายุหนี้ลูกหนี้", "ราคา 5 ระดับ และหลายหน่วยต่อสินค้า", "ซื้อของเข้า นับสต็อก และพิมพ์ป้ายราคา", "ปิดกะและปิดวัน", "รายงานสินค้าและวัตถุดิบตามมาตรา 87 และส่งข้อมูลให้นักบัญชี"],
+    },
+    en: {
+      tagline: "Counter, deliveries and customer credit for building-material shops.",
+      description:
+        "Sell at the counter, quote, sell on credit and deliver by truck, bill customers and chase what they owe. Stock can be counted in several units, such as rebar by the piece or by the tonne. Built for building-material shops and small wholesalers.",
+      chips: ["Counter", "Credit sales", "Deliveries", "Billing runs", "Price levels"],
+      features: ["Counter sales and quotations", "Credit sales and truck deliveries", "Combined delivery note, tax invoice and invoice", "Undelivered-goods tracking", "Billing runs, receipts and withholding tax", "Cheques and receivables ageing", "5 price levels and several units per product", "Purchases, stock counts and price labels", "Shift and day close", "Section 87 stock registers and accountant export"],
+    },
+  },
+  {
+    name: "PeerapoS Property",
+    icon: "/apps/property.png",
+    shots: 0,
+    uiLang: "th",
+    price: 7990,
+    th: {
+      tagline: "หอพักและอพาร์ตเมนต์หลายร้อยห้อง หลายอาคาร",
+      description:
+        "จดมิเตอร์แล้วออกบิลทั้งอาคารในครั้งเดียว รับเงิน ตามค่าเช่าค้าง ดูแลสัญญาเช่าตั้งแต่จองห้องจนย้ายออกและคืนเงินมัดจำ โปรแกรมเตือนเมื่อเงื่อนไขสัญญาขัดกับประกาศ สคบ. เรื่องธุรกิจให้เช่าที่อยู่อาศัย ใช้ได้หลายอาคารและหลายบริษัท",
+      chips: ["มิเตอร์", "บิลรายเดือน", "สัญญาเช่า", "ค่าเช่าค้าง", "เงินมัดจำ"],
+      features: ["ห้อง อาคาร และผู้เช่า", "จองห้องและย้ายเข้า พร้อมใบตรวจสภาพห้อง", "สัญญาเช่าและต่อสัญญา", "จดมิเตอร์แล้วออกบิลทั้งอาคารในครั้งเดียว", "ใบเสร็จและใบกำกับภาษี พร้อมหัก ณ ที่จ่าย", "ตามค่าเช่าค้าง", "ย้ายออกและคืนเงินมัดจำ", "ใบสั่งซ่อมและงานบำรุงรักษา", "พัสดุ กุญแจ และทะเบียนรถ", "ส่งข้อมูลรายเดือนให้นักบัญชี"],
+    },
+    en: {
+      tagline: "Dorms and apartments with hundreds of rooms.",
+      description:
+        "Read the meters and bill a whole building in one go, collect rent, chase arrears, and run each lease from booking to move-out and deposit refund. The app warns you when a lease term clashes with the Thai consumer-protection rules for residential rentals. Handles several buildings and companies.",
+      chips: ["Meters", "Monthly bills", "Leases", "Arrears", "Deposits"],
+      features: ["Rooms, buildings and tenants", "Bookings and move-in with a condition report", "Leases and renewals", "Meter readings to batch billing", "Receipts and tax invoices with withholding tax", "Arrears follow-up", "Move-out and deposit refund", "Work orders and maintenance", "Parcels, keys and vehicles", "Monthly export for the accountant"],
+    },
+  },
+  {
+    name: "PeerapoS Academy",
+    icon: "/apps/academy.png",
+    shots: 5,
+    uiLang: "th",
+    price: 7990,
+    th: {
+      tagline: "ค่าเทอมและเงินเดือนครู สำหรับโรงเรียนเอกชนและอนุบาล",
+      description:
+        "ตั้งแต่ทะเบียนนักเรียนและครอบครัว แผนค่าเทอม ส่วนลดพี่น้อง ทุนการศึกษา ออกบิลทั้งโรงเรียน และใบเสร็จรายครอบครัว ไปจนถึงเงินเดือนครูพร้อมกองทุนสงเคราะห์และประกันสังคม",
+      chips: ["ค่าเทอม", "ส่วนลดพี่น้อง", "ผ่อนชำระ", "เงินเดือนครู", "ใบรับรอง"],
+      features: ["ทะเบียนครอบครัว ผู้ปกครอง และนักเรียน", "แผนค่าเทอมและส่วนลดพี่น้อง", "ทุนการศึกษา", "ออกบิลค่าเทอมทั้งโรงเรียน แบ่งงวดได้", "ใบเสร็จรายครอบครัวและเช็ค", "ลาออก ใบลดหนี้ และคืนเงินประกัน", "เช็คชื่อประจำชั้นและใบรับรองนักเรียน", "เงินเดือนครู กองทุนสงเคราะห์ และประกันสังคม", "ใบลาและสลิปเงินเดือน", "นำเข้าจาก Class, School, Pay และ Excel"],
+    },
+    en: {
+      tagline: "School fees and teacher payroll for private schools and kindergartens.",
+      description:
+        "From student and family records, fee plans, sibling discounts and scholarships to whole-school billing and family receipts, through to teacher payroll with the private-school welfare fund and social security.",
+      chips: ["Term fees", "Sibling discount", "Instalments", "Teacher payroll", "Certificates"],
+      features: ["Families, guardians and students", "Fee plans and sibling discounts", "Scholarships", "Term billing for the whole school, in instalments", "Family receipts and cheques", "Withdrawals, credit notes and deposit refunds", "Homeroom roll and student certificates", "Teacher payroll, welfare fund and social security", "Leave and payslips", "Import from Class, School, Pay and Excel"],
+    },
+  },
+  {
+    name: "PeerapoS Service",
+    icon: "/apps/service.png",
+    shots: 0,
+    uiLang: "th",
+    price: 5990,
+    th: {
+      tagline: "ใบงานซ่อมและงานบริการ สำหรับร้านที่มีช่างหลายคน",
+      description:
+        "รับงานซ่อมรถ มือถือ คอมพิวเตอร์ แอร์ และเครื่องใช้ไฟฟ้า แจกงานให้ช่างบนกระดานงาน ออกใบกำกับภาษี และวางบิลลูกค้าบริษัท ลูกค้าฟลีท และบริษัทประกันที่หัก ณ ที่จ่าย",
+      chips: ["ใบงาน", "กระดานช่าง", "ลูกค้าฟลีท", "งานประกัน", "สัญญา PM"],
+      features: ["รับงานและใบงานซ่อม", "กระดานงานของช่างแต่ละคน", "งานนอกสถานที่", "ลูกค้าบริษัท ฟลีท และบริษัทประกัน", "เครดิตและวางบิล", "ใบเสร็จ ใบกำกับภาษี และหัก ณ ที่จ่าย", "สัญญาบำรุงรักษา (PM)", "รูปถ่ายประกอบงานเคลม", "ใช้หลายเครื่องผ่าน LAN", "นำเข้าจาก Repair และ Garage"],
+    },
+    en: {
+      tagline: "Job tickets for service shops with several technicians.",
+      description:
+        "For car garages, phone and computer repair, and aircon and appliance service. Assign jobs to technicians on a board, issue tax invoices, and bill company, fleet and insurer customers who withhold tax.",
+      chips: ["Job tickets", "Technician board", "Fleet", "Insurer jobs", "PM contracts"],
+      features: ["Job intake and repair tickets", "A job board per technician", "On-site jobs", "Company, fleet and insurer customers", "Credit terms and billing runs", "Receipts, tax invoices and withholding tax", "Preventive-maintenance contracts", "Claim photos on the job", "Several PCs over LAN", "Import from Repair and Garage"],
+    },
+  },
+  {
+    name: "PeerapoS Contractor",
+    icon: "/apps/contractor.png",
+    shots: 0,
+    uiLang: "th",
+    price: 5990,
+    th: {
+      tagline: "ตั้งแต่ BOQ ถึงเบิกงวด สำหรับผู้รับเหมา",
+      description:
+        "ทำใบเสนอราคาจาก BOQ ทำสัญญาแบ่งงวด เบิกงวด คืนเงินประกันผลงาน คุมต้นทุนแต่ละงาน และจ่ายค่าแรงทีมช่าง ครบในโปรแกรมเดียว เหมาะกับงานสร้างบ้าน รีโนเวต และงานตกแต่ง",
+      chips: ["BOQ", "เบิกงวด", "งานเพิ่ม-ลด", "เงินประกันผลงาน", "ค่าแรงช่าง"],
+      features: ["BOQ หลายเวอร์ชัน ดึงราคาจากคลังต้นทุน", "ใบเสนอราคาและสัญญาแบ่งงวด", "งานเพิ่ม-ลด", "เบิกงวด เงินล่วงหน้า และเงินประกันผลงาน", "ใบเสร็จและใบกำกับภาษี พร้อมหัก ณ ที่จ่าย", "ตารางงาน Gantt และบันทึกหน้างาน", "ซื้อของ บิลผู้ขาย และงานจ้างช่วง", "ลงเวลาช่าง เบิกล่วงหน้า ค่าแรง และประกันสังคม", "ต้นทุนจริงเทียบงบของแต่ละงาน", "ส่งข้อมูลรายเดือนให้นักบัญชี"],
+    },
+    en: {
+      tagline: "From BOQ to progress claims, for contractors.",
+      description:
+        "Price a job from a BOQ, sign a contract with payment stages, bill each claim, release retention, track each job's costs and pay your crew, all in one app. Built for house building, renovation and fit-out.",
+      chips: ["BOQ", "Progress claims", "Variations", "Retention", "Crew pay"],
+      features: ["Versioned BOQ priced from a cost library", "Quotation and staged contract", "Variation orders", "Progress claims, advance and retention", "Receipts and tax invoices with withholding tax", "Gantt schedule and site diary", "Purchases, supplier bills and sub-contracts", "Crew attendance, wage advances, pay and social security", "Job cost against budget", "Monthly export for the accountant"],
+    },
+  },
+  {
+    name: "PeerapoS Wellness",
+    icon: "/apps/wellness.png",
+    shots: 0,
+    uiLang: "th",
+    price: 4990,
+    th: {
+      tagline: "คิวนวด คลาสพิลาทิส และแพ็กเกจ ในโปรแกรมเดียว",
+      description:
+        "สำหรับร้านนวด สปา และสตูดิโอพิลาทิสหรือโยคะ จองคิวหมอนวด จัดตารางคลาสที่รับคนได้ตามจำนวนเครื่องที่ใช้ได้จริง ขายแพ็กเกจเป็นครั้งหรือเป็นนาที และคิดค่ามือหมอนวดกับค่าสอนครูให้",
+      chips: ["คิวนวด", "คลาส", "แพ็กเกจ", "ค่ามือ", "ทิป"],
+      features: ["ลูกค้าและแบบประเมินสุขภาพ พร้อมความยินยอม", "กระดานนัดหมายตามหมอนวดและเวลา", "คิวและลูกค้าเดินเข้า", "ตารางคลาสตามจำนวนเครื่องที่ใช้ได้ พร้อมรายชื่อรอ", "แพ็กเกจเป็นครั้งหรือเป็นนาที พักได้ โอนได้ คืนเงินได้", "รับเงิน มัดจำ ทิป และค่าบริการ", "ค่ามือหมอนวดและค่าสอนครู", "50 ทวิ ภ.ง.ด.3 และประกันสังคม", "รายงานและส่งข้อมูลให้นักบัญชี", "นำเข้าจาก Pilates, Massage และ Excel"],
+    },
+    en: {
+      tagline: "Appointments, classes and packages for massage shops and pilates studios.",
+      description:
+        "For massage and spa shops and for pilates and yoga studios. Book therapists, run a class timetable capped at the machines in service, sell packages by session or by minute, and work out therapist and instructor pay.",
+      chips: ["Appointments", "Classes", "Packages", "Therapist pay", "Tips"],
+      features: ["Customers with consented health screening", "Appointment board by therapist and time", "Queue and walk-ins", "Class timetable capped at machines in service, with waitlist", "Packages by session or minute: pause, transfer, refund", "Checkout with deposits, tips and service charge", "Therapist and instructor pay", "50 Tawi, PND 3 and social security", "Reports and accountant export", "Import from Pilates, Massage and Excel"],
     },
   },
 ];

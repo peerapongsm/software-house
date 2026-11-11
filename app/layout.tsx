@@ -114,8 +114,7 @@ const JSON_LD = {
       applicationCategory: "BusinessApplication",
       operatingSystem: "Windows 10, Windows 11",
       downloadUrl: downloadUrl(a),
-      // Store apps: price lives on the Store listing, so no free Offer is claimed here.
-      ...(a.storeUrl ? {} : { offers: { "@type": "Offer", price: "0", priceCurrency: "THB" } }),
+      offers: { "@type": "Offer", price: "0", priceCurrency: "THB" },
       author: { "@id": `${SITE_URL}/#org` },
     })),
   ],

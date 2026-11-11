@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
+import { APPS, PAID_APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
 import { BANK, EMAIL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
@@ -36,6 +36,13 @@ const COPY = {
   th: {
     eyebrow: "Software House รับทำแอปและเขียนโปรแกรมตามสั่ง",
     navApps: "โปรแกรมฟรี",
+    navPaid: "โปรแกรมเสียเงิน",
+    paidTitle: "โปรแกรมเสียเงิน",
+    paidSoon: "เร็ว ๆ นี้ · ยังไม่เปิดขาย",
+    paidSub: "ราคาที่เห็นคือราคาจริง จ่ายครั้งเดียว อัปเดตฟรีตลอด ไม่มีค่ารายเดือน ใช้ได้ 2 เครื่องในร้านเดียวกันผ่าน LAN และ 2 บริษัท",
+    oneTime: "จ่ายครั้งเดียว",
+    comingSoon: "เร็ว ๆ นี้",
+    paidNote: "ยังไม่เปิดขาย เปิดขายเมื่อไรจะแจ้งที่หน้านี้",
     navCustom: "รับทำแอป",
     navAbout: "เกี่ยวกับ",
     navContact: "ติดต่อ",
@@ -70,8 +77,6 @@ const COPY = {
         ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
       ],
       note: "ฟรี ไม่ต้องสมัครสมาชิก",
-      store: "ซื้อใน Microsoft Store",
-      storeNote: "ซื้อครั้งเดียว ได้ทุกฟีเจอร์ Microsoft Store ติดตั้งและอัปเดตให้เอง",
       support: "ชอบโปรแกรมนี้ไหม เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
       close: "ปิด",
       features: "ทำอะไรได้บ้าง",
@@ -122,6 +127,13 @@ const COPY = {
   en: {
     eyebrow: "Software house for custom apps",
     navApps: "Free apps",
+    navPaid: "Paid apps",
+    paidTitle: "Paid apps",
+    paidSoon: "Coming soon · Not on sale yet",
+    paidSub: "The prices shown are the real prices. Pay once, free updates for life, no monthly fee. Covers 2 PCs on the same LAN and 2 companies.",
+    oneTime: "one-time",
+    comingSoon: "Coming soon",
+    paidNote: "Not on sale yet. This page will say when it is.",
     navCustom: "Custom apps",
     navAbout: "About",
     navContact: "Contact",
@@ -154,8 +166,6 @@ const COPY = {
         ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
       ],
       note: "Free, no account needed.",
-      store: "Get it from Microsoft Store",
-      storeNote: "One purchase unlocks everything. Microsoft Store installs and updates it.",
       support: "Like this app? Support me via PromptPay",
       close: "Close",
       features: "What it does",
@@ -355,7 +365,7 @@ export default function Home() {
   const t = COPY[lang];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [openAppName, setOpenAppName] = useState<string | null>(null);
-  const app = APPS.find((a) => a.name === openAppName);
+  const app = APPS.find((a) => a.name === openAppName) ?? PAID_APPS.find((a) => a.name === openAppName);
 
   function openApp(a: DesktopApp) {
     setOpenAppName(a.name);
@@ -391,8 +401,9 @@ export default function Home() {
           <span className="font-display text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
         </a>
         <div className="flex items-center gap-3 md:gap-6">
-          <nav className="hidden items-center gap-6 font-semibold text-graphite md:flex">
+          <nav className="hidden items-center gap-6 font-semibold text-graphite lg:flex">
             <a href="#apps" className="hover:text-ink">{t.navApps}</a>
+            <a href="#paid" className="hover:text-ink">{t.navPaid}</a>
             <a href="#custom" className="hover:text-ink">{t.navCustom}</a>
             <a href="#about" className="hover:text-ink">{t.navAbout}</a>
             <a href="#contact" className="hover:text-ink">{t.navContact}</a>
@@ -478,6 +489,51 @@ export default function Home() {
             <p className="mt-3 text-lg leading-relaxed text-white/90">{t.supportBody}</p>
           </div>
           <BankCard t={t.bank} />
+        </div>
+      </section>
+
+      {/* ── Paid apps ──────────────────────────────────── */}
+      <section id="paid" className="border-t border-line bg-sheet py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-8">
+          <p className="mb-4 inline-block rounded-full bg-indigo px-4 py-2 font-semibold text-white">{t.paidSoon}</p>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.paidTitle}</h2>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.paidSub}</p>
+          <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
+            {PAID_APPS.map((a) => {
+              const c = a[lang];
+              return (
+                <li key={a.name} className="border-b border-line">
+                  <button
+                    type="button"
+                    onClick={() => openApp(a)}
+                    aria-haspopup="dialog"
+                    className="group flex w-full items-center gap-4 py-4 text-left md:items-start md:py-6"
+                  >
+                    <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%] md:size-14" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-display text-lg font-bold group-hover:text-indigo md:text-xl">{a.name}</span>
+                      {a.price !== undefined && (
+                        <span className="block text-xl font-bold text-indigo">
+                          ฿{a.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
+                        </span>
+                      )}
+                      <span className="block leading-snug text-graphite">{c.tagline}</span>
+                      <span className="mt-3 hidden flex-wrap gap-1.5 md:flex">
+                        {c.chips.map((chip) => (
+                          <span key={chip} className="rounded-md bg-paper px-2 py-0.5 text-sm text-graphite">
+                            {chip}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                    <span aria-hidden="true" className="text-2xl text-line group-hover:text-ink md:hidden">
+                      ›
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
@@ -613,6 +669,11 @@ export default function Home() {
               <div className="min-w-0">
                 <h2 id="dl-title" className="break-words font-display text-2xl font-bold sm:text-3xl">
                   {app.name}
+                  {app.price !== undefined && (
+                    <span className="mt-1 block text-xl text-indigo sm:ml-3 sm:mt-0 sm:inline-block">
+                      ฿{app.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
+                    </span>
+                  )}
                 </h2>
                 <p className="text-lg text-graphite">{app[lang].tagline}</p>
               </div>
@@ -625,7 +686,7 @@ export default function Home() {
               </button>
             </div>
 
-            <Carousel key={app.name} srcs={shotUrls(app)} alt={app.name} labels={t.dl} />
+            {app.shots > 0 && <Carousel key={app.name} srcs={shotUrls(app)} alt={app.name} labels={t.dl} />}
 
             <p className="mt-5 max-w-3xl leading-relaxed text-graphite">{app[lang].description}</p>
 
@@ -640,17 +701,17 @@ export default function Home() {
               {t.uiLang[app.uiLang]} · {t.winOnly}
             </p>
 
-            {app.storeUrl ? (
+            {app.price !== undefined ? (
               <>
-                <a
-                  href={app.storeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="mt-6 block w-full cursor-not-allowed rounded-xl bg-line px-6 py-4 text-center text-lg font-semibold text-graphite"
                 >
-                  {t.dl.store}
-                </a>
-                <p className="mt-2 text-center text-sm text-graphite">{t.dl.storeNote}</p>
+                  {t.comingSoon}
+                </button>
+                <p className="mt-2 text-center text-sm text-graphite">{t.paidNote}</p>
               </>
             ) : (
             <>
@@ -689,8 +750,6 @@ export default function Home() {
             <p className="mt-2 text-center text-sm text-graphite">
               {t.dl.size} · {t.dl.note}
             </p>
-            </>
-            )}
             <a
               href="#support"
               onClick={() => dialogRef.current?.close()}
@@ -698,6 +757,8 @@ export default function Home() {
             >
               {t.dl.support}
             </a>
+            </>
+            )}
           </div>
         )}
       </dialog>
