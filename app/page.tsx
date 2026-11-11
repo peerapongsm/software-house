@@ -48,32 +48,30 @@ const COPY = {
     heroCustom: "คุยเรื่องทำแอป",
     wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
     appsTitle: "เลือกตัวที่ตรงกับงานของคุณ",
-    appsSub: "ทุกตัวฟรี ทำงานได้โดยไม่ต้องต่อเน็ต และสำรองข้อมูลเก็บไว้เองได้",
+    appsSub: "ทุกตัวทำงานได้โดยไม่ต้องต่อเน็ต สำรองข้อมูลเก็บไว้เองได้ และแยกข้อมูลหลายบริษัทในเครื่องเดียวได้ ใช้ฟรีทุกตัว ยกเว้น PeerapoS Account ที่ขายใน Microsoft Store",
     winOnly: "ใช้ได้กับ Windows 10 และ 11 (64-bit) บนคอมพิวเตอร์ ยังไม่มีเวอร์ชัน Mac มือถือ และแท็บเล็ต",
-    uiLang: { th: "หน้าจอภาษาไทย", en: "หน้าจอภาษาอังกฤษ" },
+    uiLang: { th: "หน้าจอภาษาไทย สลับเป็นภาษาอังกฤษได้ในตั้งค่า", en: "หน้าจอภาษาอังกฤษ" },
     dl: {
       button: "ดาวน์โหลดตัวติดตั้ง",
       size: "ไฟล์ .exe ประมาณ 100 MB",
       guideTitle: "วิธีติดตั้ง",
       guideWhy:
-        "โปรแกรมยังไม่มีลายเซ็นดิจิทัล (code signing) ที่ต้องจ่ายรายปี Windows กับเบราว์เซอร์เลยเตือนก่อนเปิดไฟล์ เป็นเรื่องปกติของโปรแกรมจากผู้พัฒนารายเล็ก ไฟล์ส่งตรงจากหน้า GitHub ของโปรแกรม",
+        "ทุกโปรแกรมมีลายเซ็นดิจิทัล (code signing) ในชื่อ PeerapoS ยืนยันได้ว่าไฟล์มาจากเราจริงและไม่ถูกแก้ไขระหว่างทาง ไฟล์ส่งตรงจากหน้า GitHub ของโปรแกรม",
       // Each step = [main step, ...sub-steps]; sub-steps render as 2.1, 2.2 …
+      // Certum OV cert: SmartScreen reputation still builds per release, so a fresh version can still warn.
       steps: [
         ["กดปุ่มดาวน์โหลดด้านล่าง ไฟล์จะเริ่มโหลดทันที"],
+        ["เปิดไฟล์ที่โหลดมา โปรแกรมจะติดตั้งเองโดยไม่ต้องกดอะไรเพิ่ม"],
         [
-          "ถ้าเบราว์เซอร์เตือนว่าไฟล์นี้ไม่ค่อยมีคนดาวน์โหลด ให้เลือกเก็บไฟล์ไว้",
-          "Edge: กด ⋯ ที่รายการดาวน์โหลด แล้วกด Keep (เก็บไว้)",
-          "ถ้า Edge ถามอีกครั้ง: กด Show more แล้วกด Keep anyway",
-          "Chrome: กด Keep",
-        ],
-        [
-          "เปิดไฟล์ที่โหลดมา ถ้าขึ้นกรอบสีน้ำเงิน Windows protected your PC",
-          "กด More info (ข้อมูลเพิ่มเติม)",
+          "เวอร์ชันที่เพิ่งออกใหม่ Windows อาจยังขึ้นกรอบสีน้ำเงิน Windows protected your PC",
+          "กด More info (ข้อมูลเพิ่มเติม) แล้วดูว่า Publisher เป็น PeerapoS",
           "กด Run anyway (เรียกใช้ต่อไป)",
         ],
         ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
       ],
       note: "ฟรี ไม่ต้องสมัครสมาชิก",
+      store: "ซื้อใน Microsoft Store",
+      storeNote: "ซื้อครั้งเดียว ได้ทุกฟีเจอร์ Microsoft Store ติดตั้งและอัปเดตให้เอง",
       support: "ชอบโปรแกรมนี้ไหม เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
       close: "ปิด",
       features: "ทำอะไรได้บ้าง",
@@ -83,7 +81,7 @@ const COPY = {
     },
     supportTitle: "ใช้แล้วชอบไหม",
     supportBody:
-      "ทุกตัวยังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สแกน QR หรือโอนเข้าบัญชีนี้ได้เลย ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
+      "โปรแกรมฟรียังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สแกน QR หรือโอนเข้าบัญชีนี้ได้เลย ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
     bank: { bankLabel: "ธนาคาร", name: BANK.th, accountName: "ชื่อบัญชี", accountNo: "เลขที่บัญชี", holder: `${BANK.nameTh} (${BANK.nameEn})`, copy: "คัดลอก", copied: "คัดลอกแล้ว", qrAlt: "QR พร้อมเพย์ของพีระพอส (PeerapoS)", qrHint: "สแกนด้วยแอปธนาคารไหนก็ได้ ถ้าเปิดหน้านี้บนมือ⁠ถือ บันทึกรูป QR ไว้ก่อน แล้วเลือกรูปจากอัลบั้มในแอปธนาคาร", saveQr: "บันทึกรูป QR" },
     customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
     customSub:
@@ -136,31 +134,28 @@ const COPY = {
     heroCustom: "Talk about a custom app",
     wallLabel: "All apps. Select one for details.",
     appsTitle: "Pick the one that fits your work",
-    appsSub: "Every app is free, runs without an internet connection, and lets you keep your own backups.",
+    appsSub: "Every app runs without an internet connection, lets you keep your own backups and can hold several companies on one PC. All are free except PeerapoS Account, sold on the Microsoft Store.",
     winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
-    uiLang: { th: "Thai interface", en: "English interface" },
+    uiLang: { th: "Thai interface, switch to English in Settings", en: "English interface" },
     dl: {
       button: "Download installer",
       size: ".exe file, about 100 MB",
       guideTitle: "How to install",
       guideWhy:
-        "The apps aren't code-signed yet (that costs a yearly fee), so Windows and your browser warn you before the file runs. That's normal for software from small developers. The file comes straight from the app's GitHub page.",
+        "Every app is code-signed as PeerapoS, so you can check the file really comes from us and wasn't changed on the way. The file comes straight from the app's GitHub page.",
       steps: [
         ["Press the download button below. The download starts right away."],
+        ["Open the downloaded file. It installs on its own, with nothing else to click."],
         [
-          "If your browser says the file isn't commonly downloaded, keep it.",
-          "Edge: press ⋯ on the download, then Keep.",
-          "If Edge asks again: press Show more, then Keep anyway.",
-          "Chrome: press Keep.",
-        ],
-        [
-          "Open the downloaded file. If a blue box says Windows protected your PC:",
-          "Press More info.",
+          "For a version that just came out, Windows may still show a blue box saying Windows protected your PC:",
+          "Press More info and check that the Publisher is PeerapoS.",
           "Press Run anyway.",
         ],
         ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
       ],
       note: "Free, no account needed.",
+      store: "Get it from Microsoft Store",
+      storeNote: "One purchase unlocks everything. Microsoft Store installs and updates it.",
       support: "Like this app? Support me via PromptPay",
       close: "Close",
       features: "What it does",
@@ -170,7 +165,7 @@ const COPY = {
     },
     supportTitle: "Do these apps help your work?",
     supportBody:
-      "Every app stays free, with nothing locked behind a payment. If you'd like to say thanks, scan the QR or transfer to this account. It helps me keep building new apps.",
+      "The free apps stay free, with nothing locked behind a payment. If you'd like to say thanks, scan the QR or transfer to this account. It helps me keep building new apps.",
     bank: { bankLabel: "Bank", name: BANK.en, accountName: "Account name", accountNo: "Account number", holder: `${BANK.nameEn} (${BANK.nameTh})`, copy: "Copy", copied: "Copied", qrAlt: "PromptPay QR for PeerapoS", qrHint: "Scan with any Thai banking app. On a phone, save the QR first, then pick it from your gallery in the banking app.", saveQr: "Save QR image" },
     customTitle: "Custom app development",
     customSub:
@@ -587,7 +582,7 @@ export default function Home() {
           </ul>
 
           <footer className="mt-16 flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:justify-between">
-            <span>© 2026 PeerapoS</span>
+            <span>© 2026 พีระพอส (PeerapoS)</span>
             {visits !== null && (
               <span className="flex items-center gap-2">
                 {t.visitor}
@@ -645,6 +640,20 @@ export default function Home() {
               {t.uiLang[app.uiLang]} · {t.winOnly}
             </p>
 
+            {app.storeUrl ? (
+              <>
+                <a
+                  href={app.storeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
+                >
+                  {t.dl.store}
+                </a>
+                <p className="mt-2 text-center text-sm text-graphite">{t.dl.storeNote}</p>
+              </>
+            ) : (
+            <>
             <h3 className="mt-6 font-display text-lg font-bold">{t.dl.guideTitle}</h3>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-graphite">{t.dl.guideWhy}</p>
             {/* Numbers are written out (1, 2.1, 2.2 …) so sub-steps read the way they're spoken. */}
@@ -680,6 +689,8 @@ export default function Home() {
             <p className="mt-2 text-center text-sm text-graphite">
               {t.dl.size} · {t.dl.note}
             </p>
+            </>
+            )}
             <a
               href="#support"
               onClick={() => dialogRef.current?.close()}

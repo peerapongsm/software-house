@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const EMAIL = "contact@peerapongsm.dev";
 const APPS =
-  "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair and Studio";
+  "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair, Studio and Account";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -52,6 +52,7 @@ export default function Privacy() {
           <ul className="list-disc space-y-2 pl-5">
             <li>
               <strong>ตรวจหาเวอร์ชันใหม่</strong> แอปจะถาม GitHub Releases ว่ามีเวอร์ชันใหม่ไหม ไม่ส่งข้อมูลของคุณไปด้วย
+              ยกเว้น PeerapoS Account ที่ไม่ตรวจเอง เพราะ Microsoft Store อัปเดตให้
             </li>
             <li>
               <strong>รายงานปัญหาหรือส่งความเห็น</strong> ส่งเฉพาะตอนที่คุณกดส่งเองเท่านั้น
@@ -72,6 +73,8 @@ export default function Privacy() {
 
         <Section title="ติดต่อ">
           <p>
+            ผู้ให้บริการ: พีระพอส (PeerapoS)
+            <br />
             มีคำถามเรื่องความเป็นส่วนตัว ทักมาได้ที่{" "}
             <a href={`mailto:${EMAIL}`} className="text-indigo underline">{EMAIL}</a>
           </p>
@@ -99,7 +102,7 @@ export default function Privacy() {
           <ul className="list-disc space-y-2 pl-5">
             <li>
               <strong>Update check.</strong> The app asks GitHub Releases whether a new version exists. None of your data
-              is sent.
+              is sent. PeerapoS Account skips this: the Microsoft Store updates it.
             </li>
             <li>
               <strong>Problem reports and feedback</strong>, only when you choose to send one. A report contains the text
@@ -121,6 +124,8 @@ export default function Privacy() {
 
         <Section title="Contact">
           <p>
+            Provider: พีระพอส (PeerapoS)
+            <br />
             Privacy questions: <a href={`mailto:${EMAIL}`} className="text-indigo underline">{EMAIL}</a>
           </p>
         </Section>
