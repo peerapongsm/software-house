@@ -60,10 +60,7 @@ const COPY = {
     uiLang: { th: "หน้าจอภาษาไทย สลับเป็นภาษาอังกฤษได้ในตั้งค่า", en: "หน้าจอภาษาอังกฤษ" },
     dl: {
       button: "ดาวน์โหลดตัวติดตั้ง",
-      size: "ไฟล์ .exe ประมาณ 100 MB",
       guideTitle: "วิธีติดตั้ง",
-      guideWhy:
-        "ทุกโปรแกรมมีลายเซ็นดิจิทัล (code signing) ในชื่อ PeerapoS ยืนยันได้ว่าไฟล์มาจากเราจริงและไม่ถูกแก้ไขระหว่างทาง ไฟล์ส่งตรงจากหน้า GitHub ของโปรแกรม",
       // Each step = [main step, ...sub-steps]; sub-steps render as 2.1, 2.2 …
       // Certum OV cert: SmartScreen reputation still builds per release, so a fresh version can still warn.
       steps: [
@@ -76,8 +73,6 @@ const COPY = {
         ],
         ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
       ],
-      note: "ฟรี ไม่ต้องสมัครสมาชิก",
-      support: "ชอบโปรแกรมนี้ไหม เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
       close: "ปิด",
       features: "ทำอะไรได้บ้าง",
       prev: "ภาพก่อนหน้า",
@@ -151,10 +146,7 @@ const COPY = {
     uiLang: { th: "Thai interface, switch to English in Settings", en: "English interface" },
     dl: {
       button: "Download installer",
-      size: ".exe file, about 100 MB",
       guideTitle: "How to install",
-      guideWhy:
-        "Every app is code-signed as PeerapoS, so you can check the file really comes from us and wasn't changed on the way. The file comes straight from the app's GitHub page.",
       steps: [
         ["Press the download button below. The download starts right away."],
         ["Open the downloaded file. It installs on its own, with nothing else to click."],
@@ -165,8 +157,6 @@ const COPY = {
         ],
         ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
       ],
-      note: "Free, no account needed.",
-      support: "Like this app? Support me via PromptPay",
       close: "Close",
       features: "What it does",
       prev: "Previous screenshot",
@@ -716,7 +706,6 @@ export default function Home() {
             ) : (
             <>
             <h3 className="mt-6 font-display text-lg font-bold">{t.dl.guideTitle}</h3>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-graphite">{t.dl.guideWhy}</p>
             {/* Numbers are written out (1, 2.1, 2.2 …) so sub-steps read the way they're spoken. */}
             <ol className="mt-3 grid gap-2 leading-relaxed">
               {t.dl.steps.map(([step, ...subs], i) => (
@@ -746,16 +735,6 @@ export default function Home() {
               className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
             >
               {t.dl.button}
-            </a>
-            <p className="mt-2 text-center text-sm text-graphite">
-              {t.dl.size} · {t.dl.note}
-            </p>
-            <a
-              href="#support"
-              onClick={() => dialogRef.current?.close()}
-              className="mt-4 block rounded-xl border-2 border-tip px-6 py-3 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
-            >
-              {t.dl.support}
             </a>
             </>
             )}
