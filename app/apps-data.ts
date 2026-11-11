@@ -426,26 +426,4 @@ export const APPS: DesktopApp[] = [
       features: ["Every company and fiscal year in one file", "Header and sub-lines, recurring and project budgets", "Monthly spread: even, quarterly, one-time or custom", "Multi-step approval with every approver's name recorded", "Adjustments and transfers through approved documents", "POs that reserve budget, and expenses with VAT, withholding tax and attachments", "Contracts and renewals with notice reminders", "Dashboard, budget vs actual, pivot and year-end forecast", "15 standard reports exported to Excel, CSV and PDF", "Excel import with reconciliation", "Tamper-evident change history and encrypted backups"],
     },
   },
-  {
-    name: "PeerapoS Account",
-    icon: "/apps/account.png",
-    shots: 5,
-    uiLang: "th",
-    // ponytail: Store search link until the listing is live; swap for apps.microsoft.com/detail/<StoreId>.
-    storeUrl: "https://apps.microsoft.com/search?query=PeerapoS%20Account",
-    th: {
-      tagline: "โปรแกรมบัญชีสำหรับบริษัทและสำนักงานบัญชี ไม่ขึ้นคลาวด์",
-      description:
-        "ลงบัญชีคู่จากเอกสารประจำวัน ออกใบกำกับภาษี ทำรายงานภาษีซื้อภาษีขายและตัวเลข ภ.พ.30 ออก 50 ทวิ และ ภ.ง.ด.3/53 พร้อมไฟล์สำหรับ RD Prep ปิดงบปลายปีเรียงตามรายการของกรมพัฒนาธุรกิจการค้า ย้ายข้อมูลมาจาก Express, myAccount หรือ FlowAccount ได้ตั้งแต่วันแรก ใช้หลายเครื่องในออฟฟิศพร้อมกันผ่าน LAN ข้อมูลบัญชีอยู่ในเครื่องของคุณเท่านั้น ซื้อครั้งเดียวใน Microsoft Store ได้ทุกฟีเจอร์",
-      chips: ["บัญชีคู่", "ใบกำกับภาษี", "ภ.พ.30", "50 ทวิ", "หลายเครื่องผ่าน LAN", "Microsoft Store"],
-      features: ["สมุดรายวัน บัญชีแยกประเภท และงบทดลองที่ลงตัวทุกสตางค์", "ใบเสนอราคา ใบแจ้งหนี้ ใบกำกับภาษี ใบเสร็จ ใบลดหนี้ และใบเพิ่มหนี้", "ซื้อและจ่ายเงิน พร้อมหัก ณ ที่จ่ายและหนังสือรับรอง 50 ทวิ", "รายงานภาษีซื้อ ภาษีขาย และตัวเลขสำหรับ ภ.พ.30", "ภ.ง.ด.3 และ ภ.ง.ด.53 พร้อมไฟล์สำหรับ RD Prep", "กระทบยอดธนาคาร เช็ครับและเช็คจ่าย", "สินค้าคงเหลือ และสินทรัพย์ถาวรพร้อมค่าเสื่อมราคา", "ปิดบัญชีปลายปี งบการเงินตามรายการของ DBD และกระดาษทำการภาษีเงินได้นิติบุคคล", "ย้ายข้อมูลจาก Express, myAccount และ FlowAccount ด้วย Excel, CSV หรือ DBF", "หลายบริษัทในเครื่องเดียว สลับบริษัทได้ทันที", "ใช้หลายเครื่องพร้อมกันผ่าน LAN ในออฟฟิศ ข้อมูลที่ส่งถึงกันเข้ารหัส", "ผู้ใช้และสิทธิ์ ประวัติการแก้ไขที่ตรวจย้อนได้ และสำรองข้อมูลแบบเข้ารหัส"],
-    },
-    en: {
-      tagline: "Accounting for companies and accounting offices, without the cloud.",
-      description:
-        "Turn daily documents into double-entry books. Issue tax invoices, produce the purchase and sales tax reports and the PP.30 figures, issue 50 Tawi certificates and PND 3/53 with the RD Prep file, and close the year with statements in DBD line-item order. Bring your data over from Express, myAccount or FlowAccount on day one, and work on the same books from several PCs over the office LAN. Your books stay on your own PCs. One Microsoft Store purchase unlocks everything.",
-      chips: ["Double entry", "Tax invoices", "PP.30", "50 Tawi", "Multi-PC over LAN", "Microsoft Store"],
-      features: ["Journals, ledgers and a trial balance that balances to the satang", "Quotations, invoices, tax invoices, receipts, credit and debit notes", "Purchases and payments with withholding tax and 50 Tawi certificates", "Purchase and sales tax reports with PP.30 figures", "PND 3 and PND 53 with the RD Prep file", "Bank reconciliation, cheques received and issued", "Inventory, and fixed assets with depreciation", "Year-end close, DBD line-item statements and a corporate income tax worksheet", "Move in from Express, myAccount and FlowAccount via Excel, CSV or DBF", "Many companies on one PC, switch in a moment", "Several PCs at once over the office LAN, encrypted between them", "Users and roles, a tamper-evident change history and encrypted backups"],
-    },
-  },
 ];

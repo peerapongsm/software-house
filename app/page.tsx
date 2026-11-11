@@ -48,7 +48,7 @@ const COPY = {
     heroCustom: "คุยเรื่องทำแอป",
     wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
     appsTitle: "เลือกตัวที่ตรงกับงานของคุณ",
-    appsSub: "ทุกตัวทำงานได้โดยไม่ต้องต่อเน็ต สำรองข้อมูลเก็บไว้เองได้ และแยกข้อมูลหลายบริษัทในเครื่องเดียวได้ ใช้ฟรีทุกตัว ยกเว้น PeerapoS Account ที่ขายใน Microsoft Store",
+    appsSub: "ทุกตัวทำงานได้โดยไม่ต้องต่อเน็ต สำรองข้อมูลเก็บไว้เองได้ และแยกข้อมูลหลายบริษัทในเครื่องเดียวได้ ใช้ฟรีทุกตัว",
     winOnly: "ใช้ได้กับ Windows 10 และ 11 (64-bit) บนคอมพิวเตอร์ ยังไม่มีเวอร์ชัน Mac มือถือ และแท็บเล็ต",
     uiLang: { th: "หน้าจอภาษาไทย สลับเป็นภาษาอังกฤษได้ในตั้งค่า", en: "หน้าจอภาษาอังกฤษ" },
     dl: {
@@ -134,7 +134,7 @@ const COPY = {
     heroCustom: "Talk about a custom app",
     wallLabel: "All apps. Select one for details.",
     appsTitle: "Pick the one that fits your work",
-    appsSub: "Every app runs without an internet connection, lets you keep your own backups and can hold several companies on one PC. All are free except PeerapoS Account, sold on the Microsoft Store.",
+    appsSub: "Every app runs without an internet connection, lets you keep your own backups and can hold several companies on one PC. All of them are free.",
     winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
     uiLang: { th: "Thai interface, switch to English in Settings", en: "English interface" },
     dl: {
