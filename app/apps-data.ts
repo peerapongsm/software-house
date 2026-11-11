@@ -517,7 +517,7 @@ export const PAID_APPS: DesktopApp[] = [
   {
     name: "PeerapoS Service",
     icon: "/apps/service.png",
-    shots: 0,
+    shots: 5,
     uiLang: "th",
     price: 5990,
     th: {
