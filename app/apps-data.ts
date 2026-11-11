@@ -454,7 +454,7 @@ export const PAID_APPS: DesktopApp[] = [
   {
     name: "PeerapoS Wholesale",
     icon: "/apps/wholesale.png",
-    shots: 0,
+    shots: 5,
     uiLang: "th",
     price: 8990,
     th: {
@@ -475,7 +475,7 @@ export const PAID_APPS: DesktopApp[] = [
   {
     name: "PeerapoS Property",
     icon: "/apps/property.png",
-    shots: 0,
+    shots: 5,
     uiLang: "th",
     price: 7990,
     th: {
@@ -538,7 +538,7 @@ export const PAID_APPS: DesktopApp[] = [
   {
     name: "PeerapoS Contractor",
     icon: "/apps/contractor.png",
-    shots: 0,
+    shots: 5,
     uiLang: "th",
     price: 5990,
     th: {
@@ -559,7 +559,7 @@ export const PAID_APPS: DesktopApp[] = [
   {
     name: "PeerapoS Wellness",
     icon: "/apps/wellness.png",
-    shots: 0,
+    shots: 5,
     uiLang: "th",
     price: 4990,
     th: {
