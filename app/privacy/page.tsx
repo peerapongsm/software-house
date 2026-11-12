@@ -19,9 +19,9 @@ const EMAIL = "contact@peerapongsm.dev";
 const APPS =
   "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair, Studio, Pharmacy, POS, Massage and Budget";
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ id, title, children }: { id?: string; title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-8">
+    <section id={id} className="mt-8 scroll-mt-6">
       <h3 className="font-display text-xl font-bold">{title}</h3>
       <div className="mt-2 space-y-2 leading-relaxed text-graphite">{children}</div>
     </section>
@@ -80,10 +80,14 @@ export default function Privacy() {
           </p>
         </Section>
 
-        <Section title="ลบข้อมูล">
+        <Section id="delete" title="ลบข้อมูล">
           <p>
             ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่องคุณ ถ้าเคยส่งรายงานแล้วอยากให้ลบ เขียนมาที่{" "}
             <a href={`mailto:${EMAIL}`} className="text-indigo underline">{EMAIL}</a>
+          </p>
+          <p>
+            ข้อความที่คุยกับบอทใน LINE ลบเองภายใน 24 ชั่วโมง ถ้าอยากให้ลบทันที ส่งอีเมลมาที่อยู่เดียวกัน
+            บอกช่องทางที่คุยและเวลาคร่าว ๆ ที่ส่งข้อความ
           </p>
         </Section>
 
@@ -149,10 +153,14 @@ export default function Privacy() {
           </p>
         </Section>
 
-        <Section title="Deleting data">
+        <Section id="delete-en" title="Deleting data">
           <p>
             Uninstall the app or delete its data folder to remove your data. To have a report you sent deleted, email{" "}
             <a href={`mailto:${EMAIL}`} className="text-indigo underline">{EMAIL}</a>.
+          </p>
+          <p>
+            Chat messages with the LINE bot are deleted automatically within 24 hours. To have them deleted sooner,
+            email the same address with the chat channel and roughly when you sent the messages.
           </p>
         </Section>
 
