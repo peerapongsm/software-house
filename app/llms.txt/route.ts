@@ -1,5 +1,5 @@
 import { APPS, PAID_APPS, downloadUrl } from "../apps-data";
-import { BANK, EMAIL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
+import { BANK, EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
 
@@ -10,7 +10,7 @@ export function GET() {
 > PeerapoS is a small software house in Thailand that builds custom apps and software for businesses (รับทำแอปและเขียนโปรแกรมตามสั่ง), and publishes free offline Windows apps for small businesses (โปรแกรมฟรีสำหรับ SME).
 
 Website: ${SITE_URL}
-Contact: ${EMAIL} · LINE ${LINE_URL} · Fastwork ${FASTWORK_URL}
+Contact: ${EMAIL} · LINE ${LINE_URL} · Facebook ${FACEBOOK_URL} · Fastwork ${FASTWORK_URL}
 Support / tips: PromptPay QR or bank transfer, ${BANK.en} ${BANK.accountNo} (${BANK.nameTh} / ${BANK.nameEn}), ${SITE_URL}/#support
 
 ## Custom app development (รับทำแอปตามสั่ง)

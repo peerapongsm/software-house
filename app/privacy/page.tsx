@@ -4,10 +4,12 @@ import type { Metadata } from "next";
 // Facts verified against app code 2026-10-07 (Pharmacy, POS, Massage, Budget 2026-11-11): data stays local; network = GitHub update
 // check + user-sent feedback/crash reports via feedback.peerapongsm.dev,
 // which emails the report and uses the IP only for rate limiting.
+// LINE OA chat section verified against peerapos-chat 2026-11-13: Claude API replies, last turns kept 24 h in
+// Cloudflare KV keyed by a hash of the LINE user ID, daily/monthly counters, 12 h pause after a handoff.
 
 export const metadata: Metadata = {
   title: "นโยบายความเป็นส่วนตัว · Privacy Policy — PeerapoS",
-  description: "Privacy policy for the PeerapoS Windows desktop apps by PeerapoS.",
+  description: "Privacy policy for the PeerapoS Windows desktop apps and the PeerapoS LINE Official Account chat.",
   // override the layout's "/" canonical and og:url
   alternates: { canonical: "/privacy" },
   openGraph: { url: "/privacy" },
@@ -36,7 +38,7 @@ export default function Privacy() {
       {/* ── ภาษาไทย ── */}
       <article lang="th" className="mt-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">นโยบายความเป็นส่วนตัว</h1>
-        <p className="mt-2 text-graphite">โปรแกรม Windows ของ PeerapoS อัปเดตล่าสุด 14 ตุลาคม 2569</p>
+        <p className="mt-2 text-graphite">โปรแกรม Windows และแชต LINE ของ PeerapoS อัปเดตล่าสุด 13 พฤศจิกายน 2569</p>
         <p className="mt-4 leading-relaxed text-graphite">ใช้กับโปรแกรม {APPS}</p>
 
         <Section title="ข้อมูลของคุณอยู่ในเครื่องคุณ">
@@ -63,6 +65,21 @@ export default function Privacy() {
           </ul>
         </Section>
 
+        <Section title="แชตกับ PeerapoS ทาง LINE">
+          <p>
+            ข้อความที่คุณส่งมาที่ LINE Official Account ของ PeerapoS (@peerapos) บอท AI จะตอบก่อน บอทใช้ Claude ของ Anthropic
+            ข้อความของคุณจึงถูกส่งไปที่ Anthropic เพื่อเขียนคำตอบ Anthropic ไม่เอาข้อความนี้ไปฝึก AI
+          </p>
+          <p>
+            เพื่อให้บอทจำได้ว่าคุยอะไรกันอยู่ เราเก็บข้อความล่าสุดไว้ 24 ชั่วโมงแล้วลบทิ้งเอง โดยผูกกับรหัสที่แปลงมาจาก LINE user ID
+            ไม่ใช่ชื่อหรือรูปโปรไฟล์ของคุณ และนับจำนวนคำถามต่อวันเพื่อจำกัดโควตา ถ้าคุณพิมพ์ คุยกับแอดมิน บอทจะหยุดตอบ 12 ชั่วโมง
+          </p>
+          <p>
+            บอทมองไม่เห็นข้อมูลในโปรแกรมบนเครื่องคุณ อย่าส่งรหัสผ่านหรือข้อมูลลูกค้าของคุณมาในแชต แอดมินอ่านแชตได้ผ่านระบบของ LINE
+            และ LINE เก็บแชตตามนโยบายของ LINE เอง
+          </p>
+        </Section>
+
         <Section title="ลบข้อมูล">
           <p>
             ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่องคุณ ถ้าเคยส่งรายงานแล้วอยากให้ลบ เขียนมาที่{" "}
@@ -85,7 +102,7 @@ export default function Privacy() {
       {/* ── English ── */}
       <article lang="en">
         <h2 className="font-display text-4xl font-bold tracking-tight">Privacy Policy</h2>
-        <p className="mt-2 text-graphite">Windows desktop apps by PeerapoS. Last updated 14 October 2026</p>
+        <p className="mt-2 text-graphite">Windows desktop apps and LINE chat by PeerapoS. Last updated 13 November 2026</p>
         <p className="mt-4 leading-relaxed text-graphite">Applies to {APPS}.</p>
 
         <Section title="Your data stays on your PC">
@@ -112,6 +129,24 @@ export default function Privacy() {
               never sold or shared.
             </li>
           </ul>
+        </Section>
+
+        <Section title="Chatting with PeerapoS on LINE">
+          <p>
+            Messages you send to the PeerapoS LINE Official Account (@peerapos) are answered first by an AI bot built on
+            Claude by Anthropic, so your message is sent to Anthropic to write the reply. Anthropic does not use it to
+            train AI.
+          </p>
+          <p>
+            So the bot can follow the conversation, we keep your latest messages for 24 hours and then they are deleted
+            automatically. They are keyed to a code derived from your LINE user ID, not your name or profile picture. We
+            also count questions per day to enforce a quota. If you type คุยกับแอดมิน (talk to an admin), the bot stays
+            quiet for 12 hours.
+          </p>
+          <p>
+            The bot cannot see the data in the apps on your PC. Please don't send passwords or your customers' details in
+            the chat. The admin can read chats through LINE, and LINE keeps chats under its own policy.
+          </p>
         </Section>
 
         <Section title="Deleting data">

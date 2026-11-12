@@ -3,7 +3,9 @@
 
 export const SITE_URL = "https://peerapongsm.dev";
 export const EMAIL = "contact@peerapongsm.dev";
-export const LINE_URL = "https://line.me/ti/p/sx3m1nEg53";
+// LINE Official Account @peerapos, linked by its basic ID (never changes, unlike the premium ID).
+export const LINE_URL = "https://line.me/R/ti/p/@470cwgcv";
+export const FACEBOOK_URL = "https://www.facebook.com/peerapos/";
 export const TIKTOK_URL = "https://www.tiktok.com/@peera.pos";
 
 export const FASTWORK_URL = "https://fastwork.com/user/peerapos";
