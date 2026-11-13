@@ -1,7 +1,23 @@
 import { APPS, PAID_APPS, downloadUrl } from "../apps-data";
+import { COPY } from "../copy";
 import { BANK, EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
+
+function siteText(value: unknown, path = ""): string[] {
+  if (typeof value === "string") {
+    return value.length >= 12 ? [`- ${path}: ${value}`] : [];
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) => siteText(item, `${path}.${index + 1}`));
+  }
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, item]) =>
+      ["prev", "next", "shot", "close"].includes(key) ? [] : siteText(item, path ? `${path}.${key}` : key),
+    );
+  }
+  return [];
+}
 
 // llms.txt (llmstxt.org): a plain-text brief for AI assistants, built from the same data as the page.
 export function GET() {
@@ -35,11 +51,15 @@ Peerapong (Peter) Saksommon: Software Architect at the Bank of Thailand, former 
 
 Free, no subscription, no ads, no account. Optional tips by PromptPay or bank transfer (${SITE_URL}/#support). Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
 
-${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}`).join("\n")}
+${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
 
 ## Paid Windows apps (coming soon, not on sale yet)
 
-${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} (not on sale yet)`).join("\n")}
+${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} (not on sale yet)\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
+
+## Site text (Thai)
+
+${siteText(COPY.th).join("\n")}
 
 ## FAQ
 

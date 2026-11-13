@@ -1,0 +1,176 @@
+import { BANK } from "./site-info";
+
+export type Lang = "th" | "en";
+
+export const COPY = {
+  th: {
+    eyebrow: "Software House รับทำแอปและเขียนโปรแกรมตามสั่ง",
+    navApps: "โปรแกรมฟรี",
+    navPaid: "โปรแกรมเสียเงิน",
+    paidTitle: "โปรแกรมเสียเงิน",
+    paidSoon: "เร็ว ๆ นี้ · ยังไม่เปิดขาย",
+    paidSub: "ราคาที่เห็นคือราคาจริง จ่ายครั้งเดียว อัปเดตฟรีตลอด ไม่มีค่ารายเดือน ใช้ได้ 2 เครื่องในร้านเดียวกันผ่าน LAN และ 2 บริษัท",
+    oneTime: "จ่ายครั้งเดียว",
+    comingSoon: "เร็ว ๆ นี้",
+    paidNote: "ยังไม่เปิดขาย เปิดขายเมื่อไรจะแจ้งที่หน้านี้",
+    navCustom: "รับทำแอป",
+    navAbout: "เกี่ยวกับ",
+    navContact: "ติดต่อ",
+    navSupport: "เลี้ยงชาบูผม",
+    banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
+    h1: "โปรแกรมฟรี",
+    heroSub:
+      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่มีค่าสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
+    heroApps: "ดูโปรแกรมทั้งหมด",
+    heroCustom: "คุยเรื่องทำแอป",
+    wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
+    appsTitle: "เลือกตัวที่ตรงกับงานของคุณ",
+    appsSub: "ทุกตัวทำงานได้โดยไม่ต้องต่อเน็ต สำรองข้อมูลเก็บไว้เองได้ และแยกข้อมูลหลายบริษัทในเครื่องเดียวได้ ใช้ฟรีทุกตัว",
+    winOnly: "ใช้ได้กับ Windows 10 และ 11 (64-bit) บนคอมพิวเตอร์ ยังไม่มีเวอร์ชัน Mac มือถือ และแท็บเล็ต",
+    uiLang: { th: "หน้าจอภาษาไทย สลับเป็นภาษาอังกฤษได้ในตั้งค่า", en: "หน้าจอภาษาอังกฤษ" },
+    dl: {
+      button: "ดาวน์โหลดตัวติดตั้ง",
+      guideTitle: "วิธีติดตั้ง",
+      // Each step = [main step, ...sub-steps]; sub-steps render as 2.1, 2.2 …
+      // Certum OV cert: SmartScreen reputation still builds per release, so a fresh version can still warn.
+      steps: [
+        ["กดปุ่มดาวน์โหลดด้านล่าง ไฟล์จะเริ่มโหลดทันที"],
+        ["เปิดไฟล์ที่โหลดมา โปรแกรมจะติดตั้งเองโดยไม่ต้องกดอะไรเพิ่ม"],
+        [
+          "เวอร์ชันที่เพิ่งออกใหม่ Windows อาจยังขึ้นกรอบสีน้ำเงิน Windows protected your PC",
+          "กด More info (ข้อมูลเพิ่มเติม) แล้วดูว่า Publisher เป็น PeerapoS",
+          "กด Run anyway (เรียกใช้ต่อไป)",
+        ],
+        ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
+      ],
+      close: "ปิด",
+      features: "ทำอะไรได้บ้าง",
+      prev: "ภาพก่อนหน้า",
+      next: "ภาพถัดไป",
+      shot: "ภาพที่",
+    },
+    supportTitle: "ใช้แล้วชอบไหม",
+    supportBody:
+      "โปรแกรมฟรียังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สแกน QR หรือโอนเข้าบัญชีนี้ได้เลย ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
+    bank: { bankLabel: "ธนาคาร", name: BANK.th, accountName: "ชื่อบัญชี", accountNo: "เลขที่บัญชี", holder: `${BANK.nameTh} (${BANK.nameEn})`, copy: "คัดลอก", copied: "คัดลอกแล้ว", qrAlt: "QR พร้อมเพย์ของพีระพอส (PeerapoS)", qrHint: "สแกนด้วยแอปธนาคารไหนก็ได้ ถ้าเปิดหน้านี้บนมือ⁠ถือ บันทึกรูป QR ไว้ก่อน แล้วเลือกรูปจากอัลบั้มในแอปธนาคาร", saveQr: "บันทึกรูป QR" },
+    customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
+    customSub:
+      "งานบางอย่างไม่มีโปรแกรมสำเร็จรูปที่พอดี ถ้างานของร้านคุณยังติดอยู่ในสมุดหรือสเปรดชีต เราทำแอปเล็ก ๆ ให้ตรงกับวิธีทำงานของคุณ",
+    steps: [
+      {
+        title: "คุยกัน",
+        body: "เล่าให้ฟังว่าร้านทำงานยังไง ใช้ภาษาธรรมดา ไม่ต้องมีเอกสารสเปก แล้วเราหาจุดที่เสียเวลามากที่สุดด้วยกัน",
+      },
+      {
+        title: "ทำงาน",
+        body: "ออกแบบและสร้างแอปให้พอดีกับงานของคุณ ไม่ใส่ฟีเจอร์เกินจำเป็น ใช้เวลาเป็นสัปดาห์ ไม่ใช่หลายเดือน",
+      },
+      {
+        title: "ส่งมอบ",
+        body: "คุณได้แอปไปใช้ ข้อมูลเป็นของคุณ และเรายังช่วยปรับแก้ให้เมื่อธุรกิจโตขึ้น",
+      },
+    ],
+    armoryTitle: "อยากดูงานทดลองอื่น ๆ",
+    armoryBody: "เว็บแอป เกม และเครื่องมือเล็ก ๆ ที่ทำทีละตัวตลอดหนึ่งปี เก็บไว้ที่ The Armory",
+    armoryLink: "ไปที่ The Armory",
+    faqTitle: "คำถามที่พบบ่อย",
+    aboutTitle: "สวัสดีครับ ผมพี",
+    aboutBody:
+      "ผมชื่อพีระพงศ์ ศักดิ์สมมนต์ เรียกพีก็ได้ครับ โปรแกรมทุกตัวในเว็บนี้ผมทำเองทั้งหมด ตอนนี้ทำงานประจำอยู่ที่ธนาคารแห่งประเทศไทย ก่อนหน้านั้นเป็น Full-Stack Engineer ที่ Agoda นอกเวลางานก็ทำโปรแกรมพวกนี้แจกให้ใช้ฟรี ถ้ามีงานไหนที่กินเวลาคุณทุกวัน ทักมาเล่าให้ผมฟังได้เลยครับ",
+    creds: [
+      "ธนาคารแห่งประเทศไทย - Software Architect",
+      "Ex-Agoda · Full-Stack Engineer",
+      "ป.โท Information Systems, Syracuse University",
+      "ป.ตรี Information Technology, University of Washington",
+      "Microsoft Certified: Azure Solutions Architect Expert",
+    ],
+    contactTitle: "เล่าให้ฟังว่าอะไรกินเวลาคุณทุกวัน",
+    contactSub: "ส่งอีเมลหรือทัก LINE มาได้เลย ถ้าแอปเล็ก ๆ ช่วยได้ เราจะบอกว่าทำอะไรได้บ้างและใช้เวลาเท่าไร",
+    privacy: "นโยบายความเป็นส่วนตัว",
+    visitor: "คุณคือผู้เข้าชมคนที่",
+  },
+  en: {
+    eyebrow: "Software house for custom apps",
+    navApps: "Free apps",
+    navPaid: "Paid apps",
+    paidTitle: "Paid apps",
+    paidSoon: "Coming soon · Not on sale yet",
+    paidSub: "The prices shown are the real prices. Pay once, free updates for life, no monthly fee. Covers 2 PCs on the same LAN and 2 companies.",
+    oneTime: "one-time",
+    comingSoon: "Coming soon",
+    paidNote: "Not on sale yet. This page will say when it is.",
+    navCustom: "Custom apps",
+    navAbout: "About",
+    navContact: "Contact",
+    navSupport: "Support me",
+    banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me via PromptPay so I can publish them.",
+    h1: "Free software",
+    heroSub:
+      "Windows apps that work offline. Your data stays on your PC. No subscription, no ads. If none of them fits your work, we'll build one that does.",
+    heroApps: "See all apps",
+    heroCustom: "Talk about a custom app",
+    wallLabel: "All apps. Select one for details.",
+    appsTitle: "Pick the one that fits your work",
+    appsSub: "Every app runs without an internet connection, lets you keep your own backups and can hold several companies on one PC. All of them are free.",
+    winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
+    uiLang: { th: "Thai interface, switch to English in Settings", en: "English interface" },
+    dl: {
+      button: "Download installer",
+      guideTitle: "How to install",
+      steps: [
+        ["Press the download button below. The download starts right away."],
+        ["Open the downloaded file. It installs on its own, with nothing else to click."],
+        [
+          "For a version that just came out, Windows may still show a blue box saying Windows protected your PC:",
+          "Press More info and check that the Publisher is PeerapoS.",
+          "Press Run anyway.",
+        ],
+        ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
+      ],
+      close: "Close",
+      features: "What it does",
+      prev: "Previous screenshot",
+      next: "Next screenshot",
+      shot: "Screenshot",
+    },
+    supportTitle: "Do these apps help your work?",
+    supportBody:
+      "The free apps stay free, with nothing locked behind a payment. If you'd like to say thanks, scan the QR or transfer to this account. It helps me keep building new apps.",
+    bank: { bankLabel: "Bank", name: BANK.en, accountName: "Account name", accountNo: "Account number", holder: `${BANK.nameEn} (${BANK.nameTh})`, copy: "Copy", copied: "Copied", qrAlt: "PromptPay QR for PeerapoS", qrHint: "Scan with any Thai banking app. On a phone, save the QR first, then pick it from your gallery in the banking app.", saveQr: "Save QR image" },
+    customTitle: "Custom app development",
+    customSub:
+      "Some work has no off-the-shelf program that fits. If your shop still runs on a notebook or a spreadsheet, we build a small app around the way you already work.",
+    steps: [
+      {
+        title: "Discuss",
+        body: "Tell us how your shop actually runs, in plain words. No spec documents. Together we find the part that costs you the most time.",
+      },
+      {
+        title: "Build",
+        body: "We design and build an app around your workflow, with nothing you won't use. It takes weeks, not months.",
+      },
+      {
+        title: "Deliver",
+        body: "You get the app and your data stays yours. We stay around for changes as your business grows.",
+      },
+    ],
+    armoryTitle: "Looking for the experiments?",
+    armoryBody: "Web apps, games and small tools, built one at a time over a year, live in The Armory.",
+    armoryLink: "Visit The Armory",
+    faqTitle: "Questions people ask",
+    aboutTitle: "Hi, I'm Peter",
+    aboutBody:
+      "Peerapong Saksommon here, Peter for short. I build every app on this site myself. By day I work at the Bank of Thailand, and before that I wrote code at Agoda. Outside work I make these apps and give them away. If something eats your time every day, message me and tell me about it. No pressure.",
+    creds: [
+      "Bank of Thailand - Software Architect",
+      "Ex-Agoda · Full-Stack Engineer",
+      "MS Information Systems, Syracuse University",
+      "BS Information Technology, University of Washington",
+      "Microsoft Certified: Azure Solutions Architect Expert",
+    ],
+    contactTitle: "Tell us what eats your time every day",
+    contactSub: "Send an email or message us on LINE. If a small app can help, we'll tell you what it would do and how long it would take.",
+    privacy: "Privacy policy",
+    visitor: "You are visitor no.",
+  },
+} as const;
