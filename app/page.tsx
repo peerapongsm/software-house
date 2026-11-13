@@ -459,7 +459,7 @@ export default function Home() {
             ))}
           </ul>
 
-          <footer className="mt-16 flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:justify-between">
+          <footer className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
             <span>© 2026 พีระพอส (PeerapoS)</span>
             {visits !== null && (
               <span className="flex items-center gap-2">
@@ -469,7 +469,25 @@ export default function Home() {
                 </span>
               </span>
             )}
-            <a href="/privacy" className="hover:text-white">{t.privacy}</a>
+            <span className="flex items-center gap-4">
+              <a href="/privacy" className="hover:text-white">{t.privacy}</a>
+              {/* White chip: the DBD logo is purple/blue on transparent, unreadable on bg-ink */}
+              <a
+                href="https://dbdregistered.dbd.go.th/api/public/shopinfoReg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md bg-white px-1.5 py-1 opacity-90 transition-opacity hover:opacity-100"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://dbdregistered.dbd.go.th/api/public/bannerreg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"
+                  alt="DBD Registered"
+                  width={324}
+                  height={154}
+                  className="h-8 w-auto"
+                />
+              </a>
+            </span>
           </footer>
         </div>
       </section>
