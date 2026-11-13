@@ -60,7 +60,7 @@ export default function Privacy() {
               รายงานมีข้อความที่คุณพิมพ์ อีเมลสำหรับให้เราตอบกลับ (ถ้าคุณใส่) ชื่อและเวอร์ชันแอป เวอร์ชัน Windows
               และรายละเอียดข้อผิดพลาด ก่อนส่ง แอปจะลบชื่อผู้ใช้ Windows และที่อยู่โฟลเดอร์ในเครื่องออกให้
               รายงานส่งผ่าน feedback.peerapongsm.dev แล้วส่งต่อเป็นอีเมลถึงผู้พัฒนา พร้อมประเทศและเวลาที่ได้รับ
-              ที่อยู่ IP ใช้แค่จำกัดจำนวนครั้งที่ส่งได้ ไม่ได้เก็บไว้ เราใช้รายงานเพื่อแก้บั๊กเท่านั้น ไม่ขายหรือแบ่งปันให้ใคร
+              ที่อยู่ IP ใช้แค่จำกัดจำนวนครั้งที่ส่งได้ ไม่ได้เก็บไว้ วันละครั้ง ระบบส่งรายงานที่ได้รับไปให้ Claude ของ Anthropic ช่วยสรุปให้ผู้พัฒนาอ่าน Anthropic ไม่เอาไปฝึก AI เราใช้รายงานเพื่อแก้บั๊กเท่านั้น ไม่ขายหรือแบ่งปันให้ใคร
             </li>
           </ul>
         </Section>
@@ -129,8 +129,9 @@ export default function Privacy() {
               you type, an optional reply email, the app name and version, the Windows version and error details. Your
               Windows user name and local folder paths are removed before sending. Reports go through
               feedback.peerapongsm.dev and are forwarded by email to the developer, with the country and time received.
-              Your IP address is used only for rate limiting and is not stored. Reports are used only to fix bugs and are
-              never sold or shared.
+              Your IP address is used only for rate limiting and is not stored. Once a day, received reports are sent to
+              Claude by Anthropic to write a summary for the developer; Anthropic does not use them to train AI. Reports are
+              used only to fix bugs and are never sold or shared.
             </li>
           </ul>
         </Section>
