@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:uat": "node scripts/build-uat.mjs",
+    "typecheck": "tsc --noEmit",
     "start": "next start",
     "test": "node --test lib/*.test.ts"
   },

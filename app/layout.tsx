@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "PeerapoS Software House: custom apps and free apps for SMEs" }],
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.jpg"] },
-  robots: { index: true, follow: true, googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
+  robots: { index: process.env.PEERAPOS_UAT !== "true", follow: process.env.PEERAPOS_UAT !== "true", googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
 };
 
 // schema.org graph for Google rich results and AI answer engines.
