@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.jpg"] },
   robots: { index: true, follow: true, googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
+  // Meta Business domain verification for peerapongsm.dev (Messenger app review).
+  verification: { other: { "facebook-domain-verification": "r4huahcq44vgx1rneu425s9gm7tzdf" } },
 };
 
 // schema.org graph for Google rich results and AI answer engines.
