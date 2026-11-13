@@ -72,7 +72,7 @@ export default function Privacy() {
           </p>
           <p>
             เพื่อให้บอทจำได้ว่าคุยอะไรกันอยู่ เราเก็บข้อความล่าสุดไว้ 24 ชั่วโมงแล้วลบทิ้งเอง โดยผูกกับรหัสที่แปลงมาจาก LINE user ID
-            ไม่ใช่ชื่อหรือรูปโปรไฟล์ของคุณ และนับจำนวนคำถามต่อวันเพื่อจำกัดโควตา ถ้าคุณพิมพ์ คุยกับแอดมิน บอทจะหยุดตอบ 12 ชั่วโมง
+            ไม่ใช่ชื่อหรือรูปโปรไฟล์ของคุณ และนับจำนวนคำถามต่อวันเพื่อจำกัดโควตา ถ้าคุณพิมพ์ คุยกับแอดมิน หรือบอทตอบเรื่องไหนไม่ได้ บอทจะหยุดตอบคุณ 12 ชั่วโมง และส่งข้อความล่าสุดของคุณทางอีเมลถึงแอดมินเพื่อให้มาตอบเอง
           </p>
           <p>
             บอทมองไม่เห็นข้อมูลในโปรแกรมบนเครื่องคุณ อย่าส่งรหัสผ่านหรือข้อมูลลูกค้าของคุณมาในแชต แอดมินอ่านแชตได้ผ่านระบบของ LINE
@@ -144,8 +144,9 @@ export default function Privacy() {
           <p>
             So the bot can follow the conversation, we keep your latest messages for 24 hours and then they are deleted
             automatically. They are keyed to a code derived from your LINE user ID, not your name or profile picture. We
-            also count questions per day to enforce a quota. If you type คุยกับแอดมิน (talk to an admin), the bot stays
-            quiet for 12 hours.
+            also count questions per day to enforce a quota. If you type คุยกับแอดมิน (talk to an admin), or the bot can't
+            answer, the bot stays quiet for you for 12 hours and emails your latest message to the admin so a person can
+            reply.
           </p>
           <p>
             The bot cannot see the data in the apps on your PC. Please don't send passwords or your customers' details in
