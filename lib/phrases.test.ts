@@ -32,3 +32,11 @@ test("splitPhrases preserves all text including repeated and surrounding spaces"
     assert.ok(splitPhrases(text).filter((chunk) => chunk.thai).every((chunk) => !chunk.text.includes(" ")));
   }
 });
+
+test("splitPhrases turns | into a break marker and keeps Thai on both sides together", () => {
+  assert.deepEqual(splitPhrases("เลือกตัวที่ตรงกับ|งานของคุณ"), [
+    { text: "เลือกตัวที่ตรงกับ", thai: true },
+    { text: "|", thai: false, wbr: true },
+    { text: "งานของคุณ", thai: true },
+  ]);
+});

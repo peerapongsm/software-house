@@ -94,7 +94,7 @@ export default function Home() {
       {/* ── Hero: headline + the tile wall ─────────────── */}
       <section id="top" className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-6 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16 lg:pb-28 lg:pt-14">
         <div className="max-w-xl">
-          <p className="mb-3 font-semibold text-indigo">{t.eyebrow}</p>
+          <p className="mb-3 font-semibold text-indigo"><Phrases text={t.eyebrow} /></p>
           <h1 className="font-display text-[2.6rem] font-bold leading-[1.15] tracking-tight sm:text-6xl">
             {t.h1.split("|").flatMap((part, i) => [i > 0 && <wbr key={`b${i}`} />, <span key={i} className="whitespace-nowrap">{part}</span>])}
           </h1>
@@ -116,7 +116,7 @@ export default function Home() {
       {/* ── Apps ───────────────────────────────────────── */}
       <section id="apps" className="border-t border-line bg-sheet py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.appsTitle}</h2>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl"><Phrases text={t.appsTitle} /></h2>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.appsSub} /></p>
           <p className="mt-2 max-w-2xl text-sm font-semibold text-graphite"><Phrases text={t.winOnly} /></p>
 
@@ -158,7 +158,7 @@ export default function Home() {
       {/* ── Paid apps ──────────────────────────────────── */}
       <section id="paid" className="border-t border-line bg-sheet py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.paidTitle}</h2>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl"><Phrases text={t.paidTitle} /></h2>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.paidSub} /></p>
           <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
             {PAID_APPS.map((a) => {
@@ -202,7 +202,7 @@ export default function Home() {
       {/* ── Custom apps ────────────────────────────────── */}
       <section id="custom" className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
-          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.customTitle}</h2>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl"><Phrases text={t.customTitle} /></h2>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.customSub} /></p>
           <ol className="mt-10 grid gap-8 md:grid-cols-3 md:gap-10">
             {t.steps.map((s, i) => (
@@ -259,7 +259,7 @@ export default function Home() {
             <ul className="mt-8 max-w-2xl border-t border-line">
               {t.creds.map((c) => (
                 <li key={c} className="border-b border-line py-3 font-semibold">
-                  {c}
+                  <Phrases text={c} />
                 </li>
               ))}
             </ul>
@@ -270,7 +270,7 @@ export default function Home() {
       {/* ── Contact ────────────────────────────────────── */}
       <section id="contact" className="bg-ink text-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-24">
-          <h2 className="max-w-3xl font-display text-3xl font-bold leading-tight tracking-tight sm:text-5xl">{t.contactTitle}</h2>
+          <h2 className="max-w-3xl font-display text-3xl font-bold leading-tight tracking-tight sm:text-5xl"><Phrases text={t.contactTitle} /></h2>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/75"><Phrases text={t.contactSub} /></p>
           <ul className="mt-9 flex flex-wrap items-center gap-3">
             <li>
