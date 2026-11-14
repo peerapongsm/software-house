@@ -1,10 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { COPY, type Lang } from "./copy";
-import { useEffect, useRef, useState } from "react";
-import { APPS, PAID_APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
+import { COPY } from "./copy";
+import { useRef, useState } from "react";
+import { APPS, PAID_APPS, type DesktopApp } from "./apps-data";
 import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
+import { AppDetail } from "@/components/AppDetail";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { useLang } from "@/lib/lang";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -40,70 +44,6 @@ const SOCIALS: { name: string; href: string; bg: string; path: string; viewBox?:
 /** "PeerapoS Wash" → "Wash": the tile label under each icon. */
 const short = (a: DesktopApp) => a.name.replace(/^PeerapoS /, "");
 
-// Native scroll-snap carousel; arrows and dots just scroll the track.
-function Carousel({ srcs, alt, labels }: { srcs: string[]; alt: string; labels: { prev: string; next: string; shot: string } }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [i, setI] = useState(0);
-  const go = (n: number) => ref.current?.scrollTo({ left: n * ref.current.clientWidth, behavior: "smooth" });
-  const arrow =
-    "grid size-11 shrink-0 place-items-center rounded-full border border-line bg-sheet text-xl text-ink transition-colors hover:border-ink disabled:opacity-30";
-
-  return (
-    <div className="mt-6">
-      <div
-        ref={ref}
-        onScroll={(e) => setI(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}
-        className="flex snap-x snap-mandatory overflow-x-auto rounded-xl border border-line bg-paper [scrollbar-width:none]"
-      >
-        {srcs.map((src, n) => (
-          // click opens the full-size image in a new tab for reading small text
-          <a key={src} href={src} target="_blank" rel="noopener noreferrer" className="w-full shrink-0 snap-center">
-            <Image src={src} alt={`${alt} — ${labels.shot} ${n + 1}/${srcs.length}`} width={1920} height={1080} className="aspect-video w-full" />
-          </a>
-        ))}
-      </div>
-      <div className="mt-3 flex items-center justify-between gap-3">
-        <button type="button" onClick={() => go(i - 1)} disabled={i === 0} aria-label={labels.prev} className={arrow}>
-          ‹
-        </button>
-        <div className="flex gap-2">
-          {srcs.map((src, n) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => go(n)}
-              aria-label={`${labels.shot} ${n + 1}`}
-              aria-current={i === n}
-              className={`h-2.5 rounded-full transition-all ${i === n ? "w-7 bg-ink" : "w-2.5 bg-line"}`}
-            />
-          ))}
-        </div>
-        <button type="button" onClick={() => go(i + 1)} disabled={i === srcs.length - 1} aria-label={labels.next} className={arrow}>
-          ›
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
-  return (
-    <div className="flex rounded-full border border-line bg-sheet p-0.5 text-sm font-semibold">
-      {(["th", "en"] as const).map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => onChange(l)}
-          aria-pressed={lang === l}
-          className={`rounded-full px-3 py-1 transition-colors ${lang === l ? "bg-ink text-white" : "text-graphite hover:text-ink"}`}
-        >
-          {l === "th" ? "ไทย" : "EN"}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 /** The signature: every app tile, laid out like pinned apps on a Windows Start menu. */
 function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) => void }) {
   return (
@@ -132,7 +72,7 @@ function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) =>
 }
 
 export default function Home() {
-  const [lang, setLang] = useState<Lang>("th");
+  const [lang, setLang] = useLang();
   const t = COPY[lang];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [openAppName, setOpenAppName] = useState<string | null>(null);
@@ -143,50 +83,11 @@ export default function Home() {
     dialogRef.current?.showModal();
   }
 
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
-
-  // 2000s-style hit counter: every page load counts, like the originals did.
-  // ponytail: free Abacus API, no backend; if it's down the counter just stays hidden.
-  const [visits, setVisits] = useState<number | null>(null);
-  useEffect(() => {
-    fetch("https://abacus.jasoncameron.dev/hit/peerapongsm.dev/visits")
-      .then((r) => r.json())
-      .then((d) => typeof d.value === "number" && setVisits(d.value))
-      .catch(() => {});
-  }, []);
 
   return (
     <main className="overflow-x-clip">
       {/* ── Header ─────────────────────────────────────── */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-8 sm:py-6">
-        <a href="#top" className="flex shrink-0 items-center gap-1.5 leading-none sm:gap-2">
-          <img src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 sm:h-9 sm:w-9" />
-          <span className="font-display text-xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
-        </a>
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:gap-4 xl:gap-6">
-          <nav className="hidden items-center gap-4 font-semibold text-graphite lg:flex xl:gap-6">
-            <a href="#apps" className="hover:text-ink">{t.navApps}</a>
-            <a href="#paid" className="hover:text-ink">{t.navPaid}</a>
-            <a href="#custom" className="hover:text-ink">{t.navCustom}</a>
-            <a href="#about" className="hover:text-ink">{t.navAbout}</a>
-            <a href="#contact" className="hover:text-ink">{t.navContact}</a>
-          </nav>
-          <a
-            href="/account"
-            aria-label={t.navAccount}
-            className="flex size-10 items-center justify-center gap-2 rounded-full border border-line bg-sheet text-sm font-semibold hover:border-ink sm:size-auto sm:px-3.5 sm:py-1.5"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="size-5">
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
-            </svg>
-            <span className="hidden whitespace-nowrap sm:inline">{t.navAccount}</span>
-          </a>
-          <LangSwitcher lang={lang} onChange={setLang} />
-        </div>
-      </header>
+      <SiteHeader lang={lang} onLang={setLang} home />
 
       {/* ── Hero: headline + the tile wall ─────────────── */}
       <section id="top" className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-6 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16 lg:pb-28 lg:pt-14">
@@ -396,37 +297,7 @@ export default function Home() {
             ))}
           </ul>
 
-          <footer className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
-            <span>© 2026 พีระพอส (PeerapoS)</span>
-            {visits !== null && (
-              <span className="flex items-center gap-2">
-                {t.visitor}
-                <span className="rounded border-2 border-white/40 bg-black px-1.5 py-0.5 font-mono text-base font-bold tracking-[0.25em] text-[#39ff14] [text-shadow:0_0_6px_#39ff14]">
-                  {String(visits).padStart(6, "0")}
-                </span>
-              </span>
-            )}
-            <span className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <a href="/terms" className="hover:text-white">{t.terms}</a>
-              <a href="/privacy" className="hover:text-white">{t.privacy}</a>
-              {/* White chip: the DBD logo is purple/blue on transparent, unreadable on bg-ink */}
-              <a
-                href="https://dbdregistered.dbd.go.th/api/public/shopinfoReg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-md bg-white px-1.5 py-1 opacity-90 transition-opacity hover:opacity-100"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://dbdregistered.dbd.go.th/api/public/bannerreg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"
-                  alt="DBD Registered"
-                  width={324}
-                  height={154}
-                  className="h-8 w-auto"
-                />
-              </a>
-            </span>
-          </footer>
+          <SiteFooter lang={lang} />
         </div>
       </section>
 
@@ -441,95 +312,7 @@ export default function Home() {
         className="m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-5xl overflow-y-auto rounded-2xl bg-sheet text-ink shadow-2xl backdrop:bg-ink/60"
       >
         {app && (
-          <div className="p-5 sm:p-8">
-            <div className="flex items-center gap-4">
-              <Image src={app.icon} alt="" width={96} height={96} className="size-16 shrink-0 rounded-[22%]" />
-              <div className="min-w-0">
-                <h2 id="dl-title" className="break-words font-display text-2xl font-bold sm:text-3xl">
-                  {app.name}
-                  {app.price !== undefined && (
-                    <span className="mt-1 block text-xl text-indigo sm:ml-3 sm:mt-0 sm:inline-block">
-                      ฿{app.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
-                    </span>
-                  )}
-                </h2>
-                <p className="text-lg text-graphite">{app[lang].tagline}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => dialogRef.current?.close()}
-                className="ml-auto shrink-0 self-start rounded-full border border-line px-5 py-2 font-semibold hover:border-ink"
-              >
-                {t.dl.close}
-              </button>
-            </div>
-
-            {app.shots > 0 && <Carousel key={app.name} srcs={shotUrls(app)} alt={app.name} labels={t.dl} />}
-
-            <p className="mt-5 max-w-3xl leading-relaxed text-graphite">{app[lang].description}</p>
-
-            <h3 className="mt-6 font-display text-lg font-bold">{t.dl.features}</h3>
-            <ul className="mt-2 grid list-disc gap-x-8 gap-y-1 pl-5 leading-relaxed text-graphite sm:grid-cols-2">
-              {app[lang].features.map((f) => (
-                <li key={f}>{f}</li>
-              ))}
-            </ul>
-
-            <p className="mt-5 text-sm font-semibold text-graphite">
-              {t.uiLang[app.uiLang]} · {t.winOnly}
-            </p>
-
-            <section aria-labelledby="app-pro-title">
-              <h3 id="app-pro-title" className="mt-6 font-display text-lg font-bold">{t.dl.proTitle}</h3>
-              <ul className="mt-2 grid list-disc gap-x-8 gap-y-1 pl-5 leading-relaxed text-graphite sm:grid-cols-2">
-                {app[lang].pro.map((f) => <li key={f}>{f}</li>)}
-              </ul>
-              <p className="mt-3 text-sm">
-                <a href="/pro" className="font-semibold text-indigo underline underline-offset-4">{t.dl.proLink}</a>
-              </p>
-            </section>
-
-            <h3 className="mt-6 font-display text-lg font-bold">{t.dl.guideTitle}</h3>
-            {/* Numbers are written out (1, 2.1, 2.2 …) so sub-steps read the way they're spoken. */}
-            <ol className="mt-3 grid gap-2 leading-relaxed">
-              {(app.price !== undefined ? [[t.dl.paidFirstStep], ...t.dl.steps.slice(1)] : t.dl.steps).map(([step, ...subs], i) => (
-                <li key={step}>
-                  <span className="flex gap-2">
-                    <span className="w-6 shrink-0 font-semibold">{i + 1}.</span>
-                    <span>{step}</span>
-                  </span>
-                  {subs.length > 0 && (
-                    <ol className="mt-1 grid gap-1 pl-8">
-                      {subs.map((s, j) => (
-                        <li key={s} className="flex gap-2">
-                          <span className="w-8 shrink-0 font-semibold">
-                            {i + 1}.{j + 1}
-                          </span>
-                          <span>{s}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </li>
-              ))}
-            </ol>
-
-            {app.price !== undefined ? (
-              <a
-                href={`/buy?app=${app.id}`}
-                className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
-              >
-                {t.buy} ฿{app.price.toLocaleString("en-US")}
-              </a>
-            ) : (
-            <a
-              href={downloadUrl(app)}
-              className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
-            >
-              {t.dl.button}
-            </a>
-            )}
-          </div>
+          <AppDetail app={app} lang={lang} onClose={() => dialogRef.current?.close()} headingId="dl-title" headingLevel={2} />
         )}
       </dialog>
     </main>

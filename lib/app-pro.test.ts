@@ -7,28 +7,25 @@ import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
 import * as apps from "../app/apps-data.ts";
 import * as copy from "../app/copy.ts";
-import * as info from "../app/site-info.ts";
 
 const all = [...apps.APPS, ...apps.PAID_APPS];
 const require = createRequire(import.meta.url);
-const source = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+const source = readFileSync(new URL("../components/AppDetail.tsx", import.meta.url), "utf8");
 const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
 
 function dialog(app: apps.DesktopApp, lang: "th" | "en") {
-  let cursor = 0;
   const exports: any = {};
   new Function("require", "exports", js)((id: string) => {
     if (id === "react") return {
-      useState(initial: unknown) { const i = cursor++; return [i === 0 ? lang : i === 1 ? app.name : initial, () => {}]; },
+      useState(initial: unknown) { return [initial, () => {}]; },
       useRef: () => ({ current: null }), useEffect() {},
     };
-    if (id === "./apps-data") return apps;
-    if (id === "./copy") return copy;
-    if (id === "./site-info") return info;
+    if (id === "@/app/apps-data") return apps;
+    if (id === "@/app/copy") return copy;
     if (id === "next/image") return { default: () => null };
     return require(id);
   }, exports);
-  const html = renderToStaticMarkup(createElement(exports.default));
+  const html = renderToStaticMarkup(createElement("dialog", null, createElement(exports.AppDetail, { app, lang, onClose() {}, headingId: "dl-title", headingLevel: 2 })));
   const match = html.match(/<dialog[^>]*>([\s\S]*?)<\/dialog>/);
   assert.ok(match, app.name);
   return match[1];
