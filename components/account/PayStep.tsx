@@ -12,10 +12,13 @@ import type { Lang } from "@/lib/lang.ts";
 type Order = { status: string; amountSatang?: number; expiresAt?: string; lines?: { id: string; priceSatang: number }[]; message?: Msg };
 
 const POLL_MS = 5000;
+const PAY_RETRY_DELAY_MS = 25_000;
 const POLLS = 360; // 30 min of a visible tab, then reload to check again
 
 const COPY = {
   waiting: { th: "รอยืนยันการชำระเงิน", en: "Waiting for the payment to confirm" },
+  payAgain: { th: "ยังไม่ได้ชำระ? ชำระเงิน", en: "Not paid yet? Pay" },
+  later: { th: "หยุดเช็กสถานะแล้ว รีเฟรชหน้านี้ภายหลัง", en: "Status checks stopped. Refresh this page later." },
   unpaid: { th: "ยังไม่ได้ชำระ", en: "Not paid yet" },
   paidH: { th: "ชำระเงินแล้ว", en: "Payment received" },
   paidMsg: { th: "เครื่องที่เชื่อมกับบัญชีนี้จะอัปเดตเอง", en: "PCs linked to this account update by themselves." },
@@ -117,6 +120,17 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
   const [o, setO] = useState<Order | null>(null);
   const [loadErr, setLoadErr] = useState<Msg | null>(null);
   const [busy, setBusy] = useState(false);
+  const [retryReady, setRetryReady] = useState(false);
+  const [retryOpen, setRetryOpen] = useState(false);
+  const [pollEnded, setPollEnded] = useState(false);
+
+  useEffect(() => {
+    setRetryReady(false);
+    setRetryOpen(false);
+    if (o?.status !== "open" || cancelled) return;
+    const timer = setTimeout(() => setRetryReady(true), PAY_RETRY_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [o?.status, id, cancelled]);
 
   async function load(quiet = false) {
     if (!quiet) setBusy(true);
@@ -135,11 +149,15 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
 
   const live = o?.status === "open" || o?.status === "expired" || o?.status === "issuing";
   useEffect(() => {
+    setPollEnded(false);
     if (!live) return;
     let n = 0;
     const timer = setInterval(() => {
       if (document.visibilityState !== "visible") return;
-      if (++n > POLLS) return clearInterval(timer);
+      if (++n > POLLS) {
+        setPollEnded(true);
+        return clearInterval(timer);
+      }
       load(true);
     }, POLL_MS);
     return () => clearInterval(timer);
@@ -211,8 +229,12 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
     <div className={sheet + " mx-auto mt-6 max-w-md"}>
       <h1 className={h1 + " text-center"}>{step === "waiting" ? t("waiting") : t("unpaid")}</h1>
       {step === "waiting" ? (
-        <div role="status" className="flex justify-center text-graphite"><Spinner /></div>
-      ) : signedIn ? (
+        <>
+          <div role="status" className="flex justify-center text-graphite">{pollEnded ? t("later") : <Spinner />}</div>
+          {signedIn && retryReady && !retryOpen && <button type="button" onClick={() => setRetryOpen(true)} className={out}>{t("payAgain")}</button>}
+        </>
+      ) : null}
+      {(step !== "waiting" || retryOpen) && (signedIn ? (
         <OrderBox key={id} lang={lang} lines={(o.lines ?? []).map((l) => ({ id: l.id, price: l.priceSatang }))} lic={lic} email={email} previousOrder={id} onOrdered={onOrdered} />
       ) : signedIn === false ? (
         <a href={"/login?next=" + encodeURIComponent("/buy" + location.search)} className={dark}>{t("signIn")}</a>
@@ -221,7 +243,7 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
           <p role="alert" className="font-semibold text-red-700">{accountErr[lang]}</p>
           <button type="button" onClick={onRetry} className={out}>{t("retry")}</button>
         </>
-      ) : <Spinner />}
+      ) : <Spinner />)}
       {loadErr && <p role="alert" className="font-semibold text-red-700">{loadErr[lang]}</p>}
     </div>
   );

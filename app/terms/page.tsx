@@ -13,8 +13,8 @@ const COPY = {
     en: "The paid apps (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) are bought once on /buy by card or PromptPay through Stripe, with free updates forever. They never expire unless fully refunded or a payment dispute is lost. Prices are on /buy.",
   },
   pro: {
-    th: "PeerapoS Pro บนเว็บไซต์: รายเดือน 159 บาท หรือรายปี 1,590 บาท จ่ายด้วยบัตรและต่ออายุอัตโนมัติ หรือบัตรรายปี 1,590 บาท จ่ายด้วย PromptPay หรือบัตร ไม่ต่ออายุอัตโนมัติ ส่วน Pro ที่ซื้อในแอปบน Android จ่ายผ่าน Google Play ตามราคาที่ Google Play แสดงตอนสมัคร",
-    en: "PeerapoS Pro on the website: 159 baht monthly or 1,590 baht yearly by card; both renew automatically. A 1-year pass costs 1,590 baht by PromptPay or card and does not auto-renew. Pro bought in an Android app is paid through Google Play at the price Google Play shows when you subscribe.",
+    th: "PeerapoS Pro จำหน่ายบนเว็บไซต์และผ่าน Google Play ราคาและวิธีชำระเงินแสดงตอนชำระเงิน ส่วน Pro ที่ซื้อในแอปบน Android จ่ายผ่าน Google Play ตามราคาที่ Google Play แสดงตอนสมัคร",
+    en: "PeerapoS Pro is sold on the website and through Google Play. Prices and payment methods are shown at checkout. Pro bought in an Android app is paid through Google Play at the price Google Play shows when you subscribe.",
   },
   deletion: {
     th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และบัตรรายปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",

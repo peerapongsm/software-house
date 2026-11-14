@@ -149,16 +149,19 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
     setErr(null);
     if (renew && !consent) return setErr(proBuyError({ ok: false, status: 400, error: "needConsent" }));
     setBusy(true);
+    if (renew) {
+      try { sessionStorage.setItem("pro:before", pro?.until ?? ""); } catch {}
+    }
     const r = await api<{ url: string }>(renew ? "/api/pro/checkout" : "/api/pro/portal", renew
       ? { method: "POST", body: { plan: "pass", consent: true } }
       : { method: "POST" });
+    setBusy(false);
     if (r.ok) {
       const url = safeStripeUrl(r.data.url);
       if (url) return location.assign(url);
       setErr(orderError({ ok: false, status: 502, error: "badStripeUrl" }));
     } else if (r.status === 401) return location.assign("/login?next=/account");
     else setErr(r.status === 404 && r.error === "noStripeSub" ? PRO_TEXT.noSub : proBuyError(r));
-    setBusy(false);
   }
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
@@ -399,6 +402,8 @@ export default function Account() {
       return;
     }
     const startedAt = Date.now();
+    let before: string | null = null;
+    try { before = sessionStorage.getItem("pro:before"); } catch {}
     let stopped = false;
     let timer: ReturnType<typeof setTimeout>;
     setProReturn("wait");
@@ -422,10 +427,13 @@ export default function Account() {
         location.replace("/login?next=/account");
         return;
       } else setErr(orderError(r));
-      const state = proDonePoll(startedAt, time, r.ok ? r.data.licence?.pro ?? null : null);
+      const state = proDonePoll(startedAt, time, r.ok ? r.data.licence?.pro ?? null : null, before);
       setProReturn(state);
       if (state === "wait") timer = setTimeout(poll, 3_000);
       else {
+        if (state === "done") {
+          try { sessionStorage.removeItem("pro:before"); } catch {}
+        }
         stopped = true;
         clearTimeout(deadline);
       }

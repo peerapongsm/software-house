@@ -67,3 +67,14 @@ test("Pro exports and page do not claim web purchases are unavailable", () => {
   assert.doesNotMatch(JSON.stringify(pro), stale);
   assert.doesNotMatch(readFileSync(new URL("../app/pro/page.tsx", import.meta.url), "utf8"), stale);
 });
+
+test("proDonePoll: active pass renewal waits for coverage to advance", () => {
+  const t = Date.parse("2026-11-14T00:00:00Z");
+  const before = "2027-01-01";
+  const active = { source: "pass" as const, until: before, cancelling: false };
+  assert.equal(proDonePoll(t, t + 5_000, active, before), "wait");
+  assert.equal(proDonePoll(t, t + 60_000, active, before), "late");
+  assert.equal(proDonePoll(t, t + 5_000, { ...active, until: "2026-12-01" }, before), "wait");
+  assert.equal(proDonePoll(t, t + 5_000, { ...active, until: "2028-01-01" }, before), "done");
+  assert.equal(proDonePoll(t, t + 5_000, active, null), "done");
+});

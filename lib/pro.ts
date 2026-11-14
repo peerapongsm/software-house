@@ -41,8 +41,8 @@ export function proBuyError(r: ApiResult<unknown> & { ok: false }): Msg {
 }
 
 /** A browser return only polls for confirmed rights; it never grants Pro. */
-export function proDonePoll(startedAt: number, now: number, pro: ProInfo | null): "done" | "wait" | "late" {
-  if (pro && Date.parse(pro.until) > now) return "done";
+export function proDonePoll(startedAt: number, now: number, pro: ProInfo | null, before: string | null = null): "done" | "wait" | "late" {
+  if (pro && Date.parse(pro.until) > Math.max(now, before ? Date.parse(before) : 0)) return "done";
   return now - startedAt >= 60_000 ? "late" : "wait";
 }
 

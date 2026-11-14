@@ -25,8 +25,7 @@ for (const lang of ["th", "en"] as const) {
     const text = article("terms", lang);
     assert.match(text, /Stripe/);
     assert.match(text, /PromptPay/);
-    assert.match(text, /159/);
-    assert.match(text, /1,590/);
+    assert.doesNotMatch(text, /159|1,590|baht|\u0e1a\u0e32\u0e17/i);
     assert.match(text, /\/account/);
     assert.match(text, lang === "th" ? /ต่ออายุอัตโนมัติ/ : /renew automatically/);
     assert.match(text, lang === "th" ? /ไม่คืนเงินตามสัดส่วน/ : /no partial refunds/i);
