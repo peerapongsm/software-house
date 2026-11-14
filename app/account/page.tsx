@@ -77,17 +77,18 @@ const COPY = {
 
 const PRO_SOURCE: Record<ProSource, Msg> = {
   play: { th: "จาก Google Play", en: "Google Play" },
-  stripe: { th: "สมัครผ่านบัตร (ต่ออายุอัตโนมัติ)", en: "Card (auto-renew)" },
+  stripe: { th: "สมัครผ่านบัตร", en: "Card subscription" },
   pass: { th: "Pro 1 ปี แบบจ่ายครั้งเดียว", en: "Prepaid annual pass" },
 };
 const PRO_TEXT = {
   title: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   portal: { th: "จัดการการสมัคร", en: "Manage subscription" },
   renew: { th: "ซื้อ Pro 1 ปีเพิ่ม", en: "Renew pass" },
-  cancelled: { th: "ยกเลิกแล้ว ใช้ได้ถึง", en: "Cancelled. Valid until" },
+  renews: { th: " ต่ออายุอัตโนมัติ", en: ", renews automatically" },
+  cancelled: { th: " ยกเลิกแล้ว ไม่ต่ออายุ", en: ", cancelled, won't renew" },
   accept: { th: "ฉันยอมรับ", en: "I accept the" },
   terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },
-  passNote: { th: "Pro 1 ปี ไม่ต่ออายุอัตโนมัติ", en: "1-year pass, no auto-renew" },
+  passNote: { th: "ซื้อตอนนี้ วันที่เหลือก็ไม่หาย ปีใหม่จะต่อจากวันหมดอายุเดิม", en: "Buy now and lose nothing: the new year starts when this one ends." },
   noSub: { th: "ไม่พบการสมัครผ่านบัตร รีเฟรชหน้าบัญชีแล้วลองอีกครั้ง", en: "No card subscription found. Refresh your account and try again." },
   wait: { th: "ได้รับการชำระเงินแล้ว Pro จะขึ้นในไม่กี่วินาที", en: "Payment received. Pro appears in a few seconds." },
   done: { th: "Pro พร้อมใช้งานแล้ว", en: "Pro is ready to use." },
@@ -172,8 +173,11 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
         </p>
         {view.status && <Pill tone={view.status.tone}>{pillText(view.status)[lang]}</Pill>}
       </div>
-      {pro && <p className="font-semibold text-graphite">{PRO_SOURCE[pro.source][lang]}</p>}
-      {pro?.cancelling && <p className="text-sm text-graphite">{PRO_TEXT.cancelled[lang]} {day(pro.until, lang)}</p>}
+      {pro && (
+        <p className="font-semibold text-graphite">
+          {PRO_SOURCE[pro.source][lang] + (pro.source === "pass" ? "" : (pro.cancelling ? PRO_TEXT.cancelled : PRO_TEXT.renews)[lang])}
+        </p>
+      )}
       <dl className={`grid gap-3 rounded-xl bg-paper px-3.5 py-3 ${pro ? "grid-cols-2" : ""}`}>
         {pro && (
           <div>
@@ -186,24 +190,26 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
           <dd className="font-bold [overflow-wrap:anywhere]">{lic.name}</dd>
         </div>
       </dl>
-      <div className="flex flex-col gap-3">
-        {view.renew && (
-          <>
-            <p className="text-sm text-graphite">{PRO_TEXT.passNote[lang]}</p>
-            <label className="flex min-h-12 items-center gap-3">
-              <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
-              <span>{PRO_TEXT.accept[lang]} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline">{PRO_TEXT.terms[lang]}</a></span>
-            </label>
-          </>
-        )}
-        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-          {view.manage === "play" && <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={action}>{t.manage}</a>}
-          {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay(false)} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
-          {view.renew && <button type="button" disabled={busy} onClick={() => pay(true)} className={action}>{busy && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
-          {view.subscribe && <a href="/pro" className={`${dark} w-full whitespace-normal text-center sm:w-auto`}>{t.subscribe}</a>}
+      {(view.manage || view.renew || view.subscribe || err) && (
+        <div className="flex flex-col gap-3">
+          {view.renew && (
+            <>
+              <p className="text-sm text-graphite">{PRO_TEXT.passNote[lang]}</p>
+              <label className="flex min-h-12 items-center gap-3">
+                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
+                <span>{PRO_TEXT.accept[lang]} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline">{PRO_TEXT.terms[lang]}</a></span>
+              </label>
+            </>
+          )}
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+            {view.manage === "play" && <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={action}>{t.manage}</a>}
+            {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay(false)} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
+            {view.renew && <button type="button" disabled={busy} onClick={() => pay(true)} className={action}>{busy && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
+            {view.subscribe && <a href="/pro" className={`${dark} w-full whitespace-normal text-center sm:w-auto`}>{t.subscribe}</a>}
+          </div>
+          {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
         </div>
-        {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
-      </div>
+      )}
       <p className="text-[0.8125rem] text-graphite">
         {t.id} <span className="whitespace-nowrap">{lic.id}</span>
       </p>

@@ -21,14 +21,6 @@ const PIC = [
     <path {...ACC} d="M52 40h16l-2 22h-12z" />
     <path d="M57 40c0-5 6-5 6 0" fill="none" stroke="var(--color-indigo)" strokeWidth="2.5" />
   </>,
-  // a phone with a sign-in card and a check
-  <>
-    <rect {...P} x="38" y="8" width="44" height="80" rx="8" />
-    <circle {...SOFT} cx="60" cy="34" r="9" />
-    <rect {...SOFT} x="46" y="50" width="28" height="12" rx="6" />
-    <circle {...ACC} cx="60" cy="72" r="7" />
-    <path d="M56.5 72l2.5 2.5 4.5-5" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" />
-  </>,
   // a monitor with a linked check
   <>
     <rect {...P} x="14" y="10" width="92" height="62" rx="6" />
@@ -51,6 +43,12 @@ function Step({ n, pic, text }: { n: number; pic: React.ReactNode; text: string 
     </li>
   );
 }
+
+const PLANS = [
+  { plan: "month", name: "monthBuy", note: "monthNote", per: "month" },
+  { plan: "year", name: "yearBuy", note: "yearNote", per: "year" },
+  { plan: "pass", name: "passBuy", note: "passNote", per: null },
+] as const;
 
 /** /pro: public Pro information, Google Play and signed-in web checkout. */
 export default function ProPage() {
@@ -98,54 +96,45 @@ export default function ProPage() {
   return (
     <Shell lang={lang} setLang={setLang}>
       <div className="mt-2 flex flex-col gap-8 lg:mt-6 lg:gap-10">
-        <section className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-center lg:gap-8">
-          <div className="flex flex-col gap-3">
-            <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t("h1")}</h1>
-            <p className="text-lg text-graphite">{t("lead")}</p>
-          </div>
-          <div className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5">
-            <h2 className="font-display text-xl font-bold">{t("playH")}</h2>
-            <p className="font-display text-[2.5rem] font-extrabold leading-none tracking-tight tabular-nums">
-              {baht(PRO_PRICE.monthly)}{" "}
-              <small className="font-body text-[0.9375rem] font-medium tracking-normal text-graphite">{t("month")}</small>
-            </p>
-            <p className="font-display text-xl font-bold tabular-nums">
-              {baht(PRO_PRICE.annual)} <small className="font-body text-[0.9375rem] font-medium text-graphite">{t("year")}</small>
-            </p>
-            <a
-              href={PLAY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-semibold text-white transition-colors hover:bg-indigo-deep"
-            >
-              {t("get")}
-            </a>
-          </div>
+        <section className="flex flex-col gap-3">
+          <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t("h1")}</h1>
+          <p className="text-lg text-graphite">{t("lead")}</p>
         </section>
 
-        <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5" aria-labelledby="web-pro">
+        <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5 lg:p-7" aria-labelledby="web-pro">
           <h2 id="web-pro" className="font-display text-xl font-bold">{t("webH")}</h2>
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            {(["month", "year", "pass"] as const).map((plan) => (
-              <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices}
-                className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 whitespace-normal rounded-xl bg-ink px-6 py-3 text-center font-semibold text-white transition-colors [overflow-wrap:anywhere] hover:bg-indigo-deep disabled:opacity-50 sm:w-auto">
-                {busy === plan && <Spinner />}
-                <span>{t(plan === "month" ? "monthBuy" : plan === "year" ? "yearBuy" : "passBuy")} {prices && baht(plan === "month" ? prices.monthly : plan === "year" ? prices.annual : PRO_PASS)} ({t(plan === "pass" ? "passNote" : "card")})</span>
-              </button>
-            ))}
-          </div>
-          <p className="text-sm text-graphite">{t("renewNote")}</p>
           <label className="flex min-h-12 items-center gap-3">
             <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
             <span>{t("accept")} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("terms")}</a></span>
           </label>
+          <div className="grid gap-3 lg:grid-cols-3">
+            {PLANS.map(({ plan, name, note, per }) => (
+              <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices}
+                className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-paper px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
+                <span className="flex items-baseline justify-between gap-3">
+                  <span className="font-display text-lg font-bold">{t(name)}</span>
+                  <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
+                    {busy === plan && <Spinner />}
+                    {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : PRO_PASS)}
+                    {per && <small className="font-body text-[0.9375rem] font-medium text-graphite">{t(per)}</small>}
+                  </span>
+                </span>
+                <span className="text-sm text-graphite">{t(note)}</span>
+              </button>
+            ))}
+          </div>
+          <p className="text-sm text-graphite">{t("renewNote")}</p>
           {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
           {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
+          <p className="border-t border-line pt-4">
+            {t("playLine")}{" "}
+            <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("get")}</a>
+          </p>
         </section>
 
         <section>
           <h2 className="mb-3 font-display text-xl font-bold">{t("stepsH")}</h2>
-          <ol className="flex flex-col gap-3 lg:grid lg:grid-cols-3 lg:gap-5">
+          <ol className="flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:gap-5">
             {PRO_COPY.steps.map((s, i) => (
               <Step key={i} n={i + 1} pic={PIC[i]} text={s[lang]} />
             ))}

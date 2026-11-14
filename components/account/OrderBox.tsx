@@ -165,14 +165,6 @@ export default function OrderBox({
         </p>
       )}
 
-      <button
-        disabled={busy || !lines.length || !consent}
-        className={`inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-semibold text-white transition-colors enabled:hover:bg-indigo-deep ${busy ? "disabled:bg-ink/70" : "disabled:opacity-40"}`}
-      >
-        {busy && <Spinner />}
-        {PAY[lang]}
-      </button>
-
       <label className="flex cursor-pointer items-center gap-2.5 text-[0.8125rem] leading-normal text-graphite">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-[18px] shrink-0 accent-ink" />
         <span>
@@ -181,6 +173,13 @@ export default function OrderBox({
           <a href="/privacy" target="_blank" className="whitespace-nowrap font-semibold text-indigo">{t.privacy}</a>
         </span>
       </label>
+      <button
+        disabled={busy || !lines.length || !consent}
+        className={`inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-semibold text-white transition-colors enabled:hover:bg-indigo-deep ${busy ? "disabled:bg-ink/70" : "disabled:opacity-40"}`}
+      >
+        {busy && <Spinner />}
+        {PAY[lang]}
+      </button>
     </form>
   );
 }
