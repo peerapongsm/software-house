@@ -9,10 +9,10 @@ import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
 import { day, lastUsed, ownedPaid, pillText, proView, removedAll, type AccountData, type Device } from "@/lib/account.ts";
 import type { Grant } from "@/lib/ai.ts";
-import { api, API_BASE, type Licence, type Msg } from "@/lib/api.ts";
+import { api, API_BASE, safeStripeUrl, type Licence, type Msg, type ProSource } from "@/lib/api.ts";
 import { orderError } from "@/lib/buy.ts";
 import { useLang, type Lang } from "@/lib/lang.ts";
-import { PLAY_SUBS_URL } from "@/lib/pro.ts";
+import { PLAY_SUBS_URL, proBuyError, proDonePoll } from "@/lib/pro.ts";
 
 const COPY = {
   th: {
@@ -75,6 +75,25 @@ const COPY = {
   },
 };
 
+const PRO_SOURCE: Record<ProSource, Msg> = {
+  play: { th: "จาก Google Play", en: "Google Play" },
+  stripe: { th: "บัตร (ต่ออายุอัตโนมัติ)", en: "Card (auto-renew)" },
+  pass: { th: "บัตรรายปีแบบจ่ายล่วงหน้า", en: "Prepaid annual pass" },
+};
+const PRO_TEXT = {
+  title: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
+  portal: { th: "จัดการการสมัคร", en: "Manage subscription" },
+  renew: { th: "ต่ออายุบัตรรายปี", en: "Renew pass" },
+  cancelled: { th: "ยกเลิกแล้ว ใช้ได้ถึง", en: "Cancelled. Valid until" },
+  accept: { th: "ฉันยอมรับ", en: "I accept the" },
+  terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },
+  passNote: { th: "บัตรรายปี ไม่ต่ออายุอัตโนมัติ", en: "1-year pass, no auto-renew" },
+  noSub: { th: "ไม่พบการสมัครผ่านบัตร รีเฟรชหน้าบัญชีแล้วลองอีกครั้ง", en: "No card subscription found. Refresh your account and try again." },
+  wait: { th: "ได้รับการชำระเงินแล้ว Pro จะขึ้นในไม่กี่วินาที", en: "Payment received. Pro appears in a few seconds." },
+  done: { th: "Pro พร้อมใช้งานแล้ว", en: "Pro is ready to use." },
+  late: { th: "Pro จะขึ้นภายในไม่กี่นาที รีเฟรชหน้าบัญชีภายหลัง", en: "Pro appears within a few minutes. Refresh your account later." },
+} satisfies Record<string, Msg>;
+
 type T = (typeof COPY)["th"] | (typeof COPY)["en"];
 
 const btn = "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-colors whitespace-nowrap";
@@ -118,21 +137,44 @@ function Empty({ t }: { t: T }) {
 }
 
 function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: number }) {
-  const tier = lic.tier;
-  const view = proView(tier ? { source: "play", until: tier.until } : null, now);
+  const pro = lic.pro;
+  const view = proView(pro, now);
+  const [consent, setConsent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<Msg | null>(null);
+  const action = `${out} w-full whitespace-normal text-center [overflow-wrap:anywhere] sm:w-auto disabled:opacity-40`;
+
+  async function pay(renew: boolean) {
+    if (busy) return;
+    setErr(null);
+    if (renew && !consent) return setErr(proBuyError({ ok: false, status: 400, error: "needConsent" }));
+    setBusy(true);
+    const r = await api<{ url: string }>(renew ? "/api/pro/checkout" : "/api/pro/portal", renew
+      ? { method: "POST", body: { plan: "pass", consent: true } }
+      : { method: "POST" });
+    if (r.ok) {
+      const url = safeStripeUrl(r.data.url);
+      if (url) return location.assign(url);
+      setErr(orderError({ ok: false, status: 502, error: "badStripeUrl" }));
+    } else if (r.status === 401) return location.assign("/login?next=/account");
+    else setErr(r.status === 404 && r.error === "noStripeSub" ? PRO_TEXT.noSub : proBuyError(r));
+    setBusy(false);
+  }
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
         <p className="font-display text-[2rem] font-extrabold leading-[1.1] tracking-tight lg:text-[2.5rem]">
-          {tier ? "PeerapoS Pro" : t.noTier}
+          {pro ? PRO_TEXT.title[lang] : t.noTier}
         </p>
         {view.status && <Pill tone={view.status.tone}>{pillText(view.status)[lang]}</Pill>}
       </div>
-      <dl className={`grid gap-3 rounded-xl bg-paper px-3.5 py-3 ${tier ? "grid-cols-2" : ""}`}>
-        {tier && (
+      {pro && <p className="font-semibold text-graphite">{PRO_SOURCE[pro.source][lang]}</p>}
+      {pro?.cancelling && <p className="text-sm text-graphite">{PRO_TEXT.cancelled[lang]} {day(pro.until, lang)}</p>}
+      <dl className={`grid gap-3 rounded-xl bg-paper px-3.5 py-3 ${pro ? "grid-cols-2" : ""}`}>
+        {pro && (
           <div>
             <dt className="text-[0.8125rem] text-graphite">{t.until}</dt>
-            <dd className="font-bold">{day(tier.until, lang)}</dd>
+            <dd className="font-bold">{day(pro.until, lang)}</dd>
           </div>
         )}
         <div className="min-w-0">
@@ -140,14 +182,24 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
           <dd className="font-bold [overflow-wrap:anywhere]">{lic.name}</dd>
         </div>
       </dl>
-      {(view.manage || view.subscribe) && (
-        <div className="flex flex-wrap gap-2">
-          {view.manage && (
-            <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={out}>{t.manage}</a>
-          )}
-          {view.subscribe && <a href="/pro" className={dark}>{t.subscribe}</a>}
+      <div className="flex flex-col gap-3">
+        {view.renew && (
+          <>
+            <p className="text-sm text-graphite">{PRO_TEXT.passNote[lang]}</p>
+            <label className="flex min-h-12 items-center gap-3">
+              <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
+              <span>{PRO_TEXT.accept[lang]} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline">{PRO_TEXT.terms[lang]}</a></span>
+            </label>
+          </>
+        )}
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+          {view.manage === "play" && <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={action}>{t.manage}</a>}
+          {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay(false)} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
+          {view.renew && <button type="button" disabled={busy} onClick={() => pay(true)} className={action}>{busy && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
+          {view.subscribe && <a href="/pro" className={`${dark} w-full whitespace-normal text-center sm:w-auto`}>{t.subscribe}</a>}
         </div>
-      )}
+        {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
+      </div>
       <p className="text-[0.8125rem] text-graphite">
         {t.id} <span className="whitespace-nowrap">{lic.id}</span>
       </p>
@@ -310,6 +362,7 @@ export default function Account() {
   const [grants, setGrants] = useState<Grant[] | null>(null);
   const [revoking, setRevoking] = useState<string | null>(null);
   const [aiErr, setAiErr] = useState<Msg | null>(null);
+  const [proReturn, setProReturn] = useState<"wait" | "done" | "late" | null>(null);
 
   useEffect(() => {
     document.title = `${t.title} · PeerapoS`;
@@ -340,8 +393,45 @@ export default function Account() {
   }
 
   useEffect(() => {
-    start();
     loadGrants();
+    if (new URLSearchParams(location.search).get("pro") !== "done") {
+      start();
+      return;
+    }
+    const startedAt = Date.now();
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout>;
+    setProReturn("wait");
+    // A separate deadline also stops a slow or hung request; late replies cannot update the page.
+    const deadline = setTimeout(() => {
+      stopped = true;
+      clearTimeout(timer);
+      setProReturn("late");
+    }, 60_000);
+    async function poll() {
+      const r = await api<AccountData>("/api/account");
+      if (stopped) return;
+      const time = Date.now();
+      if (r.ok) {
+        setNow(time);
+        setData(r.data);
+        setErr(null);
+      } else if (r.status === 401) {
+        stopped = true;
+        clearTimeout(deadline);
+        location.replace("/login?next=/account");
+        return;
+      } else setErr(orderError(r));
+      const state = proDonePoll(startedAt, time, r.ok ? r.data.licence?.pro ?? null : null);
+      setProReturn(state);
+      if (state === "wait") timer = setTimeout(poll, 3_000);
+      else {
+        stopped = true;
+        clearTimeout(deadline);
+      }
+    }
+    poll();
+    return () => { stopped = true; clearTimeout(timer); clearTimeout(deadline); };
   }, []);
 
   async function remove(id: string) {
@@ -402,10 +492,18 @@ export default function Account() {
 
   return (
     <Shell lang={lang} setLang={setLang} signedIn={data ? true : undefined}>
+      {proReturn && <p role="status" className="mt-4 rounded-xl bg-indigo/10 p-4 font-semibold">{PRO_TEXT[proReturn][lang]}</p>}
       {err ? (
         <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-4 text-center">
           <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>
           <button type="button" onClick={start} disabled={busy} className={out}>
+            {busy && <Spinner />}
+            {t.retry}
+          </button>
+        </div>
+      ) : !data && proReturn === "late" ? (
+        <div className="mt-4 flex justify-center">
+          <button type="button" onClick={start} disabled={busy} className={`${out} w-full whitespace-normal sm:w-auto`}>
             {busy && <Spinner />}
             {t.retry}
           </button>
