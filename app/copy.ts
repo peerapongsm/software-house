@@ -79,7 +79,6 @@ export const COPY = {
     contactSub: "ส่งอีเมลหรือทัก LINE มาได้เลย ถ้าแอปเล็ก ๆ ช่วยได้ เราจะบอกว่าทำอะไรได้บ้างและใช้เวลาเท่าไร",
     privacy: "นโยบายความเป็นส่วนตัว",
     terms: "ข้อกำหนดการใช้งาน",
-    deleteAccount: "ลบบัญชี",
     visitor: "คุณคือผู้เข้าชมคนที่",
   },
   en: {
@@ -158,7 +157,6 @@ export const COPY = {
     contactSub: "Send an email or message us on LINE. If a small app can help, we'll tell you what it would do and how long it would take.",
     privacy: "Privacy policy",
     terms: "Terms of use",
-    deleteAccount: "Delete account",
     visitor: "You are visitor no.",
   },
 } as const;

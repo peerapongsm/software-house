@@ -11,7 +11,7 @@ const COPY = {
     lead: "ลบได้เองทั้งบนเว็บและในแอป ไม่ต้องรอเรา",
     stepsH: "ลบบัญชีทำยังไง",
     steps: [
-      "บนเว็บ เข้า “บัญชีของฉัน” เลื่อนลงไปสุด กด “ลบบัญชี” แล้วพิมพ์ DELETE เพื่อยืนยัน",
+      "บนเว็บ กดลิงก์ “ลบบัญชี” ที่ด้านล่างหน้า “บัญชีของฉัน” แล้วพิมพ์ DELETE เพื่อยืนยัน",
       "ในแอป PeerapoS Pair บนมือถือ เปิดตั้งค่า เข้าหน้า Pro แล้วกดลบบัญชี",
     ],
     goneH: "ลบแล้วจะหายไป",
@@ -41,7 +41,7 @@ const COPY = {
     lead: "You can delete it yourself, on the website or in the app. No need to wait for us.",
     stepsH: "How to delete",
     steps: [
-      "On the website, open My account, scroll to the bottom, press Delete account and type DELETE to confirm.",
+      "On the website, click the “Delete account” link at the bottom of My account and type DELETE to confirm.",
       "In the PeerapoS Pair app on your phone, open Settings, go to Pro and press Delete account.",
     ],
     goneH: "What is removed",

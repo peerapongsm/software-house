@@ -407,7 +407,6 @@ export default function Home() {
             <span className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <a href="/terms" className="hover:text-white">{t.terms}</a>
               <a href="/privacy" className="hover:text-white">{t.privacy}</a>
-              <a href="/delete-account" className="hover:text-white">{t.deleteAccount}</a>
               {/* White chip: the DBD logo is purple/blue on transparent, unreadable on bg-ink */}
               <a
                 href="https://dbdregistered.dbd.go.th/api/public/shopinfoReg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"

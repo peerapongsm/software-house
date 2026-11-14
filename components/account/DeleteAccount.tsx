@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Spinner from "@/components/account/Spinner";
 import { deleteNeedsAck, isDeleteConfirm } from "@/lib/account.ts";
 import { api } from "@/lib/api.ts";
@@ -57,6 +57,12 @@ const outSm = `${btn} min-h-11 px-4 py-2 text-[0.9375rem] border border-ink/25 b
 /** Signed-in only, the bottom of /account. A typed DELETE, then one more confirm if a Play subscription still runs. */
 export default function DeleteAccount({ lang }: { lang: Lang }) {
   const t = COPY[lang];
+  const [expanded, setExpanded] = useState(false);
+  const heading = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (expanded) heading.current?.focus();
+  }, [expanded]);
   const [typed, setTyped] = useState("");
   const [sub, setSub] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -75,9 +81,15 @@ export default function DeleteAccount({ lang }: { lang: Lang }) {
     else setErr(orderError(r)[lang]);
   }
 
+  if (!expanded) return (
+    <div className="mt-10 text-left">
+      <button type="button" onClick={() => setExpanded(true)} className="text-sm text-graphite underline underline-offset-4 hover:text-ink">{t.title}</button>
+    </div>
+  );
+
   return (
     <section className="mt-6 flex flex-col gap-4 rounded-2xl border border-red-200 bg-sheet p-5">
-      <h2 className="font-display text-xl font-bold leading-tight">{t.title}</h2>
+      <h2 ref={heading} tabIndex={-1} className="font-display text-xl font-bold leading-tight">{t.title}</h2>
       <div className="flex flex-col gap-2 text-sm">
         <p className="font-semibold">{t.gone}</p>
         <ul className="list-disc space-y-1 pl-5 text-graphite">

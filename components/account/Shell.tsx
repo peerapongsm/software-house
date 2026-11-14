@@ -4,8 +4,8 @@ import { EMAIL } from "@/app/site-info";
 import type { Lang } from "@/lib/lang.ts";
 
 const COPY = {
-  th: { apps: "แอป", contact: "ติดต่อ", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", delete: "ลบบัญชี", menu: "เมนู" },
-  en: { apps: "Apps", contact: "Contact", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", delete: "Delete account", menu: "Menu" },
+  th: { apps: "แอป", contact: "ติดต่อ", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", menu: "เมนู" },
+  en: { apps: "Apps", contact: "Contact", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", menu: "Menu" },
 };
 
 function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
@@ -75,7 +75,6 @@ export default function Shell({
           <span className="flex flex-wrap gap-x-4 gap-y-1">
             <a href="/terms" className="whitespace-nowrap text-white/85 hover:text-white">{t.terms}</a>
             <a href="/privacy" className="whitespace-nowrap text-white/85 hover:text-white">{t.privacy}</a>
-            <a href="/delete-account" className="whitespace-nowrap text-white/85 hover:text-white">{t.delete}</a>
             <a href={`mailto:${EMAIL}`} className="whitespace-nowrap text-white/85 hover:text-white">{EMAIL}</a>
           </span>
         </div>
