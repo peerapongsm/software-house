@@ -4,11 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { EMAIL } from "@/app/site-info";
 import Spinner from "@/components/account/Spinner";
 import { api, type Msg } from "@/lib/api.ts";
-import { exact, orderError, payStep, slipError } from "@/lib/buy.ts";
+import { exact, orderError, payStep } from "@/lib/buy.ts";
 import type { Lang } from "@/lib/lang.ts";
 
 /** GET /api/order/:id. The order id is the capability: no session needed (phone upload). */
 type Order = { status: string; amountSatang?: number; expiresAt?: string; qrSvg?: string; uploadQrSvg?: string; message?: Msg };
+
+// Legacy slip UI stays local until the Stripe order-status page replaces it.
+function slipError(f: { size: number; type: string }): Msg | null {
+  if (!["image/jpeg", "image/png", "image/webp"].includes(f.type)) return { th: "ใช้รูป JPG PNG หรือ WebP", en: "Use a JPG, PNG or WebP image." };
+  return f.size > 2 * 1024 * 1024 ? { th: "รูปใหญ่เกิน 2 MB ใช้รูปสลิปจากแอปธนาคาร", en: "The image is over 2 MB. Use the slip saved by your bank app." } : null;
+}
 
 const POLL_MS = 5000;
 const POLLS = 360; // 30 min of a visible tab, then the slip answer or a reload moves it on
@@ -270,7 +276,7 @@ export default function PayStep({ lang, id, signedIn }: { lang: Lang; id: string
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [o && payStep(o.status)]);
+  }, [o && payStep(o.status, false)]);
 
   async function upload(f: File) {
     const bad = slipError(f);
@@ -314,7 +320,7 @@ export default function PayStep({ lang, id, signedIn }: { lang: Lang; id: string
       </div>
     );
 
-  const step = payStep(o.status);
+  const step = payStep(o.status, false);
 
   if (step === "done")
     return (

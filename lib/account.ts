@@ -1,7 +1,7 @@
 // /account page rules: the plan pill, dates in Bangkok time, "last used" for a linked PC,
 // and which owned apps get a download row.
 
-import { PAID, type ApiResult, type Licence, type Msg, type PaidApp } from "./api.ts";
+import { PAID, type ApiResult, type Licence, type Msg, type PaidApp, type ProInfo, type ProSource } from "./api.ts";
 import type { Lang } from "./lang.ts";
 import { planStatus, type PlanStatus } from "./status.ts";
 
@@ -45,11 +45,18 @@ export const ownedPaid = (apps: string[]): PaidApp[] => PAID.filter((p) => apps.
 /** After "ยกเลิกทุกเครื่อง": the server's count of PCs it removed. */
 export const removedAll = (n: number): Msg => ({ th: `ยกเลิกแล้ว ${n} เครื่อง`, en: `${n} ${n === 1 ? "PC" : "PCs"} removed` });
 
-/** Pro on /account: no Pro → the /pro link; a Pro tier → the Play link, and /pro again only once it has ended. */
-export function proView(tier: { until: string } | null, now: number): { status: PlanStatus | null; manage: boolean; subscribe: boolean } {
-  if (!tier) return { status: null, manage: false, subscribe: true };
-  const status = planStatus(tier.until, now);
-  return { status, manage: true, subscribe: status.kind === "expired" };
+/** Pro source and available actions; PC grace does not prevent a new purchase. */
+export function proView(pro: ProInfo | null, now: number): { status: PlanStatus | null; source: ProSource | null; manage: "play" | "portal" | null; renew: boolean; subscribe: boolean } {
+  if (!pro) return { status: null, source: null, manage: null, renew: false, subscribe: true };
+  const status = planStatus(pro.until, now);
+  const expired = Date.parse(pro.until) <= now;
+  return {
+    status,
+    source: pro.source,
+    manage: pro.source === "play" ? "play" : pro.source === "stripe" ? "portal" : null,
+    renew: pro.source === "pass" && (status.days <= 30 || expired),
+    subscribe: expired,
+  };
 }
 
 /** The delete form: the typed word, spaces at the ends ignored, nothing else. */

@@ -8,15 +8,18 @@ export type PaidApp = (typeof PAID)[number];
 
 export type Msg = { th: string; en: string };
 
-/** GET /api/catalogue. Prices in satang. `pro` is for display only: Pro is not sold on the website. */
+/** GET /api/catalogue. App and Pro prices in satang. */
 export type Catalogue = {
   pro: { monthly: number; annual: number };
   apps: { id: string; price: number }[];
   onSale: string[];
 };
 
+export type ProSource = "play" | "stripe" | "pass";
+export type ProInfo = { source: ProSource; until: string; cancelling?: boolean };
+
 /** GET /api/account → licence. null = nothing bought yet. */
-export type Licence = { id: string; name: string; apps: string[]; tier: null | { t: "pro"; until: string } };
+export type Licence = { id: string; name: string; apps: string[]; tier: null | { t: "pro"; until: string }; pro: ProInfo | null };
 
 export type ApiResult<T> =
   | { ok: true; data: T }
@@ -43,4 +46,15 @@ export async function api<T>(
   const data = await res.json().catch(() => null);
   if (res.ok && data && data.ok !== false) return { ok: true, data: data as T };
   return { ok: false, status: res.status, error: data?.error ?? "http", message: data?.message, data };
+}
+
+/** Only Stripe-hosted Checkout and Customer Portal URLs may be used for navigation. */
+export function safeStripeUrl(u: unknown): string | null {
+  if (typeof u !== "string") return null;
+  try {
+    const { origin } = new URL(u);
+    return origin === "https://checkout.stripe.com" || origin === "https://billing.stripe.com" ? u : null;
+  } catch {
+    return null;
+  }
 }

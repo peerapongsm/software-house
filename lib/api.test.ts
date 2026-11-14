@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { api } from "./api.ts";
+import { api, safeStripeUrl } from "./api.ts";
 
 type Call = { url: string; init: RequestInit };
 
@@ -63,4 +63,13 @@ test("a non-JSON error still fails cleanly", async () => {
 test("network failure is status 0, error net", async () => {
   fakeFetch(() => Promise.reject(new TypeError("Failed to fetch")));
   assert.deepEqual(await api("/api/me"), { ok: false, status: 0, error: "net" });
+});
+
+test("safeStripeUrl: only exact HTTPS Checkout and Portal origins", () => {
+  for (const url of ["https://checkout.stripe.com/c/pay/cs_1", "https://billing.stripe.com/p/session/test"]) {
+    assert.equal(safeStripeUrl(url), url);
+  }
+  for (const url of ["https://evil.com/x", "javascript:alert(1)", "https://checkout.stripe.com.evil.com/", 42, null, undefined, {}, "", "/c/pay/cs_1", "http://checkout.stripe.com/", "https://checkout.stripe.com:444/", "https://checkout.stripe.com@evil.com/"]) {
+    assert.equal(safeStripeUrl(url), null);
+  }
 });

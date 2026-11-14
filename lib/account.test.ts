@@ -64,15 +64,28 @@ test("deleteNeedsAck: 409 activeSub means a Play subscription is still running",
   assert.equal(deleteNeedsAck({ ok: false, status: 500, error: "http" }), false);
 });
 
-test("proView: no Pro shows the link to /pro; Pro shows the Play link, and /pro again only once expired", () => {
-  assert.deepEqual(proView(null, NOW), { status: null, manage: false, subscribe: true });
-  const active = proView({ until: "2026-12-30T00:00:00+07:00" }, NOW);
-  assert.equal(active.status?.kind, "active");
-  assert.deepEqual([active.manage, active.subscribe], [true, false]);
-  const grace = proView({ until: "2026-10-25T00:00:00+07:00" }, NOW);
-  assert.equal(grace.status?.kind, "grace");
-  assert.deepEqual([grace.manage, grace.subscribe], [true, false]);
-  const ended = proView({ until: "2026-09-01T00:00:00+07:00" }, NOW);
-  assert.equal(ended.status?.kind, "expired");
-  assert.deepEqual([ended.manage, ended.subscribe], [true, true]);
+test("proView: no Pro can subscribe with no management or renewal", () => {
+  assert.deepEqual(proView(null, NOW), { status: null, source: null, manage: null, renew: false, subscribe: true });
+});
+
+test("proView: Stripe opens the portal, Play opens Play", () => {
+  for (const [source, manage] of [["stripe", "portal"], ["play", "play"]] as const) {
+    const view = proView({ source, until: "2026-12-09T15:00:00+07:00", cancelling: true }, NOW);
+    assert.equal(view.status?.kind, "active");
+    assert.deepEqual([view.source, view.manage, view.renew, view.subscribe], [source, manage, false, false]);
+  }
+});
+
+test("proView: passes renew in the last 30 days, never open subscription management", () => {
+  for (const [until, renew] of [["2026-12-09T15:00:00+07:00", false], ["2026-11-29T15:00:00+07:00", true], ["2026-11-19T15:00:00+07:00", true]] as const) {
+    const view = proView({ source: "pass", until, cancelling: false }, NOW);
+    assert.deepEqual([view.source, view.manage, view.renew, view.subscribe], ["pass", null, renew, false]);
+  }
+});
+
+test("proView: ended coverage can subscribe even during PC grace; ended passes can renew", () => {
+  for (const until of ["2026-10-30T15:00:00+07:00", "2026-10-25T00:00:00+07:00", "2026-09-01T00:00:00+07:00"]) {
+    const view = proView({ source: "pass", until, cancelling: false }, NOW);
+    assert.deepEqual([view.manage, view.renew, view.subscribe], [null, true, true]);
+  }
 });

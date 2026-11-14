@@ -119,7 +119,7 @@ function Empty({ t }: { t: T }) {
 
 function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: number }) {
   const tier = lic.tier;
-  const view = proView(tier, now);
+  const view = proView(tier ? { source: "play", until: tier.until } : null, now);
   return (
     <article className={`${sheet} flex flex-col gap-4`}>
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">

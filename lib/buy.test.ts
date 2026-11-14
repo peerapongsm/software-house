@@ -1,9 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { exact, forSale, orderError, orderId, orderItems, payStep, proRedirect, slipError, startPick } from "./buy.ts";
+import { exact, forSale, orderError, orderId, orderItems, payStep, proRedirect, startPick } from "./buy.ts";
 import type { Catalogue, Licence } from "./api.ts";
 
-const lic = (apps: string[] = []): Licence => ({ id: "L-ABCDEFGH", name: "ร้านสมใจ", apps, tier: null });
+const lic = (apps: string[] = []): Licence => ({ id: "L-ABCDEFGH", name: "ร้านสมใจ", apps, tier: null, pro: null });
 const q = (s: string) => new URLSearchParams(s);
 
 const cat: Catalogue = {
@@ -61,22 +61,17 @@ test("exact: amount to transfer, always two decimals", () => {
   assert.equal(exact(25905), "259.05");
 });
 
-test("payStep: which step an order status shows", () => {
-  assert.equal(payStep("open"), "pay");
-  assert.equal(payStep("expired"), "pay");
-  assert.equal(payStep("paid"), "done");
-  assert.equal(payStep("review"), "review");
-  assert.equal(payStep("issuing"), "review");
-  assert.equal(payStep("rejected"), "closed");
-  assert.equal(payStep("whatever"), "closed");
-});
-
-test("slipError: JPG, PNG or WebP up to 2 MB", () => {
-  assert.equal(slipError({ size: 2 * 1024 * 1024, type: "image/jpeg" }), null);
-  assert.equal(slipError({ size: 1000, type: "image/png" }), null);
-  assert.equal(slipError({ size: 1000, type: "image/webp" }), null);
-  assert.match(slipError({ size: 2 * 1024 * 1024 + 1, type: "image/jpeg" })!.th, /2 MB/);
-  assert.match(slipError({ size: 1000, type: "application/pdf" })!.en, /JPG/);
+test("payStep: waiting, cancelled, payable and final order states", () => {
+  assert.equal(payStep("open", false), "waiting");
+  assert.equal(payStep("open", true), "cancelled");
+  assert.equal(payStep("expired", false), "pay");
+  assert.equal(payStep("expired", true), "pay");
+  assert.equal(payStep("paid", true), "done");
+  assert.equal(payStep("review", false), "review");
+  assert.equal(payStep("issuing", false), "review");
+  assert.equal(payStep("refunded", false), "closed");
+  assert.equal(payStep("rejected", false), "closed");
+  assert.equal(payStep("whatever", false), "closed");
 });
 
 test("forSale: keeps only the paid apps on sale, the catalogue's Pro price stays", () => {
