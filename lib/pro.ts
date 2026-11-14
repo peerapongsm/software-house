@@ -11,9 +11,9 @@ export const PLAY_URL = "https://play.google.com/store/apps/details?id=dev.peera
 export const PLAY_SUBS_URL = "https://play.google.com/store/account/subscriptions";
 
 /** Satang, shown on /pro. */
-export const PRO_PRICE = { monthly: 15900, annual: 159000 };
+export const PRO_PRICE = { monthly: 29900, annual: 299000 };
 
-export const PRO_PASS = 159000;
+export const PRO_PASS = 299000;
 export type ProPlan = "month" | "year" | "pass";
 
 export function proActive(pro: ProInfo | null, now: number): boolean {
@@ -62,27 +62,25 @@ export const PRO_COPY = {
   lead: { th: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน", en: "Subscribe once. It works on every app in the same Google account." },
   month: { th: "/ เดือน", en: "/ month" },
   year: { th: "/ ปี", en: "/ year" },
-  get: { th: "ดาวน์โหลดจาก Google Play", en: "Get it on Google Play" },
   stepsH: { th: "เริ่มใช้ Pro", en: "Start using Pro" },
   steps: [
-    { th: "ซื้อบนหน้านี้ หรือสมัครในแอป PeerapoS Pair บน Android", en: "Buy on this page, or subscribe in PeerapoS Pair on Android." },
+    { th: "ซื้อบนหน้านี้", en: "Buy on this page." },
     { th: "บนคอมพิวเตอร์ กด “เชื่อมเครื่องนี้” แล้วเข้าสู่ระบบด้วยบัญชี Google เดียวกับตอนซื้อ", en: "On the PC, press “Link this PC” and sign in with the Google account you bought with." },
   ],
   getH: { th: "Pro ให้อะไรบ้าง", en: "What Pro gives you" },
   gets: [
     { th: "ฟีเจอร์ Pro ในแอปฟรีทุกตัว", en: "Pro features in every free app" },
     { th: "ฟีเจอร์ Pro ในแอปแบบซื้อขาดที่คุณเป็นเจ้าของ", en: "Pro features in the paid apps you own" },
-    { th: "รีเลย์ ตัวเชื่อม AI และ PeerapoS Pair", en: "Relay, the AI connector and PeerapoS Pair" },
+    { th: "เชื่อมมือถือได้หลายเครื่อง ใช้นอกร้านผ่านรีเลย์ และตัวเชื่อม AI", en: "More phones, access from outside the shop through the relay, and the AI connector" },
     { th: "สำรองข้อมูลไป Google Drive ของคุณเองในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว)", en: "Backup to your own Google Drive in the free apps (paid apps already include it)" },
   ],
   factsH: { th: "ก่อนสมัคร", en: "Before you subscribe" },
   facts: [
     { th: "ใช้ได้กับทุกแอปในบัญชีเดียวกัน ไม่ต้องสมัครซ้ำ", en: "One Pro works on every app in the same account. No need to subscribe again." },
-    { th: "ซื้อบนเว็บหรือสมัครใน Pair บน Android", en: "Buy on the website or subscribe in Pair on Android." },
+    { th: "ซื้อได้บนเว็บไซต์นี้เท่านั้น", en: "Pro is sold only on this website." },
     { th: "ยังไม่มีบน iPhone จะมาทีหลัง", en: "Not on iPhone yet. It comes later." },
   ],
   buyApps: { th: "ซื้อแอปแบบซื้อขาด", en: "Buy paid apps" },
-  playLine: { th: "ใช้มือถือ Android? สมัครในแอป PeerapoS Pair ได้ด้วย ราคาเดียวกัน", en: "On Android? You can also subscribe in PeerapoS Pair, same price." },
   webH: { th: "ซื้อบนเว็บ", en: "Buy on the website" },
   activeH: { th: "คุณมี Pro อยู่แล้ว", en: "You already have Pro" },
   activeUntil: { th: "ใช้ได้ถึง {date}", en: "Valid until {date}" },

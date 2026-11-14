@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
-import { PLAY_URL, PRO_PRICE, PRO_PASS, PRO_COPY, PRO_SOURCE_LABEL, proActive, proBuyError, type ProPlan } from "@/lib/pro.ts";
+import { PRO_PRICE, PRO_PASS, PRO_COPY, PRO_SOURCE_LABEL, proActive, proBuyError, type ProPlan } from "@/lib/pro.ts";
 import Spinner from "@/components/account/Spinner";
 import { api, type Catalogue, type Msg, type Licence, type ProInfo } from "@/lib/api.ts";
 import { day } from "@/lib/account.ts";
@@ -133,7 +133,7 @@ export default function ProPage() {
                       <span className="font-display text-lg font-bold">{t(name)}</span>
                       <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
                         {busy === plan && <Spinner />}
-                        {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : PRO_PASS)}
+                        {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : (prices?.annual ?? PRO_PASS))}
                         {per && <small className="font-body text-[0.9375rem] font-medium text-graphite">{t(per)}</small>}
                       </span>
                     </span>
@@ -144,10 +144,6 @@ export default function ProPage() {
               <p className="text-sm text-graphite">{t("renewNote")}</p>
               {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
               {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
-              <p className="border-t border-line pt-4">
-                {t("playLine")}{" "}
-                <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("get")}</a>
-              </p>
             </>
           )}
         </section>
