@@ -18,11 +18,12 @@ const COPY = {
 
 type Account = { email: string; licence: Licence | null };
 
-// Buying needs a session; only ?order=<id> (the phone-upload QR) opens without one.
+// Buying needs a session; an order status can be checked without one.
 export default function Buy() {
   const [lang, setLang] = useLang();
   const t = COPY[lang];
   const [signedIn, setSignedIn] = useState<boolean>();
+  const [cancelled, setCancelled] = useState(false);
   const [order, setOrder] = useState<string | null>(null);
   const [acct, setAcct] = useState<Account | null>(null);
   const [cat, setCat] = useState<Catalogue | null>(null);
@@ -40,16 +41,23 @@ export default function Buy() {
     if (to) return location.replace(to);
     const oid = orderId(q);
     setOrder(oid);
+    setCancelled(q.get("cancelled") === "1");
     setErr(null);
     setBusy(true);
     const [a, c] = await Promise.all([api<Account>("/api/account"), oid ? null : api<Catalogue>("/api/catalogue")]);
     setBusy(false);
-    if (a.ok) setSignedIn(true);
+    if (a.ok) {
+      setSignedIn(true);
+      setAcct(a.data);
+    }
     else if (a.status === 401) {
       if (!oid) return location.replace(`/login?next=${encodeURIComponent("/buy" + location.search)}`);
       setSignedIn(false);
     }
-    if (!c) return; // ?order: the pay step loads the order itself
+    if (!c) { // ?order: the pay step loads the order itself
+      if (!a.ok && a.status !== 401) setErr(orderError(a));
+      return;
+    }
     if (!a.ok) return setErr(orderError(a));
     if (!c.ok) return setErr(orderError(c));
     const shop = forSale(c.data);
@@ -63,7 +71,7 @@ export default function Buy() {
   }, []);
 
   function ordered(id: string) {
-    history.replaceState(null, "", `/buy?order=${id}`);
+    setCancelled(false);
     setOrder(id);
   }
 
@@ -73,7 +81,7 @@ export default function Buy() {
   return (
     <Shell lang={lang} setLang={setLang} signedIn={signedIn}>
       {order ? (
-        <PayStep lang={lang} id={order} signedIn={signedIn} />
+        <PayStep key={order} lang={lang} id={order} cancelled={cancelled} signedIn={signedIn} lic={lic} email={acct?.email ?? ""} onOrdered={ordered} accountErr={err} onRetry={start} />
       ) : err ? (
         <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-4 text-center">
           <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>

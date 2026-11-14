@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { appName } from "@/components/account/BuyPicker";
 import Spinner from "@/components/account/Spinner";
-import { api, type Licence, type Msg } from "@/lib/api.ts";
+import { api, safeStripeUrl, type Licence, type Msg } from "@/lib/api.ts";
 import { orderError, orderItems } from "@/lib/buy.ts";
 import { baht, total, type Line } from "@/lib/cart.ts";
 import type { Lang } from "@/lib/lang.ts";
@@ -18,7 +18,6 @@ const COPY = {
     pick: "เลือกแอปที่ต้องการ",
     receipt: "ส่งใบยืนยันการชำระเงินไปที่",
     total: "ยอดชำระ",
-    pay: "สั่งซื้อและรับ QR",
     accept: "ฉันยอมรับ",
     terms: "ข้อกำหนดการใช้งาน",
     and: "และ",
@@ -31,13 +30,14 @@ const COPY = {
     pick: "Pick the apps you want",
     receipt: "Send the payment confirmation to",
     total: "Total",
-    pay: "Order and get the QR",
     accept: "I accept the",
     terms: "Terms of use",
     and: "and the",
     privacy: "Privacy policy",
   },
 };
+
+const PAY: Msg = { th: "ชำระเงิน", en: "Pay" };
 
 const NEED_NAME: Msg = { th: "ใส่ชื่อก่อนสั่งซื้อ", en: "Enter a name first." };
 const NEED_EMAIL: Msg = { th: "ใส่อีเมลที่จะรับใบยืนยันให้ถูก", en: "Enter a valid email for the confirmation." };
@@ -52,17 +52,26 @@ export default function OrderBox({
   lic,
   email,
   onOrdered,
+  previousOrder,
 }: {
   lang: Lang;
   lines: Line[];
   lic: Licence | null;
   email: string;
   onOrdered: (orderId: string) => void;
+  previousOrder?: string;
 }) {
   const t = COPY[lang];
-  const [name, setName] = useState("");
-  const [receipt, setReceipt] = useState(email);
-  const [consent, setConsent] = useState(false);
+  const [previous] = useState(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem("order:" + previousOrder) ?? "null") as { name?: string; receiptEmail?: string; consent?: boolean } | null;
+    } catch {
+      return null;
+    }
+  });
+  const [name, setName] = useState(typeof previous?.name === "string" ? previous.name : "");
+  const [receipt, setReceipt] = useState(typeof previous?.receiptEmail === "string" ? previous.receiptEmail : email);
+  const [consent, setConsent] = useState(previous?.consent === true);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Msg | null>(null);
   const sum = total(lines);
@@ -76,12 +85,19 @@ export default function OrderBox({
     if (!EMAIL_RE.test(receipt.trim())) return setErr(NEED_EMAIL);
     setErr(null);
     setBusy(true);
-    const r = await api<{ orderId: string }>("/api/order", {
-      method: "POST",
-      body: { items: orderItems(lines), ...(lic ? {} : { name: name.trim() }), receiptEmail: receipt.trim(), consent: true },
-    });
+    const body = { items: orderItems(lines), ...(lic ? {} : { name: name.trim() }), receiptEmail: receipt.trim(), consent: true };
+    const r = await api<{ orderId: string; url: string }>("/api/order", { method: "POST", body });
     setBusy(false);
-    if (r.ok) return onOrdered(r.data.orderId);
+    if (r.ok) {
+      const url = safeStripeUrl(r.data.url);
+      if (!url) return setErr(orderError({ ok: false, status: 500, error: "server" }));
+      try {
+        sessionStorage.setItem("order:" + r.data.orderId, JSON.stringify(body));
+      } catch {}
+      history.replaceState(null, "", "/buy?order=" + encodeURIComponent(r.data.orderId));
+      onOrdered(r.data.orderId);
+      return location.assign(url);
+    }
     // the session ran out while picking: sign in again and come back here
     if (r.status === 401) return location.assign(`/login?next=${encodeURIComponent("/buy" + location.search)}`);
     setErr(orderError(r));
@@ -153,7 +169,7 @@ export default function OrderBox({
         className={`inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-semibold text-white transition-colors enabled:hover:bg-indigo-deep ${busy ? "disabled:bg-ink/70" : "disabled:opacity-40"}`}
       >
         {busy && <Spinner />}
-        {t.pay}
+        {PAY[lang]}
       </button>
 
       <label className="flex cursor-pointer items-center gap-2.5 text-[0.8125rem] leading-normal text-graphite">

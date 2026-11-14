@@ -55,6 +55,10 @@ test("orderItems: each line is just the app id", () => {
   );
 });
 
+test("orderItems: pay again sends the app id without the snapshot price", () => {
+  assert.deepEqual(orderItems([{ id: "account", price: 999000 }]), [{ id: "account" }]);
+});
+
 test("exact: amount to transfer, always two decimals", () => {
   assert.equal(exact(15937), "159.37");
   assert.equal(exact(899000), "8990.00");
