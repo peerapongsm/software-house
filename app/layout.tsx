@@ -14,7 +14,7 @@ import "@fontsource/ibm-plex-sans-thai-looped/latin-600.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-700.css";
 import "./globals.css";
 import { APPS, downloadUrl } from "./apps-data";
-import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
+import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, IS_UAT, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
 
 const TITLE = "PeerapoS Software House | รับทำแอปและเขียนโปรแกรมตามสั่ง + โปรแกรมฟรีสำหรับ SME";
 const DESCRIPTION =
@@ -45,11 +45,10 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     locale: "th_TH",
-    alternateLocale: ["en_US"],
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "PeerapoS Software House: custom apps and free apps for SMEs" }],
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.jpg"] },
-  robots: { index: process.env.PEERAPOS_UAT !== "true", follow: process.env.PEERAPOS_UAT !== "true", googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
+  robots: { index: !IS_UAT, follow: !IS_UAT, googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
   // Meta Business domain verification for peerapongsm.dev (Messenger app review).
   verification: { other: { "facebook-domain-verification": "r4huahcq44vgx1rneu425s9gm7tzdf" } },
 };
@@ -128,7 +127,7 @@ export default function RootLayout({
   return (
     <html lang="th">
       <body className="antialiased">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c") }} />
+        {!IS_UAT && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD).replace(/</g, "\\u003c") }} />}
         {children}
         {/* Cloudflare Web Analytics: cookieless visit counts (site is DNS-only, so no auto-inject). */}
         <script

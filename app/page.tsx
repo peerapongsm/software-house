@@ -192,7 +192,9 @@ export default function Home() {
       <section id="top" className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-6 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16 lg:pb-28 lg:pt-14">
         <div className="max-w-xl">
           <p className="mb-3 font-semibold text-indigo">{t.eyebrow}</p>
-          <h1 className="font-display text-[2.6rem] font-bold leading-[1.15] tracking-tight sm:text-6xl">{t.h1}</h1>
+          <h1 className="font-display text-[2.6rem] font-bold leading-[1.15] tracking-tight sm:text-6xl">
+            {t.h1.split("|").flatMap((part, i) => [i > 0 && <wbr key={`b${i}`} />, <span key={i} className="whitespace-nowrap">{part}</span>])}
+          </h1>
           <p className="mt-5 text-lg leading-relaxed text-graphite sm:text-xl">{t.heroSub}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#apps" className="rounded-xl bg-ink px-6 py-3.5 font-semibold text-white transition-colors hover:bg-indigo-deep">

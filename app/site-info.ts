@@ -2,6 +2,8 @@
 // AI assistants read the same answers a visitor sees. Keep every claim true to the page copy.
 
 export const SITE_URL = "https://peerapongsm.dev";
+// UAT build (npm run build:uat): no SEO signals at all, so search engines and AI crawlers only ever see production.
+export const IS_UAT = process.env.PEERAPOS_UAT === "true";
 export const EMAIL = "contact@peerapongsm.dev";
 // LINE Official Account, linked by its premium ID @peerapos (basic ID @470cwgcv still works if the premium ID lapses).
 export const LINE_URL = "https://line.me/R/ti/p/@peerapos";

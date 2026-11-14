@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { APPS, PAID_APPS, shotUrls } from "./apps-data";
-import { SITE_URL } from "./site-info";
+import { IS_UAT, SITE_URL } from "./site-info";
 
 export const dynamic = "force-static";
 
@@ -11,6 +11,7 @@ const BUILT = new Date();
 const IMAGES = ["/og.jpg", "/logo.png", ...[...APPS, ...PAID_APPS].flatMap((a) => [a.icon, ...shotUrls(a)])].map((p) => SITE_URL + p);
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  if (IS_UAT) return [];
   return [
     { url: SITE_URL, lastModified: BUILT, changeFrequency: "weekly", priority: 1, images: IMAGES },
     { url: `${SITE_URL}/llms.txt`, lastModified: BUILT, changeFrequency: "monthly", priority: 0.5 },

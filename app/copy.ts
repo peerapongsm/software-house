@@ -13,7 +13,8 @@ export const COPY = {
     navCustom: "รับทำแอป",
     navAbout: "เกี่ยวกับ",
     navContact: "ติดต่อ",
-    h1: "โปรแกรมฟรี",
+    // "|" = the only places the H1 may wrap (Chrome otherwise splits ตาม|สั่ง).
+    h1: "รับทำโปรแกรม|ตามสั่ง + |โปรแกรมฟรี|สำหรับ SME",
     heroSub:
       "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่ต้องสมัครสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
     heroApps: "ดูโปรแกรมทั้งหมด",
@@ -96,7 +97,7 @@ export const COPY = {
     navCustom: "Custom apps",
     navAbout: "About",
     navContact: "Contact",
-    h1: "Free software",
+    h1: "Custom software + |free apps |for SMEs",
     heroSub:
       "Windows apps that work offline. Your data stays on your PC. No subscription needed, no ads. If none of them fits your work, we'll build one that does.",
     heroApps: "See all apps",

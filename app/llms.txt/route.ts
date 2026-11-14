@@ -1,12 +1,12 @@
 import { APPS, PAID_APPS, downloadUrl } from "../apps-data";
 import { COPY } from "../copy";
-import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
+import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, IS_UAT, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
 
 function siteText(value: unknown, path = ""): string[] {
   if (typeof value === "string") {
-    return value.length >= 12 ? [`- ${path}: ${value}`] : [];
+    return value.length >= 12 ? [`- ${path}: ${value.replaceAll("|", "")}`] : [];
   }
   if (Array.isArray(value)) {
     return value.flatMap((item, index) => siteText(item, `${path}.${index + 1}`));
@@ -21,6 +21,8 @@ function siteText(value: unknown, path = ""): string[] {
 
 // llms.txt (llmstxt.org): a plain-text brief for AI assistants, built from the same data as the page.
 export function GET() {
+  // ponytail: static export must emit a file, so UAT gets a stub pointing at production.
+  if (IS_UAT) return new Response(`UAT build, not for AI assistants. Use ${SITE_URL}/llms.txt\n`, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
   const body = `# PeerapoS
 
 > PeerapoS is a small software house in Thailand that builds custom apps and software for businesses (รับทำแอปและเขียนโปรแกรมตามสั่ง), and publishes free offline Windows apps for small businesses (โปรแกรมฟรีสำหรับ SME).
