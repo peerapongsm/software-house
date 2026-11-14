@@ -4,6 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { PLAY_SUBS_URL, PLAY_URL, PRO_PRICE, PRO_PASS, proBuyError, proDonePoll } from "./pro.ts";
 import { baht } from "./cart.ts";
+import { day } from "./account.ts";
 
 test("PLAY_URL: the PeerapoS Pair listing on Google Play", () => {
   assert.equal(PLAY_URL, "https://play.google.com/store/apps/details?id=dev.peerapongsm.pair");
@@ -42,23 +43,27 @@ test("proDonePoll: only future coverage completes, even if cancellation is sched
 
 test("proBuyError: existing Pro identifies source and date in both languages", () => {
   for (const [source, th, en] of [["play", "Google Play", "Google Play"], ["stripe", "บัตร", "card"], ["pass", "บัตรรายปี", "pass"]]) {
-    const msg = proBuyError({ ok: false, status: 409, error: "proActive", data: { source, until: "2027-01-01" } });
+    const msg = proBuyError({ ok: false, status: 409, error: "proActive", data: { source, until: "2027-01-01T00:00:00.000Z" } });
+    assert.doesNotMatch(msg.th, /T00:00/);
+    assert.doesNotMatch(msg.en, /T00:00/);
     assert.ok(msg.th.includes(th));
     assert.ok(msg.en.includes(en));
-    assert.ok(msg.th.includes("2027-01-01"));
-    assert.ok(msg.en.includes("2027-01-01"));
+    assert.ok(msg.th.includes(day("2027-01-01T00:00:00.000Z", "th")));
+    assert.ok(msg.en.includes(day("2027-01-01T00:00:00.000Z", "en")));
   }
 });
 
 test("proBuyError: actionable bilingual messages for limits, closed sales, consent and connection failures", () => {
-  for (const [error, th, en] of [["passLimit", "2 ปี", "2 years"], ["salesOff", "ปิด", "closed"], ["needConsent", "ยอมรับ", "terms"]]) {
+  for (const [error, th, en] of [["passLimit", "2 ปี", "2 years"], ["needConsent", "ยอมรับ", "terms"]]) {
     const msg = proBuyError({ ok: false, status: 409, error });
     assert.ok(msg.th.includes(th));
     assert.ok(msg.en.includes(en));
   }
   assert.deepEqual(proBuyError({ ok: false, status: 0, error: "net" }), { th: "เชื่อมต่อไม่ได้ ลองอีกครั้ง", en: "Can't connect. Try again." });
-  const message = { th: "ลองใหม่ภายหลัง", en: "Try later." };
-  assert.deepEqual(proBuyError({ ok: false, status: 503, error: "payDown", message }), message);
+  assert.deepEqual(proBuyError({ ok: false, status: 503, error: "payDown" }), {
+    th: "ระบบชำระเงินขัดข้อง ลองใหม่อีกครั้งในไม่กี่นาที",
+    en: "Payments are down. Try again in a few minutes.",
+  });
   assert.match(proBuyError({ ok: false, status: 500, error: "http" }).en, /Try again/);
 });
 
@@ -66,6 +71,16 @@ test("Pro exports and page do not claim web purchases are unavailable", () => {
   const stale = /not sold on this site|ไม่ได้ขายบนเว็บ|ไม่ขายบนเว็บ|does not sell Pro|only in the store app|เฉพาะในแอปบน Google Play/i;
   assert.doesNotMatch(JSON.stringify(pro), stale);
   assert.doesNotMatch(readFileSync(new URL("../app/pro/page.tsx", import.meta.url), "utf8"), stale);
+});
+
+test("Pro metadata describes features without store restrictions or prices", () => {
+  const layout = readFileSync(new URL("../app/pro/layout.tsx", import.meta.url), "utf8");
+  const description = layout.match(/description: "([^"]+)"/);
+  assert.ok(description);
+  assert.match(description[1], /สำรองข้อมูล/);
+  assert.match(description[1], /Google/);
+  assert.match(description[1], /AI/);
+  assert.doesNotMatch(description[1], /Google Play|\d/);
 });
 
 test("proDonePoll: active pass renewal waits for coverage to advance", () => {

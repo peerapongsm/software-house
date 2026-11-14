@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { exact, forSale, orderError, orderId, orderItems, payStep, proRedirect, startPick } from "./buy.ts";
 import type { Catalogue, Licence } from "./api.ts";
+import { proBuyError } from "./pro.ts";
 
 const lic = (apps: string[] = []): Licence => ({ id: "L-ABCDEFGH", name: "ร้านสมใจ", apps, tier: null, pro: null });
 const q = (s: string) => new URLSearchParams(s);
@@ -104,3 +105,24 @@ test("orderError: the server's message, else a connect or generic line", () => {
   assert.match(orderError({ ok: false, status: 0, error: "net" }).th, /เชื่อมต่อไม่ได้/);
   assert.match(orderError({ ok: false, status: 500, error: "http" }).en, /went wrong/);
 });
+
+for (const [error, message] of Object.entries({
+  tooManyOrders: {
+    th: "มีคำสั่งซื้อค้างอยู่หลายรายการ รอสักครู่หรือชำระรายการเดิมก่อน",
+    en: "You have several unpaid orders. Pay one of them or wait a day.",
+  },
+  payDown: {
+    th: "ระบบชำระเงินขัดข้อง ลองใหม่อีกครั้งในไม่กี่นาที",
+    en: "Payments are down. Try again in a few minutes.",
+  },
+  salesOff: {
+    th: "ยังไม่เปิดขายตอนนี้",
+    en: "Sales are closed right now.",
+  },
+})) {
+  for (const errorText of [orderError, proBuyError]) {
+    test(`${errorText.name}: ${error} maps to bilingual site copy without an API message`, () => {
+      assert.deepEqual(errorText({ ok: false, status: 503, error }), message);
+    });
+  }
+}

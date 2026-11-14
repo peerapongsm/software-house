@@ -8,6 +8,11 @@ const ORDER_RE = /^O-[0-9A-HJKMNP-TV-Z]{10}$/;
 
 const NET: Msg = { th: "เชื่อมต่อไม่ได้ ลองอีกครั้ง", en: "Can't connect. Try again." };
 const OOPS: Msg = { th: "มีบางอย่างผิดพลาด ลองอีกครั้ง", en: "Something went wrong. Try again." };
+const ORDER_ERRORS: ReadonlyMap<string, Msg> = new Map([
+  ["tooManyOrders", { th: "มีคำสั่งซื้อค้างอยู่หลายรายการ รอสักครู่หรือชำระรายการเดิมก่อน", en: "You have several unpaid orders. Pay one of them or wait a day." }],
+  ["payDown", { th: "ระบบชำระเงินขัดข้อง ลองใหม่อีกครั้งในไม่กี่นาที", en: "Payments are down. Try again in a few minutes." }],
+  ["salesOff", { th: "ยังไม่เปิดขายตอนนี้", en: "Sales are closed right now." }],
+]);
 
 /** The order in ?order= (phone-upload link), if it looks like one. */
 export function orderId(q: URLSearchParams): string | null {
@@ -47,4 +52,4 @@ export function forSale(cat: Catalogue): Catalogue {
   return { ...cat, apps: cat.apps.filter((a) => on.has(a.id)) };
 }
 
-export const orderError = (r: ApiResult<unknown> & { ok: false }): Msg => (r.status === 0 ? NET : (r.message ?? OOPS));
+export const orderError = (r: ApiResult<unknown> & { ok: false }): Msg => (r.status === 0 ? NET : (ORDER_ERRORS.get(r.error) ?? r.message ?? OOPS));

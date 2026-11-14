@@ -28,7 +28,7 @@ const COPY = {
     warnH: "ก่อนลบ อ่านข้อนี้",
     warn: [
       "แอปแบบซื้อขาดที่ซื้อไว้จะใช้ไม่ได้ และกู้คืนให้ไม่ได้",
-      "ถ้ามี PeerapoS Pro ให้ยกเลิกใน Google Play ก่อน การลบบัญชีไม่ยกเลิกการสมัคร คุณจะยังถูกคิดเงินต่อ และการสมัครนั้นย้ายไปบัญชีใหม่ไม่ได้",
+      "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และบัตรรายปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
     ],
     play: "จัดการใน Google Play",
     fallbackH: "ถ้าลบเองไม่ได้",
@@ -58,7 +58,7 @@ const COPY = {
     warnH: "Read before you delete",
     warn: [
       "Paid apps you bought stop working, and we cannot restore them.",
-      "If you have PeerapoS Pro, cancel it in Google Play first. Deleting the account does NOT cancel the Google Play subscription: you keep being charged, and that subscription cannot move to a new account.",
+      "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
     ],
     play: "Manage in Google Play",
     fallbackH: "Cannot delete it yourself?",

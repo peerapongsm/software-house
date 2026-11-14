@@ -6,6 +6,16 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
 
+test("delete-account: reuses the Terms deletion wording in both languages", () => {
+  const terms = readFileSync(new URL("../app/terms/page.tsx", import.meta.url), "utf8");
+  const page = readFileSync(new URL("../app/delete-account/page.tsx", import.meta.url), "utf8");
+  const deletion = terms.match(/deletion: \{\s*th: ("[^"]+"),\s*en: ("[^"]+"),\s*\}/);
+  assert.ok(deletion);
+  for (const text of deletion.slice(1)) {
+    assert.ok(page.includes(JSON.parse(text)), "deletion warning matches Terms");
+  }
+});
+
 // Render the real static pages with the installed compiler; node --test cannot load TSX.
 function article(page: string, lang: "th" | "en") {
   const source = readFileSync(new URL(`../app/${page}/page.tsx`, import.meta.url), "utf8");

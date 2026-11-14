@@ -1,6 +1,7 @@
 // PeerapoS Pro: Google Play, web card subscriptions and prepaid passes.
 
 import type { ApiResult, Msg, ProInfo, ProSource } from "./api.ts";
+import { day } from "./account.ts";
 import { orderError } from "./buy.ts";
 
 /** PeerapoS Pair on Google Play. */
@@ -21,7 +22,6 @@ const SOURCE: Record<ProSource, Msg> = {
   pass: { th: "บัตรรายปี", en: "prepaid pass" },
 };
 const PASS_LIMIT: Msg = { th: "ซื้อบัตรล่วงหน้าได้ไม่เกิน 2 ปี รอให้ใกล้หมดอายุแล้วลองอีกครั้ง", en: "Passes cover up to 2 years ahead. Try again closer to expiry." };
-const SALES_OFF: Msg = { th: "ปิดรับชำระเงินชั่วคราว ลองใหม่ภายหลัง", en: "Sales are temporarily closed. Try later." };
 const NEED_CONSENT: Msg = { th: "ยอมรับเงื่อนไขก่อนชำระเงิน", en: "Accept the terms before paying." };
 
 export function proBuyError(r: ApiResult<unknown> & { ok: false }): Msg {
@@ -30,12 +30,11 @@ export function proBuyError(r: ApiResult<unknown> & { ok: false }): Msg {
     const source = SOURCE[r.data?.source as ProSource];
     const until = r.data?.until;
     if (source && typeof until === "string") return {
-      th: "มี Pro อยู่แล้วจาก " + source.th + " ถึง " + until + " รอให้หมดอายุแล้วลองอีกครั้ง",
-      en: "You already have Pro from " + source.en + " until " + until + ". Wait until it ends, then try again.",
+      th: "มี Pro อยู่แล้วจาก " + source.th + " ถึง " + day(until, "th") + " รอให้หมดอายุแล้วลองอีกครั้ง",
+      en: "You already have Pro from " + source.en + " until " + day(until, "en") + ". Wait until it ends, then try again.",
     };
   }
   if (r.error === "passLimit") return PASS_LIMIT;
-  if (r.error === "salesOff") return SALES_OFF;
   if (r.error === "needConsent") return NEED_CONSENT;
   return orderError(r);
 }
