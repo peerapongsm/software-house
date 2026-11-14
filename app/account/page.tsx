@@ -507,7 +507,7 @@ export default function Account() {
 
   return (
     <Shell lang={lang} setLang={setLang} signedIn={data ? true : undefined}>
-      {proReturn && <p role="status" className="mt-4 rounded-xl bg-indigo/10 p-4 font-semibold">{PRO_TEXT[proReturn][lang]}</p>}
+      {proReturn && <p role="status" className="mb-6 mt-4 rounded-xl bg-indigo/10 p-4 font-semibold">{PRO_TEXT[proReturn][lang]}</p>}
       {err ? (
         <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-4 text-center">
           <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>
