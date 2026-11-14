@@ -6,7 +6,6 @@ import { deleteNeedsAck, isDeleteConfirm } from "@/lib/account.ts";
 import { api } from "@/lib/api.ts";
 import { orderError } from "@/lib/buy.ts";
 import type { Lang } from "@/lib/lang.ts";
-import { PLAY_SUBS_URL } from "@/lib/pro.ts";
 
 const COPY = {
   th: {
@@ -15,15 +14,14 @@ const COPY = {
     items: [
       "บัญชี การเข้าสู่ระบบ และทุกเครื่องที่ยังเข้าสู่ระบบอยู่",
       "เครื่องที่เชื่อมไว้ทั้งหมด และตัวเชื่อม AI ที่ผูกไว้",
-      "สิทธิ์ PeerapoS Pro และข้อมูลการซื้อบน Google Play ที่เก็บไว้ การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
+      "สิทธิ์ PeerapoS Pro การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
       "แอปแบบซื้อขาดที่ซื้อไว้ จะใช้ไม่ได้ และกู้คืนให้ไม่ได้",
     ],
     stays: "คำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ",
     typeLabel: "พิมพ์ DELETE เพื่อยืนยัน",
     btn: "ลบบัญชีของฉัน",
     subTitle: "ยังมีการสมัคร PeerapoS Pro",
-    subBody: "การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะยังถูกคิดเงินต่อ และการสมัครนี้ย้ายไปบัญชีใหม่ไม่ได้ ให้ยกเลิกใน Google Play ก่อน การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
-    play: "จัดการใน Google Play",
+    subBody: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
     force: "ลบต่อ ฉันเข้าใจผลที่เกิดกับ Pro แล้ว",
     back: "ยกเลิก",
     how: "ดูวิธีลบบัญชีและสิ่งที่ยังเหลือ",
@@ -34,15 +32,14 @@ const COPY = {
     items: [
       "The account, its sign-in and every signed-in device",
       "All linked PCs and the AI connector links",
-      "PeerapoS Pro and the Google Play purchase records kept with it. Card subscriptions are cancelled immediately without a refund; remaining prepaid passes are lost",
+      "PeerapoS Pro. Card subscriptions are cancelled immediately without a refund; remaining prepaid passes are lost",
       "Paid apps you bought stop working, and we cannot restore them",
     ],
     stays: "Orders and the payment confirmation email stay, because tax law requires us to keep them.",
     typeLabel: "Type DELETE to confirm",
     btn: "Delete my account",
     subTitle: "A PeerapoS Pro subscription is still running",
-    subBody: "Deleting the account does NOT cancel the Google Play subscription. You keep being charged, and that subscription cannot move to a new account. Cancel it in Google Play first. A card subscription is cancelled immediately without a refund, and remaining prepaid passes are lost.",
-    play: "Manage in Google Play",
+    subBody: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
     force: "Delete anyway; I accept the subscription and pass consequences",
     back: "Cancel",
     how: "How deleting works, and what stays",
@@ -54,7 +51,7 @@ const danger = `${btn} min-h-[52px] px-6 py-3 bg-red-700 text-white hover:bg-red
 const dangerOut = `${btn} min-h-11 px-4 py-2 text-[0.9375rem] border border-red-700 text-red-700 bg-sheet hover:bg-red-50 disabled:opacity-40`;
 const outSm = `${btn} min-h-11 px-4 py-2 text-[0.9375rem] border border-ink/25 bg-sheet hover:border-ink`;
 
-/** Signed-in only, the bottom of /account. A typed DELETE, then one more confirm if a Play subscription still runs. */
+/** Signed-in only, the bottom of /account. A typed DELETE, then one more confirm if the server requires acknowledgement of an active subscription. */
 export default function DeleteAccount({ lang }: { lang: Lang }) {
   const t = COPY[lang];
   const [expanded, setExpanded] = useState(false);
@@ -105,7 +102,6 @@ export default function DeleteAccount({ lang }: { lang: Lang }) {
           <p className="font-bold text-amber-900">{t.subTitle}</p>
           <p className="text-sm text-amber-900">{t.subBody}</p>
           <div className="flex flex-wrap gap-2">
-            <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={outSm}>{t.play}</a>
             <button type="button" disabled={busy} onClick={() => { setSub(false); setTyped(""); }} className={outSm}>{t.back}</button>
             <button type="button" disabled={busy} onClick={() => submit(true)} className={dangerOut}>
               {busy && <Spinner />}

@@ -46,7 +46,7 @@ export const ownedPaid = (apps: string[]): PaidApp[] => PAID.filter((p) => apps.
 export const removedAll = (n: number): Msg => ({ th: `ยกเลิกแล้ว ${n} เครื่อง`, en: `${n} ${n === 1 ? "PC" : "PCs"} removed` });
 
 /** Pro source and available actions; PC grace does not prevent a new purchase. */
-export function proView(pro: ProInfo | null, now: number): { status: PlanStatus | null; source: ProSource | null; manage: "play" | "portal" | null; renew: boolean; subscribe: boolean } {
+export function proView(pro: ProInfo | null, now: number): { status: PlanStatus | null; source: ProSource | null; manage: "portal" | null; renew: boolean; subscribe: boolean } {
   if (!pro) return { status: null, source: null, manage: null, renew: false, subscribe: true };
   const raw = planStatus(pro.until, now);
   // A subscription that will renew is not running out: no countdown until it is cancelled.
@@ -56,7 +56,7 @@ export function proView(pro: ProInfo | null, now: number): { status: PlanStatus 
   return {
     status,
     source: pro.source,
-    manage: pro.source === "play" ? "play" : pro.source === "stripe" ? "portal" : null,
+    manage: pro.source === "stripe" ? "portal" : null,
     renew: pro.source === "pass" && (status.days <= 30 || expired),
     subscribe: expired,
   };
@@ -65,5 +65,5 @@ export function proView(pro: ProInfo | null, now: number): { status: PlanStatus 
 /** The delete form: the typed word, spaces at the ends ignored, nothing else. */
 export const isDeleteConfirm = (typed: string) => typed.trim() === "DELETE";
 
-/** POST /api/account/delete answered 409 activeSub: a Play subscription is still running. */
+/** POST /api/account/delete answered 409 activeSub: the server requires acknowledgement of an active subscription. */
 export const deleteNeedsAck = (r: ApiResult<unknown> & { ok: false }) => r.status === 409 && r.error === "activeSub";

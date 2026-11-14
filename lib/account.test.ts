@@ -58,7 +58,7 @@ test("isDeleteConfirm: the typed word DELETE, spaces around it ignored, nothing 
   assert.equal(isDeleteConfirm(""), false);
 });
 
-test("deleteNeedsAck: 409 activeSub means a Play subscription is still running", () => {
+test("deleteNeedsAck: 409 activeSub requires acknowledgement of an active subscription", () => {
   assert.equal(deleteNeedsAck({ ok: false, status: 409, error: "activeSub" }), true);
   assert.equal(deleteNeedsAck({ ok: false, status: 409, error: "other" }), false);
   assert.equal(deleteNeedsAck({ ok: false, status: 500, error: "http" }), false);
@@ -68,8 +68,8 @@ test("proView: no Pro can subscribe with no management or renewal", () => {
   assert.deepEqual(proView(null, NOW), { status: null, source: null, manage: null, renew: false, subscribe: true });
 });
 
-test("proView: Stripe opens the portal, Play opens Play", () => {
-  for (const [source, manage] of [["stripe", "portal"], ["play", "play"]] as const) {
+test("proView: Stripe opens the portal; legacy Play has no management action", () => {
+  for (const [source, manage] of [["stripe", "portal"], ["play", null]] as const) {
     const view = proView({ source, until: "2026-12-09T15:00:00+07:00", cancelling: true }, NOW);
     assert.equal(view.status?.kind, "active");
     assert.deepEqual([view.source, view.manage, view.renew, view.subscribe], [source, manage, false, false]);
@@ -165,11 +165,15 @@ test("deleteNeedsAck: activeSub requires acknowledgement only on 409", () => {
 });
 
 test("account Pro card uses the authoritative source even without tier", () => {
-  for (const [source, label] of [["play", "Google Play"], ["stripe", "Card subscription, cancelled"], ["pass", "Prepaid annual pass"]] as const) {
-    const html = renderToStaticMarkup(planHarness().render(source));
-    assert.ok(html.includes(label), html);
-    assert.ok(html.includes("19 Nov 2026"), html);
-    assert.equal(html.includes(proRules.PLAY_SUBS_URL), source === "play");
+  for (const lang of ["th", "en"]) {
+    for (const [source, label] of [["play", "Legacy Pro"], ["stripe", "Card subscription, cancelled"], ["pass", "Prepaid annual pass"]] as const) {
+      const tree = planHarness().render(source, lang);
+      const html = renderToStaticMarkup(tree);
+      assert.ok(html.includes(lang === "en" ? label : proRules.PRO_SOURCE_LABEL[source].th), html);
+      assert.ok(html.includes(day("2026-11-19T15:00:00+07:00", lang as "th" | "en")), html);
+      assert.doesNotMatch(html, /Google Play|play\.google\.com/);
+      if (source === "play") assert.equal(nodes(tree).some(n => n.type === "a" || n.type === "button"), false);
+    }
   }
 });
 

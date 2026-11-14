@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import type { Msg } from "@/lib/api.ts";
 
-// Terms for paid apps, Stripe web Pro and Google Play Pro. Decisions: 2026-11-14 spec.
+// Terms for paid apps and website-only Pro through Stripe. Decisions: 2026-11-14 spec.
 
 const COPY = {
   description: {
-    th: "ข้อกำหนดการใช้งานแอป PeerapoS การซื้อแอปและ Pro ผ่าน Stripe และ Google Play",
-    en: "Terms of use for PeerapoS apps, paid-app orders and Pro through Stripe and Google Play.",
+    th: "ข้อกำหนดการใช้งานแอป PeerapoS การซื้อแอปและ Pro บนเว็บไซต์ผ่าน Stripe",
+    en: "Terms of use for PeerapoS apps, paid-app orders and website Pro through Stripe.",
   },
   paid: {
     th: "แอปแบบซื้อขาด (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) ซื้อครั้งเดียวที่หน้า /buy จ่ายด้วยบัตรหรือ PromptPay ผ่าน Stripe อัปเดตให้ฟรีตลอด ไม่หมดอายุ เว้นแต่คืนเงินเต็มจำนวนหรือแพ้ข้อพิพาทการชำระเงิน ราคาดูที่หน้า /buy",
     en: "The paid apps (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) are bought once on /buy by card or PromptPay through Stripe, with free updates forever. They never expire unless fully refunded or a payment dispute is lost. Prices are on /buy.",
   },
   pro: {
-    th: "PeerapoS Pro จำหน่ายบนเว็บไซต์และผ่าน Google Play ราคาและวิธีชำระเงินแสดงตอนชำระเงิน ส่วน Pro ที่ซื้อในแอปบน Android จ่ายผ่าน Google Play ตามราคาที่ Google Play แสดงตอนสมัคร",
-    en: "PeerapoS Pro is sold on the website and through Google Play. Prices and payment methods are shown at checkout. Pro bought in an Android app is paid through Google Play at the price Google Play shows when you subscribe.",
+    th: "PeerapoS Pro จำหน่ายบนเว็บไซต์นี้เท่านั้น ราคาและวิธีชำระเงินแสดงตอนชำระเงิน",
+    en: "PeerapoS Pro is sold only on this website. Prices and payment methods are shown at checkout.",
   },
   deletion: {
-    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
-    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
+    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
   },
   payment: {
     th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและ Pro 1 ปีจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
@@ -29,28 +29,28 @@ const COPY = {
     en: "After payment for a paid app or prepaid pass we email a payment confirmation to the receipt email. Stripe sends card-subscription invoices and renewal emails. Our confirmation is proof of payment, not a tax invoice.",
   },
   cancel: {
-    th: "Pro ที่สมัครผ่านบัตรต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อที่หน้า /account ใช้ได้ถึงสิ้นรอบที่จ่ายไว้ ไม่คืนเงินตามสัดส่วน ส่วน Pro ที่ซื้อผ่าน Google Play ให้จัดการและยกเลิกใน Google Play",
-    en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds. Pro bought through Google Play is managed and cancelled in Google Play.",
+    th: "Pro ที่สมัครผ่านบัตรต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อที่หน้า /account ใช้ได้ถึงสิ้นรอบที่จ่ายไว้ ไม่คืนเงินตามสัดส่วน",
+    en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds.",
   },
   pass: {
-    th: "Pro 1 ปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro 1 ปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลา Pro 1 ปีที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้ Pro จาก Google Play หรือการสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro 1 ปี จ่ายครั้งเดียว และถ้ามี Pro 1 ปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
-    en: "A prepaid pass covers 1 year and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active Google Play or card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
+    th: "Pro 1 ปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro 1 ปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลา Pro 1 ปีที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้การสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro 1 ปี จ่ายครั้งเดียว และถ้ามี Pro 1 ปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
+    en: "A prepaid pass covers 1 year and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
   },
   ends: {
     th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อ Pro 1 ปีหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
     en: "Pro ends when the paid period runs out after cancellation, a prepaid pass expires, the payment provider cannot collect payment within its allowed recovery time, or a purchase is fully refunded, revoked or a payment dispute is lost.",
   },
   grace: {
-    th: "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วันสำหรับฟีเจอร์ Pro บนคอมพิวเตอร์ ถ้า Google Play คืนเงินหรือเพิกถอนการซื้อ ไม่มีช่วงผ่อนผันนี้ ส่วนการคืนเงินหรือแพ้ข้อพิพาทผ่าน Stripe ทำให้ Pro สิ้นสุดทันที แต่ช่วงผ่อนผันบนคอมพิวเตอร์ยังใช้ตามเดิม",
-    en: "After the end date, PC Pro features have a 14-day grace period. Google Play refunds or revocations have no grace period. A Stripe refund or lost dispute ends Pro immediately, while the PC grace period still applies.",
+    th: "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วันสำหรับฟีเจอร์ Pro บนคอมพิวเตอร์ ส่วนการคืนเงินหรือแพ้ข้อพิพาทผ่าน Stripe ทำให้ Pro สิ้นสุดทันที แต่ช่วงผ่อนผันบนคอมพิวเตอร์ยังใช้ตามเดิม",
+    en: "After the end date, PC Pro features have a 14-day grace period. A Stripe refund or lost dispute ends Pro immediately, while the PC grace period still applies.",
   },
   owned: {
     th: "แอปซื้อขาดไม่ผูกกับ Pro และไม่หมดอายุหรือถูกล็อกเมื่อออฟไลน์ เว้นแต่เครื่องถูกยกเลิกการเชื่อม บัญชีถูกลบ หรือสิทธิ์ถูกถอนจากการคืนเงินเต็มจำนวนหรือแพ้ข้อพิพาทการชำระเงิน เครื่องออฟไลน์ยังใช้แอปได้จนกว่าจะตรวจสิทธิ์อีกครั้ง",
     en: "Paid apps do not depend on Pro and never expire or lock offline, except when a PC is unlinked, the account is deleted, or rights are revoked after a full refund or lost payment dispute. An offline PC can keep using the app until its next licence check.",
   },
   refunds: {
-    th: "Pro ที่ซื้อบนเว็บไซต์ไม่คืนเงินตามสัดส่วนเมื่อยกเลิก เว้นแต่กฎหมายบังคับ ส่วน Pro ที่ซื้อผ่าน Google Play คืนเงินตามกฎของ Google Play เราคืนเงินที่ Google Play เก็บเองไม่ได้",
-    en: "Website Pro has no partial refunds on cancellation, except where the law requires otherwise. Pro bought through Google Play follows Google Play's refund rules; we cannot refund a Google Play charge ourselves.",
+    th: "Pro ที่ซื้อบนเว็บไซต์ไม่คืนเงินตามสัดส่วนเมื่อยกเลิก เว้นแต่กฎหมายบังคับ",
+    en: "Website Pro has no partial refunds on cancellation, except where the law requires otherwise.",
   },
   revoke: {
     th: "เมื่อคืนเงินเต็มจำนวนหรือแพ้ข้อพิพาทการชำระเงินผ่านบัตร เราถอนแอปที่อยู่ในคำสั่งซื้อนั้น หรือ Pro สิ้นสุดทันที แอปบนคอมพิวเตอร์เสียสิทธิ์เมื่อตรวจสิทธิ์ครั้งถัดไป ส่วน Pro บนคอมพิวเตอร์ยังมีช่วงผ่อนผันตามข้อ 6 การคืนเงินบางส่วนหรือข้อพิพาทที่ยังไม่ตัดสินไม่ถอนสิทธิ์อัตโนมัติ",
@@ -116,7 +116,6 @@ const TH: Sec[] = [
       COPY.paid.th,
       COPY.pro.th,
       "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI PeerapoS Pair และการสำรองข้อมูลไป Google Drive ในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว ไม่ต้องมี Pro) ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ สมัครครั้งเดียวใช้ได้กับทุกแอปในบัญชีเดียวกัน",
-      "ผู้สมัครใหม่บน Google Play อาจได้ทดลองใช้ฟรี ระยะเวลาเท่าที่ร้านแอปแสดงตอนสมัคร",
       "PeerapoS Plan บนมือถือลงฟรีจากร้านแอป แต่ต้องมี Pro ที่ยังใช้งานได้ถึงจะใช้ได้",
     ],
     after: ["สิทธิ์ใช้โอนให้คนอื่นไม่ได้ และใช้ได้เฉพาะกิจการตามชื่อที่ลงไว้ในบัญชี"],
@@ -136,7 +135,7 @@ const TH: Sec[] = [
     li: [
       "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android ไม่มีรหัสเข้าสู่ระบบทางอีเมล",
       "ถ้าเราเพิ่มการเข้าสู่ระบบด้วย Apple ภายหลัง บัญชี Apple หนึ่งบัญชีผูกกับบัญชี Google หนึ่งบัญชีได้ครั้งเดียว",
-      "ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะเป็นหลักฐานทางภาษี",
+      "ลบบัญชีได้เองที่หน้า /account บนเว็บไซต์ ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม และสิทธิ์ จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะเป็นหลักฐานทางภาษี",
     ],
     after: [
       COPY.deletion.th,
@@ -249,7 +248,6 @@ const EN: Sec[] = [
       COPY.paid.en,
       COPY.pro.en,
       "Pro turns on Pro features in all the free apps, the paid apps you own, the relay, the AI connector, PeerapoS Pair and backup to Google Drive in the free apps (the paid apps include it without Pro). It does not open paid apps you have not bought. One Pro works across all apps on the same account.",
-      "A new subscriber on Google Play may get a free trial, for the length the store shows when you subscribe.",
       "PeerapoS Plan on a phone is a free download, but it needs an active Pro to use at all.",
     ],
     after: ["The right to use cannot be transferred, and is for the business named on the account."],
@@ -269,7 +267,7 @@ const EN: Sec[] = [
     li: [
       "Sign-in is with a Google account only, on the website and on Android. There is no email-code login.",
       "If we add Apple sign-in later, one Apple login can be linked to one Google account, once.",
-      "You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the receipt email stay, as tax records.",
+      "You can delete your account yourself on /account on the website. Deleting removes the account, sign-ins, sessions, linked PCs and licence. Paid apps you bought stop working, and we cannot restore them. Orders and the receipt email stay, as tax records.",
     ],
     after: [
       COPY.deletion.en,

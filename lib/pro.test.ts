@@ -2,22 +2,14 @@ import { readFileSync } from "node:fs";
 import * as pro from "./pro.ts";
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { PLAY_SUBS_URL, PLAY_URL, PRO_PRICE, PRO_PASS, proActive, proBuyError, proDonePoll } from "./pro.ts";
+import { PRO_PRICE, PRO_PASS, proActive, proBuyError, proDonePoll } from "./pro.ts";
 import { baht } from "./cart.ts";
 import { day } from "./account.ts";
-
-test("PLAY_URL: the PeerapoS Pair listing on Google Play", () => {
-  assert.equal(PLAY_URL, "https://play.google.com/store/apps/details?id=dev.peerapongsm.pair");
-});
 
 test("PRO_PRICE: 299 a month, 2,990 a year, in satang", () => {
   assert.deepEqual(PRO_PRICE, { monthly: 29900, annual: 299000 });
   assert.equal(baht(PRO_PRICE.monthly), "฿299");
   assert.equal(baht(PRO_PRICE.annual), "฿2,990");
-});
-
-test("PLAY_SUBS_URL: the Google Play subscriptions page", () => {
-  assert.equal(PLAY_SUBS_URL, "https://play.google.com/store/account/subscriptions");
 });
 
 test("PRO_PASS: the prepaid year costs 2,990 baht", () => {
@@ -57,7 +49,7 @@ test("proDonePoll: only future coverage completes, even if cancellation is sched
 });
 
 test("proBuyError: existing Pro identifies source and date in both languages", () => {
-  for (const [source, th, en] of [["play", "Google Play", "Google Play"], ["stripe", "การสมัครผ่านบัตร", "card"], ["pass", "Pro 1 ปี", "pass"]]) {
+  for (const [source, th, en] of [["play", "สิทธิ์เดิม", "legacy coverage"], ["stripe", "การสมัครผ่านบัตร", "card"], ["pass", "Pro 1 ปี", "pass"]]) {
     const msg = proBuyError({ ok: false, status: 409, error: "proActive", data: { source, until: "2027-01-01T00:00:00.000Z" } });
     assert.doesNotMatch(msg.th, /T00:00/);
     assert.doesNotMatch(msg.en, /T00:00/);

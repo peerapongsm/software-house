@@ -3,22 +3,20 @@
 import Shell from "@/components/account/Shell";
 import { EMAIL } from "@/app/site-info";
 import { useLang } from "@/lib/lang.ts";
-import { PLAY_SUBS_URL } from "@/lib/pro.ts";
 
 const COPY = {
   th: {
     h1: "ลบบัญชี PeerapoS",
-    lead: "ลบได้เองทั้งบนเว็บและในแอป ไม่ต้องรอเรา",
+    lead: "ลบได้เองบนเว็บไซต์ ไม่ต้องรอเรา",
     stepsH: "ลบบัญชีทำยังไง",
     steps: [
       "บนเว็บ กดลิงก์ “ลบบัญชี” ที่ด้านล่างหน้า “บัญชีของฉัน” แล้วพิมพ์ DELETE เพื่อยืนยัน",
-      "ในแอป PeerapoS Pair บนมือถือ เปิดตั้งค่า เข้าหน้า Pro แล้วกดลบบัญชี",
     ],
     goneH: "ลบแล้วจะหายไป",
     gone: [
       "บัญชี การเข้าสู่ระบบ และทุกเครื่องที่ยังเข้าสู่ระบบอยู่",
       "เครื่องที่เชื่อมไว้ทั้งหมด และตัวเชื่อม AI ที่ผูกไว้",
-      "สิทธิ์ PeerapoS Pro และข้อมูลการซื้อบน Google Play ที่เก็บไว้กับบัญชี",
+      "สิทธิ์ PeerapoS Pro",
     ],
     stayH: "อะไรยังอยู่",
     stay: [
@@ -28,9 +26,8 @@ const COPY = {
     warnH: "ก่อนลบ อ่านข้อนี้",
     warn: [
       "แอปแบบซื้อขาดที่ซื้อไว้จะใช้ไม่ได้ และกู้คืนให้ไม่ได้",
-      "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
+      "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
     ],
-    play: "จัดการใน Google Play",
     fallbackH: "ถ้าลบเองไม่ได้",
     fallback: `ส่งอีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
     back: "กลับไปหน้าบัญชี",
@@ -38,17 +35,16 @@ const COPY = {
   },
   en: {
     h1: "Delete your PeerapoS account",
-    lead: "You can delete it yourself, on the website or in the app. No need to wait for us.",
+    lead: "You can delete it yourself on the website. No need to wait for us.",
     stepsH: "How to delete",
     steps: [
       "On the website, click the “Delete account” link at the bottom of My account and type DELETE to confirm.",
-      "In the PeerapoS Pair app on your phone, open Settings, go to Pro and press Delete account.",
     ],
     goneH: "What is removed",
     gone: [
       "The account, its sign-in and every signed-in device",
       "All linked PCs and the AI connector links",
-      "PeerapoS Pro and the Google Play purchase records kept with the account",
+      "PeerapoS Pro",
     ],
     stayH: "What stays",
     stay: [
@@ -58,9 +54,8 @@ const COPY = {
     warnH: "Read before you delete",
     warn: [
       "Paid apps you bought stop working, and we cannot restore them.",
-      "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
+      "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
     ],
-    play: "Manage in Google Play",
     fallbackH: "Cannot delete it yourself?",
     fallback: `Email ${EMAIL} from the account's email address. We check it is you, then reply within 30 days.`,
     back: "Back to my account",
@@ -70,7 +65,6 @@ const COPY = {
 
 // Picture steps in the /pro style: one flat shape per step, ink lines, indigo accent.
 const P = { fill: "var(--color-sheet)", stroke: "var(--color-ink)", strokeWidth: 3, strokeLinejoin: "round" } as const;
-const ACC = { fill: "var(--color-indigo)" };
 const SOFT = { fill: "var(--color-indigo)", fillOpacity: 0.15 };
 const PIC = [
   // a monitor with a person and an account card
@@ -80,16 +74,9 @@ const PIC = [
     <path {...SOFT} d="M44 60c2-8 26-8 32 0z" />
     <path d="M48 86h24M60 72v14" fill="none" stroke="var(--color-ink)" strokeWidth="3" strokeLinecap="round" />
   </>,
-  // a phone with a bin
-  <>
-    <rect {...P} x="38" y="8" width="44" height="80" rx="8" />
-    <rect {...SOFT} x="44" y="18" width="32" height="50" rx="3" />
-    <rect {...ACC} x="50" y="40" width="20" height="4" rx="2" />
-    <path {...ACC} d="M52 48h16l-2 18h-12z" />
-  </>,
 ];
 
-/** /delete-account: how to delete, what goes, what stays, the Play warning and the fallback. Public, no sign-in. */
+/** /delete-account: how to delete, what goes, what stays, the Pro warning and the fallback. Public, no sign-in. */
 export default function DeleteAccountPage() {
   const [lang, setLang] = useLang();
   const t = COPY[lang];
@@ -143,9 +130,6 @@ export default function DeleteAccountPage() {
               <li key={x}>{x}</li>
             ))}
           </ul>
-          <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className="self-start font-semibold text-indigo underline">
-            {t.play}
-          </a>
         </section>
 
         <section className="flex flex-col gap-2">

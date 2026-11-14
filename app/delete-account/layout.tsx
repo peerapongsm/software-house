@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-// Public, no sign-in: Google Play asks for a web page that explains account deletion. Linked from /account and the footers.
+// Public account-deletion guide, linked from /account and the footers.
 export const metadata: Metadata = {
   title: "ลบบัญชี · Delete account — PeerapoS",
-  description: "How to delete your PeerapoS account on the website or in the app, what is removed, what stays, and the Google Play subscription warning.",
+  description: "How to delete your PeerapoS account on the website, what is removed, what stays, and what happens to Pro.",
   // override the root layout's "/" canonical and og:url
   alternates: { canonical: "/delete-account" },
   openGraph: { url: "/delete-account" },

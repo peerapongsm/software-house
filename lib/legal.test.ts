@@ -31,10 +31,17 @@ function article(page: string, lang: "th" | "en") {
 }
 
 for (const lang of ["th", "en"] as const) {
+  test(`privacy (${lang}): website Google sign-in stays; Pair is a free companion without data collection`, () => {
+    const text = article("privacy", lang);
+    assert.match(text, lang === "th" ? /Google ส่งรหัสบัญชีที่คงที่ อีเมล และชื่อ/ : /Google sends us the stable account id, email and name/);
+    assert.match(text, lang === "th" ? /แอป PeerapoS Pair บน Android เป็นแอปคู่หูฟรี ไม่ต้องเข้าสู่ระบบ ไม่มีการซื้อในแอป และไม่เก็บข้อมูลส่วนบุคคล/ : /PeerapoS Pair Android app is a free companion\. It has no sign-in or purchases and collects no personal data/);
+  });
+
   test(`terms (${lang}): website subscriptions disclose renewal, cancellation and prepaid coverage`, () => {
     const text = article("terms", lang);
     assert.match(text, /Stripe/);
     assert.match(text, /PromptPay/);
+    assert.match(text, lang === "th" ? /PeerapoS Pro จำหน่ายบนเว็บไซต์นี้เท่านั้น/ : /PeerapoS Pro is sold only on this website/);
     assert.doesNotMatch(text, /159|1,590|baht|\u0e1a\u0e32\u0e17/i);
     assert.match(text, /\/account/);
     assert.match(text, lang === "th" ? /ต่ออายุอัตโนมัติ/ : /renew automatically/);
@@ -51,7 +58,7 @@ for (const lang of ["th", "en"] as const) {
     assert.match(text, lang === "th" ? /ตรวจสิทธิ์ครั้งถัดไป/ : /next licence check/i);
     assert.match(text, lang === "th" ? /Pro สิ้นสุดทันที/ : /Pro ends immediately/);
     assert.match(text, /14/);
-    assert.match(text, /Google Play/);
+    assert.doesNotMatch(text, /Google Play|play\.google\.com/);
   });
 
   test(`privacy (${lang}): Stripe receives checkout data and retains its own payment records`, () => {
@@ -65,14 +72,26 @@ for (const lang of ["th", "en"] as const) {
     assert.doesNotMatch(text, /slip|สลิป/i);
   });
 
-  test(`legal pages (${lang}): account deletion distinguishes card, pass and Play; date is current`, () => {
+  test(`legal pages (${lang}): account deletion covers website card subscriptions and passes; date is current`, () => {
     for (const page of ["terms", "privacy"]) {
       const text = article(page, lang);
       assert.match(text, lang === "th" ? /ยกเลิกทันที.*ไม่คืนเงิน/ : /cancelled immediately without a refund/);
       assert.match(text, lang === "th" ? /Pro 1 ปีที่เหลือจะหายไป/ : /remaining prepaid passes are lost/);
-      assert.match(text, lang === "th" ? /ไม่ยกเลิกการสมัครใน Google Play/ : /does NOT cancel a Google Play subscription/);
+      assert.doesNotMatch(text, /Google Play|Play purchase|Play records|บน Play/);
       assert.match(text, lang === "th" ? /14 พฤศจิกายน 2569/ : /14 November 2026/);
       assert.doesNotMatch(text, /slip|สลิป/i);
     }
   });
 }
+
+test("Pro pages, metadata and deletion confirmation have no Play purchase, management, trial or purchase-data wording in either language", () => {
+  for (const path of [
+    "app/account/page.tsx", "app/delete-account/page.tsx", "app/delete-account/layout.tsx",
+    "app/terms/page.tsx", "app/privacy/page.tsx", "app/pro/page.tsx", "lib/pro.ts",
+    "components/account/DeleteAccount.tsx",
+  ]) {
+    const source = readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /Google Play|PLAY_(?:SUBS_)?URL|play\.google\.com|Play purchase|Play records|บน Play/i, path);
+    assert.doesNotMatch(source, /subscribe in Pair|สมัคร.{0,20}(?:ในแอป|ผ่านแอป) PeerapoS Pair/i, path);
+  }
+});

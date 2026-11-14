@@ -52,7 +52,7 @@ for (const flag of [undefined, false, "true", true]) {
     assert.equal(initial.some(n => n.type === "input"), false, "fail closed before catalogue loads");
     assert.equal(tree.some(n => n.type === "input"), flag === true);
     assert.equal(tree.filter(n => n.type === "button").length, flag === true ? 3 : 0);
-    assert.equal(tree.some(n => n.props?.href === pro.PLAY_URL), false, "Pro is sold only on the website");
+    assert.equal(tree.some(n => typeof n.props?.href === "string" && n.props.href.includes("play.google.com")), false, "Pro is sold only on the website");
     assert.equal(JSON.stringify(tree).includes("PeerapoS Pro opens soon"), flag !== true);
     assert.ok(tree.some(n => n.props?.href === "/buy"), "paid-app link remains");
     assert.ok(JSON.stringify(tree).includes("What Pro gives you"));

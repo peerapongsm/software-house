@@ -51,7 +51,7 @@ const PLANS = [
   { plan: "pass", name: "passBuy", note: "passNote", per: null },
 ] as const;
 
-/** /pro: public Pro information, Google Play and signed-in web checkout. */
+/** /pro: public Pro information and signed-in website checkout. */
 export default function ProPage() {
   const [lang, setLang] = useLang();
   const t = (key: Exclude<keyof typeof PRO_COPY, "steps" | "gets" | "facts">) => PRO_COPY[key][lang];

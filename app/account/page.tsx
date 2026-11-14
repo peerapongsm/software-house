@@ -12,7 +12,7 @@ import type { Grant } from "@/lib/ai.ts";
 import { api, API_BASE, type Licence, type Msg } from "@/lib/api.ts";
 import { checkoutNext, orderError } from "@/lib/buy.ts";
 import { useLang, type Lang } from "@/lib/lang.ts";
-import { PLAY_SUBS_URL, PRO_SOURCE_LABEL, proBuyError, proDonePoll } from "@/lib/pro.ts";
+import { PRO_SOURCE_LABEL, proBuyError, proDonePoll } from "@/lib/pro.ts";
 
 const COPY = {
   th: {
@@ -23,7 +23,6 @@ const COPY = {
     choose: "เลือกแอป",
     noTier: "ยังไม่มี Pro",
     subscribe: "ดู PeerapoS Pro",
-    manage: "จัดการใน Google Play",
     until: "ใช้ได้ถึง",
     name: "ชื่อ",
     id: "รหัสลูกค้า",
@@ -52,7 +51,6 @@ const COPY = {
     choose: "Choose apps",
     noTier: "No Pro yet",
     subscribe: "See PeerapoS Pro",
-    manage: "Manage in Google Play",
     until: "Valid until",
     name: "Name",
     id: "Customer ID",
@@ -197,7 +195,6 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
             </>
           )}
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            {view.manage === "play" && <a href={PLAY_SUBS_URL} target="_blank" rel="noopener noreferrer" className={action}>{t.manage}</a>}
             {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay(false)} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
             {view.renew && <button type="button" disabled={busy} onClick={() => pay(true)} className={action}>{busy && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
             {view.subscribe && <a href="/pro" className={`${dark} w-full whitespace-normal text-center sm:w-auto`}>{t.subscribe}</a>}

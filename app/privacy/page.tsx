@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import type { Msg } from "@/lib/api.ts";
 
-// Privacy for accounts, Stripe and Play payments, and opt-in services. Decisions: 2026-11-14 spec.
+// Privacy for accounts, Stripe payments, and opt-in services. Decisions: 2026-11-14 spec.
 // LINE OA chat section verified against peerapos-chat 2026-11-13: Claude API replies, last turns kept 24 h in
 // Cloudflare KV keyed by a hash of the LINE user ID, daily/monthly counters, 12 h pause after a handoff.
 // The AI paragraph follows peerapos-go/docs/privacy-ai.md and licence worker/src/consent.ts.
 
 const COPY = {
   description: {
-    th: "นโยบายความเป็นส่วนตัวสำหรับแอป PeerapoS บัญชี การชำระเงินผ่าน Stripe และ Google Play บริการออนไลน์ และแชต LINE",
-    en: "Privacy policy for PeerapoS apps, accounts, Stripe and Google Play payments, online services and the LINE chat.",
+    th: "นโยบายความเป็นส่วนตัวสำหรับแอป PeerapoS บัญชี การชำระเงินผ่าน Stripe บริการออนไลน์ และแชต LINE",
+    en: "Privacy policy for PeerapoS apps, accounts, Stripe payments, online services and the LINE chat.",
   },
   orders: {
     th: "คำสั่งซื้อ: รายการ ยอดเงิน เวลา สถานะ อีเมลรับใบยืนยัน ชื่อ รหัสอ้างอิงการชำระเงินของ Stripe และการติ๊กยอมรับข้อกำหนด",
@@ -41,12 +41,12 @@ const COPY = {
     en: "Payment data held by Stripe follows Stripe's retention policy. The Stripe customer and payment records remain with Stripe after you delete your PeerapoS account; customer metadata holds only the account id.",
   },
   retention: {
-    th: "บัญชี ข้อมูลการซื้อบน Play ข้อมูลการสมัครผ่าน Stripe Pro 1 ปี และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบจากระบบของเราเมื่อคุณลบบัญชี ส่วนคำสั่งซื้อยังเก็บเป็นหลักฐานทางภาษี",
-    en: "Accounts, Play purchase records, Stripe subscription records, prepaid passes and linked PCs have no automatic deletion. We keep them while the account exists and delete them from our system when you delete the account. Orders remain as tax records.",
+    th: "บัญชี ข้อมูลการสมัครผ่าน Stripe Pro 1 ปี และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบจากระบบของเราเมื่อคุณลบบัญชี ส่วนคำสั่งซื้อยังเก็บเป็นหลักฐานทางภาษี",
+    en: "Accounts, Stripe subscription records, prepaid passes and linked PCs have no automatic deletion. We keep them while the account exists and delete them from our system when you delete the account. Orders remain as tax records.",
   },
   deletion: {
-    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
-    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
+    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
   },
   updated: {
     th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 14 พฤศจิกายน 2569",
@@ -129,7 +129,6 @@ const TH: Sec[] = [
     li: [
       "บัญชี: รหัสบัญชี Google ที่คงที่ อีเมล และชื่อ ที่ Google ส่งให้ตอนเข้าสู่ระบบ ใช้สร้างบัญชีและเป็นชื่อในสิทธิ์ และเวลาที่สร้างบัญชี",
       "สิทธิ์: ชื่อในสิทธิ์ (แสดงในแอป) แอปที่ซื้อ สถานะ Pro และวันสิ้นสุด",
-      "การซื้อ Pro บน Google Play: เก็บแค่แฮชของโทเคนการซื้อ สินค้า สถานะ และวันหมดอายุ ไม่เก็บข้อมูลบัตร Google เก็บเอง",
       COPY.orders.th,
       "เครื่องที่เชื่อม: ชื่อเครื่อง (ตามที่แอปส่ง) แอปที่ใช้เชื่อม รหัสเครื่องที่แฮชแล้ว (ไม่ใช่รหัสเดิมของ Windows) เวลาที่เชื่อม ใช้ล่าสุด และเลิกใช้",
       "การเข้าสู่ระบบ: เซสชันที่เก็บเป็นแฮช อยู่ 30 วัน เบราว์เซอร์เก็บคุกกี้เซสชันที่จำเป็นต่อการเข้าสู่ระบบ ไม่มีคุกกี้โฆษณา",
@@ -140,11 +139,10 @@ const TH: Sec[] = [
     ],
   },
   {
-    title: "เข้าสู่ระบบด้วย Google และ Google Play",
+    title: "เข้าสู่ระบบด้วย Google",
     p: [
-      "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android ตอนเข้าสู่ระบบ Google ส่งรหัสบัญชีที่คงที่ อีเมล และชื่อให้เรา เราไม่ได้รหัสผ่าน Google ของคุณ",
-      "ถ้าคุณสมัคร Pro บน Google Play Google เป็นผู้คิดเงินและเก็บข้อมูลบัตร เราเห็นแค่ข้อมูลการซื้อที่ระบุข้างบน เพื่อตรวจการซื้อ เราส่งข้อมูลที่จำเป็นให้ Google Play (โทเคนการซื้อและสินค้า) และ Google แจ้งเราเมื่อการสมัครเปลี่ยน เช่น ต่ออายุ ยกเลิก หมดอายุ หรือคืนเงิน",
-      "การลบบัญชีไม่ยกเลิกการสมัครบน Google Play ให้ยกเลิกใน Google Play เอง",
+      "บัญชีบนเว็บไซต์เข้าสู่ระบบด้วย Google เท่านั้น ตอนเข้าสู่ระบบ Google ส่งรหัสบัญชีที่คงที่ อีเมล และชื่อให้เรา เราไม่ได้รหัสผ่าน Google ของคุณ",
+      "แอป PeerapoS Pair บน Android เป็นแอปคู่หูฟรี ไม่ต้องเข้าสู่ระบบ ไม่มีการซื้อในแอป และไม่เก็บข้อมูลส่วนบุคคล",
     ],
   },
   {
@@ -208,7 +206,7 @@ const TH: Sec[] = [
     title: "ใครรับข้อมูลบ้าง และส่งไปนอกประเทศไหม",
     li: [
       "Cloudflare: เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ เว็บไซต์ และ Turnstile",
-      "Google: เข้าสู่ระบบด้วยบัญชี Google และตรวจการซื้อ Pro บน Google Play",
+      "Google: เข้าสู่ระบบด้วยบัญชี Google",
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       COPY.recipient.th,
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
@@ -238,7 +236,7 @@ const TH: Sec[] = [
     title: "สิทธิ์ของคุณและการลบ",
     p: [
       "ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล คุณขอเข้าถึงหรือขอสำเนา ขอแก้ไข ขอลบ ขอให้หยุดใช้ หรือคัดค้านการใช้ข้อมูลของคุณที่เราควบคุมได้ และร้องเรียนต่อสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลได้",
-      `ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
+      `ลบบัญชีได้เองที่หน้า /account บนเว็บไซต์ ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม และสิทธิ์ จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
       COPY.deletion.th,
       "ในเครื่องของคุณ ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่อง ยกเลิกการเชื่อมเครื่องได้ที่หน้าบัญชีของฉัน",
       `ข้อความที่คุยกับบอทใน LINE ลบเองภายใน 24 ชั่วโมง ถ้าอยากให้ลบทันที ส่งอีเมลมาที่ ${EMAIL} บอกช่องทางที่คุยและเวลาคร่าว ๆ ที่ส่งข้อความ`,
@@ -280,7 +278,6 @@ const EN: Sec[] = [
     li: [
       "Account: the stable Google account id, email and name that Google sends when you sign in, used for the account and as the licence name, and when the account was created.",
       "Licence: the licence name (shown in the apps), the apps you bought, Pro status and its end date.",
-      "Pro purchases on Google Play: only a hash of the purchase token, the product, the state and the expiry. No card details: Google holds those.",
       COPY.orders.en,
       "Linked PCs: the PC name (as the app sends it), the app used to link, a hashed machine ID (not the raw Windows ID), and when it was linked, last used and removed.",
       "Sign-in: a session stored as a hash for 30 days. Your browser keeps a session cookie that sign-in needs. No advertising cookies.",
@@ -291,11 +288,10 @@ const EN: Sec[] = [
     ],
   },
   {
-    title: "Google sign-in and Google Play",
+    title: "Google sign-in",
     p: [
-      "Sign-in is with a Google account only, on the website and on Android. Google sends us the stable account id, email and name. We do not get your Google password.",
-      "If you subscribe to Pro on Google Play, Google takes the payment and holds the card details. We see only the purchase data listed above. To check a purchase we send Google Play what it needs (the purchase token and the product), and Google sends us notifications when a subscription changes, such as renewal, cancellation, expiry or refund.",
-      "Deleting your account does not cancel a Google Play subscription. Cancel it in Google Play yourself.",
+      "Website accounts use Google sign-in only. Google sends us the stable account id, email and name. We do not get your Google password.",
+      "The PeerapoS Pair Android app is a free companion. It has no sign-in or purchases and collects no personal data.",
     ],
   },
   {
@@ -357,7 +353,7 @@ const EN: Sec[] = [
     title: "Who receives data, and transfers abroad",
     li: [
       "Cloudflare: servers, databases, file storage, the relay, the website and Turnstile.",
-      "Google: Google sign-in, and checking Pro purchases on Google Play.",
+      "Google: Google sign-in.",
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       COPY.recipient.en,
       "GitHub: update checks for the free apps.",
@@ -387,7 +383,7 @@ const EN: Sec[] = [
     title: "Your rights and deleting your data",
     p: [
       "Under Thailand's Personal Data Protection Act you may ask to access or get a copy of, correct, delete, restrict or object to our use of your data that we control, and you may complain to the Personal Data Protection Committee.",
-      `You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
+      `You can delete your account yourself on /account on the website. Deleting removes the account, sign-ins, sessions, linked PCs and licence. Paid apps you bought stop working, and we cannot restore them. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
       COPY.deletion.en,
       "On your own PC, uninstall the app or delete its data folder and the data is gone. You can unlink a PC on My account.",
       `Chat messages with the LINE bot are deleted automatically within 24 hours. To have them deleted sooner, email ${EMAIL} with the chat channel and roughly when you sent the messages.`,

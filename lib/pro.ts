@@ -1,14 +1,8 @@
-// PeerapoS Pro: Google Play, web card subscriptions and prepaid passes.
+// PeerapoS Pro: website-only card subscriptions and prepaid passes.
 
 import type { ApiResult, Msg, ProInfo, ProSource } from "./api.ts";
 import { day } from "./account.ts";
 import { orderError } from "./buy.ts";
-
-/** PeerapoS Pair on Google Play. */
-export const PLAY_URL = "https://play.google.com/store/apps/details?id=dev.peerapongsm.pair";
-
-/** Where a subscriber cancels or changes Pro (Google Play). */
-export const PLAY_SUBS_URL = "https://play.google.com/store/account/subscriptions";
 
 /** Satang, shown on /pro. */
 export const PRO_PRICE = { monthly: 29900, annual: 299000 };
@@ -21,13 +15,13 @@ export function proActive(pro: ProInfo | null, now: number): boolean {
 }
 
 export const PRO_SOURCE_LABEL: Record<ProSource, Msg> = {
-  play: { th: "จาก Google Play", en: "Google Play" },
+  play: { th: "สิทธิ์เดิม", en: "Legacy Pro" },
   stripe: { th: "สมัครผ่านบัตร", en: "Card subscription" },
   pass: { th: "Pro 1 ปี แบบจ่ายครั้งเดียว", en: "Prepaid annual pass" },
 };
 
 const SOURCE: Record<ProSource, Msg> = {
-  play: { th: "Google Play", en: "Google Play" },
+  play: { th: "สิทธิ์เดิม", en: "legacy coverage" },
   stripe: { th: "การสมัครผ่านบัตร", en: "card" },
   pass: { th: "Pro 1 ปี", en: "prepaid pass" },
 };
