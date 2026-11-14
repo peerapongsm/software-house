@@ -44,6 +44,7 @@ export function proBuyError(r: ApiResult<unknown> & { ok: false }): Msg {
       en: "You already have Pro from " + source.en + " until " + day(until, "en") + ". Wait until it ends, then try again.",
     };
   }
+  if (r.error === "proOff") return PRO_COPY.opensSoon;
   if (r.error === "passLimit") return PASS_LIMIT;
   if (r.error === "needConsent") return NEED_CONSENT;
   return orderError(r);
@@ -56,6 +57,7 @@ export function proDonePoll(startedAt: number, now: number, pro: ProInfo | null,
 }
 
 export const PRO_COPY = {
+  opensSoon: { th: "PeerapoS Pro เปิดให้สมัครเร็ว ๆ นี้", en: "PeerapoS Pro opens soon" },
   h1: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   lead: { th: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน", en: "Subscribe once. It works on every app in the same Google account." },
   month: { th: "/ เดือน", en: "/ month" },

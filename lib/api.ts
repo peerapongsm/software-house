@@ -10,6 +10,7 @@ export type Msg = { th: string; en: string };
 
 /** GET /api/catalogue. App and Pro prices in satang. */
 export type Catalogue = {
+  proOnSale?: boolean;
   pro: { monthly: number; annual: number };
   apps: { id: string; price: number }[];
   onSale: string[];

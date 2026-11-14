@@ -55,6 +55,7 @@ const PLANS = [
 export default function ProPage() {
   const [lang, setLang] = useLang();
   const t = (key: Exclude<keyof typeof PRO_COPY, "steps" | "gets" | "facts">) => PRO_COPY[key][lang];
+  const [proOnSale, setProOnSale] = useState(false);
   const [prices, setPrices] = useState<Catalogue["pro"] | null>(null);
   const [pro, setPro] = useState<ProInfo | null | undefined>(undefined);
   const [consent, setConsent] = useState(false);
@@ -64,6 +65,7 @@ export default function ProPage() {
   async function loadPrices() {
     setErr(null);
     const r = await api<Catalogue>("/api/catalogue");
+    setProOnSale(r.ok && r.data.proOnSale === true);
     if (r.ok) setPrices(r.data.pro);
     else setErr(proBuyError(r));
   }
@@ -74,7 +76,7 @@ export default function ProPage() {
   }, []);
 
   async function buy(plan: ProPlan) {
-    if (busy || !prices) return;
+    if (busy || !prices || !proOnSale) return;
     setBusy(plan);
     setErr(null);
     const account = await api<{ licence: Licence | null }>("/api/account");
@@ -114,6 +116,8 @@ export default function ProPage() {
               <p>{t("activeUntil").replace("{date}", day(pro.until, lang))}{pro.cancelling ? t("cancelled") : ""}</p>
               <a href="/account" className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 text-center font-semibold sm:w-auto">{t("account")}</a>
             </>
+          ) : !proOnSale ? (
+            <p id="web-pro" className="text-graphite">{t("opensSoon")}</p>
           ) : (
             <>
               <h2 id="web-pro" className="font-display text-xl font-bold">{t("webH")}</h2>

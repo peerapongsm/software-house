@@ -82,6 +82,10 @@ test("proBuyError: actionable bilingual messages for limits, closed sales, conse
   assert.match(proBuyError({ ok: false, status: 500, error: "http" }).en, /Try again/);
 });
 
+test("proBuyError: closed Pro sales uses the opens-soon copy", () => {
+  assert.deepEqual(proBuyError({ ok: false, status: 503, error: "proOff" }), pro.PRO_COPY.opensSoon);
+});
+
 test("Pro exports and page do not claim web purchases are unavailable", () => {
   const stale = /not sold on this site|ไม่ได้ขายบนเว็บ|ไม่ขายบนเว็บ|does not sell Pro|only in the store app|เฉพาะในแอปบน Google Play/i;
   assert.doesNotMatch(JSON.stringify(pro), stale);

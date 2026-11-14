@@ -83,8 +83,8 @@ for (const [page, name, reset] of [["pro", "buy", null], ["account", "pay", fals
       const before = "2027-01-01";
       let stored: string | null = null;
       const exports: { run?: (arg: unknown) => Promise<void> } = {};
-      new Function("exports", "busy", "prices", "consent", "setBusy", "setErr", "api", "checkoutNext", "location", "proBuyError", "orderError", "pro", "account", "sessionStorage", body)(
-        exports, false, {}, true, (v: unknown) => { busy = v; }, () => {},
+      new Function("exports", "busy", "prices", "consent", "proOnSale", "setBusy", "setErr", "api", "checkoutNext", "location", "proBuyError", "orderError", "pro", "account", "sessionStorage", body)(
+        exports, false, {}, true, true, (v: unknown) => { busy = v; }, () => {},
         async (path: string) => {
           if (path === "/api/pro/checkout") assert.equal(stored, before, "snapshot saved before checkout starts");
           return { ok: true, data: path === "/api/pro/checkout" && confirming
