@@ -23,6 +23,14 @@ test("slug helpers cover all 27 apps uniquely and preserve asset URLs", () => {
 
 test("valid bilingual copy passes", () => assert.deepEqual(validatePageCopy(APPS[0], fixture()), []));
 test("missing copy fails", () => assert.ok(validatePageCopy(APPS[0], undefined).length));
+test("Thai full stop fails; Thai abbreviations pass", () => {
+  const bad = fixture();
+  bad.th.faq[0].a = "ใช้ได้ในโปรแกรมเดียว. PeerapoS Wash ช่วยได้";
+  assert.ok(validatePageCopy(APPS[0], bad).length);
+  const ok = fixture();
+  ok.th.faq[0].a = "ทำ ภ.พ.30 และ ภ.ง.ด.3 ได้";
+  assert.deepEqual(validatePageCopy(APPS[0], ok), []);
+});
 
 for (const [name, mutate] of [
   ["2 FAQs", (p: AppPage) => { p.th.faq.pop(); }],

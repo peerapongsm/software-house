@@ -32,6 +32,8 @@ export function validatePageCopy(app: DesktopApp, page: AppPage | undefined): st
   function checkText(value: unknown, path: string) {
     if (typeof value !== "string" || !value.trim()) { errors.push(`${path} must be non-empty text`); return; }
     if (value.includes("|")) errors.push(`${path} must not contain |`);
+    // Thai has no full stop: "ได้. PeerapoS" is wrong; abbreviations like ภ.พ.30 (dot followed by a non-space) are fine.
+    if (/[฀-๿]\.(\s|$)/.test(value)) errors.push(`${path} must not end a Thai sentence with "."`);
     // Currency amounts only: feature counts (Windows 10, 2 PCs, tax forms) are allowed facts.
     const amounts = value.matchAll(/(?:฿|baht\b|บาท)\s*(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*(?:฿|บาท|baht\b)/gi);
     for (const match of amounts) {
@@ -76,7 +78,8 @@ Never mention prices other than the app's own; free apps must not mention any cu
 Each FAQ answer opens with one direct sentence; questions phrased the way Thai SME owners search.
 Thai register per kien-thai (no polite particles in UI copy, natural not translated).
 EN is a faithful translation of the TH, with matching FAQ counts and order.
-Write 3–4 FAQs in each language, a non-empty useCase, and metaDescription ≤ 155 chars. Never include | in any field.`,
+Write 3–4 FAQs in each language, a non-empty useCase, and metaDescription ≤ 155 chars. Never include | in any field.
+Thai has no full stop: never end a Thai sentence with "."; separate Thai sentences with a single space.`,
     user: `Allowed app facts:\n${JSON.stringify(app, null, 2)}${paid ? `\nApp price: ฿${app.price!.toLocaleString("en-US")}` : ""}\nAllowed site-wide facts (only the applicable app tier):\n${JSON.stringify(siteFacts, null, 2)}`,
   };
 }
