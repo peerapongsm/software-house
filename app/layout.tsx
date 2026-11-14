@@ -13,7 +13,7 @@ import "@fontsource/ibm-plex-sans-thai-looped/latin-500.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-600.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-700.css";
 import "./globals.css";
-import { APPS, PAID_APPS, downloadUrl } from "./apps-data";
+import { APPS, PAID_APPS, downloadUrl, slugOf } from "./apps-data";
 import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, IS_UAT, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
 
 const TITLE = "PeerapoS Software House | รับทำแอปและเขียนโปรแกรมตามสั่ง + โปรแกรมฟรีสำหรับ SME";
@@ -110,6 +110,8 @@ const JSON_LD = {
     },
     ...APPS.map((a) => ({
       "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/apps/${slugOf(a)}#app`,
+      url: `${SITE_URL}/apps/${slugOf(a)}`,
       name: a.name,
       description: `${a.th.tagline} — ${a.en.tagline} ${a.en.description}`,
       applicationCategory: "BusinessApplication",
@@ -120,6 +122,8 @@ const JSON_LD = {
     })),
     ...PAID_APPS.map((a) => ({
       "@type": "SoftwareApplication",
+      "@id": `${SITE_URL}/apps/${slugOf(a)}#app`,
+      url: `${SITE_URL}/apps/${slugOf(a)}`,
       name: a.name,
       description: `${a.th.tagline} — ${a.en.tagline} ${a.en.description}`,
       applicationCategory: "BusinessApplication",

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { APPS, PAID_APPS, shotUrls } from "./apps-data";
+import { ALL_APPS, APPS, PAID_APPS, shotUrls, slugOf } from "./apps-data";
 import { IS_UAT, SITE_URL } from "./site-info";
 
 export const dynamic = "force-static";
@@ -18,5 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/terms`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/pro`, changeFrequency: "monthly", priority: 0.6 },
+    ...ALL_APPS.map((a) => ({
+      url: `${SITE_URL}/apps/${slugOf(a)}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      images: [a.icon, ...shotUrls(a)].map((p) => SITE_URL + p),
+    })),
   ];
 }

@@ -1,4 +1,4 @@
-import { APPS, PAID_APPS, downloadUrl } from "../apps-data";
+import { APPS, PAID_APPS, downloadUrl, slugOf } from "../apps-data";
 import { COPY } from "../copy";
 import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, IS_UAT, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
@@ -54,11 +54,11 @@ Peerapong (Peter) Saksommon: Software Architect at the Bank of Thailand, former 
 
 Free within each app's limits, no ads, no account needed. Optional PeerapoS Pro subscription lifts the limits. Offline on Windows 10 and 11 (64-bit); data stays on the user's PC.
 
-${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
+${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)} Page: ${SITE_URL}/apps/${slugOf(a)}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
 
 ## Paid Windows apps (on sale now, one-time purchase)
 
-${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} Buy: ${SITE_URL}/buy?app=${a.id}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
+${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} Buy: ${SITE_URL}/buy?app=${a.id} Page: ${SITE_URL}/apps/${slugOf(a)}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
 
 ## Site text (Thai)
 
