@@ -12,6 +12,7 @@ import ts from "typescript";
 import * as apps from "../app/apps-data.ts";
 import * as copy from "../app/copy.ts";
 import * as helpers from "./app-page.ts";
+import { splitPhrases } from "./phrases.ts";
 
 const wash = APPS[0];
 const account = PAID_APPS.find(a => a.id === "account")!;
@@ -77,7 +78,9 @@ function load(file: string, stubs: Record<string, unknown>) {
   return exports;
 }
 
+const phrases = load("../components/Phrases.tsx", { "@/lib/phrases": { splitPhrases } });
 const clientStubs = {
+  "@/components/Phrases": phrases,
   "react": { useState: (initial: unknown) => [initial, () => {}], useRef: () => ({ current: null }) },
   "next/image": { default: () => null },
   "@/app/apps-data": apps,
@@ -152,7 +155,7 @@ test("app views render H1, use case, every FAQ answer and back link in both lang
       const html = renderToStaticMarkup(createElement(View, { slug }));
       assert.match(html, new RegExp(`<h1[^>]*>${app.name}`));
       for (const text of [APP_PAGES[slug][lang].useCase, ...APP_PAGES[slug][lang].faq.flatMap(({ q, a }) => [q, a])]) {
-        assert.ok(html.includes(renderToStaticMarkup(createElement("p", null, text)).slice(3, -4)), text);
+        assert.ok(html.includes(renderToStaticMarkup(createElement(phrases.Phrases, { text }))), text);
       }
       assert.ok(html.includes(`href="/#apps"`));
       assert.ok(html.includes(copy.COPY[lang].heroApps));

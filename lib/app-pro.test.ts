@@ -7,9 +7,14 @@ import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
 import * as apps from "../app/apps-data.ts";
 import * as copy from "../app/copy.ts";
+import { splitPhrases } from "./phrases.ts";
 
 const all = [...apps.APPS, ...apps.PAID_APPS];
 const require = createRequire(import.meta.url);
+const phrasesSource = readFileSync(new URL("../components/Phrases.tsx", import.meta.url), "utf8");
+const phrasesJs = ts.transpileModule(phrasesSource, { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
+const phrases: any = {};
+new Function("require", "exports", phrasesJs)((id: string) => id === "@/lib/phrases" ? { splitPhrases } : require(id), phrases);
 const source = readFileSync(new URL("../components/AppDetail.tsx", import.meta.url), "utf8");
 const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
 
@@ -22,6 +27,7 @@ function dialog(app: apps.DesktopApp, lang: "th" | "en") {
     };
     if (id === "@/app/apps-data") return apps;
     if (id === "@/app/copy") return copy;
+    if (id === "@/components/Phrases") return phrases;
     if (id === "next/image") return { default: () => null };
     return require(id);
   }, exports);
@@ -48,13 +54,13 @@ for (const app of all) for (const lang of ["th", "en"] as const) {
     const heading = lang === "th" ? "ฟีเจอร์ Pro" : "Pro features";
     const at = html.indexOf(`>${heading}</h3>`);
     assert.ok(at >= 0, "Pro heading is rendered");
-    for (const item of items) assert.ok(html.slice(at).includes(renderToStaticMarkup(createElement("li", null, item))));
+    for (const item of items) assert.ok(html.slice(at).includes(renderToStaticMarkup(createElement("li", null, createElement(phrases.Phrases, { text: item })))));
     const proEnd = html.indexOf('</section>', at);
     assert.ok(proEnd > at);
     assert.match(html.slice(at, proEnd), /href="\/pro"/);
     assert.ok(html.slice(at, proEnd).includes(lang === "th" ? "ดูราคาและสมัคร Pro" : "See Pro pricing"));
     const next = html.slice(proEnd + '</section>'.length);
     assert.match(next, new RegExp(`^<h3[^>]*>${copy.COPY[lang].dl.guideTitle}</h3>`));
-    if (app.price !== undefined) assert.ok(next.includes(copy.COPY[lang].dl.paidFirstStep));
+    if (app.price !== undefined) assert.ok(next.includes(renderToStaticMarkup(createElement(phrases.Phrases, { text: copy.COPY[lang].dl.paidFirstStep }))));
   });
 }

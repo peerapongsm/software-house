@@ -1,5 +1,6 @@
 "use client";
 
+import { Phrases } from "@/components/Phrases";
 import Image from "next/image";
 import { appBySlug, downloadUrl } from "@/app/apps-data";
 import { APP_PAGES } from "@/app/app-pages-data";
@@ -32,15 +33,15 @@ export default function AppPageView({ slug }: { slug: string }) {
           </div>
           <section aria-labelledby="use-case-title" className="mt-8 border-t border-line pt-8">
             <h2 id="use-case-title" className="font-display text-2xl font-bold sm:text-3xl">{t.dl.useCaseTitle}</h2>
-            <p className="mt-4 max-w-prose text-lg leading-relaxed text-graphite">{page.useCase}</p>
+            <p className="mt-4 max-w-prose text-lg leading-relaxed text-graphite"><Phrases text={page.useCase} /></p>
           </section>
           <section aria-labelledby="faq-title" className="mt-10 border-t border-line pt-8">
             <h2 id="faq-title" className="font-display text-2xl font-bold sm:text-3xl">{t.dl.faqTitle}</h2>
             <div className="mt-6 border-t border-line">
               {page.faq.map(({ q, a }) => (
                 <div key={q} className="border-b border-line py-5">
-                  <h3 className="text-lg font-semibold">{q}</h3>
-                  <p className="mt-3 max-w-prose leading-relaxed text-graphite">{a}</p>
+                  <h3 className="text-lg font-semibold"><Phrases text={q} /></h3>
+                  <p className="mt-3 max-w-prose leading-relaxed text-graphite"><Phrases text={a} /></p>
                 </div>
               ))}
             </div>
@@ -52,14 +53,14 @@ export default function AppPageView({ slug }: { slug: string }) {
           <div className="sticky top-8 rounded-2xl border border-line bg-sheet p-6">
             <Image src={app.icon} alt="" width={96} height={96} className="size-20 rounded-[22%] shadow-tile" />
             <p className="mt-4 font-display text-xl font-bold">{app.name}</p>
-            <p className="mt-1 leading-snug text-graphite">{app[lang].tagline}</p>
+            <p className="mt-1 leading-snug text-graphite"><Phrases text={app[lang].tagline} /></p>
             {paid && (
               <p className="mt-4 font-display text-3xl font-bold text-indigo">
                 {price} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
               </p>
             )}
             <a href={action.href} className={`mt-5 ${button}`}>{action.label}</a>
-            <p className="mt-4 text-sm leading-relaxed text-graphite">{t.winOnly}</p>
+            <p className="mt-4 text-sm leading-relaxed text-graphite"><Phrases text={t.winOnly} /></p>
           </div>
         </aside>
       </main>

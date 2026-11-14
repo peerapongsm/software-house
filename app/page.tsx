@@ -1,5 +1,6 @@
 "use client";
 
+import { Phrases } from "@/components/Phrases";
 import Image from "next/image";
 import { COPY } from "./copy";
 import { useRef, useState } from "react";
@@ -97,7 +98,7 @@ export default function Home() {
           <h1 className="font-display text-[2.6rem] font-bold leading-[1.15] tracking-tight sm:text-6xl">
             {t.h1.split("|").flatMap((part, i) => [i > 0 && <wbr key={`b${i}`} />, <span key={i} className="whitespace-nowrap">{part}</span>])}
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-graphite sm:text-xl">{t.heroSub}</p>
+          <p className="mt-5 text-lg leading-relaxed text-graphite sm:text-xl"><Phrases text={t.heroSub} /></p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#apps" className="rounded-xl bg-ink px-6 py-3.5 font-semibold text-white transition-colors hover:bg-indigo-deep">
               {t.heroApps}
@@ -116,8 +117,8 @@ export default function Home() {
       <section id="apps" className="border-t border-line bg-sheet py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.appsTitle}</h2>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.appsSub}</p>
-          <p className="mt-2 max-w-2xl text-sm font-semibold text-graphite">{t.winOnly}</p>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.appsSub} /></p>
+          <p className="mt-2 max-w-2xl text-sm font-semibold text-graphite"><Phrases text={t.winOnly} /></p>
 
           {/* mobile: compact one-line rows; tablet: two columns, desktop: four, with the feature chips */}
           <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
@@ -134,7 +135,7 @@ export default function Home() {
                     <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%] md:size-14" />
                     <span className="min-w-0 flex-1">
                       <span className="block font-display text-lg font-bold group-hover:text-indigo md:text-xl">{a.name}</span>
-                      <span className="block leading-snug text-graphite">{c.tagline}</span>
+                      <span className="block leading-snug text-graphite"><Phrases text={c.tagline} /></span>
                       <span className="mt-3 hidden flex-wrap gap-1.5 md:flex">
                         {c.chips.map((chip) => (
                           <span key={chip} className="rounded-md bg-paper px-2 py-0.5 text-sm text-graphite">
@@ -158,7 +159,7 @@ export default function Home() {
       <section id="paid" className="border-t border-line bg-sheet py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.paidTitle}</h2>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.paidSub}</p>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.paidSub} /></p>
           <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
             {PAID_APPS.map((a) => {
               const c = a[lang];
@@ -178,7 +179,7 @@ export default function Home() {
                           ฿{a.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
                         </span>
                       )}
-                      <span className="block leading-snug text-graphite">{c.tagline}</span>
+                      <span className="block leading-snug text-graphite"><Phrases text={c.tagline} /></span>
                       <span className="mt-3 hidden flex-wrap gap-1.5 md:flex">
                         {c.chips.map((chip) => (
                           <span key={chip} className="rounded-md bg-paper px-2 py-0.5 text-sm text-graphite">
@@ -202,12 +203,12 @@ export default function Home() {
       <section id="custom" className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.customTitle}</h2>
-          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.customSub}</p>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.customSub} /></p>
           <ol className="mt-10 grid gap-8 md:grid-cols-3 md:gap-10">
             {t.steps.map((s, i) => (
               <li key={s.title} className="border-t-2 border-ink pt-5">
                 <h3 className="mt-1 font-display text-2xl font-bold">{s.title}</h3>
-                <p className="mt-2 leading-relaxed text-graphite">{s.body}</p>
+                <p className="mt-2 leading-relaxed text-graphite"><Phrases text={s.body} /></p>
               </li>
             ))}
           </ol>
@@ -215,7 +216,7 @@ export default function Home() {
           <div className="mt-16 flex flex-col gap-3 rounded-2xl border border-line bg-sheet p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>
               <h3 className="font-display text-xl font-bold">{t.armoryTitle}</h3>
-              <p className="mt-1 leading-relaxed text-graphite">{t.armoryBody}</p>
+              <p className="mt-1 leading-relaxed text-graphite"><Phrases text={t.armoryBody} /></p>
             </div>
             <a href={ARMORY_URL} className="shrink-0 font-semibold text-indigo underline decoration-2 underline-offset-4 hover:text-indigo-deep">
               {t.armoryLink}
@@ -232,10 +233,10 @@ export default function Home() {
             {FAQ[lang].map((f) => (
               <details key={f.q} className="group border-b border-line py-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold">
-                  {f.q}
+                  <Phrases text={f.q} />
                   <span aria-hidden="true" className="text-2xl text-graphite transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-3 leading-relaxed text-graphite">{f.a}</p>
+                <p className="mt-3 leading-relaxed text-graphite"><Phrases text={f.a} /></p>
               </details>
             ))}
           </div>
@@ -254,7 +255,7 @@ export default function Home() {
           />
           <div>
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.aboutTitle}</h2>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-graphite">{t.aboutBody}</p>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.aboutBody} /></p>
             <ul className="mt-8 max-w-2xl border-t border-line">
               {t.creds.map((c) => (
                 <li key={c} className="border-b border-line py-3 font-semibold">
@@ -270,7 +271,7 @@ export default function Home() {
       <section id="contact" className="bg-ink text-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-8 sm:py-24">
           <h2 className="max-w-3xl font-display text-3xl font-bold leading-tight tracking-tight sm:text-5xl">{t.contactTitle}</h2>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/75">{t.contactSub}</p>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/75"><Phrases text={t.contactSub} /></p>
           <ul className="mt-9 flex flex-wrap items-center gap-3">
             <li>
               <a

@@ -1,5 +1,6 @@
 "use client";
 
+import { Phrases } from "@/components/Phrases";
 import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
 import { PRO_PRICE, PRO_COPY, PRO_SOURCE_LABEL, proActive, proBuyError, type ProPlan } from "@/lib/pro.ts";
@@ -39,7 +40,7 @@ function Step({ n, pic, text }: { n: number; pic: React.ReactNode; text: string 
         {pic}
       </svg>
       <p className="text-[1.0625rem] leading-snug">
-        <b className="text-indigo">{n}.</b> {text}
+        <b className="text-indigo">{n}.</b> <Phrases text={text} />
       </p>
     </li>
   );
@@ -104,19 +105,19 @@ export default function ProPage() {
       <div className="mt-2 flex flex-col gap-8 lg:mt-6 lg:gap-10">
         <section className="flex flex-col gap-3">
           <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t("h1")}</h1>
-          <p className="text-lg text-graphite">{t("lead")}</p>
+          <p className="text-lg text-graphite"><Phrases text={t("lead")} /></p>
         </section>
 
         <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5 lg:p-7" aria-labelledby="web-pro">
           {pro && proActive(pro, Date.now()) ? (
             <>
               <h2 id="web-pro" className="font-display text-xl font-bold">{t("activeH")}</h2>
-              <p className="font-semibold text-graphite">{PRO_SOURCE_LABEL[pro.source][lang]}</p>
-              <p>{t("activeUntil").replace("{date}", day(pro.until, lang))}{pro.cancelling ? t("cancelled") : ""}</p>
+              <p className="font-semibold text-graphite"><Phrases text={PRO_SOURCE_LABEL[pro.source][lang]} /></p>
+              <p><Phrases text={t("activeUntil").replace("{date}", day(pro.until, lang)) + (pro.cancelling ? t("cancelled") : "")} /></p>
               <a href="/account" className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 text-center font-semibold sm:w-auto">{t("account")}</a>
             </>
           ) : !proOnSale ? (
-            <p id="web-pro" className="text-graphite">{t("opensSoon")}</p>
+            <p id="web-pro" className="text-graphite"><Phrases text={t("opensSoon")} /></p>
           ) : (
             <>
               <h2 id="web-pro" className="font-display text-xl font-bold">{t("webH")}</h2>
@@ -140,9 +141,9 @@ export default function ProPage() {
                   </button>
                 ))}
               </div>
-              <p className="text-sm text-graphite">{t("renewNote")}</p>
+              <p className="text-sm text-graphite"><Phrases text={t("renewNote")} /></p>
               {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
-              {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
+              {err && <p role="alert" className="font-semibold text-red-700"><Phrases text={err[lang]} /></p>}
             </>
           )}
         </section>
@@ -161,7 +162,7 @@ export default function ProPage() {
             <h2 className="mb-3 font-display text-xl font-bold">{t("getH")}</h2>
             <ul className="flex list-disc flex-col gap-2 pl-5">
               {PRO_COPY.gets.map((x) => (
-                <li key={x.en}>{x[lang]}</li>
+                <li key={x.en}><Phrases text={x[lang]} /></li>
               ))}
             </ul>
           </div>
@@ -169,7 +170,7 @@ export default function ProPage() {
             <h2 className="mb-3 font-display text-xl font-bold">{t("factsH")}</h2>
             <ul className="flex list-disc flex-col gap-2 pl-5">
               {PRO_COPY.facts.map((x) => (
-                <li key={x.en}>{x[lang]}</li>
+                <li key={x.en}><Phrases text={x[lang]} /></li>
               ))}
             </ul>
             <p className="mt-4 text-sm text-graphite">

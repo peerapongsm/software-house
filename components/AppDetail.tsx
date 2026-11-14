@@ -1,5 +1,6 @@
 "use client";
 
+import { Phrases } from "@/components/Phrases";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { COPY, type Lang } from "@/app/copy";
@@ -68,7 +69,7 @@ export function AppDetail({ app, lang, onClose, headingId, headingLevel = 1 }: {
               </span>
             )}
           </Heading>
-          <p className="text-lg text-graphite">{app[lang].tagline}</p>
+          <p className="text-lg text-graphite"><Phrases text={app[lang].tagline} /></p>
           {onClose && <a href={`/apps/${slugOf(app)}`} className="mt-2 inline-block font-semibold text-indigo underline underline-offset-4">{t.dl.details}</a>}
         </div>
         {onClose && <button
@@ -82,23 +83,23 @@ export function AppDetail({ app, lang, onClose, headingId, headingLevel = 1 }: {
 
       {app.shots > 0 && <Carousel key={app.name} srcs={shotUrls(app)} alt={app.name} labels={t.dl} />}
 
-      <p className="mt-5 max-w-3xl leading-relaxed text-graphite">{app[lang].description}</p>
+      <p className="mt-5 max-w-3xl leading-relaxed text-graphite"><Phrases text={app[lang].description} /></p>
 
       <h3 className="mt-6 font-display text-lg font-bold">{t.dl.features}</h3>
       <ul className="mt-2 grid list-disc gap-x-8 gap-y-1 pl-5 leading-relaxed text-graphite sm:grid-cols-2">
         {app[lang].features.map((f) => (
-          <li key={f}>{f}</li>
+          <li key={f}><Phrases text={f} /></li>
         ))}
       </ul>
 
       <p className="mt-5 text-sm font-semibold text-graphite">
-        {t.uiLang[app.uiLang]} · {t.winOnly}
+        <Phrases text={t.uiLang[app.uiLang]} /> · <Phrases text={t.winOnly} />
       </p>
 
       <section aria-labelledby="app-pro-title">
         <h3 id="app-pro-title" className="mt-6 font-display text-lg font-bold">{t.dl.proTitle}</h3>
         <ul className="mt-2 grid list-disc gap-x-8 gap-y-1 pl-5 leading-relaxed text-graphite sm:grid-cols-2">
-          {app[lang].pro.map((f) => <li key={f}>{f}</li>)}
+          {app[lang].pro.map((f) => <li key={f}><Phrases text={f} /></li>)}
         </ul>
         <p className="mt-3 text-sm">
           <a href="/pro" className="font-semibold text-indigo underline underline-offset-4">{t.dl.proLink}</a>
@@ -112,7 +113,7 @@ export function AppDetail({ app, lang, onClose, headingId, headingLevel = 1 }: {
           <li key={step}>
             <span className="flex gap-2">
               <span className="w-6 shrink-0 font-semibold">{i + 1}.</span>
-              <span>{step}</span>
+              <span><Phrases text={step} /></span>
             </span>
             {subs.length > 0 && (
               <ol className="mt-1 grid gap-1 pl-8">
@@ -121,7 +122,7 @@ export function AppDetail({ app, lang, onClose, headingId, headingLevel = 1 }: {
                     <span className="w-8 shrink-0 font-semibold">
                       {i + 1}.{j + 1}
                     </span>
-                    <span>{s}</span>
+                    <span><Phrases text={s} /></span>
                   </li>
                 ))}
               </ol>
