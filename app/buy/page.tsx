@@ -25,6 +25,7 @@ export default function Buy() {
   const [signedIn, setSignedIn] = useState<boolean>();
   const [cancelled, setCancelled] = useState(false);
   const [order, setOrder] = useState<string | null>(null);
+  const [confirmingOrder, setConfirmingOrder] = useState<string | null>(null);
   const [acct, setAcct] = useState<Account | null>(null);
   const [cat, setCat] = useState<Catalogue | null>(null);
   const [sel, setSel] = useState<string[] | null>(null);
@@ -70,7 +71,8 @@ export default function Buy() {
     start();
   }, []);
 
-  function ordered(id: string) {
+  function ordered(id: string, confirming = false) {
+    setConfirmingOrder(confirming ? id : null);
     setCancelled(false);
     setOrder(id);
   }
@@ -81,7 +83,7 @@ export default function Buy() {
   return (
     <Shell lang={lang} setLang={setLang} signedIn={signedIn}>
       {order ? (
-        <PayStep key={order} lang={lang} id={order} cancelled={cancelled} signedIn={signedIn} lic={lic} email={acct?.email ?? ""} onOrdered={ordered} accountErr={err} onRetry={start} />
+        <PayStep key={order} lang={lang} id={order} confirming={confirmingOrder === order} cancelled={cancelled} signedIn={signedIn} lic={lic} email={acct?.email ?? ""} onOrdered={ordered} accountErr={err} onRetry={start} />
       ) : err ? (
         <div className="mx-auto mt-6 flex max-w-md flex-col items-center gap-4 text-center">
           <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>

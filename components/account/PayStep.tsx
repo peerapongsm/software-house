@@ -16,6 +16,7 @@ const PAY_RETRY_DELAY_MS = 25_000;
 const POLLS = 360; // 30 min of a visible tab, then reload to check again
 
 const COPY = {
+  confirming: { th: "ได้รับการชำระเงินแล้ว กำลังยืนยัน", en: "Payment received, confirming" },
   waiting: { th: "รอยืนยันการชำระเงิน", en: "Waiting for the payment to confirm" },
   payAgain: { th: "ยังไม่ได้ชำระ? ชำระเงิน", en: "Not paid yet? Pay" },
   later: { th: "หยุดเช็กสถานะแล้ว รีเฟรชหน้านี้ภายหลัง", en: "Status checks stopped. Refresh this page later." },
@@ -113,8 +114,8 @@ const out = `${btn} border border-ink/25 bg-sheet hover:border-ink`;
 const h1 = "font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]";
 
 /** /buy?order=<id>: poll for confirmed payment; a browser return never grants apps. */
-export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onOrdered, accountErr, onRetry }: {
-  lang: Lang; id: string; cancelled: boolean; signedIn?: boolean; lic: Licence | null; email: string; onOrdered: (id: string) => void; accountErr: Msg | null; onRetry: () => void;
+export default function PayStep({ lang, id, confirming, cancelled, signedIn, lic, email, onOrdered, accountErr, onRetry }: {
+  lang: Lang; id: string; confirming: boolean; cancelled: boolean; signedIn?: boolean; lic: Licence | null; email: string; onOrdered: (id: string, confirming?: boolean) => void; accountErr: Msg | null; onRetry: () => void;
 }) {
   const t = (key: keyof typeof COPY) => COPY[key][lang];
   const [o, setO] = useState<Order | null>(null);
@@ -127,10 +128,10 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
   useEffect(() => {
     setRetryReady(false);
     setRetryOpen(false);
-    if (o?.status !== "open" || cancelled) return;
+    if (o?.status !== "open" || cancelled || confirming) return;
     const timer = setTimeout(() => setRetryReady(true), PAY_RETRY_DELAY_MS);
     return () => clearTimeout(timer);
-  }, [o?.status, id, cancelled]);
+  }, [o?.status, id, cancelled, confirming]);
 
   async function load(quiet = false) {
     if (!quiet) setBusy(true);
@@ -147,7 +148,7 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
     load();
   }, [id]);
 
-  const live = o?.status === "open" || o?.status === "expired" || o?.status === "issuing";
+  const live = (confirming && (!o || o.status === "confirming")) || o?.status === "open" || o?.status === "expired" || o?.status === "issuing";
   useEffect(() => {
     setPollEnded(false);
     if (!live) return;
@@ -179,12 +180,15 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
             </button>
           </>
         ) : (
-          <Spinner />
+          <>
+            {confirming && <p role="status">{t("confirming")}</p>}
+            <Spinner />
+          </>
         )}
       </div>
     );
 
-  const step = payStep(o.status, cancelled);
+  const step = confirming && ["open", "expired", "confirming"].includes(o.status) ? "waiting" : payStep(o.status, cancelled);
 
   if (step === "done")
     return (
@@ -227,14 +231,14 @@ export default function PayStep({ lang, id, cancelled, signedIn, lic, email, onO
 
   return (
     <div className={sheet + " mx-auto mt-6 max-w-md"}>
-      <h1 className={h1 + " text-center"}>{step === "waiting" ? t("waiting") : t("unpaid")}</h1>
+      <h1 className={h1 + " text-center"}>{step === "waiting" ? t(confirming ? "confirming" : "waiting") : t("unpaid")}</h1>
       {step === "waiting" ? (
         <>
           <div role="status" className="flex justify-center text-graphite">{pollEnded ? t("later") : <Spinner />}</div>
-          {signedIn && retryReady && !retryOpen && <button type="button" onClick={() => setRetryOpen(true)} className={out}>{t("payAgain")}</button>}
+          {signedIn && !confirming && retryReady && !retryOpen && <button type="button" onClick={() => setRetryOpen(true)} className={out}>{t("payAgain")}</button>}
         </>
       ) : null}
-      {(step !== "waiting" || retryOpen) && (signedIn ? (
+      {(step !== "waiting" || (retryOpen && !confirming)) && (signedIn ? (
         <OrderBox key={id} lang={lang} lines={(o.lines ?? []).map((l) => ({ id: l.id, price: l.priceSatang }))} lic={lic} email={email} previousOrder={id} onOrdered={onOrdered} />
       ) : signedIn === false ? (
         <a href={"/login?next=" + encodeURIComponent("/buy" + location.search)} className={dark}>{t("signIn")}</a>

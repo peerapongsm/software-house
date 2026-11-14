@@ -3,7 +3,7 @@ import { createRequire } from "node:module";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import ts from "typescript";
-import { payStep } from "./buy.ts";
+import { checkoutNext, payStep } from "./buy.ts";
 
 const require = createRequire(import.meta.url);
 const source = (path: string) => readFileSync(new URL("../" + path, import.meta.url), "utf8");
@@ -39,7 +39,7 @@ test("PayStep: delayed signed-in retry and polling exhaustion", async () => {
     { visibilityState: "visible" }, { scrollTo() {} },
   );
   const props = { lang: "en", id: "O-0123456789", cancelled: false, signedIn: true, lic: null, email: "test@example.com", onOrdered() {}, accountErr: null, onRetry() {} };
-  const render = (signedIn = true) => { cursor = 0; return exports.default!({ ...props, signedIn }); };
+  const render = (signedIn = true, confirming = false) => { cursor = 0; return exports.default!({ ...props, signedIn, confirming }); };
   type Node = { type?: unknown; props?: { children?: unknown; onClick?: () => void; previousOrder?: string } };
   function nodes(value: unknown): Node[] {
     if (Array.isArray(value)) return value.flatMap(nodes);
@@ -61,6 +61,9 @@ test("PayStep: delayed signed-in retry and polling exhaustion", async () => {
   assert.equal(nodes(render(false)).some((n) => n.type === "button"), false);
   retry.props!.onClick!();
   assert.equal(nodes(render()).find((n) => n.type === OrderBox)?.props?.previousOrder, props.id);
+  const confirming = nodes(render(true, true));
+  assert.equal(confirming.some((n) => n.type === "button" || n.type === OrderBox), false);
+  assert.match(JSON.stringify(confirming), /Payment received, confirming/);
   const poll = intervals.find((t) => t.ms === 5000)!;
   for (let i = 0; i <= 360; i++) if (poll.active) poll.fn();
   const ended = nodes(render());
@@ -69,28 +72,32 @@ test("PayStep: delayed signed-in retry and polling exhaustion", async () => {
 });
 
 for (const [page, name, reset] of [["pro", "buy", null], ["account", "pay", false]] as const) {
-  test(`${page} checkout: resets busy before location.assign`, async () => {
-    const text = source(`app/${page}/page.tsx`);
-    const start = text.indexOf(`  async function ${name}(`);
-    const end = text.indexOf("\n  return (", start);
-    const body = compile(text.slice(start, end) + `\nexports.run = ${name};`);
-    let busy: unknown = false;
-    let assigned = false;
-    const before = "2027-01-01";
-    let stored: string | null = null;
-    const exports: { run?: (arg: unknown) => Promise<void> } = {};
-    new Function("exports", "busy", "prices", "consent", "setBusy", "setErr", "api", "safeStripeUrl", "location", "proBuyError", "orderError", "pro", "account", "sessionStorage", body)(
-      exports, false, {}, true, (v: unknown) => { busy = v; }, () => {},
-      async (path: string) => {
-        if (path === "/api/pro/checkout") assert.equal(stored, before, "snapshot saved before checkout starts");
-        return { ok: true, data: { url: "https://checkout.stripe.com/test", licence: { pro: { until: before } } } };
-      },
-      (url: string) => url,
-      { assign() { assert.equal(busy, reset); assigned = true; } }, () => ({}), () => ({}),
-      { until: before }, { data: { licence: null } },
-      { setItem(key: string, value: string) { assert.equal(key, "pro:before"); stored = value; } },
-    );
-    await exports.run!(page === "pro" ? "pass" : true);
-    assert.equal(assigned, true);
-  });
+  for (const confirming of [false, true]) {
+    test(`${page} checkout: resets busy before location.assign (confirming=${confirming})`, async () => {
+      const text = source(`app/${page}/page.tsx`);
+      const start = text.indexOf(`  async function ${name}(`);
+      const end = text.indexOf("\n  return (", start);
+      const body = compile(text.slice(start, end) + `\nexports.run = ${name};`);
+      let busy: unknown = false;
+      let assigned = false;
+      const before = "2027-01-01";
+      let stored: string | null = null;
+      const exports: { run?: (arg: unknown) => Promise<void> } = {};
+      new Function("exports", "busy", "prices", "consent", "setBusy", "setErr", "api", "checkoutNext", "location", "proBuyError", "orderError", "pro", "account", "sessionStorage", body)(
+        exports, false, {}, true, (v: unknown) => { busy = v; }, () => {},
+        async (path: string) => {
+          if (path === "/api/pro/checkout") assert.equal(stored, before, "snapshot saved before checkout starts");
+          return { ok: true, data: path === "/api/pro/checkout" && confirming
+            ? { status: "confirming", orderId: "O-0123456789" }
+            : { url: "https://checkout.stripe.com/test", licence: { pro: { until: before } } } };
+        },
+        checkoutNext,
+        { assign(url: string) { assert.equal(busy, reset); assert.equal(url, confirming ? "/account?pro=done" : "https://checkout.stripe.com/test"); assigned = true; } }, () => ({}), () => ({}),
+        { until: before }, { data: { licence: null } },
+        { setItem(key: string, value: string) { assert.equal(key, "pro:before"); stored = value; } },
+      );
+      await exports.run!(page === "pro" ? "pass" : true);
+      assert.equal(assigned, true);
+    });
+  }
 }

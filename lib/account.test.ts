@@ -98,7 +98,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import * as accountRules from "./account.ts";
 import * as proRules from "./pro.ts";
 import { safeStripeUrl } from "./api.ts";
-import { orderError } from "./buy.ts";
+import { checkoutNext, orderError } from "./buy.ts";
 
 function planHarness() {
   const calls: unknown[] = [];
@@ -123,7 +123,7 @@ function planHarness() {
     if (id === "@/lib/account.ts") return accountRules;
     if (id === "@/lib/pro.ts") return proRules;
     if (id === "@/lib/api.ts") return { safeStripeUrl, api: async (...args: unknown[]) => { calls.push(args); return response; } };
-    if (id === "@/lib/buy.ts") return { orderError };
+    if (id === "@/lib/buy.ts") return { checkoutNext, orderError };
     if (id === "@/lib/lang.ts") return { useLang: () => ["en", () => {}] };
     if (id.startsWith("@/") || id === "next/image") return () => null;
     return nativeRequire(id);

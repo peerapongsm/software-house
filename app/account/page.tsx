@@ -9,8 +9,8 @@ import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
 import { day, lastUsed, ownedPaid, pillText, proView, removedAll, type AccountData, type Device } from "@/lib/account.ts";
 import type { Grant } from "@/lib/ai.ts";
-import { api, API_BASE, safeStripeUrl, type Licence, type Msg, type ProSource } from "@/lib/api.ts";
-import { orderError } from "@/lib/buy.ts";
+import { api, API_BASE, type Licence, type Msg, type ProSource } from "@/lib/api.ts";
+import { checkoutNext, orderError } from "@/lib/buy.ts";
 import { useLang, type Lang } from "@/lib/lang.ts";
 import { PLAY_SUBS_URL, proBuyError, proDonePoll } from "@/lib/pro.ts";
 
@@ -152,13 +152,14 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
     if (renew) {
       try { sessionStorage.setItem("pro:before", pro?.until ?? ""); } catch {}
     }
-    const r = await api<{ url: string }>(renew ? "/api/pro/checkout" : "/api/pro/portal", renew
+    const r = await api<{ url?: unknown; status?: string }>(renew ? "/api/pro/checkout" : "/api/pro/portal", renew
       ? { method: "POST", body: { plan: "pass", consent: true } }
       : { method: "POST" });
     setBusy(false);
     if (r.ok) {
-      const url = safeStripeUrl(r.data.url);
-      if (url) return location.assign(url);
+      const next = checkoutNext(r.data);
+      if (next.kind === "go") return location.assign(next.url);
+      if (renew && next.kind === "confirming") return location.assign("/account?pro=done");
       setErr(orderError({ ok: false, status: 502, error: "badStripeUrl" }));
     } else if (r.status === 401) return location.assign("/login?next=/account");
     else setErr(r.status === 404 && r.error === "noStripeSub" ? PRO_TEXT.noSub : proBuyError(r));

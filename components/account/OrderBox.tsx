@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { appName } from "@/components/account/BuyPicker";
 import Spinner from "@/components/account/Spinner";
-import { api, safeStripeUrl, type Licence, type Msg } from "@/lib/api.ts";
-import { orderError, orderItems } from "@/lib/buy.ts";
+import { api, type Licence, type Msg } from "@/lib/api.ts";
+import { checkoutNext, orderError, orderItems } from "@/lib/buy.ts";
 import { baht, total, type Line } from "@/lib/cart.ts";
 import type { Lang } from "@/lib/lang.ts";
 
@@ -58,7 +58,7 @@ export default function OrderBox({
   lines: Line[];
   lic: Licence | null;
   email: string;
-  onOrdered: (orderId: string) => void;
+  onOrdered: (orderId: string, confirming?: boolean) => void;
   previousOrder?: string;
 }) {
   const t = COPY[lang];
@@ -86,17 +86,18 @@ export default function OrderBox({
     setErr(null);
     setBusy(true);
     const body = { items: orderItems(lines), ...(lic ? {} : { name: name.trim() }), receiptEmail: receipt.trim(), consent: true };
-    const r = await api<{ orderId: string; url: string }>("/api/order", { method: "POST", body });
+    const r = await api<{ orderId: string; url?: unknown; status?: string }>("/api/order", { method: "POST", body });
     setBusy(false);
     if (r.ok) {
-      const url = safeStripeUrl(r.data.url);
-      if (!url) return setErr(orderError({ ok: false, status: 500, error: "server" }));
+      const next = checkoutNext(r.data);
+      if (next.kind === "error") return setErr(orderError({ ok: false, status: 500, error: "server" }));
       try {
         sessionStorage.setItem("order:" + r.data.orderId, JSON.stringify(body));
       } catch {}
       history.replaceState(null, "", "/buy?order=" + encodeURIComponent(r.data.orderId));
-      onOrdered(r.data.orderId);
-      return location.assign(url);
+      onOrdered(r.data.orderId, next.kind === "confirming");
+      if (next.kind === "go") location.assign(next.url);
+      return;
     }
     // the session ran out while picking: sign in again and come back here
     if (r.status === 401) return location.assign(`/login?next=${encodeURIComponent("/buy" + location.search)}`);

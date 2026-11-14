@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { exact, forSale, orderError, orderId, orderItems, payStep, proRedirect, startPick } from "./buy.ts";
+import { checkoutNext, exact, forSale, orderError, orderId, orderItems, payStep, proRedirect, startPick } from "./buy.ts";
 import type { Catalogue, Licence } from "./api.ts";
 import { proBuyError } from "./pro.ts";
 
@@ -126,3 +126,23 @@ for (const [error, message] of Object.entries({
     });
   }
 }
+
+test("checkoutNext: go only to a safe Stripe URL, even when confirming", () => {
+  for (const url of ["https://checkout.stripe.com/c/pay/cs_test", "https://billing.stripe.com/p/session/test"]) {
+    assert.deepEqual(checkoutNext({ url }), { kind: "go", url });
+    assert.deepEqual(checkoutNext({ url, status: "confirming" }), { kind: "go", url });
+  }
+});
+
+test("checkoutNext: confirming keeps the order id, or null when missing", () => {
+  assert.deepEqual(checkoutNext({ status: "confirming", orderId: "O-0123456789" }), { kind: "confirming", orderId: "O-0123456789" });
+  assert.deepEqual(checkoutNext({ status: "confirming" }), { kind: "confirming", orderId: null });
+  assert.deepEqual(checkoutNext({ status: "confirming", url: "https://evil.com" }), { kind: "confirming", orderId: null });
+});
+
+test("checkoutNext: error for missing, invalid or non-Stripe URLs without confirming", () => {
+  for (const url of [undefined, null, 123, "", "invalid", "https://evil.com"]) {
+    assert.deepEqual(checkoutNext({ url }), { kind: "error" });
+  }
+  assert.deepEqual(checkoutNext({ status: "paid", orderId: "O-0123456789" }), { kind: "error" });
+});

@@ -1,8 +1,18 @@
 // /buy page rules (paid apps only): the starting pick from the query, the order body, and which
 // step an order shows. Copy for the one error line in the order box.
 
-import type { ApiResult, Catalogue, Licence, Msg } from "./api.ts";
+import { safeStripeUrl, type ApiResult, type Catalogue, type Licence, type Msg } from "./api.ts";
 import type { Line } from "./cart.ts";
+
+export function checkoutNext(data: { url?: unknown; status?: string; orderId?: string }):
+  | { kind: "go"; url: string }
+  | { kind: "confirming"; orderId: string | null }
+  | { kind: "error" } {
+  const url = safeStripeUrl(data.url);
+  if (url) return { kind: "go", url };
+  if (data.status === "confirming") return { kind: "confirming", orderId: data.orderId ?? null };
+  return { kind: "error" };
+}
 
 const ORDER_RE = /^O-[0-9A-HJKMNP-TV-Z]{10}$/;
 

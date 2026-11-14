@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
 import { PLAY_URL, PRO_PRICE, PRO_PASS, PRO_COPY, proBuyError, type ProPlan } from "@/lib/pro.ts";
 import Spinner from "@/components/account/Spinner";
-import { api, safeStripeUrl, type Catalogue, type Msg, type Licence } from "@/lib/api.ts";
+import { api, type Catalogue, type Msg, type Licence } from "@/lib/api.ts";
+import { checkoutNext } from "@/lib/buy.ts";
 import { baht } from "@/lib/cart.ts";
 import { useLang } from "@/lib/lang.ts";
 
@@ -84,11 +85,12 @@ export default function ProPage() {
       return setErr(proBuyError({ ok: false, status: 400, error: "needConsent" }));
     }
     try { sessionStorage.setItem("pro:before", account.data.licence?.pro?.until ?? ""); } catch {}
-    const r = await api<{ url: string }>("/api/pro/checkout", { method: "POST", body: { plan, consent: true } });
+    const r = await api<{ url?: unknown; status?: string }>("/api/pro/checkout", { method: "POST", body: { plan, consent: true } });
     setBusy(null);
     if (r.ok) {
-      const url = safeStripeUrl(r.data.url);
-      if (url) return location.assign(url);
+      const next = checkoutNext(r.data);
+      if (next.kind === "go") return location.assign(next.url);
+      if (next.kind === "confirming") return location.assign("/account?pro=done");
       setErr(proBuyError({ ok: false, status: 502, error: "badCheckoutUrl" }));
     } else if (r.status === 401) return location.assign("/login?next=/pro");
     else setErr(proBuyError(r));
