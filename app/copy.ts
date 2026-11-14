@@ -61,7 +61,7 @@ export const COPY = {
       },
       {
         title: "ทำงาน",
-        body: "ออกแบบและสร้างแอปให้พอดีกับงานของคุณ ไม่ใส่ฟีเจอร์เกินจำเป็น ใช้เวลาเป็นสัปดาห์ ไม่ใช่หลายเดือน",
+        body: "ออกแบบและสร้างแอปให้พอดีกับงานของคุณ ไม่ใส่ฟีเจอร์เกินจำเป็น ระหว่างทางมีของจริงให้ลองเป็นระยะ ไม่ต้องรอจนเสร็จ",
       },
       {
         title: "ส่งมอบ",
@@ -145,7 +145,7 @@ export const COPY = {
       },
       {
         title: "Build",
-        body: "We design and build an app around your workflow, with nothing you won't use. It takes weeks, not months.",
+        body: "We design and build an app around your workflow, with nothing you won't use. You try working pieces along the way instead of waiting for the end.",
       },
       {
         title: "Deliver",
