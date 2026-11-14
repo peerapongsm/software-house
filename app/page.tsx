@@ -160,19 +160,31 @@ export default function Home() {
   return (
     <main className="overflow-x-clip">
       {/* ── Header ─────────────────────────────────────── */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-8 sm:py-6">
-        <a href="#top" className="flex items-center gap-2 leading-none">
+      <header className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-8 sm:py-6">
+        <a href="#top" className="flex shrink-0 items-center gap-1.5 leading-none sm:gap-2">
           <img src="/logo.png" alt="" width={32} height={32} className="h-8 w-8 sm:h-9 sm:w-9" />
-          <span className="font-display text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
+          <span className="font-display text-xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
         </a>
-        <div className="flex items-center gap-3 md:gap-6">
-          <nav className="hidden items-center gap-6 font-semibold text-graphite lg:flex">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:gap-4 xl:gap-6">
+          <nav className="hidden items-center gap-4 font-semibold text-graphite lg:flex xl:gap-6">
             <a href="#apps" className="hover:text-ink">{t.navApps}</a>
             <a href="#paid" className="hover:text-ink">{t.navPaid}</a>
             <a href="#custom" className="hover:text-ink">{t.navCustom}</a>
             <a href="#about" className="hover:text-ink">{t.navAbout}</a>
             <a href="#contact" className="hover:text-ink">{t.navContact}</a>
           </nav>
+          <a href="/pro" className="whitespace-nowrap font-semibold text-graphite hover:text-ink">{t.navPro}</a>
+          <a
+            href="/account"
+            aria-label={t.navAccount}
+            className="flex size-10 items-center justify-center gap-2 rounded-full border border-line bg-sheet text-sm font-semibold hover:border-ink sm:size-auto sm:px-3.5 sm:py-1.5"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="size-5">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" />
+            </svg>
+            <span className="hidden whitespace-nowrap sm:inline">{t.navAccount}</span>
+          </a>
           <LangSwitcher lang={lang} onChange={setLang} />
         </div>
       </header>
@@ -242,7 +254,6 @@ export default function Home() {
       {/* ── Paid apps ──────────────────────────────────── */}
       <section id="paid" className="border-t border-line bg-sheet py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-8">
-          <p className="mb-4 inline-block rounded-full bg-indigo px-4 py-2 font-semibold text-white">{t.paidSoon}</p>
           <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.paidTitle}</h2>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.paidSub}</p>
           <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
@@ -469,17 +480,12 @@ export default function Home() {
             </p>
 
             {app.price !== undefined ? (
-              <>
-                <button
-                  type="button"
-                  disabled
-                  aria-disabled="true"
-                  className="mt-6 block w-full cursor-not-allowed rounded-xl bg-line px-6 py-4 text-center text-lg font-semibold text-graphite"
-                >
-                  {t.comingSoon}
-                </button>
-                <p className="mt-2 text-center text-sm text-graphite">{t.paidNote}</p>
-              </>
+              <a
+                href={`/buy?app=${app.id}`}
+                className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
+              >
+                {t.buy} ฿{app.price.toLocaleString("en-US")}
+              </a>
             ) : (
             <>
             <h3 className="mt-6 font-display text-lg font-bold">{t.dl.guideTitle}</h3>

@@ -4,6 +4,7 @@
 type Copy = { tagline: string; description: string; chips: string[]; features: string[] };
 
 export type DesktopApp = {
+  id?: string; // paid app id in the licence server catalogue
   name: string;
   icon: string;
   shots: number; // screenshot count in /apps/shots/<icon-name>-<1..n>.webp
@@ -427,10 +428,11 @@ export const APPS: DesktopApp[] = [
   },
 ];
 
-// Paid apps: not on sale yet, shown as "coming soon". Prices are one-time and must match the licence
+// Paid apps: prices are one-time and must match the licence
 // server catalogue (electron/peerapos-licence worker/src/catalogue.ts). Copy from each app's docs/spec.md.
 export const PAID_APPS: DesktopApp[] = [
   {
+    id: "account",
     name: "PeerapoS Account",
     icon: "/apps/account.png",
     shots: 5,
@@ -452,6 +454,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
   {
+    id: "wholesale",
     name: "PeerapoS Wholesale",
     icon: "/apps/wholesale.png",
     shots: 5,
@@ -473,6 +476,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
   {
+    id: "property",
     name: "PeerapoS Property",
     icon: "/apps/property.png",
     shots: 5,
@@ -494,6 +498,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
   {
+    id: "academy",
     name: "PeerapoS Academy",
     icon: "/apps/academy.png",
     shots: 5,
@@ -515,6 +520,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
   {
+    id: "service",
     name: "PeerapoS Service",
     icon: "/apps/service.png",
     shots: 5,
@@ -536,6 +542,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
   {
+    id: "contractor",
     name: "PeerapoS Contractor",
     icon: "/apps/contractor.png",
     shots: 5,
@@ -557,6 +564,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
   {
+    id: "wellness",
     name: "PeerapoS Wellness",
     icon: "/apps/wellness.png",
     shots: 5,

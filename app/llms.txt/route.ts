@@ -54,7 +54,7 @@ ${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagl
 
 ## Paid Windows apps (coming soon, not on sale yet)
 
-${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} (not on sale yet)\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
+${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
 
 ## Site text (Thai)
 
