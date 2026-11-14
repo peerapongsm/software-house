@@ -477,19 +477,20 @@ export default function Home() {
               {t.uiLang[app.uiLang]} · {t.winOnly}
             </p>
 
-            {app.price !== undefined ? (
-              <a
-                href={`/buy?app=${app.id}`}
-                className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
-              >
-                {t.buy} ฿{app.price.toLocaleString("en-US")}
-              </a>
-            ) : (
-            <>
+            <section aria-labelledby="app-pro-title">
+              <h3 id="app-pro-title" className="mt-6 font-display text-lg font-bold">{t.dl.proTitle}</h3>
+              <ul className="mt-2 grid list-disc gap-x-8 gap-y-1 pl-5 leading-relaxed text-graphite sm:grid-cols-2">
+                {app[lang].pro.map((f) => <li key={f}>{f}</li>)}
+              </ul>
+              <p className="mt-3 text-sm">
+                <a href="/pro" className="font-semibold text-indigo underline underline-offset-4">{t.dl.proLink}</a>
+              </p>
+            </section>
+
             <h3 className="mt-6 font-display text-lg font-bold">{t.dl.guideTitle}</h3>
             {/* Numbers are written out (1, 2.1, 2.2 …) so sub-steps read the way they're spoken. */}
             <ol className="mt-3 grid gap-2 leading-relaxed">
-              {t.dl.steps.map(([step, ...subs], i) => (
+              {(app.price !== undefined ? [[t.dl.paidFirstStep], ...t.dl.steps.slice(1)] : t.dl.steps).map(([step, ...subs], i) => (
                 <li key={step}>
                   <span className="flex gap-2">
                     <span className="w-6 shrink-0 font-semibold">{i + 1}.</span>
@@ -511,13 +512,20 @@ export default function Home() {
               ))}
             </ol>
 
+            {app.price !== undefined ? (
+              <a
+                href={`/buy?app=${app.id}`}
+                className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
+              >
+                {t.buy} ฿{app.price.toLocaleString("en-US")}
+              </a>
+            ) : (
             <a
               href={downloadUrl(app)}
               className="mt-6 block rounded-xl bg-ink px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-indigo-deep"
             >
               {t.dl.button}
             </a>
-            </>
             )}
           </div>
         )}

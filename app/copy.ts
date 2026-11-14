@@ -26,6 +26,9 @@ export const COPY = {
     dl: {
       button: "ดาวน์โหลดตัวติดตั้ง",
       guideTitle: "วิธีติดตั้ง",
+      paidFirstStep: "ซื้อแอปแล้วดาวน์โหลดตัวติดตั้งจากหน้าบัญชี /account ด้วยบัญชี Google ที่ใช้ซื้อ",
+      proTitle: "ฟีเจอร์ Pro",
+      proLink: "ดูราคาและสมัคร Pro",
       // Each step = [main step, ...sub-steps]; sub-steps render as 2.1, 2.2 …
       // Certum OV cert: SmartScreen reputation still builds per release, so a fresh version can still warn.
       steps: [
@@ -106,6 +109,9 @@ export const COPY = {
     dl: {
       button: "Download installer",
       guideTitle: "How to install",
+      paidFirstStep: "Buy the app, then download the installer from /account using the Google account you bought with.",
+      proTitle: "Pro features",
+      proLink: "See Pro pricing",
       steps: [
         ["Press the download button below. The download starts right away."],
         ["Open the downloaded file. It installs on its own, with nothing else to click."],
