@@ -71,7 +71,7 @@ const JSON_LD = {
       areaServed: { "@type": "Country", name: "Thailand" },
       knowsLanguage: ["th", "en"],
       sameAs: [FACEBOOK_URL, TIKTOK_URL, LINE_URL, FASTWORK_URL],
-      priceRange: "฿500–฿4,500+",
+      priceRange: "฿2,500+",
       knowsAbout: ["Custom software development", "Custom application development", "Web applications", "Windows desktop applications", "Inventory systems", "CRM"],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
