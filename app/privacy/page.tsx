@@ -1,16 +1,60 @@
 import type { Metadata } from "next";
+import type { Msg } from "@/lib/api.ts";
 
-// Privacy policy for the PeerapoS apps, accounts (Google-only sign-in), Google Play purchases of the one PeerapoS Pro
-// subscription, PromptPay orders for the paid apps, and the opt-in online services (linked from the site footer and /buy).
-// Owner decisions 2026-11-06 (Google sign-in, Play purchase data, account deletion); earlier facts checked against code:
-// peerapos-licence feat/accounts (D1 schema, mail.ts, slipok.ts, index.ts),
-// peerapos-feedback worker, peerapos-go feat/go specs + docs/privacy-ai.md, each app's netPolicy.ts.
-// The AI paragraph is the one in peerapos-go/docs/privacy-ai.md; keep it in step with licence worker/src/consent.ts.
-// Marketplace sync is not built and is left out. Not reviewed by a lawyer.
+// Privacy for accounts, Stripe and Play payments, and opt-in services. Decisions: 2026-11-14 spec.
+// The AI paragraph follows peerapos-go/docs/privacy-ai.md and licence worker/src/consent.ts.
+
+const COPY = {
+  description: {
+    th: "นโยบายความเป็นส่วนตัวสำหรับแอป PeerapoS บัญชี การชำระเงินผ่าน Stripe และ Google Play และบริการออนไลน์",
+    en: "Privacy policy for PeerapoS apps, accounts, Stripe and Google Play payments, and online services.",
+  },
+  orders: {
+    th: "คำสั่งซื้อ: รายการ ยอดเงิน เวลา สถานะ อีเมลรับใบยืนยัน ชื่อ รหัสอ้างอิงการชำระเงินของ Stripe และการติ๊กยอมรับข้อกำหนด",
+    en: "Orders: items, amount, time, status, receipt email, name, Stripe payment reference and your acceptance of the Terms.",
+  },
+  stripeRecords: {
+    th: "การซื้อผ่าน Stripe: รหัสลูกค้าและรหัสการสมัคร สินค้า สถานะ วันสิ้นสุด การยกเลิก และประวัติบัตรรายปี ใช้ตรวจสิทธิ์ Pro และรับการแจ้งชำระเงิน คืนเงิน หรือข้อพิพาทจาก Stripe ไม่เก็บหมายเลขบัตร",
+    en: "Stripe purchases: customer and subscription ids, product, status, end date, cancellation and prepaid pass records, used to check Pro and process Stripe payment, refund and dispute notifications. We do not store card numbers.",
+  },
+  mail: {
+    th: "เราส่งอีเมลยืนยันการชำระเงินสำหรับแอปซื้อขาดและบัตรรายปี ไม่ส่งอีเมลการตลาด Stripe ส่งใบแจ้งค่าบริการและอีเมลต่ออายุสำหรับการสมัครผ่านบัตร",
+    en: "We send payment confirmations for paid apps and prepaid passes, with no marketing. Stripe sends invoices and renewal emails for card subscriptions.",
+  },
+  paymentTitle: { th: "ชำระเงินผ่าน Stripe", en: "Payments through Stripe" },
+  payment: {
+    th: "การซื้อบนเว็บไซต์จ่ายด้วยบัตรหรือ PromptPay ผ่าน Stripe (Stripe Payments Singapore / Stripe, Inc.) ซึ่งเป็นผู้ประมวลผลการชำระเงิน เราส่งอีเมลและรหัสบัญชีใน metadata ให้ Stripe เพื่อผูกการชำระเงินกับบัญชีของคุณ",
+    en: "Website purchases are paid by card or PromptPay through Stripe (Stripe Payments Singapore / Stripe, Inc.), our payment processor. We send Stripe your email and account id in metadata to link payments to your account.",
+  },
+  card: {
+    th: "คุณกรอกข้อมูลการชำระเงินบนหน้าของ Stripe โดยตรง เราไม่เห็นหมายเลขบัตร Stripe เก็บข้อมูลการชำระเงินตามระยะเวลาเก็บข้อมูลของ Stripe และหน้าที่ตามกฎหมาย",
+    en: "You enter payment details directly on Stripe's page. We never see card numbers. Stripe keeps payment data under Stripe's retention policy and its legal obligations.",
+  },
+  recipient: {
+    th: "Stripe (Stripe Payments Singapore / Stripe, Inc.): ประมวลผลการชำระเงิน รับอีเมล รหัสบัญชีใน metadata และข้อมูลการชำระเงินที่คุณกรอกบนหน้าของ Stripe",
+    en: "Stripe (Stripe Payments Singapore / Stripe, Inc.): processes payments; receives email, account id in metadata and payment details you enter on Stripe's page.",
+  },
+  stripeRetention: {
+    th: "ข้อมูลการชำระเงินที่ Stripe เก็บ ใช้ระยะเวลาเก็บข้อมูลของ Stripe ลูกค้าและบันทึกการชำระเงินยังอยู่ที่ Stripe หลังลบบัญชี PeerapoS โดย metadata ของลูกค้ามีเพียงรหัสบัญชี",
+    en: "Payment data held by Stripe follows Stripe's retention policy. The Stripe customer and payment records remain with Stripe after you delete your PeerapoS account; customer metadata holds only the account id.",
+  },
+  retention: {
+    th: "บัญชี ข้อมูลการซื้อบน Play ข้อมูลการสมัครผ่าน Stripe บัตรรายปี และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบจากระบบของเราเมื่อคุณลบบัญชี ส่วนคำสั่งซื้อยังเก็บเป็นหลักฐานทางภาษี",
+    en: "Accounts, Play purchase records, Stripe subscription records, prepaid passes and linked PCs have no automatic deletion. We keep them while the account exists and delete them from our system when you delete the account. Orders remain as tax records.",
+  },
+  deletion: {
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และบัตรรายปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
+    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
+  },
+  updated: {
+    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 14 พฤศจิกายน 2569",
+    en: "PeerapoS apps, accounts and services. Last updated 14 November 2026",
+  },
+} satisfies Record<string, Msg>;
 
 export const metadata: Metadata = {
   title: "นโยบายความเป็นส่วนตัว · Privacy Policy — PeerapoS",
-  description: "Privacy policy for the PeerapoS apps, Google sign-in, Google Play purchases of PeerapoS Pro, paid-app orders and online services, by PeerapoS.",
+  description: COPY.description.en,
   // override the layout's "/" canonical and og:url
   alternates: { canonical: "/privacy" },
   openGraph: { url: "/privacy" },
@@ -84,13 +128,13 @@ const TH: Sec[] = [
       "บัญชี: รหัสบัญชี Google ที่คงที่ อีเมล และชื่อ ที่ Google ส่งให้ตอนเข้าสู่ระบบ ใช้สร้างบัญชีและเป็นชื่อในสิทธิ์ และเวลาที่สร้างบัญชี",
       "สิทธิ์: ชื่อในสิทธิ์ (แสดงในแอป) แอปที่ซื้อ สถานะ Pro และวันสิ้นสุด",
       "การซื้อ Pro บน Google Play: เก็บแค่แฮชของโทเคนการซื้อ สินค้า สถานะ และวันหมดอายุ ไม่เก็บข้อมูลบัตร Google เก็บเอง",
-      "คำสั่งซื้อ: รายการ ยอดเงิน เวลา สถานะ อีเมลรับใบยืนยัน ชื่อ รหัสอ้างอิงธุรกรรมจากสลิป และการติ๊กยอมรับข้อกำหนด",
+      COPY.orders.th,
       "เครื่องที่เชื่อม: ชื่อเครื่อง (ตามที่แอปส่ง) แอปที่ใช้เชื่อม รหัสเครื่องที่แฮชแล้ว (ไม่ใช่รหัสเดิมของ Windows) เวลาที่เชื่อม ใช้ล่าสุด และเลิกใช้",
       "การเข้าสู่ระบบ: เซสชันที่เก็บเป็นแฮช อยู่ 30 วัน เบราว์เซอร์เก็บคุกกี้เซสชันที่จำเป็นต่อการเข้าสู่ระบบ ไม่มีคุกกี้โฆษณา",
-      "บันทึกการตรวจสลิป: คำสั่งซื้อ เดือน เวลา และผลตรวจ ไม่มีรูปสลิป",
+      COPY.stripeRecords.th,
     ],
     after: [
-      "เราส่งอีเมลถึงคุณแบบเดียว คืออีเมลยืนยันการชำระเงินของแอปแบบซื้อขาด ไม่ส่งอีเมลการตลาด นอกจากนี้เราส่งอีเมลหาตัวเองเมื่อมีสลิปที่ต้องตรวจเอง",
+      COPY.mail.th,
     ],
   },
   {
@@ -102,10 +146,10 @@ const TH: Sec[] = [
     ],
   },
   {
-    title: "จ่ายเงินและตรวจสลิป",
+    title: COPY.paymentTitle.th,
     p: [
-      "แอปแบบซื้อขาดจ่ายผ่าน PromptPay เข้าบัญชีของเรา ไม่ผ่านบัตร ตอนตรวจ เราส่งรูปสลิปไปที่ SlipOK เพื่อตรวจว่าเป็นสลิปจริง ยอดตรง และผู้รับตรง",
-      "ถ้า SlipOK ตัดสินไม่ได้ สลิปจะถูกเก็บไว้ที่ที่เก็บไฟล์ส่วนตัวของเราเพื่อให้เราตรวจเอง แล้วลบทิ้งเมื่อเราอนุมัติหรือปฏิเสธ",
+      COPY.payment.th,
+      COPY.card.th,
     ],
   },
   {
@@ -156,7 +200,7 @@ const TH: Sec[] = [
       "Cloudflare: เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ เว็บไซต์ และ Turnstile",
       "Google: เข้าสู่ระบบด้วยบัญชี Google และตรวจการซื้อ Pro บน Google Play",
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
-      "SlipOK: ตรวจรูปสลิป",
+      COPY.recipient.th,
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
       "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Pair",
       "ผู้ให้บริการ AI ที่ร้านเลือกเอง: รับข้อมูลที่ร้านตัดสินใจส่ง ตามเงื่อนไขของผู้ให้บริการนั้น",
@@ -170,9 +214,9 @@ const TH: Sec[] = [
     li: [
       "เซสชัน 30 วัน",
       "บันทึกเส้นทางของรีเลย์ 7 วัน คำขอจากหน้าลูกค้าที่พักไว้ 14 วัน",
-      "รูปสลิปที่รอตรวจเอง จนกว่าเราจะตัดสิน",
+      COPY.stripeRetention.th,
       "สำเนารายงานปัญหา จนกว่าเราจะดึงไปอ่านแล้วลบ",
-      "บัญชี ข้อมูลการซื้อบน Play และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบเมื่อคุณลบบัญชี",
+      COPY.retention.th,
       "คำสั่งซื้อและอีเมลยืนยันการชำระเงิน เก็บเท่าที่กฎหมายภาษีและบัญชีให้เก็บเอกสารการขาย แม้ลบบัญชีแล้ว",
     ],
   },
@@ -181,7 +225,7 @@ const TH: Sec[] = [
     p: [
       "ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล คุณขอเข้าถึงหรือขอสำเนา ขอแก้ไข ขอลบ ขอให้หยุดใช้ หรือคัดค้านการใช้ข้อมูลของคุณที่เราควบคุมได้ และร้องเรียนต่อสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลได้",
       `ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
-      "ถ้าคุณสมัคร Pro อยู่ ให้ยกเลิกใน Google Play ก่อนลบบัญชี การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้ว ผูกกับบัญชีใหม่ไม่ได้",
+      COPY.deletion.th,
       "ในเครื่องของคุณ ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่อง ยกเลิกการเชื่อมเครื่องได้ที่หน้าบัญชีของฉัน",
     ],
   },
@@ -222,13 +266,13 @@ const EN: Sec[] = [
       "Account: the stable Google account id, email and name that Google sends when you sign in, used for the account and as the licence name, and when the account was created.",
       "Licence: the licence name (shown in the apps), the apps you bought, Pro status and its end date.",
       "Pro purchases on Google Play: only a hash of the purchase token, the product, the state and the expiry. No card details: Google holds those.",
-      "Orders: items, amount, time, status, the receipt email, the name, the bank transaction reference from the slip, and your ticking of the Terms.",
+      COPY.orders.en,
       "Linked PCs: the PC name (as the app sends it), the app used to link, a hashed machine ID (not the raw Windows ID), and when it was linked, last used and removed.",
       "Sign-in: a session stored as a hash for 30 days. Your browser keeps a session cookie that sign-in needs. No advertising cookies.",
-      "Slip check log: order, month, time and result. No slip image.",
+      COPY.stripeRecords.en,
     ],
     after: [
-      "We email you one kind of message: the payment confirmation for a paid-app order. No marketing. We also email ourselves when a slip needs a manual check.",
+      COPY.mail.en,
     ],
   },
   {
@@ -240,10 +284,10 @@ const EN: Sec[] = [
     ],
   },
   {
-    title: "Payment and slip checks",
+    title: COPY.paymentTitle.en,
     p: [
-      "You pay for paid apps by PromptPay into our account, not by card. To check, we send the slip image to SlipOK, which checks that the slip is genuine and the amount and receiver match.",
-      "If SlipOK cannot settle it, the slip is kept in our private file storage so we can check it by hand, then deleted when we approve or reject it.",
+      COPY.payment.en,
+      COPY.card.en,
     ],
   },
   {
@@ -292,7 +336,7 @@ const EN: Sec[] = [
       "Cloudflare: servers, databases, file storage, the relay, the website and Turnstile.",
       "Google: Google sign-in, and checking Pro purchases on Google Play.",
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
-      "SlipOK: checks slip images.",
+      COPY.recipient.en,
       "GitHub: update checks for the free apps.",
       "Google Firebase Cloud Messaging: phone alerts for PeerapoS Pair.",
       "The AI provider the shop chooses: receives what the shop decides to send, under that provider's terms.",
@@ -306,9 +350,9 @@ const EN: Sec[] = [
     li: [
       "Sessions 30 days.",
       "Relay routing records 7 days; held customer-page requests 14 days.",
-      "Slip images waiting for a manual check, until we decide.",
+      COPY.stripeRetention.en,
       "Problem report copies, until we pull and delete them.",
-      "Accounts, Play purchase records and linked PCs have no automatic deletion. We keep them while the account exists, and delete them when you delete the account.",
+      COPY.retention.en,
       "Orders and the payment confirmation email are kept as long as tax and accounting law has us keep sales records, even after the account is deleted.",
     ],
   },
@@ -317,7 +361,7 @@ const EN: Sec[] = [
     p: [
       "Under Thailand's Personal Data Protection Act you may ask to access or get a copy of, correct, delete, restrict or object to our use of your data that we control, and you may complain to the Personal Data Protection Committee.",
       `You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
-      "If you have Pro, cancel it in Google Play before you delete the account. Deleting the account does NOT cancel a Google Play subscription: you will keep being charged, and a subscription from a deleted account cannot be attached to a new account.",
+      COPY.deletion.en,
       "On your own PC, uninstall the app or delete its data folder and the data is gone. You can unlink a PC on My account.",
     ],
   },
@@ -337,7 +381,7 @@ export default function Privacy() {
       {/* ── ภาษาไทย ── */}
       <article lang="th" className="mt-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">นโยบายความเป็นส่วนตัว</h1>
-        <p className="mt-2 text-graphite">แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 6 พฤศจิกายน 2569</p>
+        <p className="mt-2 text-graphite">{COPY.updated.th}</p>
         <p className="mt-4 leading-relaxed text-graphite">
           ใช้กับแอปฟรี {APPS_FREE} แอปแบบซื้อขาด {APPS_PAID} และ PeerapoS Pair อ่านคู่กับ{" "}
           <a href="/terms" className="text-indigo underline">ข้อกำหนดการใช้งาน</a>
@@ -350,7 +394,7 @@ export default function Privacy() {
       {/* ── English ── */}
       <article lang="en">
         <h2 className="font-display text-4xl font-bold tracking-tight">Privacy Policy</h2>
-        <p className="mt-2 text-graphite">PeerapoS apps, accounts and services. Last updated 6 November 2026</p>
+        <p className="mt-2 text-graphite">{COPY.updated.en}</p>
         <p className="mt-4 leading-relaxed text-graphite">
           Applies to the free apps {APPS_FREE_EN}, the paid apps {APPS_PAID_EN}, and PeerapoS Pair. Read together with the{" "}
           <a href="/terms" className="text-indigo underline">Terms of Use</a>.

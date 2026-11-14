@@ -1,13 +1,70 @@
 import type { Metadata } from "next";
+import type { Msg } from "@/lib/api.ts";
 
-// Terms of use for PeerapoS apps, accounts, the one PeerapoS Pro subscription (sold only in store apps, paid by
-// Google Play, auto-renewing) and the one-time paid desktop apps (PromptPay on /buy). Linked from /buy and the footers.
-// Owner decisions 2026-11-06: Pro 159 / 1,590 baht, one tier only, PC caps 2 / 6 / 10, 14-day grace, Google-only
-// sign-in, account deletion does not cancel a Play subscription. Not reviewed by a lawyer.
+// Terms for paid apps, Stripe web Pro and Google Play Pro. Decisions: 2026-11-14 spec.
+
+const COPY = {
+  description: {
+    th: "ข้อกำหนดการใช้งานแอป PeerapoS การซื้อแอปและ Pro ผ่าน Stripe และ Google Play",
+    en: "Terms of use for PeerapoS apps, paid-app orders and Pro through Stripe and Google Play.",
+  },
+  paid: {
+    th: "แอปแบบซื้อขาด (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) ซื้อครั้งเดียวที่หน้า /buy จ่ายด้วยบัตรหรือ PromptPay ผ่าน Stripe อัปเดตให้ฟรีตลอด ไม่หมดอายุ เว้นแต่คืนเงินเต็มจำนวนหรือแพ้ข้อพิพาทการชำระเงิน ราคาดูที่หน้า /buy",
+    en: "The paid apps (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) are bought once on /buy by card or PromptPay through Stripe, with free updates forever. They never expire unless fully refunded or a payment dispute is lost. Prices are on /buy.",
+  },
+  pro: {
+    th: "PeerapoS Pro บนเว็บไซต์: รายเดือน 159 บาท หรือรายปี 1,590 บาท จ่ายด้วยบัตรและต่ออายุอัตโนมัติ หรือบัตรรายปี 1,590 บาท จ่ายด้วย PromptPay หรือบัตร ไม่ต่ออายุอัตโนมัติ ส่วน Pro ที่ซื้อในแอปบน Android จ่ายผ่าน Google Play ตามราคาที่ Google Play แสดงตอนสมัคร",
+    en: "PeerapoS Pro on the website: 159 baht monthly or 1,590 baht yearly by card; both renew automatically. A 1-year pass costs 1,590 baht by PromptPay or card and does not auto-renew. Pro bought in an Android app is paid through Google Play at the price Google Play shows when you subscribe.",
+  },
+  deletion: {
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และบัตรรายปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
+    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
+  },
+  payment: {
+    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและบัตรรายปีจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
+    en: "Website purchases of paid apps and Pro use Stripe's payment page. Paid apps and prepaid passes accept card or PromptPay; auto-renewing monthly and yearly Pro subscriptions accept cards only. Enter payment details on Stripe's page; we never see card numbers.",
+  },
+  receipt: {
+    th: "เมื่อชำระค่าแอปซื้อขาดหรือบัตรรายปีแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
+    en: "After payment for a paid app or prepaid pass we email a payment confirmation to the receipt email. Stripe sends card-subscription invoices and renewal emails. Our confirmation is proof of payment, not a tax invoice.",
+  },
+  cancel: {
+    th: "Pro ที่สมัครผ่านบัตรต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อที่หน้า /account ใช้ได้ถึงสิ้นรอบที่จ่ายไว้ ไม่คืนเงินตามสัดส่วน ส่วน Pro ที่ซื้อผ่าน Google Play ให้จัดการและยกเลิกใน Google Play",
+    en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds. Pro bought through Google Play is managed and cancelled in Google Play.",
+  },
+  pass: {
+    th: "บัตรรายปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะบัตรรายปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยบัตรใหม่เริ่มเมื่อบัตรเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้ Pro จาก Google Play หรือการสมัครผ่านบัตรสิ้นสุดก่อนซื้อบัตรรายปี และถ้ามีบัตรรายปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
+    en: "A prepaid pass covers 1 year and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active Google Play or card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
+  },
+  ends: {
+    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อบัตรรายปีหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
+    en: "Pro ends when the paid period runs out after cancellation, a prepaid pass expires, the payment provider cannot collect payment within its allowed recovery time, or a purchase is fully refunded, revoked or a payment dispute is lost.",
+  },
+  grace: {
+    th: "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วันสำหรับฟีเจอร์ Pro บนคอมพิวเตอร์ ถ้า Google Play คืนเงินหรือเพิกถอนการซื้อ ไม่มีช่วงผ่อนผันนี้ ส่วนการคืนเงินหรือแพ้ข้อพิพาทผ่าน Stripe ทำให้ Pro สิ้นสุดทันที แต่ช่วงผ่อนผันบนคอมพิวเตอร์ยังใช้ตามเดิม",
+    en: "After the end date, PC Pro features have a 14-day grace period. Google Play refunds or revocations have no grace period. A Stripe refund or lost dispute ends Pro immediately, while the PC grace period still applies.",
+  },
+  owned: {
+    th: "แอปซื้อขาดไม่ผูกกับ Pro และไม่หมดอายุหรือถูกล็อกเมื่อออฟไลน์ เว้นแต่เครื่องถูกยกเลิกการเชื่อม บัญชีถูกลบ หรือสิทธิ์ถูกถอนจากการคืนเงินเต็มจำนวนหรือแพ้ข้อพิพาทการชำระเงิน เครื่องออฟไลน์ยังใช้แอปได้จนกว่าจะตรวจสิทธิ์อีกครั้ง",
+    en: "Paid apps do not depend on Pro and never expire or lock offline, except when a PC is unlinked, the account is deleted, or rights are revoked after a full refund or lost payment dispute. An offline PC can keep using the app until its next licence check.",
+  },
+  refunds: {
+    th: "Pro ที่ซื้อบนเว็บไซต์ไม่คืนเงินตามสัดส่วนเมื่อยกเลิก เว้นแต่กฎหมายบังคับ ส่วน Pro ที่ซื้อผ่าน Google Play คืนเงินตามกฎของ Google Play เราคืนเงินที่ Google Play เก็บเองไม่ได้",
+    en: "Website Pro has no partial refunds on cancellation, except where the law requires otherwise. Pro bought through Google Play follows Google Play's refund rules; we cannot refund a Google Play charge ourselves.",
+  },
+  revoke: {
+    th: "เมื่อคืนเงินเต็มจำนวนหรือแพ้ข้อพิพาทการชำระเงินผ่านบัตร เราถอนแอปที่อยู่ในคำสั่งซื้อนั้น หรือ Pro สิ้นสุดทันที แอปบนคอมพิวเตอร์เสียสิทธิ์เมื่อตรวจสิทธิ์ครั้งถัดไป ส่วน Pro บนคอมพิวเตอร์ยังมีช่วงผ่อนผันตามข้อ 6 การคืนเงินบางส่วนหรือข้อพิพาทที่ยังไม่ตัดสินไม่ถอนสิทธิ์อัตโนมัติ",
+    en: "A full refund or lost card dispute removes the apps in that order, or Pro ends immediately. PCs lose refunded apps at their next licence check; PC Pro grace still applies as in section 6. Partial refunds and unresolved disputes do not automatically revoke rights.",
+  },
+  updated: {
+    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 14 พฤศจิกายน 2569",
+    en: "PeerapoS apps and services. Last updated 14 November 2026",
+  },
+} satisfies Record<string, Msg>;
 
 export const metadata: Metadata = {
   title: "ข้อกำหนดการใช้งาน · Terms of Use — PeerapoS",
-  description: "Terms of use for the PeerapoS apps, the PeerapoS Pro subscription on Google Play and the one-time paid apps, by PeerapoS.",
+  description: COPY.description.en,
   // override the layout's "/" canonical and og:url
   alternates: { canonical: "/terms" },
   openGraph: { url: "/terms" },
@@ -56,8 +113,8 @@ const TH: Sec[] = [
     title: "2. แอปฟรี แอปซื้อขาด และ Pro",
     li: [
       "แอปฟรีใช้ได้ฟรีตามขีดจำกัดของแต่ละแอป เช่น จำนวนเครื่อง ดูรายละเอียดในแอป",
-      "แอปแบบซื้อขาด (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) ซื้อครั้งเดียวที่หน้า /buy จ่ายด้วย PromptPay อัปเดตให้ฟรีตลอด ไม่หมดอายุ ราคาดูที่หน้า /buy",
-      "PeerapoS Pro 159 บาทต่อเดือน หรือ 1,590 บาทต่อปี มีแค่สองแบบนี้ ขายในแอปบนร้านแอปเท่านั้น ตอนนี้คือ Google Play (PeerapoS Pair และ PeerapoS Plan) ส่วน Apple App Store มาทีหลัง ไม่ขายบนเว็บไซต์นี้ ราคาที่คิดคือราคาที่ร้านแอปแสดงตอนคุณสมัคร",
+      COPY.paid.th,
+      COPY.pro.th,
       "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI PeerapoS Pair และการสำรองข้อมูลไป Google Drive ในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว ไม่ต้องมี Pro) ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ สมัครครั้งเดียวใช้ได้กับทุกแอปในบัญชีเดียวกัน",
       "ผู้สมัครใหม่บน Google Play อาจได้ทดลองใช้ฟรี ระยะเวลาเท่าที่ร้านแอปแสดงตอนสมัคร",
       "PeerapoS Plan บนมือถือลงฟรีจากร้านแอป แต่ต้องมี Pro ที่ยังใช้งานได้ถึงจะใช้ได้",
@@ -82,35 +139,36 @@ const TH: Sec[] = [
       "ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะเป็นหลักฐานทางภาษี",
     ],
     after: [
-      "ถ้าคุณสมัคร Pro อยู่ ให้ยกเลิกใน Google Play ก่อนลบบัญชี การลบบัญชีไม่ยกเลิกการสมัครใน Google Play คุณจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้ว ผูกกับบัญชีใหม่ไม่ได้",
+      COPY.deletion.th,
     ],
   },
   {
     title: "5. จ่ายเงิน",
     p: [
-      "แอปแบบซื้อขาดจ่ายผ่าน PromptPay QR ที่หน้า /buy ยอดมีเศษสตางค์ไม่ซ้ำกัน เพื่อจับคู่กับคำสั่งซื้อ แล้วแนบสลิป เราตรวจสลิปผ่านบริการตรวจสลิป ถ้าตรวจอัตโนมัติไม่ได้ เราจะตรวจเอง และถ้าไม่ผ่านจะแจ้งทางอีเมล",
-      "เมื่อชำระแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลที่คุณกรอกไว้ในคำสั่งซื้อ อีเมลนี้เป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
-      "Pro จ่ายผ่าน Google Play ไม่ผ่านเรา Google เป็นผู้คิดเงินและเก็บข้อมูลบัตร Pro ต่ออายุเองทุกรอบจนกว่าคุณยกเลิก ยกเลิกได้ใน Google Play",
+      COPY.payment.th,
+      COPY.receipt.th,
+      COPY.cancel.th,
+      COPY.pass.th,
     ],
   },
   {
     title: "6. เมื่อ Pro สิ้นสุด",
     li: [
-      "Pro สิ้นสุดเมื่อคุณยกเลิกแล้วรอบที่จ่ายไว้หมด เมื่อ Google Play เก็บเงินไม่สำเร็จจนหมดเวลาที่ Google Play ให้แก้ไข หรือเมื่อ Google คืนเงินหรือเพิกถอนการซื้อ",
-      "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วัน ช่วงนี้ยังใช้ฟีเจอร์ Pro ได้ตามปกติ แต่ถ้า Google คืนเงินหรือเพิกถอนการซื้อ จะไม่มีช่วงผ่อนผันนี้",
+      COPY.ends.th,
+      COPY.grace.th,
       "เกิน 14 วัน ฟีเจอร์ Pro จะหยุด ซึ่งรวมบริการออนไลน์ที่ต้องมี Pro ด้วย",
       "เครื่องที่ไม่ได้ออนไลน์เช็กสิทธิ์เกิน 30 วัน ก็เข้าช่วงผ่อนผัน 14 วันแบบเดียวกัน แล้วกลับมาปกติเมื่อเช็กสำเร็จ",
       "แอปบนคอมพิวเตอร์ยังใช้งานต่อได้ ข้อมูลไม่ถูกล็อก ดูและส่งออกข้อมูลได้เสมอ",
       "ถ้าร้านมีข้อมูลเกินขีดจำกัดของรุ่นฟรี ข้อมูลทั้งหมดยังอยู่และใช้ได้ แค่เพิ่มเกินขีดจำกัดไม่ได้",
-      "แอปซื้อขาดที่คุณซื้อเองเป็นของคุณตลอด ไม่หมดอายุ ไม่ผูกกับ Pro และไม่ล็อกเมื่อออฟไลน์ เว้นแต่เครื่องนั้นถูกยกเลิกการเชื่อมจากบัญชี",
+      COPY.owned.th,
     ],
   },
   {
     title: "7. การคืนเงิน",
     p: [
       "แอปแบบซื้อขาด ซื้อแล้วถือเป็นที่สิ้นสุด เราไม่คืนเงิน ยกเว้นมีข้อบกพร่องที่เราแก้ไม่ได้ หรือกฎหมายบังคับให้คืน",
-      "Pro คืนเงินตามกฎการคืนเงินของ Google Play เงินที่ Google Play เก็บไปแล้ว เราคืนเองไม่ได้ ถ้า Google คืนเงินหรือเพิกถอนการซื้อ Pro จะสิ้นสุด",
-      "Pro ยกเลิกได้ทุกเมื่อใน Google Play การยกเลิกมีผลเมื่อสิ้นรอบที่จ่ายไว้แล้ว สิทธิ์ใช้ได้ถึงตอนนั้น",
+      COPY.refunds.th,
+      COPY.revoke.th,
       "ข้อนี้ไม่จำกัดสิทธิ์ของคุณตามกฎหมายคุ้มครองผู้บริโภคของไทย",
     ],
   },
@@ -188,8 +246,8 @@ const EN: Sec[] = [
     title: "2. Free apps, paid apps and Pro",
     li: [
       "Free apps are free to use within each app's limits, such as the number of PCs. The app shows the details.",
-      "The paid apps (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) are bought once on /buy, paid by PromptPay, with free updates forever. They never expire. Prices are on /buy.",
-      "PeerapoS Pro is 159 baht a month or 1,590 baht a year, and those are the only two options. It is sold only inside store apps: Google Play now (PeerapoS Pair and PeerapoS Plan), Apple App Store later. It is not sold on this website. The price charged is the one the store shows when you subscribe.",
+      COPY.paid.en,
+      COPY.pro.en,
       "Pro turns on Pro features in all the free apps, the paid apps you own, the relay, the AI connector, PeerapoS Pair and backup to Google Drive in the free apps (the paid apps include it without Pro). It does not open paid apps you have not bought. One Pro works across all apps on the same account.",
       "A new subscriber on Google Play may get a free trial, for the length the store shows when you subscribe.",
       "PeerapoS Plan on a phone is a free download, but it needs an active Pro to use at all.",
@@ -214,35 +272,36 @@ const EN: Sec[] = [
       "You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the receipt email stay, as tax records.",
     ],
     after: [
-      "If you have Pro, cancel it in Google Play before you delete the account. Deleting the account does NOT cancel a Google Play subscription: you will keep being charged, and a subscription from a deleted account cannot be attached to a new account.",
+      COPY.deletion.en,
     ],
   },
   {
     title: "5. Payment",
     p: [
-      "You pay for paid apps by PromptPay QR on /buy. The amount carries a unique satang tag so we can match your order, then you attach the slip. We check the slip through a slip-checking service. If the automatic check cannot settle it, we check by hand, and tell you by email if it is not approved.",
-      "After payment we email a payment confirmation to the receipt email you entered on the order. It is proof of payment, not a tax invoice.",
-      "Pro is paid through Google Play, not through us. Google takes the payment and holds the card details. Pro renews automatically each period until you cancel, and you cancel in Google Play.",
+      COPY.payment.en,
+      COPY.receipt.en,
+      COPY.cancel.en,
+      COPY.pass.en,
     ],
   },
   {
     title: "6. When Pro ends",
     li: [
-      "Pro ends when you cancel and the paid period runs out, when Google Play cannot collect payment within the time it allows to fix it, or when Google refunds or revokes the purchase.",
-      "After the end date there is a 14-day grace period. Pro features keep working during it. If Google refunds or revokes the purchase, there is no grace period.",
+      COPY.ends.en,
+      COPY.grace.en,
       "After 14 days Pro features stop. This includes the online services that need Pro.",
       "A PC that has not checked in online for more than 30 days enters the same 14-day grace, and returns to normal after a successful check.",
       "Apps on your computer keep working. Your data is never locked: you can always read and export it.",
       "If a shop holds more data than the free limit allows, it keeps all of it and can use all of it. Only adding more stops.",
-      "A paid app you bought yourself stays yours, never expires, does not depend on Pro, and does not lock when offline, unless that PC is unlinked from the account.",
+      COPY.owned.en,
     ],
   },
   {
     title: "7. Refunds",
     p: [
       "Paid app sales are final. We do not give refunds, except for a defect we cannot fix, or where the law requires a refund.",
-      "Refunds for Pro follow Google Play's refund rules. We cannot refund a Google Play charge ourselves. If Google refunds or revokes a purchase, Pro ends.",
-      "You can cancel Pro at any time in Google Play. Cancelling takes effect at the end of the period already paid, and Pro works until then.",
+      COPY.refunds.en,
+      COPY.revoke.en,
       "This does not limit your rights under Thai consumer law.",
     ],
   },
@@ -318,7 +377,7 @@ export default function Terms() {
       {/* ── ภาษาไทย ── */}
       <article lang="th" className="mt-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">ข้อกำหนดการใช้งาน</h1>
-        <p className="mt-2 text-graphite">แอปและบริการของ PeerapoS มีผล 6 พฤศจิกายน 2569</p>
+        <p className="mt-2 text-graphite">{COPY.updated.th}</p>
         <p className="mt-4 leading-relaxed text-graphite">
           อ่านคู่กับ <a href="/privacy" className="text-indigo underline">นโยบายความเป็นส่วนตัว</a>
         </p>
@@ -330,7 +389,7 @@ export default function Terms() {
       {/* ── English ── */}
       <article lang="en">
         <h2 className="font-display text-4xl font-bold tracking-tight">Terms of Use</h2>
-        <p className="mt-2 text-graphite">PeerapoS apps and services. In force from 6 November 2026</p>
+        <p className="mt-2 text-graphite">{COPY.updated.en}</p>
         <p className="mt-4 leading-relaxed text-graphite">
           Read together with the <a href="/privacy" className="text-indigo underline">Privacy Policy</a>.
         </p>
