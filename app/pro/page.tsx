@@ -1,66 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
-import { PLAY_URL, PRO_PRICE } from "@/lib/pro.ts";
+import { PLAY_URL, PRO_PRICE, PRO_PASS, PRO_COPY, proBuyError, type ProPlan } from "@/lib/pro.ts";
+import Spinner from "@/components/account/Spinner";
+import { api, safeStripeUrl, type Catalogue, type Msg } from "@/lib/api.ts";
 import { baht } from "@/lib/cart.ts";
 import { useLang } from "@/lib/lang.ts";
-
-const COPY = {
-  th: {
-    h1: "PeerapoS Pro",
-    lead: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน",
-    month: "/ เดือน",
-    year: "/ ปี",
-    get: "ดาวน์โหลดจาก Google Play",
-    stepsH: "ทำตาม 3 ขั้นตอนนี้",
-    steps: [
-      "ติดตั้ง PeerapoS Pair จาก Google Play",
-      "เข้าสู่ระบบด้วย Google แล้วสมัคร PeerapoS Pro",
-      "บนคอมพิวเตอร์ กด “เชื่อมเครื่องนี้” แล้วเข้าสู่ระบบด้วยบัญชี Google เดียวกัน",
-    ],
-    getH: "Pro ให้อะไรบ้าง",
-    gets: [
-      "ฟีเจอร์ Pro ในแอปฟรีทุกตัว",
-      "ฟีเจอร์ Pro ในแอปแบบซื้อขาดที่คุณเป็นเจ้าของ",
-      "รีเลย์ ตัวเชื่อม AI และ PeerapoS Pair",
-      "สำรองข้อมูลไป Google Drive ของคุณเองในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว)",
-    ],
-    factsH: "ก่อนสมัคร",
-    facts: [
-      "ใช้ได้กับทุกแอปในบัญชีเดียวกัน ไม่ต้องสมัครซ้ำ",
-      "สมัครได้เฉพาะในแอปบน Google Play ไม่ขายบนเว็บนี้",
-      "ยังไม่มีบน iPhone จะมาทีหลัง",
-    ],
-    buyApps: "ซื้อแอปแบบซื้อขาด",
-  },
-  en: {
-    h1: "PeerapoS Pro",
-    lead: "Subscribe once. It works on every app in the same Google account.",
-    month: "/ month",
-    year: "/ year",
-    get: "Get it on Google Play",
-    stepsH: "Three steps",
-    steps: [
-      "Install PeerapoS Pair from Google Play.",
-      "Sign in with Google, then subscribe to PeerapoS Pro.",
-      "On the PC, press “Link this PC” and sign in with the same Google account.",
-    ],
-    getH: "What Pro gives you",
-    gets: [
-      "Pro features in every free app",
-      "Pro features in the paid apps you own",
-      "Relay, the AI connector and PeerapoS Pair",
-      "Backup to your own Google Drive in the free apps (paid apps already include it)",
-    ],
-    factsH: "Before you subscribe",
-    facts: [
-      "One Pro works on every app in the same account. No need to subscribe again.",
-      "Bought only in the store app. This website does not sell Pro.",
-      "Not on iPhone yet. It comes later.",
-    ],
-    buyApps: "Buy paid apps",
-  },
-};
 
 // Picture tiles in the site's style: one flat shape per step, ink lines, indigo accent.
 const P = { fill: "var(--color-sheet)", stroke: "var(--color-ink)", strokeWidth: 3, strokeLinejoin: "round" } as const;
@@ -105,25 +51,63 @@ function Step({ n, pic, text }: { n: number; pic: React.ReactNode; text: string 
   );
 }
 
-/** /pro: what PeerapoS Pro is, the three picture steps, what it gives, and the facts before buying. Public, no sign-in. */
+/** /pro: public Pro information, Google Play and signed-in web checkout. */
 export default function ProPage() {
   const [lang, setLang] = useLang();
-  const t = COPY[lang];
+  const t = (key: Exclude<keyof typeof PRO_COPY, "steps" | "gets" | "facts">) => PRO_COPY[key][lang];
+  const [prices, setPrices] = useState<Catalogue["pro"] | null>(null);
+  const [consent, setConsent] = useState(false);
+  const [busy, setBusy] = useState<ProPlan | null>(null);
+  const [err, setErr] = useState<Msg | null>(null);
+
+  async function loadPrices() {
+    setErr(null);
+    const r = await api<Catalogue>("/api/catalogue");
+    if (r.ok) setPrices(r.data.pro);
+    else setErr(proBuyError(r));
+  }
+
+  useEffect(() => { loadPrices(); }, []);
+
+  async function buy(plan: ProPlan) {
+    if (busy || !prices) return;
+    setBusy(plan);
+    setErr(null);
+    const account = await api("/api/account");
+    if (!account.ok) {
+      if (account.status === 401) return location.assign("/login?next=/pro");
+      setBusy(null);
+      return setErr(proBuyError(account));
+    }
+    if (!consent) {
+      setBusy(null);
+      return setErr(proBuyError({ ok: false, status: 400, error: "needConsent" }));
+    }
+    const r = await api<{ url: string }>("/api/pro/checkout", { method: "POST", body: { plan, consent: true } });
+    if (r.ok) {
+      const url = safeStripeUrl(r.data.url);
+      if (url) return location.assign(url);
+      setErr(proBuyError({ ok: false, status: 502, error: "badCheckoutUrl" }));
+    } else if (r.status === 401) return location.assign("/login?next=/pro");
+    else setErr(proBuyError(r));
+    setBusy(null);
+  }
   return (
     <Shell lang={lang} setLang={setLang}>
       <div className="mt-2 flex flex-col gap-8 lg:mt-6 lg:gap-10">
         <section className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-center lg:gap-8">
           <div className="flex flex-col gap-3">
-            <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t.h1}</h1>
-            <p className="text-lg text-graphite">{t.lead}</p>
+            <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t("h1")}</h1>
+            <p className="text-lg text-graphite">{t("lead")}</p>
           </div>
           <div className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5">
+            <h2 className="font-display text-xl font-bold">{t("playH")}</h2>
             <p className="font-display text-[2.5rem] font-extrabold leading-none tracking-tight tabular-nums">
               {baht(PRO_PRICE.monthly)}{" "}
-              <small className="font-body text-[0.9375rem] font-medium tracking-normal text-graphite">{t.month}</small>
+              <small className="font-body text-[0.9375rem] font-medium tracking-normal text-graphite">{t("month")}</small>
             </p>
             <p className="font-display text-xl font-bold tabular-nums">
-              {baht(PRO_PRICE.annual)} <small className="font-body text-[0.9375rem] font-medium text-graphite">{t.year}</small>
+              {baht(PRO_PRICE.annual)} <small className="font-body text-[0.9375rem] font-medium text-graphite">{t("year")}</small>
             </p>
             <a
               href={PLAY_URL}
@@ -131,38 +115,58 @@ export default function ProPage() {
               rel="noopener noreferrer"
               className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-semibold text-white transition-colors hover:bg-indigo-deep"
             >
-              {t.get}
+              {t("get")}
             </a>
           </div>
         </section>
 
+        <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5" aria-labelledby="web-pro">
+          <h2 id="web-pro" className="font-display text-xl font-bold">{t("webH")}</h2>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            {(["month", "year", "pass"] as const).map((plan) => (
+              <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices}
+                className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 whitespace-normal rounded-xl bg-ink px-6 py-3 text-center font-semibold text-white transition-colors [overflow-wrap:anywhere] hover:bg-indigo-deep disabled:opacity-50 sm:w-auto">
+                {busy === plan && <Spinner />}
+                <span>{t(plan === "month" ? "monthBuy" : plan === "year" ? "yearBuy" : "passBuy")} {prices && baht(plan === "month" ? prices.monthly : plan === "year" ? prices.annual : PRO_PASS)} ({t(plan === "pass" ? "passNote" : "card")})</span>
+              </button>
+            ))}
+          </div>
+          <p className="text-sm text-graphite">{t("renewNote")}</p>
+          <label className="flex min-h-12 items-center gap-3">
+            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
+            <span>{t("accept")} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("terms")}</a></span>
+          </label>
+          {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
+          {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
+        </section>
+
         <section>
-          <h2 className="mb-3 font-display text-xl font-bold">{t.stepsH}</h2>
+          <h2 className="mb-3 font-display text-xl font-bold">{t("stepsH")}</h2>
           <ol className="flex flex-col gap-3 lg:grid lg:grid-cols-3 lg:gap-5">
-            {t.steps.map((s, i) => (
-              <Step key={i} n={i + 1} pic={PIC[i]} text={s} />
+            {PRO_COPY.steps.map((s, i) => (
+              <Step key={i} n={i + 1} pic={PIC[i]} text={s[lang]} />
             ))}
           </ol>
         </section>
 
         <section className="grid gap-6 lg:grid-cols-2 lg:gap-8">
           <div className="rounded-2xl border border-line bg-sheet p-5">
-            <h2 className="mb-3 font-display text-xl font-bold">{t.getH}</h2>
+            <h2 className="mb-3 font-display text-xl font-bold">{t("getH")}</h2>
             <ul className="flex list-disc flex-col gap-2 pl-5">
-              {t.gets.map((x) => (
-                <li key={x}>{x}</li>
+              {PRO_COPY.gets.map((x) => (
+                <li key={x.en}>{x[lang]}</li>
               ))}
             </ul>
           </div>
           <div className="rounded-2xl border border-line bg-sheet p-5">
-            <h2 className="mb-3 font-display text-xl font-bold">{t.factsH}</h2>
+            <h2 className="mb-3 font-display text-xl font-bold">{t("factsH")}</h2>
             <ul className="flex list-disc flex-col gap-2 pl-5">
-              {t.facts.map((x) => (
-                <li key={x}>{x}</li>
+              {PRO_COPY.facts.map((x) => (
+                <li key={x.en}>{x[lang]}</li>
               ))}
             </ul>
             <p className="mt-4 text-sm text-graphite">
-              <a href="/buy" className="font-semibold text-indigo underline-offset-4 hover:underline">{t.buyApps}</a>
+              <a href="/buy" className="font-semibold text-indigo underline-offset-4 hover:underline">{t("buyApps")}</a>
             </p>
           </div>
         </section>

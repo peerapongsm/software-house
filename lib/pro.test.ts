@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import * as pro from "./pro.ts";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { PLAY_SUBS_URL, PLAY_URL, PRO_PRICE, PRO_PASS, proBuyError, proDonePoll } from "./pro.ts";
@@ -58,4 +60,10 @@ test("proBuyError: actionable bilingual messages for limits, closed sales, conse
   const message = { th: "ลองใหม่ภายหลัง", en: "Try later." };
   assert.deepEqual(proBuyError({ ok: false, status: 503, error: "payDown", message }), message);
   assert.match(proBuyError({ ok: false, status: 500, error: "http" }).en, /Try again/);
+});
+
+test("Pro exports and page do not claim web purchases are unavailable", () => {
+  const stale = /not sold on this site|ไม่ได้ขายบนเว็บ|ไม่ขายบนเว็บ|does not sell Pro|only in the store app|เฉพาะในแอปบน Google Play/i;
+  assert.doesNotMatch(JSON.stringify(pro), stale);
+  assert.doesNotMatch(readFileSync(new URL("../app/pro/page.tsx", import.meta.url), "utf8"), stale);
 });

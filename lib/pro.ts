@@ -45,3 +45,42 @@ export function proDonePoll(startedAt: number, now: number, pro: ProInfo | null)
   if (pro && Date.parse(pro.until) > now) return "done";
   return now - startedAt >= 60_000 ? "late" : "wait";
 }
+
+export const PRO_COPY = {
+  h1: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
+  lead: { th: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน", en: "Subscribe once. It works on every app in the same Google account." },
+  month: { th: "/ เดือน", en: "/ month" },
+  year: { th: "/ ปี", en: "/ year" },
+  get: { th: "ดาวน์โหลดจาก Google Play", en: "Get it on Google Play" },
+  stepsH: { th: "ทำตาม 3 ขั้นตอนนี้", en: "Three steps" },
+  steps: [
+    { th: "ติดตั้ง PeerapoS Pair จาก Google Play", en: "Install PeerapoS Pair from Google Play." },
+    { th: "เข้าสู่ระบบด้วย Google แล้วสมัคร PeerapoS Pro", en: "Sign in with Google, then subscribe to PeerapoS Pro." },
+    { th: "บนคอมพิวเตอร์ กด “เชื่อมเครื่องนี้” แล้วเข้าสู่ระบบด้วยบัญชี Google เดียวกัน", en: "On the PC, press “Link this PC” and sign in with the same Google account." },
+  ],
+  getH: { th: "Pro ให้อะไรบ้าง", en: "What Pro gives you" },
+  gets: [
+    { th: "ฟีเจอร์ Pro ในแอปฟรีทุกตัว", en: "Pro features in every free app" },
+    { th: "ฟีเจอร์ Pro ในแอปแบบซื้อขาดที่คุณเป็นเจ้าของ", en: "Pro features in the paid apps you own" },
+    { th: "รีเลย์ ตัวเชื่อม AI และ PeerapoS Pair", en: "Relay, the AI connector and PeerapoS Pair" },
+    { th: "สำรองข้อมูลไป Google Drive ของคุณเองในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว)", en: "Backup to your own Google Drive in the free apps (paid apps already include it)" },
+  ],
+  factsH: { th: "ก่อนสมัคร", en: "Before you subscribe" },
+  facts: [
+    { th: "ใช้ได้กับทุกแอปในบัญชีเดียวกัน ไม่ต้องสมัครซ้ำ", en: "One Pro works on every app in the same account. No need to subscribe again." },
+    { th: "ซื้อบนเว็บหรือสมัครใน Pair บน Android", en: "Buy on the website or subscribe in Pair on Android." },
+    { th: "ยังไม่มีบน iPhone จะมาทีหลัง", en: "Not on iPhone yet. It comes later." },
+  ],
+  buyApps: { th: "ซื้อแอปแบบซื้อขาด", en: "Buy paid apps" },
+  playH: { th: "ในแอป Pair บน Android", en: "In Pair on Android" },
+  webH: { th: "ซื้อบนเว็บ", en: "Buy on the website" },
+  monthBuy: { th: "ซื้อแบบรายเดือน", en: "Buy monthly" },
+  yearBuy: { th: "ซื้อแบบรายปี", en: "Buy yearly" },
+  passBuy: { th: "ซื้อบัตรรายปี", en: "Buy a 1-year pass" },
+  card: { th: "บัตร", en: "card" },
+  passNote: { th: "PromptPay หรือบัตร ไม่ต่ออายุอัตโนมัติ", en: "PromptPay or card, no auto-renew" },
+  renewNote: { th: "ต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อในหน้าบัญชี", en: "Renews automatically; cancel any time from your account" },
+  accept: { th: "ฉันยอมรับ", en: "I accept the" },
+  retry: { th: "ลองอีกครั้ง", en: "Try again" },
+  terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },
+} satisfies Record<string, Msg | Msg[]>;

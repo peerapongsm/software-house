@@ -37,3 +37,10 @@ test("safeNext lets an AI connector authorize request through, and nothing that 
     assert.equal(safeNext(n, o), "/account", n);
   }
 });
+
+test("safeNext returns a signed-out Pro buyer to /pro after login", () => {
+  const next = new URL("/login?next=/pro", o).searchParams.get("next");
+  assert.equal(safeNext(next, o), "/pro");
+  assert.equal(safeNext("https://evil.com/pro", o), "/account");
+  assert.equal(safeNext("//evil.com/pro", o), "/account");
+});
