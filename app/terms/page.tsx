@@ -13,32 +13,28 @@ const COPY = {
     en: "The paid apps (PeerapoS Account, Wholesale, Property, Service, Contractor, Academy, Wellness) are bought once on /buy by card or PromptPay through Stripe, with free updates forever. They never expire unless fully refunded or a payment dispute is lost. Prices are on /buy.",
   },
   pro: {
-    th: "PeerapoS Pro จำหน่ายบนเว็บไซต์นี้เท่านั้น ราคาและวิธีชำระเงินแสดงตอนชำระเงิน",
-    en: "PeerapoS Pro is sold only on this website. Prices and payment methods are shown at checkout.",
+    th: "PeerapoS Pro จำหน่ายบนเว็บไซต์นี้เท่านั้น เป็นการสมัครผ่านบัตรแบบรายเดือนหรือรายปี ต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อที่หน้า /account ราคาดูที่หน้า /pro",
+    en: "PeerapoS Pro is sold only on this website as a monthly or yearly card subscription. Subscriptions renew automatically; cancel any time on /account. Prices are on /pro.",
   },
   deletion: {
-    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
-    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน",
+    en: "On account deletion, card subscriptions are cancelled immediately without a refund.",
   },
   payment: {
-    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและ Pro 1 ปีจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
-    en: "Website purchases of paid apps and Pro use Stripe's payment page. Paid apps and prepaid passes accept card or PromptPay; auto-renewing monthly and yearly Pro subscriptions accept cards only. Enter payment details on Stripe's page; we never see card numbers.",
+    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
+    en: "Website purchases of paid apps and Pro use Stripe's payment page. Paid apps accept card or PromptPay; auto-renewing monthly and yearly Pro subscriptions accept cards only. Enter payment details on Stripe's page; we never see card numbers.",
   },
   receipt: {
-    th: "เมื่อชำระค่าแอปซื้อขาดหรือ Pro 1 ปีแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
-    en: "After payment for a paid app or prepaid pass we email a payment confirmation to the receipt email. Stripe sends card-subscription invoices and renewal emails. Our confirmation is proof of payment, not a tax invoice.",
+    th: "เมื่อชำระค่าแอปซื้อขาดแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
+    en: "After payment for a paid app we email a payment confirmation to the receipt email. Stripe sends card-subscription invoices and renewal emails. Our confirmation is proof of payment, not a tax invoice.",
   },
   cancel: {
     th: "Pro ที่สมัครผ่านบัตรต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อที่หน้า /account ใช้ได้ถึงสิ้นรอบที่จ่ายไว้ ไม่คืนเงินตามสัดส่วน",
     en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds.",
   },
-  pass: {
-    th: "Pro 1 ปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro 1 ปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลา Pro 1 ปีที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้การสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro 1 ปี จ่ายครั้งเดียว และถ้ามี Pro 1 ปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
-    en: "A prepaid pass covers 1 year and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
-  },
   ends: {
-    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อ Pro 1 ปีหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
-    en: "Pro ends when the paid period runs out after cancellation, a prepaid pass expires, the payment provider cannot collect payment within its allowed recovery time, or a purchase is fully refunded, revoked or a payment dispute is lost.",
+    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
+    en: "Pro ends when the paid period runs out after cancellation, the payment provider cannot collect payment within its allowed recovery time, or a purchase is fully refunded, revoked or a payment dispute is lost.",
   },
   grace: {
     th: "หลังวันสิ้นสุด มีช่วงผ่อนผัน 14 วันสำหรับฟีเจอร์ Pro บนคอมพิวเตอร์ ส่วนการคืนเงินหรือแพ้ข้อพิพาทผ่าน Stripe ทำให้ Pro สิ้นสุดทันที แต่ช่วงผ่อนผันบนคอมพิวเตอร์ยังใช้ตามเดิม",
@@ -147,7 +143,6 @@ const TH: Sec[] = [
       COPY.payment.th,
       COPY.receipt.th,
       COPY.cancel.th,
-      COPY.pass.th,
     ],
   },
   {
@@ -279,7 +274,6 @@ const EN: Sec[] = [
       COPY.payment.en,
       COPY.receipt.en,
       COPY.cancel.en,
-      COPY.pass.en,
     ],
   },
   {

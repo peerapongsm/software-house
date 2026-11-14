@@ -85,17 +85,17 @@ test("proView: a renewing subscription near its period end shows Active; cancell
   assert.equal(proView({ source: "pass", until }, NOW).status?.kind, "soon");
 });
 
-test("proView: passes renew in the last 30 days, never open subscription management", () => {
+test("proView: passes never offer renewal, never open subscription management", () => {
   for (const [until, renew] of [["2026-12-09T15:00:00+07:00", false], ["2026-11-29T15:00:00+07:00", true], ["2026-11-19T15:00:00+07:00", true]] as const) {
     const view = proView({ source: "pass", until, cancelling: false }, NOW);
-    assert.deepEqual([view.source, view.manage, view.renew, view.subscribe], ["pass", null, renew, false]);
+    assert.deepEqual([view.source, view.manage, view.renew, view.subscribe], ["pass", null, false, false]);
   }
 });
 
-test("proView: ended coverage can subscribe even during PC grace; ended passes can renew", () => {
+test("proView: ended coverage can subscribe even during PC grace; ended passes cannot renew", () => {
   for (const until of ["2026-10-30T15:00:00+07:00", "2026-10-25T00:00:00+07:00", "2026-09-01T00:00:00+07:00"]) {
     const view = proView({ source: "pass", until, cancelling: false }, NOW);
-    assert.deepEqual([view.manage, view.renew, view.subscribe], [null, true, true]);
+    assert.deepEqual([view.manage, view.renew, view.subscribe], [null, false, true]);
   }
 });
 
@@ -166,7 +166,7 @@ test("deleteNeedsAck: activeSub requires acknowledgement only on 409", () => {
 
 test("account Pro card uses the authoritative source even without tier", () => {
   for (const lang of ["th", "en"]) {
-    for (const [source, label] of [["play", "Legacy Pro"], ["stripe", "Card subscription, cancelled"], ["pass", "Prepaid annual pass"]] as const) {
+    for (const [source, label] of [["play", "Legacy Pro"], ["stripe", "Card subscription, cancelled"], ["pass", "Legacy Pro coverage"]] as const) {
       const tree = planHarness().render(source, lang);
       const html = renderToStaticMarkup(tree);
       assert.ok(html.includes(lang === "en" ? label : proRules.PRO_SOURCE_LABEL[source].th), html);
@@ -190,23 +190,15 @@ test("account portal posts an empty body and only navigates to an allowed Stripe
   }
 });
 
-test("account pass renewal requires explicit inline consent", async () => {
-  const h = planHarness();
-  let tree = h.render("pass");
-  const checkbox = nodes(tree).find((n) => n.type === "input" && n.props.type === "checkbox");
-  assert.ok(checkbox, "Inline terms checkbox");
-  const button = nodes(tree).find((n) => n.type === "button");
-  assert.ok(button, "Renew pass button");
-  await button.props.onClick();
-  assert.deepEqual(h.calls, []);
-  checkbox.props.onChange({ target: { checked: true } });
-  h.respond({ ok: true, data: { url: "https://checkout.stripe.com/c/pay/test" } });
-  tree = h.render("pass");
-  await nodes(tree).find((n) => n.type === "button").props.onClick();
-  assert.deepEqual(h.calls, [["/api/pro/checkout", { method: "POST", body: { plan: "pass", consent: true } }]]);
-  assert.deepEqual(h.navigations, ["https://checkout.stripe.com/c/pay/test"]);
+test("account shows existing pass coverage without pass wording or purchase controls", () => {
+  for (const lang of ['th', 'en']) {
+    const tree = planHarness().render('pass', lang);
+    const html = renderToStaticMarkup(tree);
+    assert.ok(html.includes(day('2026-11-19T15:00:00+07:00', lang as 'th' | 'en')));
+    assert.doesNotMatch(html, /pass|จ่ายครั้งเดียว|1-year pass|ซื้อ.*เพิ่ม/i);
+    assert.equal(nodes(tree).some(n => n.type === 'input' || n.type === 'button'), false);
+  }
 });
-
 
 test("account portal explains a missing Stripe subscription without navigating", async () => {
   const h = planHarness();

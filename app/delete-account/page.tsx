@@ -26,7 +26,7 @@ const COPY = {
     warnH: "ก่อนลบ อ่านข้อนี้",
     warn: [
       "แอปแบบซื้อขาดที่ซื้อไว้จะใช้ไม่ได้ และกู้คืนให้ไม่ได้",
-      "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
+      "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน",
     ],
     fallbackH: "ถ้าลบเองไม่ได้",
     fallback: `ส่งอีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
@@ -54,7 +54,7 @@ const COPY = {
     warnH: "Read before you delete",
     warn: [
       "Paid apps you bought stop working, and we cannot restore them.",
-      "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
+      "On account deletion, card subscriptions are cancelled immediately without a refund.",
     ],
     fallbackH: "Cannot delete it yourself?",
     fallback: `Email ${EMAIL} from the account's email address. We check it is you, then reply within 30 days.`,

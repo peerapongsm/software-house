@@ -72,7 +72,7 @@ test("PayStep: delayed signed-in retry and polling exhaustion", async () => {
 });
 
 for (const [page, name, reset] of [["pro", "buy", null], ["account", "pay", false]] as const) {
-  for (const confirming of [false, true]) {
+  for (const confirming of (page === "pro" ? [false, true] : [false])) {
     test(`${page} checkout: resets busy before location.assign (confirming=${confirming})`, async () => {
       const text = source(`app/${page}/page.tsx`);
       const start = text.indexOf(`  async function ${name}(`);
@@ -96,7 +96,7 @@ for (const [page, name, reset] of [["pro", "buy", null], ["account", "pay", fals
         { until: before }, { data: { licence: null } },
         { setItem(key: string, value: string) { assert.equal(key, "pro:before"); stored = value; } },
       );
-      await exports.run!(page === "pro" ? "pass" : true);
+      await exports.run!(page === "pro" ? "month" : undefined);
       assert.equal(assigned, true);
     });
   }

@@ -37,7 +37,7 @@ for (const lang of ["th", "en"] as const) {
     assert.match(text, lang === "th" ? /แอป PeerapoS Pair บน Android เป็นแอปคู่หูฟรี ไม่ต้องเข้าสู่ระบบ ไม่มีการซื้อในแอป และไม่เก็บข้อมูลส่วนบุคคล/ : /PeerapoS Pair Android app is a free companion\. It has no sign-in or purchases and collects no personal data/);
   });
 
-  test(`terms (${lang}): website subscriptions disclose renewal, cancellation and prepaid coverage`, () => {
+  test(`terms (${lang}): website subscriptions disclose monthly and yearly card renewal and cancellation`, () => {
     const text = article("terms", lang);
     assert.match(text, /Stripe/);
     assert.match(text, /PromptPay/);
@@ -46,8 +46,8 @@ for (const lang of ["th", "en"] as const) {
     assert.match(text, /\/account/);
     assert.match(text, lang === "th" ? /ต่ออายุอัตโนมัติ/ : /renew automatically/);
     assert.match(text, lang === "th" ? /ไม่คืนเงินตามสัดส่วน/ : /no partial refunds/i);
-    assert.match(text, lang === "th" ? /ไม่ต่ออายุอัตโนมัติ/ : /does not auto-renew/);
-    assert.match(text, lang === "th" ? /ไม่เกิน 2 ปี/ : /up to 2 years/);
+    assert.match(text, lang === "th" ? /รายเดือน.*รายปี/ : /monthly.*yearly/);
+    assert.doesNotMatch(text, /\b(?:prepaid|1-year|annual) pass(?:es)?\b|จ่ายครั้งเดียว|Pro 1 ปี|2 years|2 ปี/i);
     assert.doesNotMatch(text, /not sold on this website|ไม่ขายบนเว็บไซต์นี้/i);
   });
 
@@ -72,11 +72,11 @@ for (const lang of ["th", "en"] as const) {
     assert.doesNotMatch(text, /slip|สลิป/i);
   });
 
-  test(`legal pages (${lang}): account deletion covers website card subscriptions and passes; date is current`, () => {
+  test(`legal pages (${lang}): account deletion covers website card subscriptions; date is current`, () => {
     for (const page of ["terms", "privacy"]) {
       const text = article(page, lang);
       assert.match(text, lang === "th" ? /ยกเลิกทันที.*ไม่คืนเงิน/ : /cancelled immediately without a refund/);
-      assert.match(text, lang === "th" ? /Pro 1 ปีที่เหลือจะหายไป/ : /remaining prepaid passes are lost/);
+      assert.doesNotMatch(text, /prepaid pass|Pro 1 ปี/);
       assert.doesNotMatch(text, /Google Play|Play purchase|Play records|บน Play/);
       assert.match(text, lang === "th" ? /14 พฤศจิกายน 2569/ : /14 November 2026/);
       assert.doesNotMatch(text, /slip|สลิป/i);

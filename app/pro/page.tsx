@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
-import { PRO_PRICE, PRO_PASS, PRO_COPY, PRO_SOURCE_LABEL, proActive, proBuyError, type ProPlan } from "@/lib/pro.ts";
+import { PRO_PRICE, PRO_COPY, PRO_SOURCE_LABEL, proActive, proBuyError, type ProPlan } from "@/lib/pro.ts";
 import Spinner from "@/components/account/Spinner";
 import { api, type Catalogue, type Msg, type Licence, type ProInfo } from "@/lib/api.ts";
 import { day } from "@/lib/account.ts";
@@ -48,7 +48,6 @@ function Step({ n, pic, text }: { n: number; pic: React.ReactNode; text: string 
 const PLANS = [
   { plan: "month", name: "monthBuy", note: "monthNote", per: "month" },
   { plan: "year", name: "yearBuy", note: "yearNote", per: "year" },
-  { plan: "pass", name: "passBuy", note: "passNote", per: null },
 ] as const;
 
 /** /pro: public Pro information and signed-in website checkout. */
@@ -125,7 +124,7 @@ export default function ProPage() {
                 <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
                 <span>{t("accept")} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("terms")}</a></span>
               </label>
-              <div className="grid gap-3 lg:grid-cols-3">
+              <div className="grid gap-3 lg:grid-cols-2">
                 {PLANS.map(({ plan, name, note, per }) => (
                   <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices || pro === undefined}
                     className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-paper px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
@@ -133,7 +132,7 @@ export default function ProPage() {
                       <span className="font-display text-lg font-bold">{t(name)}</span>
                       <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
                         {busy === plan && <Spinner />}
-                        {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : (prices?.annual ?? PRO_PASS))}
+                        {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : (prices?.annual ?? PRO_PRICE.annual))}
                         {per && <small className="font-body text-[0.9375rem] font-medium text-graphite">{t(per)}</small>}
                       </span>
                     </span>

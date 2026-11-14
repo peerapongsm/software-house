@@ -57,7 +57,7 @@ export function proView(pro: ProInfo | null, now: number): { status: PlanStatus 
     status,
     source: pro.source,
     manage: pro.source === "stripe" ? "portal" : null,
-    renew: pro.source === "pass" && (status.days <= 30 || expired),
+    renew: false,
     subscribe: expired,
   };
 }

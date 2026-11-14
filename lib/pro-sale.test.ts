@@ -51,7 +51,7 @@ for (const flag of [undefined, false, "true", true]) {
     const { initial, tree } = await page(flag);
     assert.equal(initial.some(n => n.type === "input"), false, "fail closed before catalogue loads");
     assert.equal(tree.some(n => n.type === "input"), flag === true);
-    assert.equal(tree.filter(n => n.type === "button").length, flag === true ? 3 : 0);
+    assert.equal(tree.filter(n => n.type === "button").length, flag === true ? 2 : 0);
     assert.equal(tree.some(n => typeof n.props?.href === "string" && n.props.href.includes("play.google.com")), false, "Pro is sold only on the website");
     assert.equal(JSON.stringify(tree).includes("PeerapoS Pro opens soon"), flag !== true);
     assert.ok(tree.some(n => n.props?.href === "/buy"), "paid-app link remains");
@@ -70,4 +70,11 @@ test("existing Pro member retains account access while Pro sales are closed", as
     assert.ok(JSON.stringify(tree).includes(lang === "th" ? "คุณมี Pro อยู่แล้ว" : "You already have Pro"));
     assert.equal(tree.some(n => n.type === "input" || n.type === "button"), false);
   }
+});
+
+for (const lang of ['th', 'en']) test(`Pro sales copy (${lang}) offers only card subscriptions`, async () => {
+  const { tree } = await page(true, lang);
+  const text = JSON.stringify(tree);
+  assert.doesNotMatch(text, /pass|จ่ายครั้งเดียว|Pro 1 ปี|PromptPay|2 years|2 ปี/i);
+  assert.equal(tree.filter(n => n.type === 'button').length, 2);
 });

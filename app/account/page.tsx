@@ -76,12 +76,8 @@ const COPY = {
 const PRO_TEXT = {
   title: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   portal: { th: "จัดการการสมัคร", en: "Manage subscription" },
-  renew: { th: "ซื้อ Pro 1 ปีเพิ่ม", en: "Renew pass" },
   renews: { th: " ต่ออายุอัตโนมัติ", en: ", renews automatically" },
   cancelled: { th: " ยกเลิกแล้ว ไม่ต่ออายุ", en: ", cancelled, won't renew" },
-  accept: { th: "ฉันยอมรับ", en: "I accept the" },
-  terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },
-  passNote: { th: "ซื้อตอนนี้ วันที่เหลือก็ไม่หาย ปีใหม่จะต่อจากวันหมดอายุเดิม", en: "Buy now and lose nothing: the new year starts when this one ends." },
   noSub: { th: "ไม่พบการสมัครผ่านบัตร รีเฟรชหน้าบัญชีแล้วลองอีกครั้ง", en: "No card subscription found. Refresh your account and try again." },
   wait: { th: "ได้รับการชำระเงินแล้ว Pro จะขึ้นในไม่กี่วินาที", en: "Payment received. Pro appears in a few seconds." },
   done: { th: "Pro พร้อมใช้งานแล้ว", en: "Pro is ready to use." },
@@ -133,27 +129,19 @@ function Empty({ t }: { t: T }) {
 function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: number }) {
   const pro = lic.pro;
   const view = proView(pro, now);
-  const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Msg | null>(null);
   const action = `${out} w-full whitespace-normal text-center [overflow-wrap:anywhere] sm:w-auto disabled:opacity-40`;
 
-  async function pay(renew: boolean) {
+  async function pay() {
     if (busy) return;
     setErr(null);
-    if (renew && !consent) return setErr(proBuyError({ ok: false, status: 400, error: "needConsent" }));
     setBusy(true);
-    if (renew) {
-      try { sessionStorage.setItem("pro:before", pro?.until ?? ""); } catch {}
-    }
-    const r = await api<{ url?: unknown; status?: string }>(renew ? "/api/pro/checkout" : "/api/pro/portal", renew
-      ? { method: "POST", body: { plan: "pass", consent: true } }
-      : { method: "POST" });
+    const r = await api<{ url?: unknown }>("/api/pro/portal", { method: "POST" });
     setBusy(false);
     if (r.ok) {
       const next = checkoutNext(r.data);
       if (next.kind === "go") return location.assign(next.url);
-      if (renew && next.kind === "confirming") return location.assign("/account?pro=done");
       setErr(orderError({ ok: false, status: 502, error: "badStripeUrl" }));
     } else if (r.status === 401) return location.assign("/login?next=/account");
     else setErr(r.status === 404 && r.error === "noStripeSub" ? PRO_TEXT.noSub : proBuyError(r));
@@ -183,20 +171,10 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
           <dd className="font-bold [overflow-wrap:anywhere]">{lic.name}</dd>
         </div>
       </dl>
-      {(view.manage || view.renew || view.subscribe || err) && (
+      {(view.manage || view.subscribe || err) && (
         <div className="flex flex-col gap-3">
-          {view.renew && (
-            <>
-              <p className="text-sm text-graphite">{PRO_TEXT.passNote[lang]}</p>
-              <label className="flex min-h-12 items-center gap-3">
-                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
-                <span>{PRO_TEXT.accept[lang]} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline">{PRO_TEXT.terms[lang]}</a></span>
-              </label>
-            </>
-          )}
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay(false)} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
-            {view.renew && <button type="button" disabled={busy} onClick={() => pay(true)} className={action}>{busy && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
+            {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay()} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
             {view.subscribe && <a href="/pro" className={`${dark} w-full whitespace-normal text-center sm:w-auto`}>{t.subscribe}</a>}
           </div>
           {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}

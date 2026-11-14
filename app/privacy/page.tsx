@@ -16,12 +16,12 @@ const COPY = {
     en: "Orders: items, amount, time, status, receipt email, name, Stripe payment reference and your acceptance of the Terms.",
   },
   stripeRecords: {
-    th: "การซื้อผ่าน Stripe: รหัสลูกค้าและรหัสการสมัคร สินค้า สถานะ วันสิ้นสุด การยกเลิก และประวัติ Pro 1 ปี ใช้ตรวจสิทธิ์ Pro และรับการแจ้งชำระเงิน คืนเงิน หรือข้อพิพาทจาก Stripe ไม่เก็บหมายเลขบัตร",
-    en: "Stripe purchases: customer and subscription ids, product, status, end date, cancellation and prepaid pass records, used to check Pro and process Stripe payment, refund and dispute notifications. We do not store card numbers.",
+    th: "การซื้อผ่าน Stripe: รหัสลูกค้าและรหัสการสมัคร สินค้า สถานะ วันสิ้นสุด การยกเลิก ใช้ตรวจสิทธิ์ Pro และรับการแจ้งชำระเงิน คืนเงิน หรือข้อพิพาทจาก Stripe ไม่เก็บหมายเลขบัตร",
+    en: "Stripe purchases: customer and subscription ids, product, status, end date and cancellation, used to check Pro and process Stripe payment, refund and dispute notifications. We do not store card numbers.",
   },
   mail: {
-    th: "เราส่งอีเมลยืนยันการชำระเงินสำหรับแอปซื้อขาดและ Pro 1 ปี ไม่ส่งอีเมลการตลาด Stripe ส่งใบแจ้งค่าบริการและอีเมลต่ออายุสำหรับการสมัครผ่านบัตร",
-    en: "We send payment confirmations for paid apps and prepaid passes, with no marketing. Stripe sends invoices and renewal emails for card subscriptions.",
+    th: "เราส่งอีเมลยืนยันการชำระเงินสำหรับแอปซื้อขาด ไม่ส่งอีเมลการตลาด Stripe ส่งใบแจ้งค่าบริการและอีเมลต่ออายุสำหรับการสมัครผ่านบัตร",
+    en: "We send payment confirmations for paid apps, with no marketing. Stripe sends invoices and renewal emails for card subscriptions.",
   },
   paymentTitle: { th: "ชำระเงินผ่าน Stripe", en: "Payments through Stripe" },
   payment: {
@@ -41,12 +41,12 @@ const COPY = {
     en: "Payment data held by Stripe follows Stripe's retention policy. The Stripe customer and payment records remain with Stripe after you delete your PeerapoS account; customer metadata holds only the account id.",
   },
   retention: {
-    th: "บัญชี ข้อมูลการสมัครผ่าน Stripe Pro 1 ปี และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบจากระบบของเราเมื่อคุณลบบัญชี ส่วนคำสั่งซื้อยังเก็บเป็นหลักฐานทางภาษี",
-    en: "Accounts, Stripe subscription records, prepaid passes and linked PCs have no automatic deletion. We keep them while the account exists and delete them from our system when you delete the account. Orders remain as tax records.",
+    th: "บัญชี ข้อมูลการสมัครผ่าน Stripe และเครื่องที่เชื่อม ไม่มีกำหนดลบอัตโนมัติ เราเก็บไว้ตลอดที่บัญชียังอยู่ และลบจากระบบของเราเมื่อคุณลบบัญชี ส่วนคำสั่งซื้อยังเก็บเป็นหลักฐานทางภาษี",
+    en: "Accounts, Stripe subscription records and linked PCs have no automatic deletion. We keep them while the account exists and delete them from our system when you delete the account. Orders remain as tax records.",
   },
   deletion: {
-    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
-    en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน",
+    en: "On account deletion, card subscriptions are cancelled immediately without a refund.",
   },
   updated: {
     th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 14 พฤศจิกายน 2569",
