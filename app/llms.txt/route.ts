@@ -54,9 +54,9 @@ Free within each app's limits, no ads, no account needed. Optional PeerapoS Pro 
 
 ${APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] Download: ${downloadUrl(a)}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
 
-## Paid Windows apps (coming soon, not on sale yet)
+## Paid Windows apps (on sale now, one-time purchase)
 
-${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
+${PAID_APPS.map((a) => `- ${a.name}: ${a.en.tagline} ${a.en.description} [${a.th.tagline}] One-time price: ฿${a.price?.toLocaleString("en-US")} Buy: ${SITE_URL}/buy?app=${a.id}\n  Features: ${a.en.features.join("; ")} [${a.th.features.join(" / ")}]${a.en.chips.length || a.th.chips.length ? `\n  Chips: ${a.en.chips.join("; ")} [${a.th.chips.join(" / ")}]` : ""}`).join("\n")}
 
 ## Site text (Thai)
 

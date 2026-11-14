@@ -13,7 +13,7 @@ import "@fontsource/ibm-plex-sans-thai-looped/latin-500.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-600.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-700.css";
 import "./globals.css";
-import { APPS, downloadUrl } from "./apps-data";
+import { APPS, PAID_APPS, downloadUrl } from "./apps-data";
 import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, IS_UAT, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
 
 const TITLE = "PeerapoS Software House | รับทำแอปและเขียนโปรแกรมตามสั่ง + โปรแกรมฟรีสำหรับ SME";
@@ -116,6 +116,15 @@ const JSON_LD = {
       operatingSystem: "Windows 10, Windows 11",
       downloadUrl: downloadUrl(a),
       offers: { "@type": "Offer", price: "0", priceCurrency: "THB" },
+      author: { "@id": `${SITE_URL}/#org` },
+    })),
+    ...PAID_APPS.map((a) => ({
+      "@type": "SoftwareApplication",
+      name: a.name,
+      description: `${a.th.tagline} — ${a.en.tagline} ${a.en.description}`,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Windows 10, Windows 11",
+      offers: { "@type": "Offer", price: String(a.price), priceCurrency: "THB", url: `${SITE_URL}/buy?app=${a.id}`, availability: "https://schema.org/InStock" },
       author: { "@id": `${SITE_URL}/#org` },
     })),
   ],
