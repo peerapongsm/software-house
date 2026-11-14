@@ -16,14 +16,13 @@ export type DesktopApp = {
 
 // Goes through the peerapos-dl Worker (electron/peerapos-dl), which 302s to the latest GitHub
 // release asset; GitHub answers with Content-Disposition: attachment, so the download starts in place. Slug comes from the icon name (/apps/wash.png → wash).
-export const downloadUrl = (a: DesktopApp) => {
-  const slug = a.icon.slice("/apps/".length, -".png".length);
-  return `https://dl.peerapongsm.dev/${slug}`;
-};
+export const slugOf = (a: DesktopApp): string => a.icon.slice("/apps/".length, -".png".length);
+
+export const downloadUrl = (a: DesktopApp) => `https://dl.peerapongsm.dev/${slugOf(a)}`;
 
 // Screenshots are named after the icon: /apps/wash.png → /apps/shots/wash-1.webp … wash-n.webp
 export const shotUrls = (a: DesktopApp) =>
-  Array.from({ length: a.shots }, (_, i) => a.icon.replace("/apps/", "/apps/shots/").replace(".png", `-${i + 1}.webp`));
+  Array.from({ length: a.shots }, (_, i) => `/apps/shots/${slugOf(a)}-${i + 1}.webp`);
 
 export const APPS: DesktopApp[] = [
   {
@@ -912,3 +911,7 @@ export const PAID_APPS: DesktopApp[] = [
     },
   },
 ];
+
+export const ALL_APPS: DesktopApp[] = [...APPS, ...PAID_APPS];
+
+export const appBySlug = (slug: string): DesktopApp | undefined => ALL_APPS.find(a => slugOf(a) === slug);
