@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { COPY, type Lang } from "@/app/copy";
-import { downloadUrl, shotUrls, type DesktopApp } from "@/app/apps-data";
+import { downloadUrl, shotUrls, slugOf, type DesktopApp } from "@/app/apps-data";
 
 // Native scroll-snap carousel; arrows and dots just scroll the track.
 function Carousel({ srcs, alt, labels }: { srcs: string[]; alt: string; labels: { prev: string; next: string; shot: string } }) {
@@ -69,6 +69,7 @@ export function AppDetail({ app, lang, onClose, headingId, headingLevel = 1 }: {
             )}
           </Heading>
           <p className="text-lg text-graphite">{app[lang].tagline}</p>
+          {onClose && <a href={`/apps/${slugOf(app)}`} className="mt-2 inline-block font-semibold text-indigo underline underline-offset-4">{t.dl.details}</a>}
         </div>
         {onClose && <button
           type="button"

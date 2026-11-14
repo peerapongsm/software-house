@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { COPY } from "./copy";
 import { useRef, useState } from "react";
-import { APPS, PAID_APPS, type DesktopApp } from "./apps-data";
+import { APPS, PAID_APPS, slugOf, type DesktopApp } from "./apps-data";
 import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 import { AppDetail } from "@/components/AppDetail";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useLang } from "@/lib/lang";
+import { isPlainClick } from "@/lib/app-page";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -50,9 +51,9 @@ function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) =>
     <ul aria-label={label} className="grid grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6">
       {APPS.map((a, n) => (
         <li key={a.name} className="tile-in" style={{ animationDelay: `${120 + n * 45}ms` }}>
-          <button
-            type="button"
-            onClick={() => onOpen(a)}
+          <a
+            href={`/apps/${slugOf(a)}`}
+            onClick={e => { if (isPlainClick(e)) { e.preventDefault(); onOpen(a); } }}
             aria-haspopup="dialog"
             className="group flex w-full flex-col items-center gap-1.5 rounded-xl p-1 text-center"
           >
@@ -64,7 +65,7 @@ function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) =>
               className="size-14 rounded-[22%] shadow-tile transition-transform group-hover:-translate-y-0.5 sm:size-[4.5rem] lg:size-20"
             />
             <span className="text-[0.8rem] font-semibold leading-tight text-graphite group-hover:text-ink sm:text-sm">{short(a)}</span>
-          </button>
+          </a>
         </li>
       ))}
     </ul>
@@ -124,9 +125,9 @@ export default function Home() {
               const c = a[lang];
               return (
                 <li key={a.name} className="border-b border-line">
-                  <button
-                    type="button"
-                    onClick={() => openApp(a)}
+                  <a
+                    href={`/apps/${slugOf(a)}`}
+                    onClick={e => { if (isPlainClick(e)) { e.preventDefault(); openApp(a); } }}
                     aria-haspopup="dialog"
                     className="group flex w-full items-center gap-4 py-4 text-left md:items-start md:py-6"
                   >
@@ -145,7 +146,7 @@ export default function Home() {
                     <span aria-hidden="true" className="text-2xl text-line group-hover:text-ink md:hidden">
                       ›
                     </span>
-                  </button>
+                  </a>
                 </li>
               );
             })}
@@ -163,9 +164,9 @@ export default function Home() {
               const c = a[lang];
               return (
                 <li key={a.name} className="border-b border-line">
-                  <button
-                    type="button"
-                    onClick={() => openApp(a)}
+                  <a
+                    href={`/apps/${slugOf(a)}`}
+                    onClick={e => { if (isPlainClick(e)) { e.preventDefault(); openApp(a); } }}
                     aria-haspopup="dialog"
                     className="group flex w-full items-center gap-4 py-4 text-left md:items-start md:py-6"
                   >
@@ -189,7 +190,7 @@ export default function Home() {
                     <span aria-hidden="true" className="text-2xl text-line group-hover:text-ink md:hidden">
                       ›
                     </span>
-                  </button>
+                  </a>
                 </li>
               );
             })}
