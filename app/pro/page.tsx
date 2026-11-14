@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
-import { PLAY_URL, PRO_PRICE, PRO_PASS, PRO_COPY, proBuyError, type ProPlan } from "@/lib/pro.ts";
+import { PLAY_URL, PRO_PRICE, PRO_PASS, PRO_COPY, PRO_SOURCE_LABEL, proActive, proBuyError, type ProPlan } from "@/lib/pro.ts";
 import Spinner from "@/components/account/Spinner";
-import { api, type Catalogue, type Msg, type Licence } from "@/lib/api.ts";
+import { api, type Catalogue, type Msg, type Licence, type ProInfo } from "@/lib/api.ts";
+import { day } from "@/lib/account.ts";
 import { checkoutNext } from "@/lib/buy.ts";
 import { baht } from "@/lib/cart.ts";
 import { useLang } from "@/lib/lang.ts";
@@ -55,6 +56,7 @@ export default function ProPage() {
   const [lang, setLang] = useLang();
   const t = (key: Exclude<keyof typeof PRO_COPY, "steps" | "gets" | "facts">) => PRO_COPY[key][lang];
   const [prices, setPrices] = useState<Catalogue["pro"] | null>(null);
+  const [pro, setPro] = useState<ProInfo | null | undefined>(undefined);
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState<ProPlan | null>(null);
   const [err, setErr] = useState<Msg | null>(null);
@@ -66,7 +68,10 @@ export default function ProPage() {
     else setErr(proBuyError(r));
   }
 
-  useEffect(() => { loadPrices(); }, []);
+  useEffect(() => {
+    loadPrices();
+    api<{ licence: Licence | null }>("/api/account").then((r) => setPro(r.ok ? r.data.licence?.pro ?? null : null));
+  }, []);
 
   async function buy(plan: ProPlan) {
     if (busy || !prices) return;
@@ -102,34 +107,45 @@ export default function ProPage() {
         </section>
 
         <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5 lg:p-7" aria-labelledby="web-pro">
-          <h2 id="web-pro" className="font-display text-xl font-bold">{t("webH")}</h2>
-          <label className="flex min-h-12 items-center gap-3">
-            <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
-            <span>{t("accept")} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("terms")}</a></span>
-          </label>
-          <div className="grid gap-3 lg:grid-cols-3">
-            {PLANS.map(({ plan, name, note, per }) => (
-              <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices}
-                className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-paper px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
-                <span className="flex items-baseline justify-between gap-3">
-                  <span className="font-display text-lg font-bold">{t(name)}</span>
-                  <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
-                    {busy === plan && <Spinner />}
-                    {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : PRO_PASS)}
-                    {per && <small className="font-body text-[0.9375rem] font-medium text-graphite">{t(per)}</small>}
-                  </span>
-                </span>
-                <span className="text-sm text-graphite">{t(note)}</span>
-              </button>
-            ))}
-          </div>
-          <p className="text-sm text-graphite">{t("renewNote")}</p>
-          {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
-          {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
-          <p className="border-t border-line pt-4">
-            {t("playLine")}{" "}
-            <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("get")}</a>
-          </p>
+          {pro && proActive(pro, Date.now()) ? (
+            <>
+              <h2 id="web-pro" className="font-display text-xl font-bold">{t("activeH")}</h2>
+              <p className="font-semibold text-graphite">{PRO_SOURCE_LABEL[pro.source][lang]}</p>
+              <p>{t("activeUntil").replace("{date}", day(pro.until, lang))}{pro.cancelling ? t("cancelled") : ""}</p>
+              <a href="/account" className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 text-center font-semibold sm:w-auto">{t("account")}</a>
+            </>
+          ) : (
+            <>
+              <h2 id="web-pro" className="font-display text-xl font-bold">{t("webH")}</h2>
+              <label className="flex min-h-12 items-center gap-3">
+                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
+                <span>{t("accept")} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("terms")}</a></span>
+              </label>
+              <div className="grid gap-3 lg:grid-cols-3">
+                {PLANS.map(({ plan, name, note, per }) => (
+                  <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices || pro === undefined}
+                    className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-paper px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
+                    <span className="flex items-baseline justify-between gap-3">
+                      <span className="font-display text-lg font-bold">{t(name)}</span>
+                      <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
+                        {busy === plan && <Spinner />}
+                        {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : PRO_PASS)}
+                        {per && <small className="font-body text-[0.9375rem] font-medium text-graphite">{t(per)}</small>}
+                      </span>
+                    </span>
+                    <span className="text-sm text-graphite">{t(note)}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="text-sm text-graphite">{t("renewNote")}</p>
+              {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
+              {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}
+              <p className="border-t border-line pt-4">
+                {t("playLine")}{" "}
+                <a href={PLAY_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("get")}</a>
+              </p>
+            </>
+          )}
         </section>
 
         <section>

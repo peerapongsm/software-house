@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import * as pro from "./pro.ts";
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { PLAY_SUBS_URL, PLAY_URL, PRO_PRICE, PRO_PASS, proBuyError, proDonePoll } from "./pro.ts";
+import { PLAY_SUBS_URL, PLAY_URL, PRO_PRICE, PRO_PASS, proActive, proBuyError, proDonePoll } from "./pro.ts";
 import { baht } from "./cart.ts";
 import { day } from "./account.ts";
 
@@ -22,6 +22,21 @@ test("PLAY_SUBS_URL: the Google Play subscriptions page", () => {
 
 test("PRO_PASS: the prepaid year costs 1,590 baht", () => {
   assert.equal(PRO_PASS, 159000);
+});
+
+test("proActive: no Pro is inactive", () => {
+  assert.equal(proActive(null, Date.parse("2026-11-14T00:00:00Z")), false);
+});
+
+test("proActive: every source is active only before expiry, regardless of cancellation", () => {
+  const now = Date.parse("2026-11-14T00:00:00Z");
+  for (const source of ["play", "stripe", "pass"] as const) {
+    for (const cancelling of [false, true]) {
+      assert.equal(proActive({ source, until: new Date(now + 1).toISOString(), cancelling }, now), true);
+      assert.equal(proActive({ source, until: new Date(now).toISOString(), cancelling }, now), false);
+      assert.equal(proActive({ source, until: new Date(now - 1).toISOString(), cancelling }, now), false);
+    }
+  }
 });
 
 test("proDonePoll: waits at first and stops at 60 seconds", () => {

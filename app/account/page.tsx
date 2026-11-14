@@ -9,10 +9,10 @@ import Shell from "@/components/account/Shell";
 import Spinner from "@/components/account/Spinner";
 import { day, lastUsed, ownedPaid, pillText, proView, removedAll, type AccountData, type Device } from "@/lib/account.ts";
 import type { Grant } from "@/lib/ai.ts";
-import { api, API_BASE, type Licence, type Msg, type ProSource } from "@/lib/api.ts";
+import { api, API_BASE, type Licence, type Msg } from "@/lib/api.ts";
 import { checkoutNext, orderError } from "@/lib/buy.ts";
 import { useLang, type Lang } from "@/lib/lang.ts";
-import { PLAY_SUBS_URL, proBuyError, proDonePoll } from "@/lib/pro.ts";
+import { PLAY_SUBS_URL, PRO_SOURCE_LABEL, proBuyError, proDonePoll } from "@/lib/pro.ts";
 
 const COPY = {
   th: {
@@ -75,11 +75,6 @@ const COPY = {
   },
 };
 
-const PRO_SOURCE: Record<ProSource, Msg> = {
-  play: { th: "จาก Google Play", en: "Google Play" },
-  stripe: { th: "สมัครผ่านบัตร", en: "Card subscription" },
-  pass: { th: "Pro 1 ปี แบบจ่ายครั้งเดียว", en: "Prepaid annual pass" },
-};
 const PRO_TEXT = {
   title: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   portal: { th: "จัดการการสมัคร", en: "Manage subscription" },
@@ -175,7 +170,7 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
       </div>
       {pro && (
         <p className="font-semibold text-graphite">
-          {PRO_SOURCE[pro.source][lang] + (pro.source === "pass" ? "" : (pro.cancelling ? PRO_TEXT.cancelled : PRO_TEXT.renews)[lang])}
+          {PRO_SOURCE_LABEL[pro.source][lang] + (pro.source === "pass" ? "" : (pro.cancelling ? PRO_TEXT.cancelled : PRO_TEXT.renews)[lang])}
         </p>
       )}
       <dl className={`grid gap-3 rounded-xl bg-paper px-3.5 py-3 ${pro ? "grid-cols-2" : ""}`}>

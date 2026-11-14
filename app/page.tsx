@@ -173,7 +173,6 @@ export default function Home() {
             <a href="#about" className="hover:text-ink">{t.navAbout}</a>
             <a href="#contact" className="hover:text-ink">{t.navContact}</a>
           </nav>
-          <a href="/pro" className="whitespace-nowrap font-semibold text-graphite hover:text-ink">{t.navPro}</a>
           <a
             href="/account"
             aria-label={t.navAccount}

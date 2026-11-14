@@ -4,8 +4,8 @@ import { EMAIL } from "@/app/site-info";
 import type { Lang } from "@/lib/lang.ts";
 
 const COPY = {
-  th: { pro: "Pro", apps: "แอป", contact: "ติดต่อ", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", delete: "ลบบัญชี", menu: "เมนู" },
-  en: { pro: "Pro", apps: "Apps", contact: "Contact", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", delete: "Delete account", menu: "Menu" },
+  th: { apps: "แอป", contact: "ติดต่อ", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", delete: "ลบบัญชี", menu: "เมนู" },
+  en: { apps: "Apps", contact: "Contact", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", delete: "Delete account", menu: "Menu" },
 };
 
 function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
@@ -50,7 +50,6 @@ export default function Shell({
         <div className="flex items-center gap-2.5">
           <nav aria-label={t.menu} className="hidden items-center gap-6 font-semibold text-graphite md:flex">
             <a href="/#apps" className="hover:text-ink">{t.apps}</a>
-            <a href="/pro" className="hover:text-ink">{t.pro}</a>
             <a href="/#contact" className="hover:text-ink">{t.contact}</a>
           </nav>
           <a

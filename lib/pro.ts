@@ -16,6 +16,16 @@ export const PRO_PRICE = { monthly: 15900, annual: 159000 };
 export const PRO_PASS = 159000;
 export type ProPlan = "month" | "year" | "pass";
 
+export function proActive(pro: ProInfo | null, now: number): boolean {
+  return pro !== null && Date.parse(pro.until) > now;
+}
+
+export const PRO_SOURCE_LABEL: Record<ProSource, Msg> = {
+  play: { th: "จาก Google Play", en: "Google Play" },
+  stripe: { th: "สมัครผ่านบัตร", en: "Card subscription" },
+  pass: { th: "Pro 1 ปี แบบจ่ายครั้งเดียว", en: "Prepaid annual pass" },
+};
+
 const SOURCE: Record<ProSource, Msg> = {
   play: { th: "Google Play", en: "Google Play" },
   stripe: { th: "การสมัครผ่านบัตร", en: "card" },
@@ -72,6 +82,10 @@ export const PRO_COPY = {
   buyApps: { th: "ซื้อแอปแบบซื้อขาด", en: "Buy paid apps" },
   playLine: { th: "ใช้มือถือ Android? สมัครในแอป PeerapoS Pair ได้ด้วย ราคาเดียวกัน", en: "On Android? You can also subscribe in PeerapoS Pair, same price." },
   webH: { th: "ซื้อบนเว็บ", en: "Buy on the website" },
+  activeH: { th: "คุณมี Pro อยู่แล้ว", en: "You already have Pro" },
+  activeUntil: { th: "ใช้ได้ถึง {date}", en: "Valid until {date}" },
+  cancelled: { th: " ยกเลิกแล้ว ไม่ต่ออายุ", en: ", cancelled, won't renew" },
+  account: { th: "ดูหรือจัดการในหน้าบัญชี", en: "View or manage on My account" },
   monthBuy: { th: "รายเดือน", en: "Monthly" },
   yearBuy: { th: "รายปี", en: "Yearly" },
   passBuy: { th: "Pro 1 ปี", en: "1-year pass" },
