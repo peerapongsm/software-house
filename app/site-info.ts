@@ -9,8 +9,6 @@ export const FACEBOOK_URL = "https://www.facebook.com/peerapos/";
 export const TIKTOK_URL = "https://www.tiktok.com/@peera.pos";
 
 export const FASTWORK_URL = "https://fastwork.com/user/peerapos";
-// Support / tips: PeerapoS business account (KBank). The QR image is public/support/promptpay-qr.jpg.
-export const BANK = { th: "ธนาคารกสิกรไทย", en: "Kasikornbank (KBank)", accountNo: "233-1-23559-0", nameTh: "พีระพอส", nameEn: "PeerapoS" };
 
 // Starting prices as listed on Fastwork (checked 2026-10-16). Update both here and the FAQ text when they change.
 export const SERVICES = [

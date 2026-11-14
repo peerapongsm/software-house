@@ -1,6 +1,6 @@
 import { APPS, PAID_APPS, downloadUrl } from "../apps-data";
 import { COPY } from "../copy";
-import { BANK, EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
+import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL } from "../site-info";
 
 export const dynamic = "force-static";
 
@@ -27,7 +27,6 @@ export function GET() {
 
 Website: ${SITE_URL}
 Contact: ${EMAIL} · LINE ${LINE_URL} · Facebook ${FACEBOOK_URL} · Fastwork ${FASTWORK_URL}
-Support / tips: PromptPay QR or bank transfer, ${BANK.en} ${BANK.accountNo} (${BANK.nameTh} / ${BANK.nameEn}), ${SITE_URL}/#support
 
 ## Custom app development (รับทำแอปตามสั่ง)
 

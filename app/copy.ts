@@ -1,5 +1,3 @@
-import { BANK } from "./site-info";
-
 export type Lang = "th" | "en";
 
 export const COPY = {
@@ -16,8 +14,6 @@ export const COPY = {
     navCustom: "รับทำแอป",
     navAbout: "เกี่ยวกับ",
     navContact: "ติดต่อ",
-    navSupport: "เลี้ยงชาบูผม",
-    banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมผ่านพร้อมเพย์ได้",
     h1: "โปรแกรมฟรี",
     heroSub:
       "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่ต้องสมัครสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
@@ -49,10 +45,6 @@ export const COPY = {
       next: "ภาพถัดไป",
       shot: "ภาพที่",
     },
-    supportTitle: "ใช้แล้วชอบไหม",
-    supportBody:
-      "โปรแกรมฟรียังฟรีเหมือนเดิม ไม่ต้องจ่ายก็ใช้ได้ครบ แต่ถ้าอยากเลี้ยงชาบูผม สแกน QR หรือโอนเข้าบัญชีนี้ได้เลย ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
-    bank: { bankLabel: "ธนาคาร", name: BANK.th, accountName: "ชื่อบัญชี", accountNo: "เลขที่บัญชี", holder: `${BANK.nameTh} (${BANK.nameEn})`, copy: "คัดลอก", copied: "คัดลอกแล้ว", qrAlt: "QR พร้อมเพย์ของพีระพอส (PeerapoS)", qrHint: "สแกนด้วยแอปธนาคารไหนก็ได้ ถ้าเปิดหน้านี้บนมือ⁠ถือ บันทึกรูป QR ไว้ก่อน แล้วเลือกรูปจากอัลบั้มในแอปธนาคาร", saveQr: "บันทึกรูป QR" },
     customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
     customSub:
       "งานบางอย่างไม่มีโปรแกรมสำเร็จรูปที่พอดี ถ้างานของร้านคุณยังติดอยู่ในสมุดหรือสเปรดชีต เราทำแอปเล็ก ๆ ให้ตรงกับวิธีทำงานของคุณ",
@@ -104,8 +96,6 @@ export const COPY = {
     navCustom: "Custom apps",
     navAbout: "About",
     navContact: "Contact",
-    navSupport: "Support me",
-    banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me via PromptPay so I can publish them.",
     h1: "Free software",
     heroSub:
       "Windows apps that work offline. Your data stays on your PC. No subscription needed, no ads. If none of them fits your work, we'll build one that does.",
@@ -135,10 +125,6 @@ export const COPY = {
       next: "Next screenshot",
       shot: "Screenshot",
     },
-    supportTitle: "Do these apps help your work?",
-    supportBody:
-      "The free apps stay free, with nothing locked behind a payment. If you'd like to say thanks, scan the QR or transfer to this account. It helps me keep building new apps.",
-    bank: { bankLabel: "Bank", name: BANK.en, accountName: "Account name", accountNo: "Account number", holder: `${BANK.nameEn} (${BANK.nameTh})`, copy: "Copy", copied: "Copied", qrAlt: "PromptPay QR for PeerapoS", qrHint: "Scan with any Thai banking app. On a phone, save the QR first, then pick it from your gallery in the banking app.", saveQr: "Save QR image" },
     customTitle: "Custom app development",
     customSub:
       "Some work has no off-the-shelf program that fits. If your shop still runs on a notebook or a spreadsheet, we build a small app around the way you already work.",

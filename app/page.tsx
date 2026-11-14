@@ -4,7 +4,7 @@ import Image from "next/image";
 import { COPY, type Lang } from "./copy";
 import { useEffect, useRef, useState } from "react";
 import { APPS, PAID_APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
-import { BANK, EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
+import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -131,57 +131,6 @@ function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) =>
   );
 }
 
-/** Support card: PromptPay QR + KBank account, with copy and save for phone visitors who can't scan their own screen. */
-function BankCard({ t }: { t: { bankLabel: string; name: string; accountName: string; accountNo: string; holder: string; copy: string; copied: string; qrAlt: string; qrHint: string; saveQr: string } }) {
-  const [copied, setCopied] = useState(false);
-  function copy() {
-    navigator.clipboard
-      ?.writeText(BANK.accountNo.replace(/-/g, ""))
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      })
-      .catch(() => {});
-  }
-  return (
-    <div className="w-full shrink-0 rounded-2xl bg-white p-5 text-ink shadow-lg sm:p-6 md:w-[22rem]">
-      <img src="/support/promptpay-qr.jpg" alt={t.qrAlt} width={830} height={1200} className="mx-auto h-auto w-full max-w-[15rem] rounded-lg" />
-      <p className="mt-3 text-center text-sm leading-relaxed text-graphite">{t.qrHint}</p>
-      <a
-        href="/support/promptpay-qr.jpg"
-        download="PeerapoS-PromptPay-QR.jpg"
-        className="mt-3 block rounded-xl border-2 border-tip px-4 py-2.5 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
-      >
-        {t.saveQr}
-      </a>
-      <dl className="mt-5 space-y-2 border-t border-ink/10 pt-4 text-sm">
-        <div className="flex justify-between gap-3">
-          <dt className="text-graphite">{t.bankLabel}</dt>
-          <dd className="text-right font-semibold">{t.name}</dd>
-        </div>
-        <div className="flex justify-between gap-3">
-          <dt className="text-graphite">{t.accountName}</dt>
-          <dd className="text-right font-semibold">{t.holder}</dd>
-        </div>
-        <div className="flex items-center justify-between gap-3">
-          <dt className="text-graphite">{t.accountNo}</dt>
-          <dd className="flex items-center gap-2">
-            <span className="font-mono text-base font-bold tracking-wide">{BANK.accountNo}</span>
-            <button
-              type="button"
-              onClick={copy}
-              aria-live="polite"
-              className="rounded-lg bg-tip px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-tip-deep"
-            >
-              {copied ? t.copied : t.copy}
-            </button>
-          </dd>
-        </div>
-      </dl>
-    </div>
-  );
-}
-
 export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const t = COPY[lang];
@@ -210,12 +159,6 @@ export default function Home() {
 
   return (
     <main className="overflow-x-clip">
-      <a
-        href="#support"
-        className="block bg-tip px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-tip-deep"
-      >
-        {t.banner}
-      </a>
       {/* ── Header ─────────────────────────────────────── */}
       <header className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-8 sm:py-6">
         <a href="#top" className="flex items-center gap-2 leading-none">
@@ -230,13 +173,6 @@ export default function Home() {
             <a href="#about" className="hover:text-ink">{t.navAbout}</a>
             <a href="#contact" className="hover:text-ink">{t.navContact}</a>
           </nav>
-          {/* Shown at every width (the nav above hides on mobile) so support is always one tap away. */}
-          <a
-            href="#support"
-            className="whitespace-nowrap rounded-full bg-tip px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-tip-deep sm:px-4"
-          >
-            {t.navSupport}
-          </a>
           <LangSwitcher lang={lang} onChange={setLang} />
         </div>
       </header>
@@ -300,17 +236,6 @@ export default function Home() {
               );
             })}
           </ul>
-        </div>
-      </section>
-
-      {/* ── Support: right after the free apps, where thanks is most likely ── */}
-      <section id="support" className="bg-tip text-white">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-12 sm:px-8 sm:py-16 md:flex-row md:items-center md:justify-between md:gap-10">
-          <div className="max-w-2xl">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{t.supportTitle}</h2>
-            <p className="mt-3 text-lg leading-relaxed text-white/90">{t.supportBody}</p>
-          </div>
-          <BankCard t={t.bank} />
         </div>
       </section>
 
