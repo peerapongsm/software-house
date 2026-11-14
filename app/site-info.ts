@@ -3,11 +3,14 @@
 
 export const SITE_URL = "https://peerapongsm.dev";
 export const EMAIL = "contact@peerapongsm.dev";
-export const LINE_URL = "https://line.me/ti/p/sx3m1nEg53";
+// LINE Official Account, linked by its premium ID @peerapos (basic ID @470cwgcv still works if the premium ID lapses).
+export const LINE_URL = "https://line.me/R/ti/p/@peerapos";
+export const FACEBOOK_URL = "https://www.facebook.com/peerapos/";
 export const TIKTOK_URL = "https://www.tiktok.com/@peera.pos";
 
 export const FASTWORK_URL = "https://fastwork.com/user/peerapos";
-export const GANK_URL = "https://ganknow.com/peerapos";
+// Support / tips: PeerapoS business account (KBank). The QR image is public/support/promptpay-qr.jpg.
+export const BANK = { th: "ธนาคารกสิกรไทย", en: "Kasikornbank (KBank)", accountNo: "233-1-23559-0", nameTh: "พีระพอส", nameEn: "PeerapoS" };
 
 // Starting prices as listed on Fastwork (checked 2026-10-16). Update both here and the FAQ text when they change.
 export const SERVICES = [
@@ -47,7 +50,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "โปรแกรมฟรีจริงไหม",
-      a: "ฟรีจริง ใช้ได้ภายในขีดจำกัดของแต่ละตัว ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ถ้าอยากปลดขีดจำกัดมี PeerapoS Pro แบบสมัครสมาชิกให้เลือก ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง ถ้าอยากสนับสนุน ส่งทิปผ่าน Gank ได้ที่ ganknow.com/peerapos",
+      a: "ฟรีจริง ใช้ได้ภายในขีดจำกัดของแต่ละตัว ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ถ้าอยากปลดขีดจำกัดมี PeerapoS Pro แบบสมัครสมาชิกให้เลือก ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง",
     },
   ],
   en: [
@@ -77,7 +80,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "Are the free apps really free?",
-      a: "Yes, within each app's limits. No ads, no account needed, and the optional PeerapoS Pro subscription lifts the limits. Every app works offline on Windows 10 and 11, and your data stays on your own PC. If you want to support the work, you can tip on Gank at ganknow.com/peerapos.",
+      a: "Yes, within each app's limits. No ads, no account needed, and the optional PeerapoS Pro subscription lifts the limits. Every app works offline on Windows 10 and 11, and your data stays on your own PC.",
     },
   ],
 };

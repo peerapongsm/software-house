@@ -17,3 +17,6 @@ memory.md
 .claude/
 *.local.md
 plan*.md
+
+# Social post drafts, local only
+/_post/

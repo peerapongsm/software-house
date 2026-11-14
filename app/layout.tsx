@@ -14,7 +14,7 @@ import "@fontsource/ibm-plex-sans-thai-looped/latin-600.css";
 import "@fontsource/ibm-plex-sans-thai-looped/latin-700.css";
 import "./globals.css";
 import { APPS, downloadUrl } from "./apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
+import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, SERVICES, SITE_URL, TIKTOK_URL } from "./site-info";
 
 const TITLE = "PeerapoS Software House | รับทำแอปและเขียนโปรแกรมตามสั่ง + โปรแกรมฟรีสำหรับ SME";
 const DESCRIPTION =
@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.jpg"] },
   robots: { index: process.env.PEERAPOS_UAT !== "true", follow: process.env.PEERAPOS_UAT !== "true", googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
+  // Meta Business domain verification for peerapongsm.dev (Messenger app review).
+  verification: { other: { "facebook-domain-verification": "r4huahcq44vgx1rneu425s9gm7tzdf" } },
 };
 
 // schema.org graph for Google rich results and AI answer engines.
@@ -69,7 +71,7 @@ const JSON_LD = {
       founder: { "@id": `${SITE_URL}/#peter` },
       areaServed: { "@type": "Country", name: "Thailand" },
       knowsLanguage: ["th", "en"],
-      sameAs: [TIKTOK_URL, LINE_URL, FASTWORK_URL, GANK_URL],
+      sameAs: [FACEBOOK_URL, TIKTOK_URL, LINE_URL, FASTWORK_URL],
       priceRange: "฿500–฿4,500+",
       knowsAbout: ["Custom software development", "Custom application development", "Web applications", "Windows desktop applications", "Inventory systems", "CRM"],
       hasOfferCatalog: {

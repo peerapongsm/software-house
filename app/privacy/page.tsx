@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import type { Msg } from "@/lib/api.ts";
 
 // Privacy for accounts, Stripe and Play payments, and opt-in services. Decisions: 2026-11-14 spec.
+// LINE OA chat section verified against peerapos-chat 2026-11-13: Claude API replies, last turns kept 24 h in
+// Cloudflare KV keyed by a hash of the LINE user ID, daily/monthly counters, 12 h pause after a handoff.
 // The AI paragraph follows peerapos-go/docs/privacy-ai.md and licence worker/src/consent.ts.
 
 const COPY = {
   description: {
-    th: "นโยบายความเป็นส่วนตัวสำหรับแอป PeerapoS บัญชี การชำระเงินผ่าน Stripe และ Google Play และบริการออนไลน์",
-    en: "Privacy policy for PeerapoS apps, accounts, Stripe and Google Play payments, and online services.",
+    th: "นโยบายความเป็นส่วนตัวสำหรับแอป PeerapoS บัญชี การชำระเงินผ่าน Stripe และ Google Play บริการออนไลน์ และแชต LINE",
+    en: "Privacy policy for PeerapoS apps, accounts, Stripe and Google Play payments, online services and the LINE chat.",
   },
   orders: {
     th: "คำสั่งซื้อ: รายการ ยอดเงิน เวลา สถานะ อีเมลรับใบยืนยัน ชื่อ รหัสอ้างอิงการชำระเงินของ Stripe และการติ๊กยอมรับข้อกำหนด",
@@ -68,11 +70,11 @@ const APPS_FREE_EN =
   "PeerapoS Wash, Stock, File, Pay, Garage, Room, Class, CRM, Campaign, Plan, BCP, School, Trip, Pilates, Repair, Studio, Pharmacy, POS, Massage and Budget";
 const APPS_PAID_EN = "PeerapoS Account, Wholesale, Property, Service, Contractor, Academy and Wellness";
 
-type Sec = { title: string; p?: string[]; li?: string[]; after?: string[] };
+type Sec = { id?: string; title: string; p?: string[]; li?: string[]; after?: string[] };
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ id, title, children }: { id?: string; title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-8">
+    <section id={id} className="mt-8 scroll-mt-6">
       <h3 className="font-display text-xl font-bold">{title}</h3>
       <div className="mt-2 space-y-2 leading-relaxed text-graphite">{children}</div>
     </section>
@@ -83,7 +85,7 @@ function Secs({ list }: { list: Sec[] }) {
   return (
     <>
       {list.map((s) => (
-        <Section key={s.title} title={s.title}>
+        <Section key={s.title} id={s.id} title={s.title}>
           {s.p?.map((x) => <p key={x}>{x}</p>)}
           {s.li && (
             <ul className="list-disc space-y-2 pl-5">
@@ -185,13 +187,21 @@ const TH: Sec[] = [
   {
     title: "รายงานปัญหา",
     p: [
-      "ส่งเฉพาะตอนที่คุณกดส่งเอง รายงานมีข้อความที่คุณพิมพ์ อีเมลสำหรับให้เราตอบกลับ (ถ้าคุณใส่) ชื่อและเวอร์ชันแอป เวอร์ชัน Windows และรายละเอียดข้อผิดพลาด ก่อนส่ง แอปจะลบชื่อผู้ใช้ Windows และที่อยู่โฟลเดอร์ในเครื่องออกให้ รายงานส่งผ่าน feedback.peerapongsm.dev (Cloudflare) แล้วส่งต่อเป็นอีเมลถึงเรา พร้อมประเทศและเวลาที่ได้รับ สำเนารายงานเก็บในฐานข้อมูลของเราบน Cloudflare จนกว่าเราจะดึงไปอ่านแล้วลบออก ที่อยู่ IP ใช้แค่จำกัดจำนวนครั้งที่ส่งได้ ไม่ได้เก็บไว้ เราใช้รายงานเพื่อแก้บั๊กเท่านั้น ไม่ขายหรือแบ่งปันให้ใคร",
+      "ส่งเฉพาะตอนที่คุณกดส่งเอง รายงานมีข้อความที่คุณพิมพ์ อีเมลสำหรับให้เราตอบกลับ (ถ้าคุณใส่) ชื่อและเวอร์ชันแอป เวอร์ชัน Windows และรายละเอียดข้อผิดพลาด ก่อนส่ง แอปจะลบชื่อผู้ใช้ Windows และที่อยู่โฟลเดอร์ในเครื่องออกให้ รายงานส่งผ่าน feedback.peerapongsm.dev (Cloudflare) แล้วส่งต่อเป็นอีเมลถึงเรา พร้อมประเทศและเวลาที่ได้รับ สำเนารายงานเก็บในฐานข้อมูลของเราบน Cloudflare จนกว่าเราจะดึงไปอ่านแล้วลบออก ที่อยู่ IP ใช้แค่จำกัดจำนวนครั้งที่ส่งได้ ไม่ได้เก็บไว้ วันละครั้ง ระบบส่งรายงานที่ได้รับไปให้ Claude ของ Anthropic ช่วยสรุปให้เราอ่าน Anthropic ไม่เอาไปฝึก AI เราใช้รายงานเพื่อแก้บั๊กเท่านั้น ไม่ขายหรือแบ่งปันให้ใคร",
     ],
   },
   {
     title: "เว็บไซต์ peerapongsm.dev",
     p: [
       "เว็บไซต์ใช้ Cloudflare Web Analytics นับจำนวนผู้เข้าชม โดยไม่ใช้คุกกี้ หน้าแรกเรียกตัวนับผู้เข้าชมจาก abacus.jasoncameron.dev ซึ่งเห็นที่อยู่ IP ของคุณตามปกติของการเปิดเว็บ หน้าเข้าสู่ระบบโหลดปุ่มเข้าสู่ระบบจาก Google",
+    ],
+  },
+  {
+    title: "แชตกับ PeerapoS ทาง LINE",
+    p: [
+      "ข้อความที่คุณส่งมาที่ LINE Official Account ของ PeerapoS (@peerapos) บอท AI จะตอบก่อน บอทใช้ Claude ของ Anthropic ข้อความของคุณจึงถูกส่งไปที่ Anthropic เพื่อเขียนคำตอบ Anthropic ไม่เอาข้อความนี้ไปฝึก AI",
+      "เพื่อให้บอทจำได้ว่าคุยอะไรกันอยู่ เราเก็บข้อความล่าสุดไว้ 24 ชั่วโมงแล้วลบทิ้งเอง โดยผูกกับรหัสที่แปลงมาจาก LINE user ID ไม่ใช่ชื่อหรือรูปโปรไฟล์ของคุณ และนับจำนวนคำถามต่อวันเพื่อจำกัดโควตา ถ้าคุณพิมพ์ คุยกับแอดมิน หรือบอทตอบเรื่องไหนไม่ได้ บอทจะหยุดตอบคุณ 12 ชั่วโมง และส่งข้อความล่าสุดของคุณทางอีเมลถึงแอดมินเพื่อให้มาตอบเอง",
+      "บอทมองไม่เห็นข้อมูลในโปรแกรมบนเครื่องคุณ อย่าส่งรหัสผ่านหรือข้อมูลลูกค้าของคุณมาในแชต แอดมินอ่านแชตได้ผ่านระบบของ LINE และ LINE เก็บแชตตามนโยบายของ LINE เอง",
     ],
   },
   {
@@ -202,6 +212,8 @@ const TH: Sec[] = [
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       COPY.recipient.th,
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
+      "Anthropic: บอทแชต LINE และสรุปรายงานปัญหาวันละครั้ง ไม่เอาข้อมูลไปฝึก AI",
+      "LINE: แชตกับ LINE Official Account ของ PeerapoS",
       "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Pair",
       "ผู้ให้บริการ AI ที่ร้านเลือกเอง: รับข้อมูลที่ร้านตัดสินใจส่ง ตามเงื่อนไขของผู้ให้บริการนั้น",
     ],
@@ -216,17 +228,20 @@ const TH: Sec[] = [
       "บันทึกเส้นทางของรีเลย์ 7 วัน คำขอจากหน้าลูกค้าที่พักไว้ 14 วัน",
       COPY.stripeRetention.th,
       "สำเนารายงานปัญหา จนกว่าเราจะดึงไปอ่านแล้วลบ",
+      "ข้อความแชตกับบอท LINE 24 ชั่วโมง",
       COPY.retention.th,
       "คำสั่งซื้อและอีเมลยืนยันการชำระเงิน เก็บเท่าที่กฎหมายภาษีและบัญชีให้เก็บเอกสารการขาย แม้ลบบัญชีแล้ว",
     ],
   },
   {
+    id: "delete",
     title: "สิทธิ์ของคุณและการลบ",
     p: [
       "ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล คุณขอเข้าถึงหรือขอสำเนา ขอแก้ไข ขอลบ ขอให้หยุดใช้ หรือคัดค้านการใช้ข้อมูลของคุณที่เราควบคุมได้ และร้องเรียนต่อสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลได้",
       `ลบบัญชีได้เองที่หน้า /account หรือในแอป ลบแล้ว บัญชี ข้อมูลเข้าสู่ระบบ เซสชัน เครื่องที่เชื่อม สิทธิ์ และข้อมูลการซื้อบน Play จะหายไปทั้งหมด แอปแบบซื้อขาดที่ซื้อไว้ก็ใช้ต่อไม่ได้ และเรากู้คืนให้ไม่ได้ ส่วนคำสั่งซื้อและอีเมลยืนยันการชำระเงินยังอยู่ เพราะกฎหมายภาษีให้เก็บ ถ้าลบเองไม่ได้ ให้อีเมลมาที่ ${EMAIL} จากอีเมลของบัญชี เราตรวจว่าเป็นคุณ แล้วตอบภายใน 30 วัน`,
       COPY.deletion.th,
       "ในเครื่องของคุณ ถอนการติดตั้งแอปหรือลบโฟลเดอร์ข้อมูลของแอป ข้อมูลก็หายจากเครื่อง ยกเลิกการเชื่อมเครื่องได้ที่หน้าบัญชีของฉัน",
+      `ข้อความที่คุยกับบอทใน LINE ลบเองภายใน 24 ชั่วโมง ถ้าอยากให้ลบทันที ส่งอีเมลมาที่ ${EMAIL} บอกช่องทางที่คุยและเวลาคร่าว ๆ ที่ส่งข้อความ`,
     ],
   },
   {
@@ -321,13 +336,21 @@ const EN: Sec[] = [
   {
     title: "Problem reports",
     p: [
-      "Sent only when you choose to send one. A report contains the text you type, an optional reply email, the app name and version, the Windows version and error details. Your Windows user name and local folder paths are removed before sending. Reports go through feedback.peerapongsm.dev (Cloudflare) and are forwarded to us by email with the country and time received. A copy is held in our database on Cloudflare until we pull it to read and then delete it. Your IP address is used only for rate limiting and is not stored. Reports are used only to fix bugs and are never sold or shared.",
+      "Sent only when you choose to send one. A report contains the text you type, an optional reply email, the app name and version, the Windows version and error details. Your Windows user name and local folder paths are removed before sending. Reports go through feedback.peerapongsm.dev (Cloudflare) and are forwarded to us by email with the country and time received. A copy is held in our database on Cloudflare until we pull it to read and then delete it. Your IP address is used only for rate limiting and is not stored. Once a day, received reports are sent to Claude by Anthropic to write a summary for us; Anthropic does not use them to train AI. Reports are used only to fix bugs and are never sold or shared.",
     ],
   },
   {
     title: "The website, peerapongsm.dev",
     p: [
       "The site uses Cloudflare Web Analytics to count visits, without cookies. The home page fetches a visitor counter from abacus.jasoncameron.dev, which sees your IP address as any site you open would. The sign-in page loads the sign-in button from Google.",
+    ],
+  },
+  {
+    title: "Chatting with PeerapoS on LINE",
+    p: [
+      "Messages you send to the PeerapoS LINE Official Account (@peerapos) are answered first by an AI bot built on Claude by Anthropic, so your message is sent to Anthropic to write the reply. Anthropic does not use it to train AI.",
+      "So the bot can follow the conversation, we keep your latest messages for 24 hours and then they are deleted automatically. They are keyed to a code derived from your LINE user ID, not your name or profile picture. We also count questions per day to enforce a quota. If you type คุยกับแอดมิน (talk to an admin), or the bot can't answer, the bot stays quiet for you for 12 hours and emails your latest message to the admin so a person can reply.",
+      "The bot cannot see the data in the apps on your PC. Please don't send passwords or your customers' details in the chat. The admin can read chats through LINE, and LINE keeps chats under its own policy.",
     ],
   },
   {
@@ -338,6 +361,8 @@ const EN: Sec[] = [
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       COPY.recipient.en,
       "GitHub: update checks for the free apps.",
+      "Anthropic: the LINE chat bot and the daily problem-report summary; it does not train AI on the data.",
+      "LINE: chats with the PeerapoS LINE Official Account.",
       "Google Firebase Cloud Messaging: phone alerts for PeerapoS Pair.",
       "The AI provider the shop chooses: receives what the shop decides to send, under that provider's terms.",
     ],
@@ -352,17 +377,20 @@ const EN: Sec[] = [
       "Relay routing records 7 days; held customer-page requests 14 days.",
       COPY.stripeRetention.en,
       "Problem report copies, until we pull and delete them.",
+      "LINE bot chat messages, 24 hours.",
       COPY.retention.en,
       "Orders and the payment confirmation email are kept as long as tax and accounting law has us keep sales records, even after the account is deleted.",
     ],
   },
   {
+    id: "delete-en",
     title: "Your rights and deleting your data",
     p: [
       "Under Thailand's Personal Data Protection Act you may ask to access or get a copy of, correct, delete, restrict or object to our use of your data that we control, and you may complain to the Personal Data Protection Committee.",
       `You can delete your account yourself on /account or in the app. Deleting removes the account, sign-ins, sessions, linked PCs, licence and Play records. Paid apps you bought stop working, and we cannot restore them. Orders and the payment confirmation email stay, because tax law has us keep them. If you cannot delete it yourself, email ${EMAIL} from the account's email address; we check it is you and answer within 30 days.`,
       COPY.deletion.en,
       "On your own PC, uninstall the app or delete its data folder and the data is gone. You can unlink a PC on My account.",
+      `Chat messages with the LINE bot are deleted automatically within 24 hours. To have them deleted sooner, email ${EMAIL} with the chat channel and roughly when you sent the messages.`,
     ],
   },
   {

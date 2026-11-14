@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { APPS, shotUrls } from "./apps-data";
+import { APPS, PAID_APPS, shotUrls } from "./apps-data";
 import { SITE_URL } from "./site-info";
 
 export const dynamic = "force-static";
@@ -8,7 +8,7 @@ export const dynamic = "force-static";
 const BUILT = new Date();
 
 // Image sitemap entries so Google Images can find the share card, logo, app icons and screenshots.
-const IMAGES = ["/og.jpg", "/logo.png", ...APPS.flatMap((a) => [a.icon, ...shotUrls(a)])].map((p) => SITE_URL + p);
+const IMAGES = ["/og.jpg", "/logo.png", ...[...APPS, ...PAID_APPS].flatMap((a) => [a.icon, ...shotUrls(a)])].map((p) => SITE_URL + p);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

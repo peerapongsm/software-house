@@ -1,11 +1,11 @@
 "use client";
 
-import { EMAIL, GANK_URL } from "@/app/site-info";
+import { EMAIL } from "@/app/site-info";
 import type { Lang } from "@/lib/lang.ts";
 
 const COPY = {
-  th: { apps: "แอป", contact: "ติดต่อ", support: "สนับสนุน", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", delete: "ลบบัญชี", menu: "เมนู" },
-  en: { apps: "Apps", contact: "Contact", support: "Support", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", delete: "Delete account", menu: "Menu" },
+  th: { apps: "แอป", contact: "ติดต่อ", account: "บัญชีของฉัน", signIn: "เข้าสู่ระบบ", terms: "ข้อกำหนด", privacy: "ความเป็นส่วนตัว", delete: "ลบบัญชี", menu: "เมนู" },
+  en: { apps: "Apps", contact: "Contact", account: "My account", signIn: "Sign in", terms: "Terms", privacy: "Privacy", delete: "Delete account", menu: "Menu" },
 };
 
 function LangSwitcher({ lang, onChange }: { lang: Lang; onChange: (l: Lang) => void }) {
@@ -52,14 +52,6 @@ export default function Shell({
             <a href="/#apps" className="hover:text-ink">{t.apps}</a>
             <a href="/#contact" className="hover:text-ink">{t.contact}</a>
           </nav>
-          <a
-            href={GANK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden whitespace-nowrap rounded-full bg-tip px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-tip-deep md:inline-block"
-          >
-            {t.support}
-          </a>
           <a
             href={signedIn === false ? "/login" : "/account"}
             aria-label={who}

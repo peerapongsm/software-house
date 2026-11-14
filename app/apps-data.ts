@@ -8,6 +8,7 @@ export type DesktopApp = {
   icon: string;
   shots: number; // screenshot count in /apps/shots/<icon-name>-<1..n>.webp
   uiLang: "th" | "en";
+  price?: number; // paid apps only: one-time price in baht, same as peerapos-licence worker/src/catalogue.ts
   th: Copy;
   en: Copy;
 };
@@ -54,14 +55,14 @@ export const APPS: DesktopApp[] = [
       description:
         "รับเข้า เบิกออก ตรวจนับด้วยบาร์โค้ด ต้นทุนเฉลี่ยคิดให้เอง ของใกล้หมดก็รู้ก่อนขาด",
       chips: ["สินค้า", "บาร์โค้ด", "ตรวจนับ", "ต้นทุนเฉลี่ย"],
-      features: ["รับสินค้าเข้าพร้อมต้นทุน", "เบิกออกและขาย", "ตรวจนับด้วยบาร์โค้ด", "ต้นทุนเฉลี่ยอัตโนมัติ", "เตือนของใกล้หมด", "รายงานสต็อกคงเหลือ"],
+      features: ["รับสินค้าเข้าพร้อมต้นทุน", "เบิกออกและขาย", "ตรวจนับด้วยบาร์โค้ด", "ต้นทุนเฉลี่ยอัตโนมัติ", "เตือนของใกล้หมด", "สร้างบาร์โค้ด EAN-13 ของร้านและพิมพ์ฉลาก", "ตำแหน่งจัดเก็บสินค้า", "รายงานสต็อกคงเหลือ"],
     },
     en: {
       tagline: "Inventory for shops and small warehouses.",
       description:
         "Receive, issue and count stock with a barcode scanner. Moving-average cost is worked out for you, and low stock shows up before you run out.",
       chips: ["Products", "Barcodes", "Stock count", "Avg cost"],
-      features: ["Receive stock with cost", "Issue and sell", "Barcode stock count", "Automatic moving-average cost", "Low-stock alerts", "Stock-on-hand report"],
+      features: ["Receive stock with cost", "Issue and sell", "Barcode stock count", "Automatic moving-average cost", "Low-stock alerts", "In-store EAN-13 barcodes and labels", "Storage location per product", "Stock-on-hand report"],
     },
   },
   {
@@ -72,16 +73,16 @@ export const APPS: DesktopApp[] = [
     th: {
       tagline: "ออกเอกสารธุรกิจครบในที่เดียว",
       description:
-        "ใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษี คิด VAT หัก ณ ที่จ่าย และเขียนยอดเงินเป็นตัวหนังสือให้เอง ใบเสนอราคาที่ลูกค้าตกลงแล้วก็แปลงเป็นใบแจ้งหนี้ได้ทันที",
+        "ใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษี ใบส่งสินค้า ใบสั่งซื้อ และใบสำคัญรับจ่าย คิด VAT หัก ณ ที่จ่าย และเขียนยอดเงินเป็นตัวหนังสือให้เอง ร้านที่ไม่ได้จด VAT ก็ออกใบส่งสินค้า/ใบแจ้งหนี้ได้ ใบเสนอราคาที่ลูกค้าตกลงแล้วก็แปลงเป็นใบแจ้งหนี้ได้ทันที",
       chips: ["ใบเสนอราคา", "ใบกำกับภาษี", "VAT 7%", "หัก ณ ที่จ่าย", "PDF"],
-      features: ["ใบเสนอราคา", "ใบแจ้งหนี้", "ใบเสร็จและใบกำกับภาษี", "VAT 7% และหัก ณ ที่จ่าย", "ยอดเงินเป็นตัวหนังสือ", "ส่งออก PDF"],
+      features: ["ใบเสนอราคา", "ใบแจ้งหนี้", "ใบเสร็จและใบกำกับภาษี", "ใบส่งสินค้า/ใบแจ้งหนี้สำหรับร้านที่ไม่ได้จด VAT", "ใบสั่งซื้อ ใบสำคัญรับ ใบสำคัญจ่าย และใบรับรองแทนใบเสร็จ", "VAT 7% และหัก ณ ที่จ่าย", "ยอดเงินเป็นตัวหนังสือ", "QR พร้อมเพย์บนใบเสนอราคาและใบแจ้งหนี้", "บันทึกเป็น PDF หรือรูปภาพ"],
     },
     en: {
       tagline: "Every business document in one place.",
       description:
-        "Quotations, invoices, receipts and full tax invoices. VAT, withholding tax and the amount in Thai words are done for you, and an accepted quote turns into an invoice in one click.",
+        "Quotations, invoices, receipts, full tax invoices, delivery notes, purchase orders, and receipt and payment vouchers. VAT, withholding tax and the amount in Thai words are done for you, a business without VAT registration can issue delivery note/invoices, and an accepted quote turns into an invoice in one click.",
       chips: ["Quotation", "Tax invoice", "VAT 7%", "Withholding", "PDF"],
-      features: ["Quotations", "Invoices", "Receipts and tax invoices", "VAT 7% and withholding tax", "Amount in Thai words", "PDF export"],
+      features: ["Quotations", "Invoices", "Receipts and tax invoices", "Delivery note/invoices for businesses without VAT", "Purchase orders, receipt and payment vouchers, substitute receipts", "VAT 7% and withholding tax", "Amount in Thai words", "PromptPay QR on quotations and invoices", "Save as PDF or image"],
     },
   },
   {
@@ -94,14 +95,14 @@ export const APPS: DesktopApp[] = [
       description:
         "คิดเงินเดือน OT วันลา ประกันสังคม และภาษีหัก ณ ที่จ่ายให้ครบ ออกสลิปเงินเดือน รายงาน ภ.ง.ด.1 สปส.1-10 และ 50 ทวิ ได้จากโปรแกรมเลย",
       chips: ["เงินเดือน", "OT", "วันลา", "ประกันสังคม", "ภ.ง.ด.1"],
-      features: ["คำนวณเงินเดือนและ OT", "วันลาและโควตา", "ประกันสังคม", "ภาษีหัก ณ ที่จ่าย", "สลิปเงินเดือน", "ภ.ง.ด.1 สปส.1-10 50 ทวิ"],
+      features: ["คำนวณเงินเดือนและ OT", "วันลาและโควตา", "ประกันสังคม", "ภาษีหัก ณ ที่จ่าย", "สลิปเงินเดือน", "ลูกจ้างต่างด้าว (บัตรชมพู พาสปอร์ต ใบอนุญาตทำงาน)", "ภ.ง.ด.1 สปส.1-10 50 ทวิ"],
     },
     en: {
       tagline: "Payroll and HR for 5–50 staff.",
       description:
         "Salary, overtime, leave, social security and withholding tax, all calculated. Payslips and the Thai filings (ภ.ง.ด.1, สปส.1-10, 50 ทวิ) come straight out of the app.",
       chips: ["Payroll", "Overtime", "Leave", "Social security", "PND1"],
-      features: ["Salary and overtime", "Leave and quotas", "Social security", "Withholding tax", "Payslips", "ภ.ง.ด.1, สปส.1-10 and 50 ทวิ filings"],
+      features: ["Salary and overtime", "Leave and quotas", "Social security", "Withholding tax", "Payslips", "Migrant workers (pink card, passport, work permit)", "ภ.ง.ด.1, สปส.1-10 and 50 ทวิ filings"],
     },
   },
   {
@@ -112,16 +113,16 @@ export const APPS: DesktopApp[] = [
     th: {
       tagline: "อู่ซ่อมรถและร้านซ่อมมอเตอร์ไซค์",
       description:
-        "ดูแลงานตั้งแต่รับรถ ใบเสนอราคา เคลมประกัน จนถึงรับเงินและส่งมอบ ตัดสต็อกอะไหล่ให้เอง ถ้าลูกค้ายังค้างจ่าย โปรแกรมจะเตือนก่อนปล่อยรถ",
+        "ดูแลงานตั้งแต่รับรถ ใบเสนอราคา เคลมประกัน จนถึงรับเงินและส่งมอบ ตัดสต็อกอะไหล่ให้เอง เห็นกำไรของแต่ละงาน ขายอะไหล่หน้าร้านได้โดยไม่ต้องเปิดงานซ่อม ถ้าลูกค้ายังค้างจ่าย โปรแกรมจะเตือนก่อนปล่อยรถ",
       chips: ["ใบรับรถ", "ใบเสนอราคา", "เคลมประกัน", "อะไหล่", "ใบเสร็จ"],
-      features: ["ใบรับรถ", "ใบเสนอราคาและใบแจ้งหนี้", "เคลมประกัน", "สต็อกอะไหล่", "ใบเสร็จ", "เตือนนัดเช็กระยะ"],
+      features: ["ใบรับรถ", "ใบเสนอราคาแยกอะไหล่กับค่าแรง", "ใบแจ้งหนี้พร้อม QR พร้อมเพย์", "เคลมประกัน ใส่ยอดที่ประกันอนุมัติทีละรายการ", "สต็อกอะไหล่", "ขายอะไหล่หน้าร้าน", "ต้นทุนภายในและกำไรต่องาน", "ใบเสร็จ", "เตือนนัดเช็กระยะ"],
     },
     en: {
       tagline: "For car garages and motorcycle shops.",
       description:
-        "From check-in, quote and insurance claim to payment and hand-over. Parts come off stock automatically, and the app stops you before releasing a car that still has money owing.",
+        "From check-in, quote and insurance claim to payment and hand-over. Parts come off stock automatically, you see the profit on every job, parts can be sold over the counter without opening a job, and the app stops you before releasing a car that still has money owing.",
       chips: ["Job card", "Quote", "Insurance claim", "Parts", "Receipt"],
-      features: ["Job cards", "Quotes and invoices", "Insurance claims", "Parts stock", "Receipts", "Service reminders"],
+      features: ["Job cards", "Quotes with parts and labour side by side", "Invoices with PromptPay QR", "Insurance claims with insurer-approved amounts per line", "Parts stock", "Counter sales of parts", "Internal costs and profit per job", "Receipts", "Service reminders"],
     },
   },
   {
@@ -132,16 +133,16 @@ export const APPS: DesktopApp[] = [
     th: {
       tagline: "หอพักและห้องเช่า 10–200 ห้อง",
       description:
-        "จดมิเตอร์น้ำไฟทั้งตึกในตารางเดียว ออกบิลรายเดือนพร้อม QR พร้อมเพย์ ส่งรูปบิลเข้า LINE ได้ พอผู้เช่าย้ายออกก็คิดเงินมัดจำคืนให้",
+        "จดมิเตอร์น้ำไฟทั้งตึกในตารางเดียวหรือผ่าน Excel ออกบิลรายเดือนพร้อม QR พร้อมเพย์ ส่งรูปบิลเข้า LINE ได้ รับเช่ารายวันหรือรายสัปดาห์ก็ได้ พอผู้เช่าย้ายออกก็คิดเงินมัดจำคืนให้",
       chips: ["มิเตอร์", "บิลรายเดือน", "พร้อมเพย์", "สัญญาเช่า", "ย้ายออก"],
-      features: ["ผังห้องพัก", "จดมิเตอร์น้ำไฟ", "บิลรายเดือนพร้อม QR พร้อมเพย์", "ใบเสร็จ", "สัญญาเช่า", "คิดเงินย้ายออก"],
+      features: ["ผังห้องพัก", "จดมิเตอร์น้ำไฟ หรือกรอกผ่าน Excel", "ค่าน้ำขั้นต่ำรายห้อง", "บิลรายเดือนพร้อม QR พร้อมเพย์", "ใบเสร็จ", "สัญญาเช่ารายเดือน รายสัปดาห์ และรายวัน", "คิดเงินย้ายออก", "สรุปรายเดือนทุกห้อง ส่งออก Excel", "นำเข้าห้องและผู้เช่าจาก Excel"],
     },
     en: {
       tagline: "Dorms and rentals, 10–200 rooms.",
       description:
-        "Read every water and power meter in one grid, issue monthly bills with a PromptPay QR, send bill images over LINE, and settle deposits when a tenant moves out.",
+        "Read every water and power meter in one grid or through Excel, issue monthly bills with a PromptPay QR, send bill images over LINE, rent by the day or week too, and settle deposits when a tenant moves out.",
       chips: ["Meters", "Monthly bills", "PromptPay", "Leases", "Move-out"],
-      features: ["Room map", "Water and power meter readings", "Monthly bills with PromptPay QR", "Receipts", "Leases", "Move-out settlement"],
+      features: ["Room map", "Water and power meter readings, or fill them in Excel", "Minimum water charge per room", "Monthly bills with PromptPay QR", "Receipts", "Monthly, weekly and daily leases", "Move-out settlement", "Monthly summary of all rooms to Excel", "Import rooms and tenants from Excel"],
     },
   },
   {
@@ -274,14 +275,14 @@ export const APPS: DesktopApp[] = [
       description:
         "เปิดรอบเดินทาง รับจอง จัดห้องพัก รับเงินแล้วออกใบเสร็จและใบกำกับภาษีให้เอง คืนเงินพร้อมใบลดหนี้ ตรวจอายุพาสปอร์ต ส่งรายชื่อให้บริษัทประกัน และดูกำไรของแต่ละกรุ๊ป",
       chips: ["รอบเดินทาง", "การจอง", "ใบกำกับภาษี", "จัดห้อง", "กำไรรายกรุ๊ป"],
-      features: ["รอบเดินทางและที่นั่ง", "การจองและผู้เดินทาง", "ใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ/ใบกำกับภาษี", "ยกเลิกและคืนเงินพร้อมใบลดหนี้", "จัดห้องพัก", "ตรวจพาสปอร์ตและรายชื่อส่งประกัน", "ต้นทุนและกำไรรายกรุ๊ป", "พิมพ์โปรแกรมทัวร์"],
+      features: ["รอบเดินทางและที่นั่ง", "การจองและผู้เดินทาง", "ใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ/ใบกำกับภาษี", "QR พร้อมเพย์บนใบเสนอราคาและใบแจ้งหนี้", "ยกเลิกและคืนเงินพร้อมใบลดหนี้", "จัดห้องพัก", "ตรวจพาสปอร์ตและรายชื่อส่งประกัน", "ต้นทุนและกำไรรายกรุ๊ป", "พิมพ์โปรแกรมทัวร์"],
     },
     en: {
       tagline: "Small tour operator back office.",
       description:
         "Open departures, take bookings, assign rooms, collect payments and issue receipts and tax invoices. Refunds with credit notes, passport expiry checks, insurer name lists and profit per group.",
       chips: ["Departures", "Bookings", "Tax invoices", "Rooming", "Group profit"],
-      features: ["Departures and seats", "Bookings and travellers", "Quotes, invoices, receipts/tax invoices", "Cancellations and refunds with credit notes", "Rooming lists", "Passport checks and insurer name lists", "Cost and profit per group", "Printable itineraries"],
+      features: ["Departures and seats", "Bookings and travellers", "Quotes, invoices, receipts/tax invoices", "PromptPay QR on quotes and invoices", "Cancellations and refunds with credit notes", "Rooming lists", "Passport checks and insurer name lists", "Cost and profit per group", "Printable itineraries"],
     },
   },
   {
@@ -314,14 +315,14 @@ export const APPS: DesktopApp[] = [
       description:
         "รับเครื่องแล้วพิมพ์ใบรับซ่อมกับป้ายติดเครื่อง ส่งราคาให้ลูกค้าตกลงก่อนซ่อม ตัดสต็อกอะไหล่ ดูงานทั้งร้านบนกระดาน ส่งมอบพร้อมใบรับประกัน และสรุปค่าคอมช่าง รหัสปลดล็อกเครื่องเข้ารหัสเก็บในคอมของร้าน",
       chips: ["ใบรับซ่อม", "สต็อกอะไหล่", "รับประกัน", "พร้อมเพย์", "ค่าคอมช่าง"],
-      features: ["ใบรับซ่อมและป้ายติดเครื่อง", "ฝากรหัสปลดล็อกแบบซ่อนไว้", "ส่งราคาและบันทึกการตกลงของลูกค้า", "กระดานงานซ่อม", "สต็อกอะไหล่", "ใบเสร็จ/ใบกำกับภาษีและ QR พร้อมเพย์", "คืนเงินและใบลดหนี้", "ส่งมอบเครื่องและใบรับประกัน", "งานเคลม", "ข้อความ LINE แจ้งลูกค้า", "ค่าคอมช่าง"],
+      features: ["ใบรับซ่อมและป้ายติดเครื่อง", "ฝากรหัสปลดล็อกแบบซ่อนไว้", "ส่งราคาและบันทึกการตกลงของลูกค้า", "กระดานงานซ่อม", "สต็อกอะไหล่", "ขายอะไหล่หน้าร้าน", "ใบเสร็จ/ใบกำกับภาษีและ QR พร้อมเพย์", "คืนเงินและใบลดหนี้", "ส่งมอบเครื่องและใบรับประกัน", "งานเคลม", "ข้อความ LINE แจ้งลูกค้า", "ค่าคอมช่าง"],
     },
     en: {
       tagline: "Front desk for a phone repair shop.",
       description:
         "Check devices in with a printed repair ticket and tag, get the customer's OK on a quote before work starts, draw parts from stock, track every job on one board, and hand back with a warranty slip. Unlock codes stay encrypted on the shop's PC.",
       chips: ["Repair tickets", "Parts stock", "Warranty", "PromptPay", "Tech commission"],
-      features: ["Repair tickets and device tags", "Hidden unlock-code storage", "Quotes with customer approval", "Repair job board", "Parts stock", "Receipts/tax invoices with PromptPay QR", "Refunds and credit notes", "Handover with warranty slip", "Warranty claims", "LINE messages to customers", "Technician commission"],
+      features: ["Repair tickets and device tags", "Hidden unlock-code storage", "Quotes with customer approval", "Repair job board", "Parts stock", "Counter sales of parts", "Receipts/tax invoices with PromptPay QR", "Refunds and credit notes", "Handover with warranty slip", "Warranty claims", "LINE messages to customers", "Technician commission"],
     },
   },
   {
@@ -354,14 +355,14 @@ export const APPS: DesktopApp[] = [
       description:
         "ขายด้วยสแกนเนอร์ ตัดยาตามล็อตที่หมดอายุก่อน เตือนเมื่อลูกค้าแพ้ยา พิมพ์ฉลากยาให้เอง รับสินค้าพร้อมล็อตและวันหมดอายุ และออกบัญชี ข.ย.9–13 ได้ทุกเมื่อ ไม่จำกัดจำนวนบิล และใส่สินค้าได้ถึง 10,000 รายการ",
       chips: ["ขายหน้าร้าน", "ล็อตและวันหมดอายุ", "แพ้ยา", "ฉลากยา", "บัญชี ข.ย."],
-      features: ["ขายด้วยบาร์โค้ดหรือปุ่มรูปสินค้า", "ตัดล็อตที่หมดอายุก่อนให้อัตโนมัติ", "เตือนแพ้ยาและยาที่ต้องมีใบสั่งยา", "พิมพ์ฉลากยาหลังรับเงิน", "ใบเสร็จ/ใบกำกับภาษีและ QR พร้อมเพย์", "ใบสั่งซื้อ รับสินค้า และคืนสินค้า", "ตรวจนับสต็อก", "บัญชี ข.ย.9–13", "โปรโมชันและแต้มสะสม", "ลิ้นชักเก็บเงิน", "รายงานยอดขาย กำไร และของใกล้หมดอายุ"],
+      features: ["ขายด้วยบาร์โค้ดหรือปุ่มรูปสินค้า", "ตัดล็อตที่หมดอายุก่อนให้อัตโนมัติ", "เตือนแพ้ยาและยาที่ต้องมีใบสั่งยา", "พิมพ์ฉลากยาหลังรับเงิน", "ใบเสร็จ/ใบกำกับภาษีและ QR พร้อมเพย์", "ใบสั่งซื้อ รับสินค้า และคืนสินค้า", "ตรวจนับสต็อก", "สร้างบาร์โค้ด EAN-13 ของร้าน", "บัญชี ข.ย.9–13", "โปรโมชันและแต้มสะสม", "ลิ้นชักเก็บเงิน", "รายงานยอดขาย กำไร และของใกล้หมดอายุ"],
     },
     en: {
       tagline: "Point of sale for a small pharmacy.",
       description:
         "Sell with a barcode scanner, draw stock from the lot that expires first, get warned about a customer's drug allergy, print dosage labels automatically, receive stock with lot and expiry, and print the Thai FDA ข.ย.9–13 registers whenever you need them. No limit on bills, and up to 10,000 items.",
       chips: ["Point of sale", "Lots and expiry", "Allergy alerts", "Drug labels", "FDA registers"],
-      features: ["Barcode and picture-button selling", "First-expiry-first-out lots", "Allergy and prescription checks", "Dosage labels after payment", "Receipts/tax invoices with PromptPay QR", "Purchase orders, receiving and supplier returns", "Stock count", "Thai FDA ข.ย.9–13 registers", "Promotions and loyalty points", "Cash drawer", "Sales, profit and expiry reports"],
+      features: ["Barcode and picture-button selling", "First-expiry-first-out lots", "Allergy and prescription checks", "Dosage labels after payment", "Receipts/tax invoices with PromptPay QR", "Purchase orders, receiving and supplier returns", "Stock count", "In-store EAN-13 barcodes", "Thai FDA ข.ย.9–13 registers", "Promotions and loyalty points", "Cash drawer", "Sales, profit and expiry reports"],
     },
   },
   {
@@ -370,18 +371,18 @@ export const APPS: DesktopApp[] = [
     shots: 5,
     uiLang: "th",
     th: {
-      tagline: "ระบบหน้าร้านสำหรับร้านอาหารและคาเฟ่เล็ก",
+      tagline: "ระบบหน้าร้านสำหรับร้านอาหาร คาเฟ่ และร้านขายของเล็ก",
       description:
-        "เปิดโต๊ะจากผังร้านหรือขายที่เคาน์เตอร์ ส่งใบสั่งเข้าครัวและบาร์ แยกบิลหรือหารเท่ากันก็ได้ คิด VAT และค่าบริการให้ รับเงินสด พร้อมเพย์ โอน หรือบัตร ตัดวัตถุดิบตามสูตรทุกครั้งที่ขาย และปิดกะพร้อมนับเงินในลิ้นชัก ไม่จำกัดจำนวนบิล ใช้ได้ถึง 20 โต๊ะและ 200 เมนู",
-      chips: ["โต๊ะและเคาน์เตอร์", "ใบสั่งเข้าครัว", "แยกบิล", "สต๊อกวัตถุดิบ", "สมาชิกและแต้ม"],
-      features: ["ผังโต๊ะ หรือขายที่เคาน์เตอร์พร้อมเลขคิว", "เมนูมีขนาดและตัวเลือก เช่น เผ็ดน้อย ไข่ดาว", "ส่งใบสั่งแยกตามจุดทำ ครัวหรือบาร์", "ย้ายโต๊ะ รวมโต๊ะ ยกเลิกรายการ พร้อมใบแจ้งครัว", "แยกบิลตามรายการหรือหารเท่ากัน", "VAT และค่าบริการ", "ใบเสร็จ ใบกำกับภาษีอย่างย่อและเต็มรูป พร้อม QR พร้อมเพย์", "สต๊อกวัตถุดิบตัดตามสูตร พร้อมต้นทุนอาหาร", "เปิดปิดกะและนับเงินในลิ้นชัก", "สมาชิกและแต้มสะสม", "รายงานยอดขาย เมนูขายดี และภาษีขาย"],
+        "เปิดโต๊ะจากผังร้านหรือขายที่เคาน์เตอร์ ส่งใบสั่งเข้าครัวและบาร์ แยกบิลหรือหารเท่ากันก็ได้ คิด VAT และค่าบริการให้ รับเงินสด พร้อมเพย์ โอน หรือบัตร ตัดวัตถุดิบตามสูตรทุกครั้งที่ขาย และปิดกะพร้อมนับเงินในลิ้นชัก มีจอลูกค้า โปรโมชันลดราคาอัตโนมัติ และ PIN แยกพนักงาน ร้านขายของก็ใช้ได้ ไม่จำกัดจำนวนบิล ใช้ได้ถึง 20 โต๊ะและ 200 เมนู",
+      chips: ["โต๊ะและเคาน์เตอร์", "ใบสั่งเข้าครัว", "แยกบิล", "จอลูกค้า", "โปรโมชัน", "สมาชิกและแต้ม"],
+      features: ["ผังโต๊ะ หรือขายที่เคาน์เตอร์พร้อมเลขคิว", "เมนูมีขนาดและตัวเลือก เช่น เผ็ดน้อย ไข่ดาว", "ส่งใบสั่งแยกตามจุดทำ ครัวหรือบาร์", "ย้ายโต๊ะ รวมโต๊ะ ยกเลิกรายการ พร้อมใบแจ้งครัว", "แยกบิลตามรายการหรือหารเท่ากัน", "VAT และค่าบริการ", "ใบเสร็จ ใบกำกับภาษีอย่างย่อและเต็มรูป พร้อม QR พร้อมเพย์", "สต๊อกวัตถุดิบตัดตามสูตร พร้อมต้นทุนอาหาร", "เปิดปิดกะและนับเงินในลิ้นชัก", "จอลูกค้าบนจอที่สอง พร้อม QR พร้อมเพย์และสไลด์โฆษณา", "โปรโมชันลดราคาอัตโนมัติตามวัน เวลา สมาชิก หรือเมนู", "พนักงานมี PIN ของตัวเอง ชื่อขึ้นในบิลและกะ", "โหมดร้านขายของ สแกนบาร์โค้ด", "สมาชิกและแต้มสะสม", "รายงานยอดขาย เมนูขายดี กำไรขั้นต้น ยอดตามพนักงาน และภาษีขาย"],
     },
     en: {
-      tagline: "Point of sale for a small restaurant or café.",
+      tagline: "Point of sale for a small restaurant, café or shop.",
       description:
-        "Open a table from the floor plan or sell at the counter, send orders to the kitchen and bar, split a bill by item or evenly, add VAT and service charge, take cash, PromptPay, transfer or card, deduct ingredients by recipe with every sale, and close each shift with a cash count. No limit on bills, and up to 20 tables and 200 menu items.",
-      chips: ["Tables and counter", "Kitchen tickets", "Split bills", "Ingredient stock", "Members and points"],
-      features: ["Floor plan, or counter mode with queue numbers", "Menu sizes and options", "Tickets per station: kitchen or bar", "Move, merge and void with kitchen slips", "Split by item or evenly", "VAT and service charge", "Receipts and abbreviated/full tax invoices with PromptPay QR", "Recipe-based ingredient stock with food cost", "Shifts with a cash-drawer count", "Members and loyalty points", "Sales, top-item and sales-tax reports"],
+        "Open a table from the floor plan or sell at the counter, send orders to the kitchen and bar, split a bill by item or evenly, add VAT and service charge, take cash, PromptPay, transfer or card, deduct ingredients by recipe with every sale, and close each shift with a cash count. Comes with a customer display, automatic promotions and a PIN for each staff member, and works for a retail shop too. No limit on bills, and up to 20 tables and 200 menu items.",
+      chips: ["Tables and counter", "Kitchen tickets", "Split bills", "Customer display", "Promotions", "Members and points"],
+      features: ["Floor plan, or counter mode with queue numbers", "Menu sizes and options", "Tickets per station: kitchen or bar", "Move, merge and void with kitchen slips", "Split by item or evenly", "VAT and service charge", "Receipts and abbreviated/full tax invoices with PromptPay QR", "Recipe-based ingredient stock with food cost", "Shifts with a cash-drawer count", "Customer display on a second screen with PromptPay QR and ad slides", "Automatic promotions by date, time, member or menu item", "Staff PINs, with names on bills and shifts", "Retail shop mode with barcode scanning", "Members and loyalty points", "Sales, top-item, gross-profit, per-staff and sales-tax reports"],
     },
   },
   {
@@ -422,6 +423,158 @@ export const APPS: DesktopApp[] = [
         "Plan every company's annual budget in one place: break it into lines, spread them over the months, and submit the plan through your approval steps. Once a plan is approved, budgets change only through adjustments and transfers that someone approves. An approved PO reserves budget at once, posted expenses become actuals, and budget vs actual and the year-end forecast are always up to date. Free, with your data kept on your own PC and no internet needed.",
       chips: ["Annual plans", "Approval steps", "PO commitments", "Budget vs actual", "Multi-company"],
       features: ["Every company and fiscal year in one file", "Header and sub-lines, recurring and project budgets", "Monthly spread: even, quarterly, one-time or custom", "Multi-step approval with every approver's name recorded", "Adjustments and transfers through approved documents", "POs that reserve budget, and expenses with VAT, withholding tax and attachments", "Contracts and renewals with notice reminders", "Dashboard, budget vs actual, pivot and year-end forecast", "15 standard reports exported to Excel, CSV and PDF", "Excel import with reconciliation", "Tamper-evident change history and encrypted backups"],
+    },
+  },
+];
+
+// Paid apps: not on sale yet, shown as "coming soon". Prices are one-time and must match the licence
+// server catalogue (electron/peerapos-licence worker/src/catalogue.ts). Copy from each app's docs/spec.md.
+export const PAID_APPS: DesktopApp[] = [
+  {
+    name: "PeerapoS Account",
+    icon: "/apps/account.png",
+    shots: 5,
+    uiLang: "th",
+    price: 9990,
+    th: {
+      tagline: "โปรแกรมบัญชีสำหรับบริษัทและสำนักงานบัญชี ไม่ขึ้นคลาวด์",
+      description:
+        "ลงบัญชีคู่จากเอกสารประจำวัน ออกใบกำกับภาษี ทำรายงานภาษีซื้อภาษีขายและตัวเลข ภ.พ.30 ออก 50 ทวิ และ ภ.ง.ด.3/53 พร้อมไฟล์สำหรับ RD Prep ปิดงบปลายปีเรียงตามรายการของกรมพัฒนาธุรกิจการค้า ย้ายข้อมูลจากโปรแกรมเดิมด้วย Excel หรือ DBF ใช้หลายเครื่องในออฟฟิศผ่าน LAN ข้อมูลบัญชีเข้ารหัสและอยู่ในเครื่องของคุณเท่านั้น",
+      chips: ["บัญชีคู่", "ใบกำกับภาษี", "ภ.พ.30", "50 ทวิ", "หลายเครื่องผ่าน LAN"],
+      features: ["สมุดรายวัน บัญชีแยกประเภท และงบทดลองที่ลงตัวทุกสตางค์", "ใบเสนอราคา ใบแจ้งหนี้ ใบกำกับภาษี ใบเสร็จ ใบลดหนี้ และใบเพิ่มหนี้", "ซื้อและจ่ายเงิน พร้อมหัก ณ ที่จ่ายและหนังสือรับรอง 50 ทวิ", "รายงานภาษีซื้อ ภาษีขาย และตัวเลขสำหรับ ภ.พ.30", "ภ.ง.ด.3 และ ภ.ง.ด.53 พร้อมไฟล์สำหรับ RD Prep", "กระทบยอดธนาคาร เช็ครับและเช็คจ่าย", "สินค้าคงเหลือ และสินทรัพย์ถาวรพร้อมค่าเสื่อมราคา", "ปิดบัญชีปลายปี งบการเงินตามรายการของ DBD และกระดาษทำการภาษีเงินได้นิติบุคคล", "ย้ายข้อมูลจากโปรแกรมเดิมด้วย Excel, CSV หรือ DBF", "หลายบริษัทในเครื่องเดียว", "ใช้หลายเครื่องพร้อมกันผ่าน LAN ข้อมูลที่ส่งถึงกันเข้ารหัส", "ผู้ใช้และสิทธิ์ ประวัติการแก้ไขที่ตรวจย้อนได้ และสำรองข้อมูลแบบเข้ารหัส"],
+    },
+    en: {
+      tagline: "Accounting for companies and accounting offices, without the cloud.",
+      description:
+        "Turn daily documents into double-entry books. Issue tax invoices, produce the purchase and sales tax reports and the PP.30 figures, issue 50 Tawi certificates and PND 3/53 with the RD Prep file, and close the year with statements in DBD line-item order. Move your data in from your old program via Excel or DBF, and work on the same books from several PCs over the office LAN. Your books are encrypted and stay on your own PCs.",
+      chips: ["Double entry", "Tax invoices", "PP.30", "50 Tawi", "Multi-PC over LAN"],
+      features: ["Journals, ledgers and a trial balance that balances to the satang", "Quotations, invoices, tax invoices, receipts, credit and debit notes", "Purchases and payments with withholding tax and 50 Tawi certificates", "Purchase and sales tax reports with PP.30 figures", "PND 3 and PND 53 with the RD Prep file", "Bank reconciliation, cheques received and issued", "Inventory, and fixed assets with depreciation", "Year-end close, DBD line-item statements and a corporate income tax worksheet", "Move in from your old program via Excel, CSV or DBF", "Many companies on one PC", "Several PCs at once over the office LAN, encrypted between them", "Users and roles, a tamper-evident change history and encrypted backups"],
+    },
+  },
+  {
+    name: "PeerapoS Wholesale",
+    icon: "/apps/wholesale.png",
+    shots: 5,
+    uiLang: "th",
+    price: 8990,
+    th: {
+      tagline: "หน้าร้าน ใบส่งของ และเครดิตลูกค้า สำหรับร้านวัสดุก่อสร้าง",
+      description:
+        "ขายหน้าร้าน เสนอราคา ขายเชื่อ ส่งของด้วยรถ วางบิล และตามหนี้ลูกค้า สต็อกนับได้หลายหน่วย เช่น เหล็กเส้นเป็นเส้นหรือเป็นตัน เหมาะกับร้านวัสดุก่อสร้างและร้านขายส่ง",
+      chips: ["ขายหน้าร้าน", "ขายเชื่อ", "ใบส่งของ", "วางบิล", "ระดับราคา"],
+      features: ["ขายหน้าร้านและเสนอราคา", "ขายเชื่อและส่งของด้วยรถ", "ใบส่งของ/ใบกำกับภาษี/ใบแจ้งหนี้ในใบเดียว", "ติดตามของค้างส่ง", "วางบิล ใบเสร็จ และหัก ณ ที่จ่าย", "เช็คและอายุหนี้ลูกหนี้", "ราคา 5 ระดับ และหลายหน่วยต่อสินค้า", "ซื้อของเข้า นับสต็อก และพิมพ์ป้ายราคา", "ปิดกะและปิดวัน", "รายงานสินค้าและวัตถุดิบตามมาตรา 87 และส่งข้อมูลให้นักบัญชี"],
+    },
+    en: {
+      tagline: "Counter, deliveries and customer credit for building-material shops.",
+      description:
+        "Sell at the counter, quote, sell on credit and deliver by truck, bill customers and chase what they owe. Stock can be counted in several units, such as rebar by the piece or by the tonne. Built for building-material shops and small wholesalers.",
+      chips: ["Counter", "Credit sales", "Deliveries", "Billing runs", "Price levels"],
+      features: ["Counter sales and quotations", "Credit sales and truck deliveries", "Combined delivery note, tax invoice and invoice", "Undelivered-goods tracking", "Billing runs, receipts and withholding tax", "Cheques and receivables ageing", "5 price levels and several units per product", "Purchases, stock counts and price labels", "Shift and day close", "Section 87 stock registers and accountant export"],
+    },
+  },
+  {
+    name: "PeerapoS Property",
+    icon: "/apps/property.png",
+    shots: 5,
+    uiLang: "th",
+    price: 7990,
+    th: {
+      tagline: "หอพักและอพาร์ตเมนต์หลายร้อยห้อง หลายอาคาร",
+      description:
+        "จดมิเตอร์แล้วออกบิลทั้งอาคารในครั้งเดียว รับเงิน ตามค่าเช่าค้าง ดูแลสัญญาเช่าตั้งแต่จองห้องจนย้ายออกและคืนเงินมัดจำ โปรแกรมเตือนเมื่อเงื่อนไขสัญญาขัดกับประกาศ สคบ. เรื่องธุรกิจให้เช่าที่อยู่อาศัย ใช้ได้หลายอาคารและหลายบริษัท",
+      chips: ["มิเตอร์", "บิลรายเดือน", "สัญญาเช่า", "ค่าเช่าค้าง", "เงินมัดจำ"],
+      features: ["ห้อง อาคาร และผู้เช่า", "จองห้องและย้ายเข้า พร้อมใบตรวจสภาพห้อง", "สัญญาเช่าและต่อสัญญา", "จดมิเตอร์แล้วออกบิลทั้งอาคารในครั้งเดียว", "ใบเสร็จและใบกำกับภาษี พร้อมหัก ณ ที่จ่าย", "ตามค่าเช่าค้าง", "ย้ายออกและคืนเงินมัดจำ", "ใบสั่งซ่อมและงานบำรุงรักษา", "พัสดุ กุญแจ และทะเบียนรถ", "ส่งข้อมูลรายเดือนให้นักบัญชี"],
+    },
+    en: {
+      tagline: "Dorms and apartments with hundreds of rooms.",
+      description:
+        "Read the meters and bill a whole building in one go, collect rent, chase arrears, and run each lease from booking to move-out and deposit refund. The app warns you when a lease term clashes with the Thai consumer-protection rules for residential rentals. Handles several buildings and companies.",
+      chips: ["Meters", "Monthly bills", "Leases", "Arrears", "Deposits"],
+      features: ["Rooms, buildings and tenants", "Bookings and move-in with a condition report", "Leases and renewals", "Meter readings to batch billing", "Receipts and tax invoices with withholding tax", "Arrears follow-up", "Move-out and deposit refund", "Work orders and maintenance", "Parcels, keys and vehicles", "Monthly export for the accountant"],
+    },
+  },
+  {
+    name: "PeerapoS Academy",
+    icon: "/apps/academy.png",
+    shots: 5,
+    uiLang: "th",
+    price: 7990,
+    th: {
+      tagline: "ค่าเทอมและเงินเดือนครู สำหรับโรงเรียนเอกชนและอนุบาล",
+      description:
+        "ตั้งแต่ทะเบียนนักเรียนและครอบครัว แผนค่าเทอม ส่วนลดพี่น้อง ทุนการศึกษา ออกบิลทั้งโรงเรียน และใบเสร็จรายครอบครัว ไปจนถึงเงินเดือนครูพร้อมกองทุนสงเคราะห์และประกันสังคม",
+      chips: ["ค่าเทอม", "ส่วนลดพี่น้อง", "ผ่อนชำระ", "เงินเดือนครู", "ใบรับรอง"],
+      features: ["ทะเบียนครอบครัว ผู้ปกครอง และนักเรียน", "แผนค่าเทอมและส่วนลดพี่น้อง", "ทุนการศึกษา", "ออกบิลค่าเทอมทั้งโรงเรียน แบ่งงวดได้", "ใบเสร็จรายครอบครัวและเช็ค", "ลาออก ใบลดหนี้ และคืนเงินประกัน", "เช็คชื่อประจำชั้นและใบรับรองนักเรียน", "เงินเดือนครู กองทุนสงเคราะห์ และประกันสังคม", "ใบลาและสลิปเงินเดือน", "นำเข้าจาก Class, School, Pay และ Excel"],
+    },
+    en: {
+      tagline: "School fees and teacher payroll for private schools and kindergartens.",
+      description:
+        "From student and family records, fee plans, sibling discounts and scholarships to whole-school billing and family receipts, through to teacher payroll with the private-school welfare fund and social security.",
+      chips: ["Term fees", "Sibling discount", "Instalments", "Teacher payroll", "Certificates"],
+      features: ["Families, guardians and students", "Fee plans and sibling discounts", "Scholarships", "Term billing for the whole school, in instalments", "Family receipts and cheques", "Withdrawals, credit notes and deposit refunds", "Homeroom roll and student certificates", "Teacher payroll, welfare fund and social security", "Leave and payslips", "Import from Class, School, Pay and Excel"],
+    },
+  },
+  {
+    name: "PeerapoS Service",
+    icon: "/apps/service.png",
+    shots: 5,
+    uiLang: "th",
+    price: 5990,
+    th: {
+      tagline: "ใบงานซ่อมและงานบริการ สำหรับร้านที่มีช่างหลายคน",
+      description:
+        "รับงานซ่อมรถ มือถือ คอมพิวเตอร์ แอร์ และเครื่องใช้ไฟฟ้า แจกงานให้ช่างบนกระดานงาน ออกใบกำกับภาษี และวางบิลลูกค้าบริษัท ลูกค้าฟลีท และบริษัทประกันที่หัก ณ ที่จ่าย",
+      chips: ["ใบงาน", "กระดานช่าง", "ลูกค้าฟลีท", "งานประกัน", "สัญญา PM"],
+      features: ["รับงานและใบงานซ่อม", "กระดานงานของช่างแต่ละคน", "งานนอกสถานที่", "ลูกค้าบริษัท ฟลีท และบริษัทประกัน", "เครดิตและวางบิล", "ใบเสร็จ ใบกำกับภาษี และหัก ณ ที่จ่าย", "สัญญาบำรุงรักษา (PM)", "รูปถ่ายประกอบงานเคลม", "ใช้หลายเครื่องผ่าน LAN", "นำเข้าจาก Repair และ Garage"],
+    },
+    en: {
+      tagline: "Job tickets for service shops with several technicians.",
+      description:
+        "For car garages, phone and computer repair, and aircon and appliance service. Assign jobs to technicians on a board, issue tax invoices, and bill company, fleet and insurer customers who withhold tax.",
+      chips: ["Job tickets", "Technician board", "Fleet", "Insurer jobs", "PM contracts"],
+      features: ["Job intake and repair tickets", "A job board per technician", "On-site jobs", "Company, fleet and insurer customers", "Credit terms and billing runs", "Receipts, tax invoices and withholding tax", "Preventive-maintenance contracts", "Claim photos on the job", "Several PCs over LAN", "Import from Repair and Garage"],
+    },
+  },
+  {
+    name: "PeerapoS Contractor",
+    icon: "/apps/contractor.png",
+    shots: 5,
+    uiLang: "th",
+    price: 5990,
+    th: {
+      tagline: "ตั้งแต่ BOQ ถึงเบิกงวด สำหรับผู้รับเหมา",
+      description:
+        "ทำใบเสนอราคาจาก BOQ ทำสัญญาแบ่งงวด เบิกงวด คืนเงินประกันผลงาน คุมต้นทุนแต่ละงาน และจ่ายค่าแรงทีมช่าง ครบในโปรแกรมเดียว เหมาะกับงานสร้างบ้าน รีโนเวต และงานตกแต่ง",
+      chips: ["BOQ", "เบิกงวด", "งานเพิ่ม-ลด", "เงินประกันผลงาน", "ค่าแรงช่าง"],
+      features: ["BOQ หลายเวอร์ชัน ดึงราคาจากคลังต้นทุน", "ใบเสนอราคาและสัญญาแบ่งงวด", "งานเพิ่ม-ลด", "เบิกงวด เงินล่วงหน้า และเงินประกันผลงาน", "ใบเสร็จและใบกำกับภาษี พร้อมหัก ณ ที่จ่าย", "ตารางงาน Gantt และบันทึกหน้างาน", "ซื้อของ บิลผู้ขาย และงานจ้างช่วง", "ลงเวลาช่าง เบิกล่วงหน้า ค่าแรง และประกันสังคม", "ต้นทุนจริงเทียบงบของแต่ละงาน", "ส่งข้อมูลรายเดือนให้นักบัญชี"],
+    },
+    en: {
+      tagline: "From BOQ to progress claims, for contractors.",
+      description:
+        "Price a job from a BOQ, sign a contract with payment stages, bill each claim, release retention, track each job's costs and pay your crew, all in one app. Built for house building, renovation and fit-out.",
+      chips: ["BOQ", "Progress claims", "Variations", "Retention", "Crew pay"],
+      features: ["Versioned BOQ priced from a cost library", "Quotation and staged contract", "Variation orders", "Progress claims, advance and retention", "Receipts and tax invoices with withholding tax", "Gantt schedule and site diary", "Purchases, supplier bills and sub-contracts", "Crew attendance, wage advances, pay and social security", "Job cost against budget", "Monthly export for the accountant"],
+    },
+  },
+  {
+    name: "PeerapoS Wellness",
+    icon: "/apps/wellness.png",
+    shots: 5,
+    uiLang: "th",
+    price: 4990,
+    th: {
+      tagline: "คิวนวด คลาสพิลาทิส และแพ็กเกจ ในโปรแกรมเดียว",
+      description:
+        "สำหรับร้านนวด สปา และสตูดิโอพิลาทิสหรือโยคะ จองคิวหมอนวด จัดตารางคลาสที่รับคนได้ตามจำนวนเครื่องที่ใช้ได้จริง ขายแพ็กเกจเป็นครั้งหรือเป็นนาที และคิดค่ามือหมอนวดกับค่าสอนครูให้",
+      chips: ["คิวนวด", "คลาส", "แพ็กเกจ", "ค่ามือ", "ทิป"],
+      features: ["ลูกค้าและแบบประเมินสุขภาพ พร้อมความยินยอม", "กระดานนัดหมายตามหมอนวดและเวลา", "คิวและลูกค้าเดินเข้า", "ตารางคลาสตามจำนวนเครื่องที่ใช้ได้ พร้อมรายชื่อรอ", "แพ็กเกจเป็นครั้งหรือเป็นนาที พักได้ โอนได้ คืนเงินได้", "รับเงิน มัดจำ ทิป และค่าบริการ", "ค่ามือหมอนวดและค่าสอนครู", "50 ทวิ ภ.ง.ด.3 และประกันสังคม", "รายงานและส่งข้อมูลให้นักบัญชี", "นำเข้าจาก Pilates, Massage และ Excel"],
+    },
+    en: {
+      tagline: "Appointments, classes and packages for massage shops and pilates studios.",
+      description:
+        "For massage and spa shops and for pilates and yoga studios. Book therapists, run a class timetable capped at the machines in service, sell packages by session or by minute, and work out therapist and instructor pay.",
+      chips: ["Appointments", "Classes", "Packages", "Therapist pay", "Tips"],
+      features: ["Customers with consented health screening", "Appointment board by therapist and time", "Queue and walk-ins", "Class timetable capped at machines in service, with waitlist", "Packages by session or minute: pause, transfer, refund", "Checkout with deposits, tips and service charge", "Therapist and instructor pay", "50 Tawi, PND 3 and social security", "Reports and accountant export", "Import from Pilates, Massage and Excel"],
     },
   },
 ];

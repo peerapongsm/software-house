@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { COPY, type Lang } from "./copy";
 import { useEffect, useRef, useState } from "react";
-import { APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
-import { EMAIL, FAQ, FASTWORK_URL, GANK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
+import { APPS, PAID_APPS, downloadUrl, shotUrls, type DesktopApp } from "./apps-data";
+import { BANK, EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 const ARMORY_URL = "https://armory.peerapongsm.dev/";
 
 // Brand icon paths from simple-icons (CC0), 24×24 viewBox unless noted.
@@ -13,6 +14,12 @@ const SOCIALS: { name: string; href: string; bg: string; path: string; viewBox?:
     href: LINE_URL,
     bg: "bg-[#06C755] fill-white",
     path: "M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314",
+  },
+  {
+    name: "Facebook",
+    href: FACEBOOK_URL,
+    bg: "bg-[#0866FF] fill-white",
+    path: "M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z",
   },
   {
     name: "TikTok",
@@ -29,190 +36,6 @@ const SOCIALS: { name: string; href: string; bg: string; path: string; viewBox?:
     path: "M32.883 24.9073L26.9362 20.3268L27.0544 21.2126C27.1112 21.573 27.1396 21.9373 27.1396 22.3021C27.1389 22.6189 27.1183 22.9353 27.0781 23.2495L31.4779 26.641C31.8864 26.9311 32.1722 27.3633 32.2792 27.8531C32.3861 28.343 32.3067 28.8552 32.0564 29.2895C31.8061 29.7238 31.4029 30.0489 30.9258 30.2012C30.4486 30.3536 29.9319 30.3221 29.4767 30.1131L22.8533 27.3705C23.7503 26.8648 24.4969 26.1293 25.0165 25.2395C25.5361 24.3497 25.81 23.3375 25.8102 22.3068C25.809 21.9365 25.7742 21.5671 25.7061 21.2031L24.1969 9.83476C24.0642 8.81628 23.566 7.88093 22.7951 7.20324C22.0243 6.52556 21.0335 6.15186 20.0076 6.15186C18.9818 6.15186 17.991 6.52556 17.2201 7.20324C16.4493 7.88093 15.951 8.81628 15.8183 9.83476L14.8295 17.2811L15.5345 16.7363C15.819 16.5075 16.1211 16.3016 16.4381 16.1205C16.7074 15.9656 16.9854 15.8264 17.2707 15.7037L18.004 10.1948C18.0524 9.69697 18.2842 9.23504 18.6541 8.89895C19.0241 8.56286 19.5057 8.37668 20.0052 8.37668C20.5048 8.37668 20.9864 8.56286 21.3564 8.89895C21.7263 9.23504 21.9581 9.69697 22.0065 10.1948L22.9527 17.3C21.8955 16.6787 20.6693 16.4078 19.4492 16.5261C18.229 16.6443 17.0775 17.1457 16.159 17.9584L7.11804 24.9216C6.30101 25.5452 5.73894 26.4455 5.53701 27.4541C5.33508 28.4627 5.50713 29.5104 6.02096 30.4011C6.5348 31.2919 7.35521 31.9646 8.32866 32.2935C9.30212 32.6224 10.3619 32.5848 11.3097 32.1878L18.2406 29.3221L17.4174 28.981C17.0799 28.8472 16.7526 28.6889 16.4381 28.5073C16.1677 28.3519 15.9085 28.1778 15.6622 27.9863L10.5244 30.1131C10.0691 30.3221 9.5524 30.3536 9.07527 30.2012C8.59813 30.0489 8.19495 29.7238 7.94464 29.2895C7.69432 28.8552 7.61489 28.343 7.72189 27.8531C7.82889 27.3633 8.11462 26.9311 8.52315 26.641L14.2003 22.2642C14.2003 22.2642 14.2003 22.2926 14.2003 22.3068C14.2013 23.4928 14.5643 24.6502 15.2408 25.6239C15.9173 26.5975 16.8748 27.3408 17.9851 27.7542L28.7008 32.1736C29.6482 32.5674 30.7063 32.6027 31.6777 32.2728C32.6492 31.9429 33.4675 31.2704 33.9802 30.3808C34.4928 29.4912 34.6646 28.4452 34.4636 27.438C34.2626 26.4309 33.7025 25.5314 32.8877 24.9073H32.883ZM16.4002 22.2926C16.4012 21.5827 16.6123 20.8889 17.0069 20.2991C17.4015 19.7093 17.9619 19.2498 18.6173 18.9788C19.2726 18.7078 19.9935 18.6373 20.6888 18.7764C21.3842 18.9155 22.0227 19.2578 22.5237 19.7602C23.0248 20.2625 23.3659 20.9023 23.5039 21.5986C23.6418 22.295 23.5705 23.0167 23.299 23.6725C23.0274 24.3283 22.5678 24.8888 21.9782 25.2831C21.3885 25.6774 20.6954 25.8879 19.9863 25.8879C19.515 25.8879 19.0483 25.7948 18.6129 25.6141C18.1775 25.4334 17.782 25.1685 17.4489 24.8345C17.1158 24.5006 16.8518 24.1043 16.6719 23.6681C16.4919 23.2319 16.3996 22.7645 16.4002 22.2926Z",
   },
 ];
-
-type Lang = "th" | "en";
-
-const COPY = {
-  th: {
-    eyebrow: "Software House รับทำแอปและเขียนโปรแกรมตามสั่ง",
-    navApps: "โปรแกรมฟรี",
-    navCustom: "รับทำแอป",
-    navAbout: "เกี่ยวกับ",
-    navContact: "ติดต่อ",
-    navSupport: "เลี้ยงชาบูผม",
-    banner: "ยังไม่มีเวอร์ชัน iOS, Android และ macOS เพราะการลงสโตร์มีค่าธรรมเนียม ถ้าอยากให้มี เลี้ยงชาบูผมที่ Gank ได้",
-    h1: "โปรแกรมฟรี",
-    heroSub:
-      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่ต้องสมัครสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
-    heroApps: "ดูโปรแกรมทั้งหมด",
-    heroCustom: "คุยเรื่องทำแอป",
-    wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
-    appsTitle: "เลือกตัวที่ตรงกับงานของคุณ",
-    appsSub: "ทุกตัวฟรี ทำงานได้โดยไม่ต้องต่อเน็ต และสำรองข้อมูลเก็บไว้เองได้",
-    winOnly: "ใช้ได้กับ Windows 10 และ 11 (64-bit) บนคอมพิวเตอร์ ยังไม่มีเวอร์ชัน Mac มือถือ และแท็บเล็ต",
-    uiLang: { th: "หน้าจอภาษาไทย", en: "หน้าจอภาษาอังกฤษ" },
-    dl: {
-      button: "ดาวน์โหลดตัวติดตั้ง",
-      size: "ไฟล์ .exe ประมาณ 100 MB",
-      guideTitle: "วิธีติดตั้ง",
-      guideWhy:
-        "โปรแกรมยังไม่มีลายเซ็นดิจิทัล (code signing) ที่ต้องจ่ายรายปี Windows กับเบราว์เซอร์เลยเตือนก่อนเปิดไฟล์ เป็นเรื่องปกติของโปรแกรมจากผู้พัฒนารายเล็ก ไฟล์ส่งตรงจากหน้า GitHub ของโปรแกรม",
-      // Each step = [main step, ...sub-steps]; sub-steps render as 2.1, 2.2 …
-      steps: [
-        ["กดปุ่มดาวน์โหลดด้านล่าง ไฟล์จะเริ่มโหลดทันที"],
-        [
-          "ถ้าเบราว์เซอร์เตือนว่าไฟล์นี้ไม่ค่อยมีคนดาวน์โหลด ให้เลือกเก็บไฟล์ไว้",
-          "Edge: กด ⋯ ที่รายการดาวน์โหลด แล้วกด Keep (เก็บไว้)",
-          "ถ้า Edge ถามอีกครั้ง: กด Show more แล้วกด Keep anyway",
-          "Chrome: กด Keep",
-        ],
-        [
-          "เปิดไฟล์ที่โหลดมา ถ้าขึ้นกรอบสีน้ำเงิน Windows protected your PC",
-          "กด More info (ข้อมูลเพิ่มเติม)",
-          "กด Run anyway (เรียกใช้ต่อไป)",
-        ],
-        ["รอติดตั้งจนเสร็จ แล้วเปิดโปรแกรมจากหน้าเดสก์ท็อปหรือเมนู Start"],
-      ],
-      note: "ฟรี ไม่ต้องสมัครสมาชิก",
-      support: "ชอบโปรแกรมนี้ไหม เลี้ยงชาบูผมได้ที่ Gank",
-      close: "ปิด",
-      features: "ทำอะไรได้บ้าง",
-      prev: "ภาพก่อนหน้า",
-      next: "ภาพถัดไป",
-      shot: "ภาพที่",
-    },
-    supportTitle: "ใช้แล้วชอบไหม",
-    supportBody:
-      "ทุกตัวยังฟรีเหมือนเดิม ใช้ได้เต็มที่ภายในขีดจำกัดของแต่ละตัว ถ้าอยากปลดขีดจำกัดก็มี PeerapoS Pro แต่ถ้าอยากเลี้ยงชาบูผม สามารถทำได้ที่ Gank ทุกบาทช่วยให้ผมทำโปรแกรมตัวใหม่ ๆ ต่อ",
-    supportButton: "เลี้ยงชาบูผมที่ Gank",
-    customTitle: "รับทำแอปและเขียนโปรแกรมตามสั่ง",
-    customSub:
-      "งานบางอย่างไม่มีโปรแกรมสำเร็จรูปที่พอดี ถ้างานของร้านคุณยังติดอยู่ในสมุดหรือสเปรดชีต เราทำแอปเล็ก ๆ ให้ตรงกับวิธีทำงานของคุณ",
-    steps: [
-      {
-        title: "คุยกัน",
-        body: "เล่าให้ฟังว่าร้านทำงานยังไง ใช้ภาษาธรรมดา ไม่ต้องมีเอกสารสเปก แล้วเราหาจุดที่เสียเวลามากที่สุดด้วยกัน",
-      },
-      {
-        title: "ทำงาน",
-        body: "ออกแบบและสร้างแอปให้พอดีกับงานของคุณ ไม่ใส่ฟีเจอร์เกินจำเป็น ใช้เวลาเป็นสัปดาห์ ไม่ใช่หลายเดือน",
-      },
-      {
-        title: "ส่งมอบ",
-        body: "คุณได้แอปไปใช้ ข้อมูลเป็นของคุณ และเรายังช่วยปรับแก้ให้เมื่อธุรกิจโตขึ้น",
-      },
-    ],
-    armoryTitle: "อยากดูงานทดลองอื่น ๆ",
-    armoryBody: "เว็บแอป เกม และเครื่องมือเล็ก ๆ ที่ทำทีละตัวตลอดหนึ่งปี เก็บไว้ที่ The Armory",
-    armoryLink: "ไปที่ The Armory",
-    faqTitle: "คำถามที่พบบ่อย",
-    aboutTitle: "สวัสดีครับ ผมพี",
-    aboutBody:
-      "ผมชื่อพีระพงศ์ ศักดิ์สมมนต์ เรียกพีก็ได้ครับ โปรแกรมทุกตัวในเว็บนี้ผมทำเองทั้งหมด ตอนนี้ทำงานประจำอยู่ที่ธนาคารแห่งประเทศไทย ก่อนหน้านั้นเป็น Full-Stack Engineer ที่ Agoda นอกเวลางานก็ทำโปรแกรมพวกนี้แจกให้ใช้ฟรี ถ้ามีงานไหนที่กินเวลาคุณทุกวัน ทักมาเล่าให้ผมฟังได้เลยครับ",
-    creds: [
-      "ธนาคารแห่งประเทศไทย - Software Architect",
-      "Ex-Agoda · Full-Stack Engineer",
-      "ป.โท Information Systems, Syracuse University",
-      "ป.ตรี Information Technology, University of Washington",
-      "Microsoft Certified: Azure Solutions Architect Expert",
-    ],
-    contactTitle: "เล่าให้ฟังว่าอะไรกินเวลาคุณทุกวัน",
-    contactSub: "ส่งอีเมลหรือทัก LINE มาได้เลย ถ้าแอปเล็ก ๆ ช่วยได้ เราจะบอกว่าทำอะไรได้บ้างและใช้เวลาเท่าไร",
-    terms: "ข้อกำหนดการใช้งาน",
-    privacy: "นโยบายความเป็นส่วนตัว",
-    deleteAccount: "ลบบัญชี",
-    visitor: "คุณคือผู้เข้าชมคนที่",
-  },
-  en: {
-    eyebrow: "Software house for custom apps",
-    navApps: "Free apps",
-    navCustom: "Custom apps",
-    navAbout: "About",
-    navContact: "Contact",
-    navSupport: "Support me",
-    banner: "iOS, Android and macOS versions aren't available yet because app stores charge publishing fees. Support me on Gank so I can publish them.",
-    h1: "Free software",
-    heroSub:
-      "Windows apps that work offline. Your data stays on your PC. No subscription needed, no ads. If none of them fits your work, we'll build one that does.",
-    heroApps: "See all apps",
-    heroCustom: "Talk about a custom app",
-    wallLabel: "All apps. Select one for details.",
-    appsTitle: "Pick the one that fits your work",
-    appsSub: "Every app is free, runs without an internet connection, and lets you keep your own backups.",
-    winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
-    uiLang: { th: "Thai interface", en: "English interface" },
-    dl: {
-      button: "Download installer",
-      size: ".exe file, about 100 MB",
-      guideTitle: "How to install",
-      guideWhy:
-        "The apps aren't code-signed yet (that costs a yearly fee), so Windows and your browser warn you before the file runs. That's normal for software from small developers. The file comes straight from the app's GitHub page.",
-      steps: [
-        ["Press the download button below. The download starts right away."],
-        [
-          "If your browser says the file isn't commonly downloaded, keep it.",
-          "Edge: press ⋯ on the download, then Keep.",
-          "If Edge asks again: press Show more, then Keep anyway.",
-          "Chrome: press Keep.",
-        ],
-        [
-          "Open the downloaded file. If a blue box says Windows protected your PC:",
-          "Press More info.",
-          "Press Run anyway.",
-        ],
-        ["Wait for the install to finish, then open the app from its desktop icon or the Start menu."],
-      ],
-      note: "Free, no account needed.",
-      support: "Like this app? Support me on Gank",
-      close: "Close",
-      features: "What it does",
-      prev: "Previous screenshot",
-      next: "Next screenshot",
-      shot: "Screenshot",
-    },
-    supportTitle: "Do these apps help your work?",
-    supportBody:
-      "Every app stays free within its limits, and PeerapoS Pro lifts them. If you'd like to say thanks, you can send me a tip on Gank. It helps me keep building new apps.",
-    supportButton: "Support me on Gank",
-    customTitle: "Custom app development",
-    customSub:
-      "Some work has no off-the-shelf program that fits. If your shop still runs on a notebook or a spreadsheet, we build a small app around the way you already work.",
-    steps: [
-      {
-        title: "Discuss",
-        body: "Tell us how your shop actually runs, in plain words. No spec documents. Together we find the part that costs you the most time.",
-      },
-      {
-        title: "Build",
-        body: "We design and build an app around your workflow, with nothing you won't use. It takes weeks, not months.",
-      },
-      {
-        title: "Deliver",
-        body: "You get the app and your data stays yours. We stay around for changes as your business grows.",
-      },
-    ],
-    armoryTitle: "Looking for the experiments?",
-    armoryBody: "Web apps, games and small tools, built one at a time over a year, live in The Armory.",
-    armoryLink: "Visit The Armory",
-    faqTitle: "Questions people ask",
-    aboutTitle: "Hi, I'm Peter",
-    aboutBody:
-      "Peerapong Saksommon here, Peter for short. I build every app on this site myself. By day I work at the Bank of Thailand, and before that I wrote code at Agoda. Outside work I make these apps and give them away. If something eats your time every day, message me and tell me about it. No pressure.",
-    creds: [
-      "Bank of Thailand - Software Architect",
-      "Ex-Agoda · Full-Stack Engineer",
-      "MS Information Systems, Syracuse University",
-      "BS Information Technology, University of Washington",
-      "Microsoft Certified: Azure Solutions Architect Expert",
-    ],
-    contactTitle: "Tell us what eats your time every day",
-    contactSub: "Send an email or message us on LINE. If a small app can help, we'll tell you what it would do and how long it would take.",
-    terms: "Terms of use",
-    privacy: "Privacy policy",
-    deleteAccount: "Delete account",
-    visitor: "You are visitor no.",
-  },
-} as const;
 
 /** "PeerapoS Wash" → "Wash": the tile label under each icon. */
 const short = (a: DesktopApp) => a.name.replace(/^PeerapoS /, "");
@@ -308,12 +131,63 @@ function TileWall({ label, onOpen }: { label: string; onOpen: (a: DesktopApp) =>
   );
 }
 
+/** Support card: PromptPay QR + KBank account, with copy and save for phone visitors who can't scan their own screen. */
+function BankCard({ t }: { t: { bankLabel: string; name: string; accountName: string; accountNo: string; holder: string; copy: string; copied: string; qrAlt: string; qrHint: string; saveQr: string } }) {
+  const [copied, setCopied] = useState(false);
+  function copy() {
+    navigator.clipboard
+      ?.writeText(BANK.accountNo.replace(/-/g, ""))
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
+  }
+  return (
+    <div className="w-full shrink-0 rounded-2xl bg-white p-5 text-ink shadow-lg sm:p-6 md:w-[22rem]">
+      <img src="/support/promptpay-qr.jpg" alt={t.qrAlt} width={830} height={1200} className="mx-auto h-auto w-full max-w-[15rem] rounded-lg" />
+      <p className="mt-3 text-center text-sm leading-relaxed text-graphite">{t.qrHint}</p>
+      <a
+        href="/support/promptpay-qr.jpg"
+        download="PeerapoS-PromptPay-QR.jpg"
+        className="mt-3 block rounded-xl border-2 border-tip px-4 py-2.5 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
+      >
+        {t.saveQr}
+      </a>
+      <dl className="mt-5 space-y-2 border-t border-ink/10 pt-4 text-sm">
+        <div className="flex justify-between gap-3">
+          <dt className="text-graphite">{t.bankLabel}</dt>
+          <dd className="text-right font-semibold">{t.name}</dd>
+        </div>
+        <div className="flex justify-between gap-3">
+          <dt className="text-graphite">{t.accountName}</dt>
+          <dd className="text-right font-semibold">{t.holder}</dd>
+        </div>
+        <div className="flex items-center justify-between gap-3">
+          <dt className="text-graphite">{t.accountNo}</dt>
+          <dd className="flex items-center gap-2">
+            <span className="font-mono text-base font-bold tracking-wide">{BANK.accountNo}</span>
+            <button
+              type="button"
+              onClick={copy}
+              aria-live="polite"
+              className="rounded-lg bg-tip px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-tip-deep"
+            >
+              {copied ? t.copied : t.copy}
+            </button>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("th");
   const t = COPY[lang];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [openAppName, setOpenAppName] = useState<string | null>(null);
-  const app = APPS.find((a) => a.name === openAppName);
+  const app = APPS.find((a) => a.name === openAppName) ?? PAID_APPS.find((a) => a.name === openAppName);
 
   function openApp(a: DesktopApp) {
     setOpenAppName(a.name);
@@ -337,9 +211,7 @@ export default function Home() {
   return (
     <main className="overflow-x-clip">
       <a
-        href={GANK_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#support"
         className="block bg-tip px-4 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-tip-deep"
       >
         {t.banner}
@@ -351,17 +223,16 @@ export default function Home() {
           <span className="font-display text-2xl font-extrabold tracking-tight sm:text-[1.7rem]">PeerapoS</span>
         </a>
         <div className="flex items-center gap-3 md:gap-6">
-          <nav className="hidden items-center gap-6 font-semibold text-graphite md:flex">
+          <nav className="hidden items-center gap-6 font-semibold text-graphite lg:flex">
             <a href="#apps" className="hover:text-ink">{t.navApps}</a>
+            <a href="#paid" className="hover:text-ink">{t.navPaid}</a>
             <a href="#custom" className="hover:text-ink">{t.navCustom}</a>
             <a href="#about" className="hover:text-ink">{t.navAbout}</a>
             <a href="#contact" className="hover:text-ink">{t.navContact}</a>
           </nav>
           {/* Shown at every width (the nav above hides on mobile) so support is always one tap away. */}
           <a
-            href={GANK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#support"
             className="whitespace-nowrap rounded-full bg-tip px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-tip-deep sm:px-4"
           >
             {t.navSupport}
@@ -439,14 +310,52 @@ export default function Home() {
             <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{t.supportTitle}</h2>
             <p className="mt-3 text-lg leading-relaxed text-white/90">{t.supportBody}</p>
           </div>
-          <a
-            href={GANK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded-xl bg-white px-7 py-4 text-center text-lg font-bold text-tip-deep transition-colors hover:bg-paper"
-          >
-            {t.supportButton}
-          </a>
+          <BankCard t={t.bank} />
+        </div>
+      </section>
+
+      {/* ── Paid apps ──────────────────────────────────── */}
+      <section id="paid" className="border-t border-line bg-sheet py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-8">
+          <p className="mb-4 inline-block rounded-full bg-indigo px-4 py-2 font-semibold text-white">{t.paidSoon}</p>
+          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-5xl">{t.paidTitle}</h2>
+          <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite">{t.paidSub}</p>
+          <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
+            {PAID_APPS.map((a) => {
+              const c = a[lang];
+              return (
+                <li key={a.name} className="border-b border-line">
+                  <button
+                    type="button"
+                    onClick={() => openApp(a)}
+                    aria-haspopup="dialog"
+                    className="group flex w-full items-center gap-4 py-4 text-left md:items-start md:py-6"
+                  >
+                    <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%] md:size-14" />
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-display text-lg font-bold group-hover:text-indigo md:text-xl">{a.name}</span>
+                      {a.price !== undefined && (
+                        <span className="block text-xl font-bold text-indigo">
+                          ฿{a.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
+                        </span>
+                      )}
+                      <span className="block leading-snug text-graphite">{c.tagline}</span>
+                      <span className="mt-3 hidden flex-wrap gap-1.5 md:flex">
+                        {c.chips.map((chip) => (
+                          <span key={chip} className="rounded-md bg-paper px-2 py-0.5 text-sm text-graphite">
+                            {chip}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                    <span aria-hidden="true" className="text-2xl text-line group-hover:text-ink md:hidden">
+                      ›
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
@@ -550,7 +459,7 @@ export default function Home() {
             ))}
           </ul>
 
-          <footer className="mt-16 flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:justify-between">
+          <footer className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
             <span>© 2026 พีระพอส (PeerapoS)</span>
             {visits !== null && (
               <span className="flex items-center gap-2">
@@ -560,10 +469,26 @@ export default function Home() {
                 </span>
               </span>
             )}
-            <span className="flex gap-4">
+            <span className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <a href="/terms" className="hover:text-white">{t.terms}</a>
               <a href="/privacy" className="hover:text-white">{t.privacy}</a>
               <a href="/delete-account" className="hover:text-white">{t.deleteAccount}</a>
+              {/* White chip: the DBD logo is purple/blue on transparent, unreadable on bg-ink */}
+              <a
+                href="https://dbdregistered.dbd.go.th/api/public/shopinfoReg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md bg-white px-1.5 py-1 opacity-90 transition-opacity hover:opacity-100"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://dbdregistered.dbd.go.th/api/public/bannerreg?param=C1DFB0EB759AA8D60773404F348C82B490A06A8033600509694D96B7FAE4530C"
+                  alt="DBD Registered"
+                  width={324}
+                  height={154}
+                  className="h-8 w-auto"
+                />
+              </a>
             </span>
           </footer>
         </div>
@@ -586,6 +511,11 @@ export default function Home() {
               <div className="min-w-0">
                 <h2 id="dl-title" className="break-words font-display text-2xl font-bold sm:text-3xl">
                   {app.name}
+                  {app.price !== undefined && (
+                    <span className="mt-1 block text-xl text-indigo sm:ml-3 sm:mt-0 sm:inline-block">
+                      ฿{app.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
+                    </span>
+                  )}
                 </h2>
                 <p className="text-lg text-graphite">{app[lang].tagline}</p>
               </div>
@@ -598,7 +528,7 @@ export default function Home() {
               </button>
             </div>
 
-            <Carousel key={app.name} srcs={shotUrls(app)} alt={app.name} labels={t.dl} />
+            {app.shots > 0 && <Carousel key={app.name} srcs={shotUrls(app)} alt={app.name} labels={t.dl} />}
 
             <p className="mt-5 max-w-3xl leading-relaxed text-graphite">{app[lang].description}</p>
 
@@ -613,8 +543,21 @@ export default function Home() {
               {t.uiLang[app.uiLang]} · {t.winOnly}
             </p>
 
+            {app.price !== undefined ? (
+              <>
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="mt-6 block w-full cursor-not-allowed rounded-xl bg-line px-6 py-4 text-center text-lg font-semibold text-graphite"
+                >
+                  {t.comingSoon}
+                </button>
+                <p className="mt-2 text-center text-sm text-graphite">{t.paidNote}</p>
+              </>
+            ) : (
+            <>
             <h3 className="mt-6 font-display text-lg font-bold">{t.dl.guideTitle}</h3>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-graphite">{t.dl.guideWhy}</p>
             {/* Numbers are written out (1, 2.1, 2.2 …) so sub-steps read the way they're spoken. */}
             <ol className="mt-3 grid gap-2 leading-relaxed">
               {t.dl.steps.map(([step, ...subs], i) => (
@@ -645,17 +588,8 @@ export default function Home() {
             >
               {t.dl.button}
             </a>
-            <p className="mt-2 text-center text-sm text-graphite">
-              {t.dl.size} · {t.dl.note}
-            </p>
-            <a
-              href={GANK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 block rounded-xl border-2 border-tip px-6 py-3 text-center font-semibold text-tip-deep transition-colors hover:bg-tip hover:text-white"
-            >
-              {t.dl.support}
-            </a>
+            </>
+            )}
           </div>
         )}
       </dialog>
