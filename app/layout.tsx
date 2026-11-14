@@ -18,7 +18,7 @@ import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, IS_UAT, LINE_URL, SERVICES, SIT
 
 const TITLE = "PeerapoS Software House | รับทำแอปและเขียนโปรแกรมตามสั่ง + โปรแกรมฟรีสำหรับ SME";
 const DESCRIPTION =
-  "Software house รับทำแอปและเขียนโปรแกรมตามสั่งสำหรับธุรกิจ ทั้งโปรแกรม Windows และเว็บแอป ระบบสต็อก ลูกค้า ใบสั่งงาน แจ้งซ่อม ใช้เวลาเป็นสัปดาห์ พร้อมโปรแกรมฟรีสำหรับ SME ใช้งานออฟไลน์";
+  "Software house รับทำแอปและเขียนโปรแกรมตามสั่งสำหรับธุรกิจ ทั้งโปรแกรม Windows และเว็บแอป ระบบสต็อก ลูกค้า ใบสั่งงาน แจ้งซ่อม พร้อมโปรแกรมฟรีสำหรับ SME ใช้งานออฟไลน์";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

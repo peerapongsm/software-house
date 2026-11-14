@@ -35,14 +35,16 @@ Contact: ${EMAIL} · LINE ${LINE_URL} · Facebook ${FACEBOOK_URL} · Fastwork ${
 - Offline Windows programs, and web apps that run on phones, tablets and desktops.
 - Typical work: back-office systems such as inventory, customer records (CRM), work orders and maintenance requests.
 - No spec document needed: describe how the business runs in plain words.
-- Usually takes weeks, not months. Only the features the client will use.
-- The client owns the data; changes and support continue after delivery.
+- Small systems take days to a few weeks, mid-size systems about 2–4 months, large ones about 5–7 months. Only the features the client will use.
+- The client owns the data and the source code (handed over on final payment). Bug fixes are free for at least 3 months after acceptance, then a yearly support contract is optional; support requires that nobody else changes the code without agreement.
+- No monthly fee to PeerapoS; cloud and domain accounts are in the client's name and paid to the provider directly.
+- Payment for mid-size and larger systems: usually 30% at signing, 30% when testing passes, 40% after go-live and acceptance. No VAT (not VAT-registered).
 
 ## Prices (starting, THB)
 
 ${SERVICES.map((s) => `- ${s.en} [${s.th}]: from ${s.price.toLocaleString("en-US")} THB per ${s.unit}`).join("\n")}
 
-Final price depends on scope. Hire directly by email/LINE or through Fastwork (${FASTWORK_URL}).
+Typical totals: small systems around 5,000 THB, mid-size systems around 90,000 THB, large systems priced by scope after a free requirements survey. Hire directly by email/LINE or through Fastwork (${FASTWORK_URL}).
 
 ## Who builds it
 
