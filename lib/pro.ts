@@ -18,10 +18,10 @@ export type ProPlan = "month" | "year" | "pass";
 
 const SOURCE: Record<ProSource, Msg> = {
   play: { th: "Google Play", en: "Google Play" },
-  stripe: { th: "บัตร", en: "card" },
-  pass: { th: "บัตรรายปี", en: "prepaid pass" },
+  stripe: { th: "การสมัครผ่านบัตร", en: "card" },
+  pass: { th: "Pro 1 ปี", en: "prepaid pass" },
 };
-const PASS_LIMIT: Msg = { th: "ซื้อบัตรล่วงหน้าได้ไม่เกิน 2 ปี รอให้ใกล้หมดอายุแล้วลองอีกครั้ง", en: "Passes cover up to 2 years ahead. Try again closer to expiry." };
+const PASS_LIMIT: Msg = { th: "ซื้อ Pro 1 ปีล่วงหน้าได้สูงสุด 2 ปี รอใกล้หมดอายุแล้วค่อยซื้อเพิ่ม", en: "Passes cover up to 2 years ahead. Try again closer to expiry." };
 const NEED_CONSENT: Msg = { th: "ยอมรับเงื่อนไขก่อนชำระเงิน", en: "Accept the terms before paying." };
 
 export function proBuyError(r: ApiResult<unknown> & { ok: false }): Msg {
@@ -75,8 +75,8 @@ export const PRO_COPY = {
   webH: { th: "ซื้อบนเว็บ", en: "Buy on the website" },
   monthBuy: { th: "ซื้อแบบรายเดือน", en: "Buy monthly" },
   yearBuy: { th: "ซื้อแบบรายปี", en: "Buy yearly" },
-  passBuy: { th: "ซื้อบัตรรายปี", en: "Buy a 1-year pass" },
-  card: { th: "บัตร", en: "card" },
+  passBuy: { th: "ซื้อ Pro 1 ปี จ่ายครั้งเดียว", en: "Buy a 1-year pass" },
+  card: { th: "สมัครผ่านบัตร", en: "card" },
   passNote: { th: "PromptPay หรือบัตร ไม่ต่ออายุอัตโนมัติ", en: "PromptPay or card, no auto-renew" },
   renewNote: { th: "ต่ออายุอัตโนมัติ ยกเลิกได้ทุกเมื่อในหน้าบัญชี", en: "Renews automatically; cancel any time from your account" },
   accept: { th: "ฉันยอมรับ", en: "I accept the" },

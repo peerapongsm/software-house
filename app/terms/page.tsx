@@ -17,15 +17,15 @@ const COPY = {
     en: "PeerapoS Pro is sold on the website and through Google Play. Prices and payment methods are shown at checkout. Pro bought in an Android app is paid through Google Play at the price Google Play shows when you subscribe.",
   },
   deletion: {
-    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และบัตรรายปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป การลบบัญชีไม่ยกเลิกการสมัครใน Google Play ให้ยกเลิกใน Google Play ก่อน มิฉะนั้นจะถูกคิดเงินต่อ และการสมัครของบัญชีที่ลบไปแล้วผูกกับบัญชีใหม่ไม่ได้",
     en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost. Deleting the account does NOT cancel a Google Play subscription. Cancel it in Google Play first or you will keep being charged; a subscription from a deleted account cannot be attached to a new account.",
   },
   payment: {
-    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและบัตรรายปีจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
+    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและ Pro 1 ปีจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
     en: "Website purchases of paid apps and Pro use Stripe's payment page. Paid apps and prepaid passes accept card or PromptPay; auto-renewing monthly and yearly Pro subscriptions accept cards only. Enter payment details on Stripe's page; we never see card numbers.",
   },
   receipt: {
-    th: "เมื่อชำระค่าแอปซื้อขาดหรือบัตรรายปีแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
+    th: "เมื่อชำระค่าแอปซื้อขาดหรือ Pro 1 ปีแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
     en: "After payment for a paid app or prepaid pass we email a payment confirmation to the receipt email. Stripe sends card-subscription invoices and renewal emails. Our confirmation is proof of payment, not a tax invoice.",
   },
   cancel: {
@@ -33,11 +33,11 @@ const COPY = {
     en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds. Pro bought through Google Play is managed and cancelled in Google Play.",
   },
   pass: {
-    th: "บัตรรายปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะบัตรรายปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยบัตรใหม่เริ่มเมื่อบัตรเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้ Pro จาก Google Play หรือการสมัครผ่านบัตรสิ้นสุดก่อนซื้อบัตรรายปี และถ้ามีบัตรรายปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
+    th: "Pro 1 ปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro 1 ปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลา Pro 1 ปีที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้ Pro จาก Google Play หรือการสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro 1 ปี จ่ายครั้งเดียว และถ้ามี Pro 1 ปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
     en: "A prepaid pass covers 1 year and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active Google Play or card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
   },
   ends: {
-    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อบัตรรายปีหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
+    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อ Pro 1 ปีหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
     en: "Pro ends when the paid period runs out after cancellation, a prepaid pass expires, the payment provider cannot collect payment within its allowed recovery time, or a purchase is fully refunded, revoked or a payment dispute is lost.",
   },
   grace: {

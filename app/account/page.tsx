@@ -77,17 +77,17 @@ const COPY = {
 
 const PRO_SOURCE: Record<ProSource, Msg> = {
   play: { th: "จาก Google Play", en: "Google Play" },
-  stripe: { th: "บัตร (ต่ออายุอัตโนมัติ)", en: "Card (auto-renew)" },
-  pass: { th: "บัตรรายปีแบบจ่ายล่วงหน้า", en: "Prepaid annual pass" },
+  stripe: { th: "สมัครผ่านบัตร (ต่ออายุอัตโนมัติ)", en: "Card (auto-renew)" },
+  pass: { th: "Pro 1 ปี แบบจ่ายครั้งเดียว", en: "Prepaid annual pass" },
 };
 const PRO_TEXT = {
   title: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   portal: { th: "จัดการการสมัคร", en: "Manage subscription" },
-  renew: { th: "ต่ออายุบัตรรายปี", en: "Renew pass" },
+  renew: { th: "ซื้อ Pro 1 ปีเพิ่ม", en: "Renew pass" },
   cancelled: { th: "ยกเลิกแล้ว ใช้ได้ถึง", en: "Cancelled. Valid until" },
   accept: { th: "ฉันยอมรับ", en: "I accept the" },
   terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },
-  passNote: { th: "บัตรรายปี ไม่ต่ออายุอัตโนมัติ", en: "1-year pass, no auto-renew" },
+  passNote: { th: "Pro 1 ปี ไม่ต่ออายุอัตโนมัติ", en: "1-year pass, no auto-renew" },
   noSub: { th: "ไม่พบการสมัครผ่านบัตร รีเฟรชหน้าบัญชีแล้วลองอีกครั้ง", en: "No card subscription found. Refresh your account and try again." },
   wait: { th: "ได้รับการชำระเงินแล้ว Pro จะขึ้นในไม่กี่วินาที", en: "Payment received. Pro appears in a few seconds." },
   done: { th: "Pro พร้อมใช้งานแล้ว", en: "Pro is ready to use." },

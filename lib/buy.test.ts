@@ -108,11 +108,11 @@ test("orderError: the server's message, else a connect or generic line", () => {
 
 for (const [error, message] of Object.entries({
   tooManyOrders: {
-    th: "มีคำสั่งซื้อค้างอยู่หลายรายการ รอสักครู่หรือชำระรายการเดิมก่อน",
+    th: "มีคำสั่งซื้อที่ยังไม่ชำระหลายรายการ ชำระรายการเดิมก่อน หรือรอ 1 วันให้หมดอายุ",
     en: "You have several unpaid orders. Pay one of them or wait a day.",
   },
   payDown: {
-    th: "ระบบชำระเงินขัดข้อง ลองใหม่อีกครั้งในไม่กี่นาที",
+    th: "ระบบชำระเงินขัดข้อง ลองใหม่ในอีกไม่กี่นาที",
     en: "Payments are down. Try again in a few minutes.",
   },
   salesOff: {

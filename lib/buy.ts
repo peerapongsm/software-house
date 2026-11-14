@@ -19,8 +19,8 @@ const ORDER_RE = /^O-[0-9A-HJKMNP-TV-Z]{10}$/;
 const NET: Msg = { th: "เชื่อมต่อไม่ได้ ลองอีกครั้ง", en: "Can't connect. Try again." };
 const OOPS: Msg = { th: "มีบางอย่างผิดพลาด ลองอีกครั้ง", en: "Something went wrong. Try again." };
 const ORDER_ERRORS: ReadonlyMap<string, Msg> = new Map([
-  ["tooManyOrders", { th: "มีคำสั่งซื้อค้างอยู่หลายรายการ รอสักครู่หรือชำระรายการเดิมก่อน", en: "You have several unpaid orders. Pay one of them or wait a day." }],
-  ["payDown", { th: "ระบบชำระเงินขัดข้อง ลองใหม่อีกครั้งในไม่กี่นาที", en: "Payments are down. Try again in a few minutes." }],
+  ["tooManyOrders", { th: "มีคำสั่งซื้อที่ยังไม่ชำระหลายรายการ ชำระรายการเดิมก่อน หรือรอ 1 วันให้หมดอายุ", en: "You have several unpaid orders. Pay one of them or wait a day." }],
+  ["payDown", { th: "ระบบชำระเงินขัดข้อง ลองใหม่ในอีกไม่กี่นาที", en: "Payments are down. Try again in a few minutes." }],
   ["salesOff", { th: "ยังไม่เปิดขายตอนนี้", en: "Sales are closed right now." }],
 ]);
 

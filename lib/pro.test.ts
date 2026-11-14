@@ -42,7 +42,7 @@ test("proDonePoll: only future coverage completes, even if cancellation is sched
 });
 
 test("proBuyError: existing Pro identifies source and date in both languages", () => {
-  for (const [source, th, en] of [["play", "Google Play", "Google Play"], ["stripe", "บัตร", "card"], ["pass", "บัตรรายปี", "pass"]]) {
+  for (const [source, th, en] of [["play", "Google Play", "Google Play"], ["stripe", "การสมัครผ่านบัตร", "card"], ["pass", "Pro 1 ปี", "pass"]]) {
     const msg = proBuyError({ ok: false, status: 409, error: "proActive", data: { source, until: "2027-01-01T00:00:00.000Z" } });
     assert.doesNotMatch(msg.th, /T00:00/);
     assert.doesNotMatch(msg.en, /T00:00/);
@@ -61,7 +61,7 @@ test("proBuyError: actionable bilingual messages for limits, closed sales, conse
   }
   assert.deepEqual(proBuyError({ ok: false, status: 0, error: "net" }), { th: "เชื่อมต่อไม่ได้ ลองอีกครั้ง", en: "Can't connect. Try again." });
   assert.deepEqual(proBuyError({ ok: false, status: 503, error: "payDown" }), {
-    th: "ระบบชำระเงินขัดข้อง ลองใหม่อีกครั้งในไม่กี่นาที",
+    th: "ระบบชำระเงินขัดข้อง ลองใหม่ในอีกไม่กี่นาที",
     en: "Payments are down. Try again in a few minutes.",
   });
   assert.match(proBuyError({ ok: false, status: 500, error: "http" }).en, /Try again/);
