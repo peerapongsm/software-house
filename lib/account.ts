@@ -48,7 +48,10 @@ export const removedAll = (n: number): Msg => ({ th: `ยกเลิกแล�
 /** Pro source and available actions; PC grace does not prevent a new purchase. */
 export function proView(pro: ProInfo | null, now: number): { status: PlanStatus | null; source: ProSource | null; manage: "play" | "portal" | null; renew: boolean; subscribe: boolean } {
   if (!pro) return { status: null, source: null, manage: null, renew: false, subscribe: true };
-  const status = planStatus(pro.until, now);
+  const raw = planStatus(pro.until, now);
+  // A subscription that will renew is not running out: no countdown until it is cancelled.
+  const renews = pro.source !== "pass" && !pro.cancelling;
+  const status: PlanStatus = renews && raw.kind === "soon" ? { ...raw, tone: "ok", kind: "active" } : raw;
   const expired = Date.parse(pro.until) <= now;
   return {
     status,

@@ -76,6 +76,15 @@ test("proView: Stripe opens the portal, Play opens Play", () => {
   }
 });
 
+test("proView: a renewing subscription near its period end shows Active; cancelling or a pass shows the countdown", () => {
+  const until = "2026-11-29T15:00:00+07:00";
+  for (const source of ["stripe", "play"] as const) {
+    assert.equal(proView({ source, until }, NOW).status?.kind, "active");
+    assert.equal(proView({ source, until, cancelling: true }, NOW).status?.kind, "soon");
+  }
+  assert.equal(proView({ source: "pass", until }, NOW).status?.kind, "soon");
+});
+
 test("proView: passes renew in the last 30 days, never open subscription management", () => {
   for (const [until, renew] of [["2026-12-09T15:00:00+07:00", false], ["2026-11-29T15:00:00+07:00", true], ["2026-11-19T15:00:00+07:00", true]] as const) {
     const view = proView({ source: "pass", until, cancelling: false }, NOW);
@@ -156,7 +165,7 @@ test("deleteNeedsAck: activeSub requires acknowledgement only on 409", () => {
 });
 
 test("account Pro card uses the authoritative source even without tier", () => {
-  for (const [source, label] of [["play", "Google Play"], ["stripe", "Card (auto-renew)"], ["pass", "Prepaid annual pass"]] as const) {
+  for (const [source, label] of [["play", "Google Play"], ["stripe", "Card subscription, cancelled"], ["pass", "Prepaid annual pass"]] as const) {
     const html = renderToStaticMarkup(planHarness().render(source));
     assert.ok(html.includes(label), html);
     assert.ok(html.includes("19 Nov 2026"), html);
