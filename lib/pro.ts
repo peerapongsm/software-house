@@ -62,7 +62,7 @@ export const PRO_COPY = {
   gets: [
     { th: "ฟีเจอร์ Pro ในแอปฟรีทุกตัว", en: "Pro features in every free app" },
     { th: "ฟีเจอร์ Pro ในแอปแบบซื้อขาดที่คุณเป็นเจ้าของ", en: "Pro features in the paid apps you own" },
-    { th: "เชื่อมมือถือได้หลายเครื่อง ใช้นอกร้านผ่านรีเลย์ และตัวเชื่อม AI", en: "More phones, access from outside the shop through the relay, and the AI connector" },
+    { th: "ตัวเชื่อม AI ในทุกแอป", en: "The AI connector in every app" },
     { th: "สำรองข้อมูลไป Google Drive ของคุณเองในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว)", en: "Backup to your own Google Drive in the free apps (paid apps already include it)" },
   ],
   factsH: { th: "ก่อนสมัคร", en: "Before you subscribe" },
