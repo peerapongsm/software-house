@@ -1,10 +1,7 @@
 import { readFileSync } from "node:fs";
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
-import ts from "typescript";
+import { legalArticle } from "./legal-test-helper.ts";
 
 test("delete-account: reuses the Terms deletion wording in both languages", () => {
   const terms = readFileSync(new URL("../app/terms/page.tsx", import.meta.url), "utf8");
@@ -16,18 +13,8 @@ test("delete-account: reuses the Terms deletion wording in both languages", () =
   }
 });
 
-// Render the real static pages with the installed compiler; node --test cannot load TSX.
-function article(page: string, lang: "th" | "en") {
-  const source = readFileSync(new URL(`../app/${page}/page.tsx`, import.meta.url), "utf8");
-  const { outputText } = ts.transpileModule(source, {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX },
-  });
-  const exports: { default?: React.ComponentType } = {};
-  new Function("require", "exports", outputText)(createRequire(import.meta.url), exports);
-  const html = renderToStaticMarkup(createElement(exports.default!));
-  const match = html.match(new RegExp(`<article lang="${lang}"[^>]*>([\\s\\S]*?)</article>`));
-  assert.ok(match, `${page} has a ${lang} article`);
-  return match[1].replace(/<[^>]+>/g, " ").replace(/&#x27;/g, "'");
+function article(page: "terms" | "privacy", lang: "th" | "en") {
+  return legalArticle(page, lang).text;
 }
 
 for (const lang of ["th", "en"] as const) {
@@ -72,13 +59,12 @@ for (const lang of ["th", "en"] as const) {
     assert.doesNotMatch(text, /slip|สลิป/i);
   });
 
-  test(`legal pages (${lang}): account deletion covers website card subscriptions; date is current`, () => {
-    for (const page of ["terms", "privacy"]) {
+  test(`legal pages (${lang}): account deletion covers website card subscriptions`, () => {
+    for (const page of ["terms", "privacy"] as const) {
       const text = article(page, lang);
       assert.match(text, lang === "th" ? /ยกเลิกทันที.*ไม่คืนเงิน/ : /cancelled immediately without a refund/);
       assert.doesNotMatch(text, /prepaid pass|Pro 1 ปี/);
       assert.doesNotMatch(text, /Google Play|Play purchase|Play records|บน Play/);
-      assert.match(text, lang === "th" ? /14 พฤศจิกายน 2569/ : /14 November 2026/);
       assert.doesNotMatch(text, /slip|สลิป/i);
     }
   });

@@ -4,6 +4,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import * as pro from "./pro.ts";
+import { APPS, slugOf } from "../app/apps-data.ts";
 import { day } from "./account.ts";
 import { checkoutNext } from "./buy.ts";
 import { baht } from "./cart.ts";
@@ -27,6 +28,7 @@ async function page(flag: unknown, lang = "en", member: "play" | "stripe" | "pas
       useState(initial: unknown) { const i = cursor++; if (!(i in states)) states[i] = initial; return [states[i], (v: unknown) => { states[i] = v; }]; },
       useEffect(fn: () => void) { effects.push(fn); },
     };
+    if (id === "@/app/apps-data") return { APPS, slugOf };
     if (id === "@/lib/pro.ts") return pro;
     if (id === "@/lib/account.ts") return { day };
     if (id === "@/lib/buy.ts") return { checkoutNext };
@@ -77,4 +79,14 @@ for (const lang of ['th', 'en']) test(`Pro sales copy (${lang}) offers only card
   const text = JSON.stringify(tree);
   assert.doesNotMatch(text, /pass|จ่ายครั้งเดียว|Pro 1 ปี|PromptPay|2 years|2 ปี/i);
   assert.equal(tree.filter(n => n.type === 'button').length, 2);
+});
+
+for (const lang of ["th", "en"]) test(`Pro R2 (${lang}): per-app lists render even while sales are closed`, async () => {
+  const { tree } = await page(false, lang);
+  for (const slug of ["file", "room", "garage", "stock"]) {
+    assert.ok(tree.some(n => n.props?.href === `/apps/${slug}`), slug);
+    const app = APPS.find(a => a.name === `PeerapoS ${slug[0].toUpperCase() + slug.slice(1)}`)!;
+    for (const text of app[lang as "th" | "en"].pro) assert.ok(tree.some(n => n.props?.text === text), text);
+  }
+  assert.ok(tree.some(n => n.props?.text === pro.PRO_COPY.updated[lang as "th" | "en"]));
 });

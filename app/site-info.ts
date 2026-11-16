@@ -61,7 +61,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "โปรแกรมฟรีจริงไหม",
-      a: "ฟรีจริง ใช้ได้ภายในขีดจำกัดของแต่ละตัว ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ถ้าอยากปลดขีดจำกัดมี PeerapoS Pro แบบสมัครสมาชิกให้เลือก ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง",
+      a: "ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro ใช้ได้ภายในขีดจำกัดของแต่ละตัว ไม่มีโฆษณา ไม่ต้องสมัครบัญชี ถ้าอยากปลดขีดจำกัดมี PeerapoS Pro แบบสมัครสมาชิกให้เลือก ทุกตัวใช้งานออฟไลน์บน Windows 10 และ 11 ข้อมูลเก็บอยู่ในเครื่องคุณเอง",
     },
   ],
   en: [
@@ -103,7 +103,7 @@ export const FAQ: Record<"th" | "en", Faq[]> = {
     },
     {
       q: "Are the free apps really free?",
-      a: "Yes, within each app's limits. No ads, no account needed, and the optional PeerapoS Pro subscription lifts the limits. Every app works offline on Windows 10 and 11, and your data stays on your own PC.",
+      a: "Free to use; some features need PeerapoS Pro. Each app has free limits. No ads, no account needed, and the optional PeerapoS Pro subscription lifts the limits. Every app works offline on Windows 10 and 11, and your data stays on your own PC.",
     },
   ],
 };

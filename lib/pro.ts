@@ -50,6 +50,9 @@ export function proDonePoll(startedAt: number, now: number, pro: ProInfo | null,
 export const PRO_COPY = {
   opensSoon: { th: "PeerapoS Pro เปิดให้สมัครเร็ว ๆ นี้", en: "PeerapoS Pro opens soon" },
   h1: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
+  updated: { th: "อัปเดตล่าสุด 17 พฤศจิกายน 2569", en: "Last updated 17 November 2026" },
+  appFeaturesH: { th: "ฟีเจอร์ Pro ของแต่ละแอป", en: "Pro features by app" },
+  existing: { th: "งานที่สร้างไว้แล้วยังเปิดดู ทำต่อให้เสร็จ ยกเลิก พิมพ์ และส่งออกได้ ข้อมูลที่บันทึกไว้ยังมองเห็นได้ รายงานที่คำนวณใหม่ด้วยฟีเจอร์ Pro ต้องมี Pro", en: "Existing records stay viewable, finishable, cancellable, printable and exportable. Saved data remains visible. New computations in Pro reports need Pro." },
   lead: { th: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน", en: "Subscribe once. It works on every app in the same Google account." },
   month: { th: "/ เดือน", en: "/ month" },
   year: { th: "/ ปี", en: "/ year" },
@@ -62,6 +65,8 @@ export const PRO_COPY = {
   gets: [
     { th: "ฟีเจอร์ Pro ในแอปฟรีทุกตัว", en: "Pro features in every free app" },
     { th: "ฟีเจอร์ Pro ในแอปแบบซื้อขาดที่คุณเป็นเจ้าของ", en: "Pro features in the paid apps you own" },
+    { th: "เชื่อมอุปกรณ์รวมสูงสุด 20 เครื่อง ทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์เครื่องอื่นในร้าน ไม่รวมเครื่องหลัก คอมพิวเตอร์เครื่องอื่นใช้ผ่าน LAN", en: "Connect up to 20 devices in total: phones, tablets and other PCs in the shop, excluding the host PC. Other PCs connect over LAN." },
+    { th: "ใช้ PeerapoS Pair จากนอกร้าน", en: "Use PeerapoS Pair away from the shop" },
     { th: "ตัวเชื่อม AI ในทุกแอป", en: "The AI connector in every app" },
     { th: "สำรองข้อมูลไป Google Drive ของคุณเองในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว)", en: "Backup to your own Google Drive in the free apps (paid apps already include it)" },
   ],

@@ -10,7 +10,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "wash": {
     "th": {
       "metaDescription": "PeerapoS Wash โปรแกรมฟรีสำหรับร้านซักรีดและร้านสะดวกซัก รับผ้า ติดตามสถานะ ออกใบเสร็จ PromptPay ดูเครื่องและรายรับรายจ่าย",
-      "useCase": "เหมาะกับเจ้าของร้านซักรีดที่ต้องรับผ้า เช็กราคา นัดรับ และออกใบเสร็จพร้อม QR พร้อมเพย์ รวมถึงร้านสะดวกซักที่ต้องดูเครื่องหยอดเหรียญ งานซ่อมบำรุง ค่าใช้จ่าย และรายงานการเงิน",
+      "useCase": "เหมาะกับเจ้าของร้านซักรีดที่ต้องรับผ้า เช็กราคา นัดรับ และออกใบเสร็จพร้อม QR พร้อมเพย์ รวมถึงร้านสะดวกซักที่ต้องดูเครื่องหยอดเหรียญ งานซ่อมบำรุง ค่าใช้จ่าย และรายงานการเงิน ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "ร้านซักรีดกับร้านสะดวกซักใช้โปรแกรมเดียวกันได้ไหม",
@@ -32,7 +32,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Free laundry and laundromat logbook for orders, status, PromptPay receipts, coin machines, expenses and finance reports.",
-      "useCase": "Best for laundry shop owners who need to take in orders, check prices, set pickup dates and issue receipts with a PromptPay QR, as well as laundromats that need to look after coin machines, maintenance, expenses and finance reports.",
+      "useCase": "Best for laundry shop owners who need to take in orders, check prices, set pickup dates and issue receipts with a PromptPay QR, as well as laundromats that need to look after coin machines, maintenance, expenses and finance reports. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can one program work for both a laundry shop and a laundromat?",
@@ -56,7 +56,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "stock": {
     "th": {
       "metaDescription": "โปรแกรมสต็อกฟรีสำหรับร้านและโกดังย่อม รับเข้า เบิกออก ตรวจนับด้วยบาร์โค้ด คิดต้นทุนเฉลี่ย เตือนของใกล้หมด",
-      "useCase": "เหมาะกับร้านค้าหรือโกดังย่อมที่ต้องรู้ว่าสินค้าเหลือเท่าไร รับเข้าเท่าไร เบิกออกหรือขายไปเท่าไร และอยากตรวจนับด้วยบาร์โค้ดโดยไม่ต้องต่ออินเทอร์เน็ต ข้อมูลอยู่ในคอมของร้านเอง ใช้บน Windows 10 และ 11 แบบ 64-bit",
+      "useCase": "เหมาะกับร้านค้าหรือโกดังย่อมที่ต้องรู้ว่าสินค้าเหลือเท่าไร รับเข้าเท่าไร เบิกออกหรือขายไปเท่าไร และอยากตรวจนับด้วยบาร์โค้ดโดยไม่ต้องต่ออินเทอร์เน็ต ข้อมูลอยู่ในคอมของร้านเอง ใช้บน Windows 10 และ 11 แบบ 64-bit ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมสต็อกนี้ทำอะไรได้บ้าง",
@@ -68,7 +68,7 @@ export const APP_PAGES: Record<string, AppPage> = {
         },
         {
           "q": "รุ่นฟรีของ PeerapoS Stock จำกัดอะไรบ้าง",
-          "a": "รุ่นฟรีเพิ่มสินค้าได้สูงสุด 2,000 รายการและเพิ่มบริษัทได้สูงสุด 3 บริษัท ใช้ได้เฉพาะเครื่องหลัก ถ้าอยากปลดขีดจำกัด สมัคร PeerapoS Pro ได้ จะเพิ่มสินค้าและบริษัทได้ไม่จำกัด เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป และสำรองข้อมูลไป Google Drive ของคุณเอง"
+          "a": "รุ่นฟรีเพิ่มสินค้าได้สูงสุด 2,000 รายการและเพิ่มบริษัทได้สูงสุด 3 บริษัท ใช้ได้เฉพาะเครื่องหลัก ถ้าอยากปลดขีดจำกัด สมัคร PeerapoS Pro ได้ จะเพิ่มสินค้าและบริษัทได้ไม่จำกัด เชื่อมอุปกรณ์รวมสูงสุด 20 เครื่อง ทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ใช้ PeerapoS Pair จากนอกร้าน ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป และสำรองข้อมูลไป Google Drive ของคุณเอง"
         },
         {
           "q": "โปรแกรมสต็อกใช้บนเครื่องไหนและติดตั้งอย่างไร",
@@ -78,7 +78,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Free inventory app for shops and small warehouses: receive, issue, count by barcode, average cost, low-stock alerts, Windows 10/11 offline.",
-      "useCase": "Made for shops or small warehouses that need to know stock on hand, received stock, issued or sold stock, and want to count items with a barcode scanner without needing the internet. Your data stays on the shop's own PC, and the app runs on Windows 10 and 11 64-bit.",
+      "useCase": "Made for shops or small warehouses that need to know stock on hand, received stock, issued or sold stock, and want to count items with a barcode scanner without needing the internet. Your data stays on the shop's own PC, and the app runs on Windows 10 and 11 64-bit. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What can this inventory program do?",
@@ -90,7 +90,7 @@ export const APP_PAGES: Record<string, AppPage> = {
         },
         {
           "q": "What are the limits in the free version of PeerapoS Stock?",
-          "a": "The free version supports up to 2,000 products and up to 3 companies. It runs on the main PC only. If you want to lift the limits, the optional PeerapoS Pro subscription gives unlimited products and companies, connects up to 5 other PCs in the shop over LAN, lets you use the AI connector by turning it on in the app, and backs up to your own Google Drive."
+          "a": "The free version supports up to 2,000 products and up to 3 companies. It runs on the main PC only. If you want to lift the limits, the optional PeerapoS Pro subscription gives unlimited products and companies, connects up to 20 devices in total (phones, tablets and other PCs in the shop over LAN), enables PeerapoS Pair away from the shop, lets you use the AI connector by turning it on in the app, and backs up to your own Google Drive."
         },
         {
           "q": "Which computer does the inventory program run on, and how do I install it?",
@@ -102,7 +102,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "file": {
     "th": {
       "metaDescription": "PeerapoS File โปรแกรมออกใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษี คิด VAT หัก ณ ที่จ่าย เขียนยอดเงินเป็นตัวหนังสือ บันทึก PDF",
-      "useCase": "เหมาะกับร้านและธุรกิจ SME ที่ต้องออกเอกสารขาย ซื้อ รับเงิน และจ่ายเงินเป็นประจำ ใช้ทำใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษี ใบส่งสินค้า ใบสั่งซื้อ และใบสำคัญได้ในโปรแกรมเดียว ร้านที่ไม่ได้จด VAT ก็ออกใบส่งสินค้า/ใบแจ้งหนี้ได้ และเมื่อใบเสนอราคาลูกค้าตกลงแล้วแปลงเป็นใบแจ้งหนี้ได้ทันที",
+      "useCase": "เหมาะกับร้านและธุรกิจ SME ที่ต้องออกเอกสารขาย ซื้อ รับเงิน และจ่ายเงินเป็นประจำ ใช้ทำใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษี ใบส่งสินค้า ใบสั่งซื้อ และใบสำคัญได้ในโปรแกรมเดียว ร้านที่ไม่ได้จด VAT ก็ออกใบส่งสินค้า/ใบแจ้งหนี้ได้ และเมื่อใบเสนอราคาลูกค้าตกลงแล้วแปลงเป็นใบแจ้งหนี้ได้ทันที ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมออกใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษีได้ไหม",
@@ -124,7 +124,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS File creates quotes, invoices, receipts, tax invoices, VAT and withholding tax, amount in Thai words, PDF or image exports.",
-      "useCase": "Made for shops and SMEs that regularly create sales, purchase, receipt and payment documents. Create quotations, invoices, receipts, tax invoices, delivery notes, purchase orders and vouchers in one app. Businesses without VAT registration can issue delivery note/invoices, and an accepted quote turns into an invoice right away.",
+      "useCase": "Made for shops and SMEs that regularly create sales, purchase, receipt and payment documents. Create quotations, invoices, receipts, tax invoices, delivery notes, purchase orders and vouchers in one app. Businesses without VAT registration can issue delivery note/invoices, and an accepted quote turns into an invoice right away. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can this program create quotations, invoices, receipts and tax invoices?",
@@ -148,7 +148,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "pay": {
     "th": {
       "metaDescription": "โปรแกรมเงินเดือนและงานบุคคลสำหรับ SME 5–50 คน คำนวณเงินเดือน OT วันลา ประกันสังคม ภาษี ออกสลิปและรายงาน ภ.ง.ด.1",
-      "useCase": "เหมาะกับร้านและธุรกิจ SME ที่มีพนักงาน 5–50 คน ต้องการทำเงินเดือน OT วันลา ประกันสังคม และภาษีหัก ณ ที่จ่ายในโปรแกรมเดียว พร้อมออกสลิปเงินเดือนและรายงาน ภ.ง.ด.1 สปส.1-10 50 ทวิ",
+      "useCase": "เหมาะกับร้านและธุรกิจ SME ที่มีพนักงาน 5–50 คน ต้องการทำเงินเดือน OT วันลา ประกันสังคม และภาษีหัก ณ ที่จ่ายในโปรแกรมเดียว พร้อมออกสลิปเงินเดือนและรายงาน ภ.ง.ด.1 สปส.1-10 50 ทวิ ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมเงินเดือน SME คำนวณอะไรได้บ้าง",
@@ -170,7 +170,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Payroll and HR app for SMEs with 5–50 staff. Calculate salary, OT, leave, social security, tax, payslips and PND1 reports.",
-      "useCase": "Best for shops and SMEs with 5–50 staff that want payroll, overtime, leave, social security and withholding tax in one app, with payslips and ภ.ง.ด.1, สปส.1-10 and 50 ทวิ reports.",
+      "useCase": "Best for shops and SMEs with 5–50 staff that want payroll, overtime, leave, social security and withholding tax in one app, with payslips and ภ.ง.ด.1, สปส.1-10 and 50 ทวิ reports. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What can this SME payroll program calculate?",
@@ -194,7 +194,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "garage": {
     "th": {
       "metaDescription": "โปรแกรมอู่ซ่อมรถและร้านซ่อมมอเตอร์ไซค์ รับรถ ใบเสนอราคา เคลมประกัน สต็อกอะไหล่ กำไรต่องาน และเตือนก่อนปล่อยรถเมื่อค้างจ่าย",
-      "useCase": "เหมาะกับอู่ซ่อมรถและร้านซ่อมมอเตอร์ไซค์ที่ต้องคุมงานซ่อมตั้งแต่รับรถจนส่งมอบ ออกใบเสนอราคา แยกอะไหล่กับค่าแรง ทำเคลมประกัน ตัดสต็อกอะไหล่ เห็นต้นทุนและกำไรของแต่ละงาน รวมถึงขายอะไหล่หน้าร้านโดยไม่ต้องเปิดงานซ่อม",
+      "useCase": "เหมาะกับอู่ซ่อมรถและร้านซ่อมมอเตอร์ไซค์ที่ต้องคุมงานซ่อมตั้งแต่รับรถจนส่งมอบ ออกใบเสนอราคา แยกอะไหล่กับค่าแรง ทำเคลมประกัน ตัดสต็อกอะไหล่ เห็นต้นทุนและกำไรของแต่ละงาน รวมถึงขายอะไหล่หน้าร้านโดยไม่ต้องเปิดงานซ่อม ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมอู่ซ่อมรถนี้ทำใบรับรถกับใบเสนอราคาได้ไหม",
@@ -216,7 +216,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Garage software for car and motorcycle repair shops: job cards, quotes, insurance claims, parts stock, job profit and payment checks before hand-over.",
-      "useCase": "Built for car garages and motorcycle repair shops that need to control a job from check-in to hand-over, issue quotes, separate parts from labour, handle insurance claims, deduct parts stock, see cost and profit per job, and sell parts over the counter without opening a repair job.",
+      "useCase": "Built for car garages and motorcycle repair shops that need to control a job from check-in to hand-over, issue quotes, separate parts from labour, handle insurance claims, deduct parts stock, see cost and profit per job, and sell parts over the counter without opening a repair job. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can this garage software create job cards and quotes?",
@@ -240,7 +240,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "room": {
     "th": {
       "metaDescription": "PeerapoS Room โปรแกรมหอพักและห้องเช่า จดมิเตอร์ ออกบิลรายเดือน QR พร้อมเพย์ สัญญาเช่า และคิดเงินย้ายออก",
-      "useCase": "เหมาะกับเจ้าของหอพัก อพาร์ตเมนต์ และห้องเช่า 10–200 ห้อง ที่ต้องจดมิเตอร์น้ำไฟ ออกบิลรายเดือนพร้อม QR พร้อมเพย์ ทำใบเสร็จ จัดการสัญญาเช่ารายเดือน รายสัปดาห์ หรือรายวัน และสรุปข้อมูลทุกห้องส่งออก Excel",
+      "useCase": "เหมาะกับเจ้าของหอพัก อพาร์ตเมนต์ และห้องเช่า 10–200 ห้อง ที่ต้องจดมิเตอร์น้ำไฟ ออกบิลรายเดือนพร้อม QR พร้อมเพย์ ทำใบเสร็จ จัดการสัญญาเช่ารายเดือน รายสัปดาห์ หรือรายวัน และสรุปข้อมูลทุกห้องส่งออก Excel ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมหอพักจดมิเตอร์น้ำไฟแล้วออกบิลรายเดือนได้ไหม",
@@ -262,7 +262,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS Room for dorms and rentals: meter readings, monthly bills with PromptPay QR, leases, and move-out settlement.",
-      "useCase": "Made for dorm, apartment, and rental owners with 10–200 rooms who need to read water and power meters, issue monthly bills with a PromptPay QR, create receipts, manage monthly, weekly, or daily leases, and export all-room monthly summaries to Excel.",
+      "useCase": "Made for dorm, apartment, and rental owners with 10–200 rooms who need to read water and power meters, issue monthly bills with a PromptPay QR, create receipts, manage monthly, weekly, or daily leases, and export all-room monthly summaries to Excel. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can this dorm program read water and power meters and issue monthly bills?",
@@ -286,7 +286,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "class": {
     "th": {
       "metaDescription": "PeerapoS Class โปรแกรมโรงเรียนกวดวิชา ขายแพ็กเกจชั่วโมงหรือรายครั้ง จัดตาราง เช็กชื่อ ตัดชั่วโมง ใบเสร็จ ผ่อนชำระ และค่าสอนครู",
-      "useCase": "เหมาะกับโรงเรียนกวดวิชาและสถาบันสอนพิเศษที่ขายแพ็กเกจเรียนเป็นชั่วโมงหรือเป็นครั้ง ต้องการเก็บข้อมูลนักเรียน จัดตารางสอน เช็กชื่อแล้วตัดชั่วโมง และดูแลใบเสร็จ ผ่อนชำระ กับค่าสอนครูในโปรแกรมเดียว",
+      "useCase": "เหมาะกับโรงเรียนกวดวิชาและสถาบันสอนพิเศษที่ขายแพ็กเกจเรียนเป็นชั่วโมงหรือเป็นครั้ง ต้องการเก็บข้อมูลนักเรียน จัดตารางสอน เช็กชื่อแล้วตัดชั่วโมง และดูแลใบเสร็จ ผ่อนชำระ กับค่าสอนครูในโปรแกรมเดียว ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมโรงเรียนกวดวิชาขายคอร์สเป็นชั่วโมงได้ไหม",
@@ -308,7 +308,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS Class for tutoring centers: packages, timetable, check-in balance deduction, receipts, instalments and teacher pay.",
-      "useCase": "For tutoring centers and small schools that sell learning packages by hour or by session, need student records, timetable planning, check-in with automatic balance deduction, plus receipts, instalments and teacher pay in one app.",
+      "useCase": "For tutoring centers and small schools that sell learning packages by hour or by session, need student records, timetable planning, check-in with automatic balance deduction, plus receipts, instalments and teacher pay in one app. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can tutoring center software sell courses by the hour?",
@@ -332,7 +332,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "crm": {
     "th": {
       "metaDescription": "PeerapoS CRM สมุดลูกค้า ติดตามงานขาย นัดติดตาม บันทึกการคุย วันเกิดลูกค้า และรายงานยอดขาย ใช้ฟรีภายในขีดจำกัด",
-      "useCase": "เหมาะกับร้านและธุรกิจ SME ที่ต้องตามลูกค้าหลายคนพร้อมกัน ใช้เก็บรายชื่อลูกค้า ดูสถานะดีล วางนัดติดตามรายวัน จดบันทึกการคุย จำวันเกิดลูกค้า และดูรายงานยอดขายโดยไม่ต้องจำเอง",
+      "useCase": "เหมาะกับร้านและธุรกิจ SME ที่ต้องตามลูกค้าหลายคนพร้อมกัน ใช้เก็บรายชื่อลูกค้า ดูสถานะดีล วางนัดติดตามรายวัน จดบันทึกการคุย จำวันเกิดลูกค้า และดูรายงานยอดขายโดยไม่ต้องจำเอง ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรม CRM นี้ช่วยติดตามลูกค้ายังไง",
@@ -354,7 +354,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS CRM is a customer book for follow-ups, deals, conversation notes, birthdays and sales reports, free within limits.",
-      "useCase": "Made for shops and SMEs that need to follow up with many customers at once. Use it to keep customer lists, view deal stages, set daily follow-ups, log conversations, remember customer birthdays and check sales reports without keeping everything in your head.",
+      "useCase": "Made for shops and SMEs that need to follow up with many customers at once. Use it to keep customer lists, view deal stages, set daily follow-ups, log conversations, remember customer birthdays and check sales reports without keeping everything in your head. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "How does this CRM help me follow up with customers?",
@@ -378,7 +378,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "campaign": {
     "th": {
       "metaDescription": "วางแผนคอนเทนต์บนปฏิทินการตลาดไทย จดงบโฆษณาและผลลัพธ์ แล้วสรุปรายงานหน้าเดียว PDF/PNG/Excel",
-      "useCase": "เหมาะกับเจ้าของร้านและทีมการตลาด SME ที่ต้องวางคอนเทนต์รายเดือนให้ตรงวันเซลล์ วันหยุด และวันเงินเดือนออก พร้อมจดงบโฆษณากับผลลัพธ์ไว้ที่เดียว แล้วดูภาพรวมแคมเปญจากรายงานหน้าเดียว",
+      "useCase": "เหมาะกับเจ้าของร้านและทีมการตลาด SME ที่ต้องวางคอนเทนต์รายเดือนให้ตรงวันเซลล์ วันหยุด และวันเงินเดือนออก พร้อมจดงบโฆษณากับผลลัพธ์ไว้ที่เดียว แล้วดูภาพรวมแคมเปญจากรายงานหน้าเดียว ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมวางแผนแคมเปญนี้ช่วยวางคอนเทนต์อะไรได้บ้าง",
@@ -400,7 +400,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Plan content on a Thai marketing calendar, log ad spend and results, then export a one-page PDF/PNG/Excel report.",
-      "useCase": "Made for SME owners and marketing teams that plan monthly content around sale days, holidays and paydays, keep ad spend and results in one place, and review campaign performance from a one-page report.",
+      "useCase": "Made for SME owners and marketing teams that plan monthly content around sale days, holidays and paydays, keep ad spend and results in one place, and review campaign performance from a one-page report. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What content can this campaign planning app help me plan?",
@@ -424,7 +424,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "plan": {
     "th": {
       "metaDescription": "วางแผนโปรเจกต์และงานด้วยลิสต์ บอร์ด ปฏิทิน ไทม์ไลน์ สปรินต์ เป้าหมาย บันทึกเวลา และส่งออก PDF/Excel",
-      "useCase": "เหมาะกับทีมที่ต้องรวมงานหลายโปรเจกต์ไว้ที่เดียว ติดตามงานเป็นลิสต์ บอร์ด ปฏิทิน หรือไทม์ไลน์ วางสปรินต์และเป้าหมาย บันทึกเวลา และส่งออกรายงาน PDF/Excel จากคอมพิวเตอร์ Windows",
+      "useCase": "เหมาะกับทีมที่ต้องรวมงานหลายโปรเจกต์ไว้ที่เดียว ติดตามงานเป็นลิสต์ บอร์ด ปฏิทิน หรือไทม์ไลน์ วางสปรินต์และเป้าหมาย บันทึกเวลา และส่งออกรายงาน PDF/Excel จากคอมพิวเตอร์ Windows ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "รวมงานหลายโปรเจกต์ใน PeerapoS Plan ได้ยังไง",
@@ -446,7 +446,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Plan projects and tasks with list, board, calendar, timeline, sprints, goals, time tracking, and PDF/Excel export.",
-      "useCase": "For teams that need to keep multiple projects in one place, track work as a list, board, calendar or timeline, plan sprints and goals, record time, and export PDF/Excel reports from a Windows PC.",
+      "useCase": "For teams that need to keep multiple projects in one place, track work as a list, board, calendar or timeline, plan sprints and goals, record time, and export PDF/Excel reports from a Windows PC. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "How do I bring multiple projects together in PeerapoS Plan?",
@@ -470,7 +470,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "bcp": {
     "th": {
       "metaDescription": "PeerapoS BCP ช่วยธุรกิจเล็กทำแผนฉุกเฉิน ประเมินความเสี่ยง เตรียมผู้ติดต่อ ซ้อมแผน และใช้โหมดเกิดเหตุ",
-      "useCase": "เหมาะกับร้านค้า สำนักงาน และธุรกิจเล็กที่ต้องมีแผนรับมือเหตุฉุกเฉินไว้ใช้งานจริง ใช้รวบรวมความเสี่ยง งานสำคัญ ทรัพยากร รายชื่อผู้ติดต่อ คู่มือรับมือเหตุ และบันทึกการซ้อมแผนในที่เดียว",
+      "useCase": "เหมาะกับร้านค้า สำนักงาน และธุรกิจเล็กที่ต้องมีแผนรับมือเหตุฉุกเฉินไว้ใช้งานจริง ใช้รวบรวมความเสี่ยง งานสำคัญ ทรัพยากร รายชื่อผู้ติดต่อ คู่มือรับมือเหตุ และบันทึกการซ้อมแผนในที่เดียว ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมทำแผนฉุกเฉินสำหรับร้านเล็กใช้ทำอะไรได้บ้าง",
@@ -492,7 +492,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS BCP helps small businesses plan emergencies, assess risks, prepare contacts, run drills and use incident mode.",
-      "useCase": "Best for shops, offices and small businesses that need an emergency plan they can actually use. Keep risks, critical work, resources, contacts, response playbooks and drill records in one place.",
+      "useCase": "Best for shops, offices and small businesses that need an emergency plan they can actually use. Keep risks, critical work, resources, contacts, response playbooks and drill records in one place. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What can a small shop use an emergency planning app for?",
@@ -516,7 +516,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "school": {
     "th": {
       "metaDescription": "PeerapoS School โปรแกรมสมุดครูสำหรับตารางสอน เช็กชื่อ กรอกคะแนน ตัดเกรด งานครูประจำชั้น พิมพ์ ปพ.5 และ Excel สำหรับ SGS",
-      "useCase": "เหมาะสำหรับครูที่ต้องการสมุดครูออฟไลน์ไว้จัดตารางสอน เช็กชื่อ ตามการบ้าน กรอกคะแนน ตัดเกรด และเก็บงานครูประจำชั้น เช่น เยี่ยมบ้าน SDQ และคะแนนความประพฤติ พร้อมพิมพ์ ปพ.5 และส่งออก Excel สำหรับ SGS",
+      "useCase": "เหมาะสำหรับครูที่ต้องการสมุดครูออฟไลน์ไว้จัดตารางสอน เช็กชื่อ ตามการบ้าน กรอกคะแนน ตัดเกรด และเก็บงานครูประจำชั้น เช่น เยี่ยมบ้าน SDQ และคะแนนความประพฤติ พร้อมพิมพ์ ปพ.5 และส่งออก Excel สำหรับ SGS ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมสมุดครูนี้ตัดเกรดตามหลักสูตรแกนกลางได้ไหม",
@@ -538,7 +538,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS School is a teacher gradebook for timetables, attendance, scores, grading, homeroom work, ปพ.5 printing and Excel for SGS.",
-      "useCase": "Ideal for teachers who want an offline teacher gradebook for timetables, attendance, homework tracking, score entry, grading and homeroom records such as home visits, SDQ and conduct points, with ปพ.5 printing and Excel export for SGS.",
+      "useCase": "Ideal for teachers who want an offline teacher gradebook for timetables, attendance, homework tracking, score entry, grading and homeroom records such as home visits, SDQ and conduct points, with ปพ.5 printing and Excel export for SGS. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can this teacher gradebook calculate grades to the Thai core curriculum?",
@@ -562,7 +562,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "trip": {
     "th": {
       "metaDescription": "PeerapoS Trip โปรแกรมบริษัททัวร์ขนาดเล็ก เปิดรอบ รับจอง จัดห้อง ออกใบกำกับภาษี คืนเงิน ตรวจพาสปอร์ต และดูกำไรรายกรุ๊ป",
-      "useCase": "ใช้เป็นหลังบ้านของบริษัททัวร์ขนาดเล็ก ตั้งแต่เปิดรอบเดินทาง รับจองและเก็บข้อมูลผู้เดินทาง จัดห้องพัก รับเงิน ออกใบเสร็จและใบกำกับภาษี คืนเงินพร้อมใบลดหนี้ ตรวจอายุพาสปอร์ต ส่งรายชื่อให้บริษัทประกัน และดูต้นทุนกำไรรายกรุ๊ป",
+      "useCase": "ใช้เป็นหลังบ้านของบริษัททัวร์ขนาดเล็ก ตั้งแต่เปิดรอบเดินทาง รับจองและเก็บข้อมูลผู้เดินทาง จัดห้องพัก รับเงิน ออกใบเสร็จและใบกำกับภาษี คืนเงินพร้อมใบลดหนี้ ตรวจอายุพาสปอร์ต ส่งรายชื่อให้บริษัทประกัน และดูต้นทุนกำไรรายกรุ๊ป ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "PeerapoS Trip เหมาะกับบริษัททัวร์แบบไหน",
@@ -584,7 +584,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS Trip for small tour operators: departures, bookings, rooming, tax invoices, refunds, passport checks and profit per group.",
-      "useCase": "Use it as the back office for a small tour company, from opening departures, taking bookings and storing traveller details to assigning rooms, collecting payments, issuing receipts and tax invoices, refunding with credit notes, checking passport expiry, sending name lists to insurers and viewing cost and profit per group.",
+      "useCase": "Use it as the back office for a small tour company, from opening departures, taking bookings and storing traveller details to assigning rooms, collecting payments, issuing receipts and tax invoices, refunding with credit notes, checking passport expiry, sending name lists to insurers and viewing cost and profit per group. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What kind of tour company is PeerapoS Trip for?",
@@ -608,7 +608,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "pilates": {
     "th": {
       "metaDescription": "โปรแกรมหน้าเคาน์เตอร์สตูดิโอพิลาทิส จองคลาสตามจำนวนเครื่องจริง รายชื่อรอ แพ็กเกจเครดิต พร้อมเพย์ และสรุปค่าสอนครู",
-      "useCase": "เหมาะกับสตูดิโอพิลาทิสที่มีเครื่องรีฟอร์มเมอร์จำกัด ต้องจัดตารางคลาสรายสัปดาห์ จัดคิวเมื่อคลาสเต็ม ขายแพ็กเกจเครดิต พักแพ็กเกจ เก็บความยินยอมข้อมูลสุขภาพ ออกใบเสร็จพร้อม QR พร้อมเพย์ และสรุปค่าสอนครูจากหน้าเคาน์เตอร์เดียว",
+      "useCase": "เหมาะกับสตูดิโอพิลาทิสที่มีเครื่องรีฟอร์มเมอร์จำกัด ต้องจัดตารางคลาสรายสัปดาห์ จัดคิวเมื่อคลาสเต็ม ขายแพ็กเกจเครดิต พักแพ็กเกจ เก็บความยินยอมข้อมูลสุขภาพ ออกใบเสร็จพร้อม QR พร้อมเพย์ และสรุปค่าสอนครูจากหน้าเคาน์เตอร์เดียว ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมจองคลาสพิลาทิสจำกัดตามจำนวนเครื่องได้ไหม",
@@ -630,7 +630,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Front-desk app for Pilates studios: class booking by reformers in service, waitlist, credit packs, PromptPay receipts and instructor pay.",
-      "useCase": "Made for Pilates studios with a limited number of reformers that need a weekly class board, full-class waitlists, credit pack sales, pack pausing, health-data consent, receipts with a PromptPay QR, and instructor pay totals from one front desk.",
+      "useCase": "Made for Pilates studios with a limited number of reformers that need a weekly class board, full-class waitlists, credit pack sales, pack pausing, health-data consent, receipts with a PromptPay QR, and instructor pay totals from one front desk. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can Pilates class booking be capped by the number of machines?",
@@ -654,7 +654,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "repair": {
     "th": {
       "metaDescription": "โปรแกรมร้านซ่อมมือถือ รับเครื่อง พิมพ์ใบรับซ่อม ป้ายติดเครื่อง ส่งราคา ตัดสต็อกอะไหล่ กระดานงานซ่อม ใบรับประกัน และค่าคอมช่าง",
-      "useCase": "เหมาะกับร้านซ่อมมือถือที่ต้องการจัดการหน้าเคาน์เตอร์ตั้งแต่รับเครื่อง พิมพ์ใบรับซ่อมและป้ายติดเครื่อง ส่งราคาให้ลูกค้าตกลงก่อนซ่อม ดูงานทั้งร้านบนกระดาน ตัดสต็อกอะไหล่ ส่งมอบพร้อมใบรับประกัน และสรุปค่าคอมช่างในเครื่องของร้าน",
+      "useCase": "เหมาะกับร้านซ่อมมือถือที่ต้องการจัดการหน้าเคาน์เตอร์ตั้งแต่รับเครื่อง พิมพ์ใบรับซ่อมและป้ายติดเครื่อง ส่งราคาให้ลูกค้าตกลงก่อนซ่อม ดูงานทั้งร้านบนกระดาน ตัดสต็อกอะไหล่ ส่งมอบพร้อมใบรับประกัน และสรุปค่าคอมช่างในเครื่องของร้าน ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมร้านซ่อมมือถือ PeerapoS Repair ช่วยรับเครื่องหน้าร้านได้อย่างไร",
@@ -676,7 +676,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Repair shop front desk app for tickets, device tags, quotes, parts stock, job board, warranty handover, PromptPay QR and tech commission.",
-      "useCase": "Best for phone repair shops that want to handle the front desk from device check-in, printed repair tickets and device tags, customer-approved quotes, a shop-wide job board, parts stock, warranty handover, and technician commission summaries on the shop's PC.",
+      "useCase": "Best for phone repair shops that want to handle the front desk from device check-in, printed repair tickets and device tags, customer-approved quotes, a shop-wide job board, parts stock, warranty handover, and technician commission summaries on the shop's PC. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "How does PeerapoS Repair help with front-desk check-in at a phone repair shop?",
@@ -700,7 +700,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "studio": {
     "th": {
       "metaDescription": "โปรแกรมหน้าเคาน์เตอร์ห้องซ้อมดนตรีและห้องอัด ดูห้องว่าง รับจองมัดจำ วอล์กอิน คิดเวลาเกิน แพ็กชั่วโมง พร้อมปิดยอดเงินสด",
-      "useCase": "เหมาะกับห้องซ้อมดนตรีและห้องอัดที่ต้องคุมตารางห้องหน้าเคาน์เตอร์ในที่เดียว รับจองพร้อมมัดจำ รับลูกค้าวอล์กอิน บันทึกเวลาเข้าห้องออกห้อง คิดเวลาเกิน ขายแพ็กชั่วโมง ให้เช่าอุปกรณ์เสริม และปิดยอดเงินสดประจำวัน",
+      "useCase": "เหมาะกับห้องซ้อมดนตรีและห้องอัดที่ต้องคุมตารางห้องหน้าเคาน์เตอร์ในที่เดียว รับจองพร้อมมัดจำ รับลูกค้าวอล์กอิน บันทึกเวลาเข้าห้องออกห้อง คิดเวลาเกิน ขายแพ็กชั่วโมง ให้เช่าอุปกรณ์เสริม และปิดยอดเงินสดประจำวัน ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมห้องซ้อมดนตรีนี้เหมาะกับร้านแบบไหน",
@@ -722,7 +722,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Front desk software for rehearsal and recording studios: room board, deposits, walk-ins, overtime, hour packs, gear rental and daily close.",
-      "useCase": "Built for rehearsal and recording studios that need one front-desk place to manage the room schedule, take bookings with deposits, handle walk-ins, record check-in and check-out times, calculate overtime, sell hour packs, rent extra gear, and close the daily cash total.",
+      "useCase": "Built for rehearsal and recording studios that need one front-desk place to manage the room schedule, take bookings with deposits, handle walk-ins, record check-in and check-out times, calculate overtime, sell hour packs, rent extra gear, and close the daily cash total. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What kind of studio is this rehearsal studio software for?",
@@ -746,7 +746,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "pharmacy": {
     "th": {
       "metaDescription": "PeerapoS Pharmacy โปรแกรมขายหน้าร้านสำหรับร้านขายยาเล็ก จัดการล็อต วันหมดอายุ แพ้ยา ฉลากยา และบัญชี ข.ย.9–13",
-      "useCase": "เหมาะกับร้านขายยาเล็กที่ต้องการขายหน้าร้านด้วยบาร์โค้ดหรือปุ่มรูปสินค้า รับสินค้าเป็นล็อตพร้อมวันหมดอายุ ตัดสต็อกล็อตที่หมดอายุก่อน เตือนแพ้ยาและยาที่ต้องมีใบสั่งยา พิมพ์ฉลากยาหลังรับเงิน และออกบัญชี ข.ย.9–13 ได้เมื่อต้องใช้",
+      "useCase": "เหมาะกับร้านขายยาเล็กที่ต้องการขายหน้าร้านด้วยบาร์โค้ดหรือปุ่มรูปสินค้า รับสินค้าเป็นล็อตพร้อมวันหมดอายุ ตัดสต็อกล็อตที่หมดอายุก่อน เตือนแพ้ยาและยาที่ต้องมีใบสั่งยา พิมพ์ฉลากยาหลังรับเงิน และออกบัญชี ข.ย.9–13 ได้เมื่อต้องใช้ ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "ร้านขายยาเล็กใช้ PeerapoS Pharmacy ทำอะไรได้บ้าง",
@@ -768,7 +768,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "PeerapoS Pharmacy is POS software for small pharmacies, with lots, expiry, allergy alerts, dosage labels and Thai FDA registers.",
-      "useCase": "Best for a small pharmacy that needs point-of-sale selling with barcodes or picture buttons, stock receiving with lot and expiry dates, first-expiry-first-out stock draws, allergy and prescription alerts, dosage labels after payment, and Thai FDA ข.ย.9–13 registers whenever needed.",
+      "useCase": "Best for a small pharmacy that needs point-of-sale selling with barcodes or picture buttons, stock receiving with lot and expiry dates, first-expiry-first-out stock draws, allergy and prescription alerts, dosage labels after payment, and Thai FDA ข.ย.9–13 registers whenever needed. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "What can a small pharmacy use PeerapoS Pharmacy for?",
@@ -792,7 +792,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "pos": {
     "th": {
       "metaDescription": "PeerapoS POS ระบบหน้าร้านฟรีสำหรับร้านอาหาร คาเฟ่ และร้านขายของ เปิดโต๊ะ ส่งใบสั่ง แยกบิล ตัดสต็อก และปิดกะบน Windows",
-      "useCase": "เหมาะกับร้านอาหาร คาเฟ่ และร้านขายของเล็กที่ต้องขายหน้าร้านจริง เปิดโต๊ะจากผังร้านหรือขายหน้าเคาน์เตอร์ ส่งใบสั่งเข้าครัวและบาร์ แยกบิล คิด VAT และค่าบริการ รับเงินหลายแบบ ตัดวัตถุดิบตามสูตร และปิดกะพร้อมนับเงินในลิ้นชัก ใช้ฟรีได้ถึง 20 โต๊ะ 200 เมนู และไม่จำกัดจำนวนบิล",
+      "useCase": "เหมาะกับร้านอาหาร คาเฟ่ และร้านขายของเล็กที่ต้องขายหน้าร้านจริง เปิดโต๊ะจากผังร้านหรือขายหน้าเคาน์เตอร์ ส่งใบสั่งเข้าครัวและบาร์ แยกบิล คิด VAT และค่าบริการ รับเงินหลายแบบ ตัดวัตถุดิบตามสูตร และปิดกะพร้อมนับเงินในลิ้นชัก ใช้ฟรีได้ถึง 20 โต๊ะ 200 เมนู และไม่จำกัดจำนวนบิล ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "ร้านอาหาร คาเฟ่ และร้านขายของเล็กใช้ PeerapoS POS ได้ไหม",
@@ -814,7 +814,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Free POS for restaurants, cafés and small shops: tables, kitchen tickets, split bills, stock by recipe, shifts and Windows offline use.",
-      "useCase": "Best for a restaurant, café or small shop that sells in person: open tables from the floor plan or sell at the counter, send orders to the kitchen and bar, split bills, add VAT and service charge, take multiple payment types, deduct ingredients by recipe and close shifts with a cash-drawer count. Free up to 20 tables and 200 menu items, with no limit on bills.",
+      "useCase": "Best for a restaurant, café or small shop that sells in person: open tables from the floor plan or sell at the counter, send orders to the kitchen and bar, split bills, add VAT and service charge, take multiple payment types, deduct ingredients by recipe and close shifts with a cash-drawer count. Free up to 20 tables and 200 menu items, with no limit on bills. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can a restaurant, café or small shop use PeerapoS POS?",
@@ -838,7 +838,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "massage": {
     "th": {
       "metaDescription": "โปรแกรมหน้าร้านร้านนวดและสปาเล็ก ดูเตียง คิวหมอ จองล่วงหน้า คอร์สนวด ค่ามือ ปิดยอด ใช้ฟรี ออฟไลน์ ข้อมูลอยู่ในเครื่อง",
-      "useCase": "เหมาะกับร้านนวดและสปาเล็กที่ต้องเห็นสถานะเตียงกับห้องทั้งร้าน จัดคิวหมอตามเวลาเข้างาน รับลูกค้าเดินเข้าและจองล่วงหน้าโดยไม่ให้หมอกับเตียงซ้อนเวลา ใช้คุมการต่อเวลา คอร์สนวด ค่ามือ ใบสรุป และปิดยอดประจำวันในเครื่องของร้าน",
+      "useCase": "เหมาะกับร้านนวดและสปาเล็กที่ต้องเห็นสถานะเตียงกับห้องทั้งร้าน จัดคิวหมอตามเวลาเข้างาน รับลูกค้าเดินเข้าและจองล่วงหน้าโดยไม่ให้หมอกับเตียงซ้อนเวลา ใช้คุมการต่อเวลา คอร์สนวด ค่ามือ ใบสรุป และปิดยอดประจำวันในเครื่องของร้าน ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมร้านนวดดูเตียงว่างและเวลาที่เหลือได้ไหม",
@@ -860,7 +860,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Free front desk software for small massage shops and spas: bed cards, therapist queue, bookings, courses, therapist pay and day close.",
-      "useCase": "Made for small massage shops and spas that need to see every bed and room status, queue therapists by clock-in time, and take walk-ins and bookings without double-booking a therapist or bed. Use it to manage extensions, massage courses, therapist pay, payout slips and daily closing on the shop's own PC.",
+      "useCase": "Made for small massage shops and spas that need to see every bed and room status, queue therapists by clock-in time, and take walk-ins and bookings without double-booking a therapist or bed. Use it to manage extensions, massage courses, therapist pay, payout slips and daily closing on the shop's own PC. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can massage shop software show free beds and time left?",
@@ -884,7 +884,7 @@ export const APP_PAGES: Record<string, AppPage> = {
   "budget": {
     "th": {
       "metaDescription": "คุมงบหลายบริษัท วางแผนงบรายปี อนุมัติหลายขั้น กันงบด้วย PO ดูงบเทียบใช้จริงและพยากรณ์สิ้นปี ใช้ฟรีออฟไลน์",
-      "useCase": "เหมาะกับเจ้าของกิจการหรือทีมการเงินของกลุ่มบริษัทเล็กที่ต้องคุมงบประจำปีหลายบริษัทในที่เดียว ตั้งงบเป็นหัวข้อและรายการย่อย กระจายงบรายเดือน ส่งอนุมัติ ปรับงบ โอนงบ กันงบด้วย PO และติดตามยอดใช้จริงกับพยากรณ์สิ้นปีจากข้อมูลในเครื่อง",
+      "useCase": "เหมาะกับเจ้าของกิจการหรือทีมการเงินของกลุ่มบริษัทเล็กที่ต้องคุมงบประจำปีหลายบริษัทในที่เดียว ตั้งงบเป็นหัวข้อและรายการย่อย กระจายงบรายเดือน ส่งอนุมัติ ปรับงบ โอนงบ กันงบด้วย PO และติดตามยอดใช้จริงกับพยากรณ์สิ้นปีจากข้อมูลในเครื่อง ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
       "faq": [
         {
           "q": "โปรแกรมคุมงบหลายบริษัททำแผนงบประจำปีในที่เดียวได้ไหม",
@@ -906,7 +906,7 @@ export const APP_PAGES: Record<string, AppPage> = {
     },
     "en": {
       "metaDescription": "Control multi-company budgets with annual plans, approvals, PO commitments, budget vs actual and year-end forecasts. Free and offline.",
-      "useCase": "Built for owners or finance teams in small groups of companies that need to control annual budgets for several companies in one place. Set budgets as headers and sub-lines, spread them monthly, submit approvals, adjust or transfer budgets, reserve budget with POs, and track actuals with the year-end forecast from data on your own PC.",
+      "useCase": "Built for owners or finance teams in small groups of companies that need to control annual budgets for several companies in one place. Set budgets as headers and sub-lines, spread them monthly, submit approvals, adjust or transfer budgets, reserve budget with POs, and track actuals with the year-end forecast from data on your own PC. Free to use; some features need PeerapoS Pro.",
       "faq": [
         {
           "q": "Can I manage annual budgets for several companies in one place?",

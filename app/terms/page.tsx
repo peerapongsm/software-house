@@ -1,3 +1,4 @@
+import { Phrases } from "@/components/Phrases";
 import type { Metadata } from "next";
 import type { Msg } from "@/lib/api.ts";
 
@@ -53,8 +54,8 @@ const COPY = {
     en: "A full refund or lost card dispute removes the apps in that order, or Pro ends immediately. PCs lose refunded apps at their next licence check; PC Pro grace still applies as in section 6. Partial refunds and unresolved disputes do not automatically revoke rights.",
   },
   updated: {
-    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 14 พฤศจิกายน 2569",
-    en: "PeerapoS apps and services. Last updated 14 November 2026",
+    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 17 พฤศจิกายน 2569",
+    en: "PeerapoS apps and services. Last updated 17 November 2026",
   },
 } satisfies Record<string, Msg>;
 
@@ -73,7 +74,7 @@ type Sec = { title: string; p?: string[]; li?: string[]; after?: string[] };
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mt-8">
-      <h3 className="font-display text-xl font-bold">{title}</h3>
+      <h3 className="font-display text-xl font-bold"><Phrases text={title} /></h3>
       <div className="mt-2 space-y-2 leading-relaxed text-graphite">{children}</div>
     </section>
   );
@@ -84,13 +85,13 @@ function Secs({ list }: { list: Sec[] }) {
     <>
       {list.map((s) => (
         <Section key={s.title} title={s.title}>
-          {s.p?.map((x) => <p key={x}>{x}</p>)}
+          {s.p?.map((x) => <p key={x}><Phrases text={x} /></p>)}
           {s.li && (
             <ul className="list-disc space-y-2 pl-5">
-              {s.li.map((x) => <li key={x}>{x}</li>)}
+              {s.li.map((x) => <li key={x}><Phrases text={x} /></li>)}
             </ul>
           )}
-          {s.after?.map((x) => <p key={x}>{x}</p>)}
+          {s.after?.map((x) => <p key={x}><Phrases text={x} /></p>)}
         </Section>
       ))}
     </>
@@ -101,20 +102,25 @@ const TH: Sec[] = [
   {
     title: "1. ใครให้บริการ",
     p: [
-      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า)",
+      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI การสำรองข้อมูลไป Google Drive หน้าลูกค้า)",
       "ติ๊กยอมรับตอนสั่งซื้อ เข้าสู่ระบบ หรือใช้แอปต่อไปหลังเราประกาศข้อกำหนดนี้ ถือว่าคุณตกลงตามนี้",
     ],
   },
   {
     title: "2. แอปฟรี แอปซื้อขาด และ Pro",
     li: [
-      "แอปฟรีใช้ได้ฟรีตามขีดจำกัดของแต่ละแอป เช่น จำนวนเครื่อง ดูรายละเอียดในแอป",
+      "ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro ดูขีดจำกัดและรายละเอียดในแอป",
       COPY.paid.th,
       COPY.pro.th,
       "Pro เปิดฟีเจอร์ Pro ในแอปฟรีทั้งหมด แอปแบบซื้อขาดที่คุณเป็นเจ้าของ รีเลย์ ตัวเชื่อม AI PeerapoS Pair และการสำรองข้อมูลไป Google Drive ในแอปฟรี (แอปแบบซื้อขาดมีให้อยู่แล้ว ไม่ต้องมี Pro) ส่วนแอปแบบซื้อขาดที่คุณยังไม่ได้ซื้อ Pro ไม่เปิดให้ สมัครครั้งเดียวใช้ได้กับทุกแอปในบัญชีเดียวกัน",
       "PeerapoS Plan บนมือถือลงฟรีจากร้านแอป แต่ต้องมี Pro ที่ยังใช้งานได้ถึงจะใช้ได้",
     ],
-    after: ["สิทธิ์ใช้โอนให้คนอื่นไม่ได้ และใช้ได้เฉพาะกิจการตามชื่อที่ลงไว้ในบัญชี"],
+    after: [
+      "ฟีเจอร์อาจเปลี่ยนแปลงหรือย้ายไปอยู่ใน PeerapoS Pro รวมถึงสำหรับผู้ใช้เดิม เราจะแจ้งล่วงหน้าบนเว็บไซต์และในแอปที่หัวข้อ มีอะไรใหม่ (What's new) หากขอบเขตฟีเจอร์ของ Pro เปลี่ยน เราจะแจ้งล่วงหน้าผ่านช่องทางเดียวกัน",
+      "คุณเลือกไม่อัปเดตและใช้เวอร์ชันเดิมต่อได้ ปิดการอัปเดตอัตโนมัติแล้วเปิดกลับเมื่อพร้อมได้ และติดตั้งเวอร์ชันก่อนหน้าได้จาก https://dl.peerapongsm.dev",
+      "งานที่สร้างไว้แล้วยังเปิดดู ทำต่อให้เสร็จ ยกเลิก พิมพ์ และส่งออกได้ ข้อมูลที่บันทึกไว้ยังมองเห็นได้ การเริ่มงานใหม่หรือสร้างรายงานด้วยฟีเจอร์ที่ย้ายไป Pro ต้องมี Pro",
+      "สิทธิ์ใช้โอนให้คนอื่นไม่ได้ และใช้ได้เฉพาะกิจการตามชื่อที่ลงไว้ในบัญชี",
+    ],
   },
   {
     title: "3. หนึ่งบัญชี หนึ่งชื่อ หนึ่งสิทธิ์",
@@ -160,7 +166,7 @@ const TH: Sec[] = [
   {
     title: "7. การคืนเงิน",
     p: [
-      "แอปแบบซื้อขาด ซื้อแล้วถือเป็นที่สิ้นสุด เราไม่คืนเงิน ยกเว้นมีข้อบกพร่องที่เราแก้ไม่ได้ หรือกฎหมายบังคับให้คืน",
+      "แอปซื้อขาดขอคืนเงินเต็มจำนวนได้ภายใน 14 วันนับจากวันที่ซื้อ หลังจากนั้นถือว่าการขายเป็นที่สิ้นสุด ไม่คืนเงิน",
       COPY.refunds.th,
       COPY.revoke.th,
       "ข้อนี้ไม่จำกัดสิทธิ์ของคุณตามกฎหมายคุ้มครองผู้บริโภคของไทย",
@@ -185,8 +191,9 @@ const TH: Sec[] = [
     title: "10. ข้อมูลของคุณ",
     p: [
       "ข้อมูลธุรกิจที่คุณกรอกในแอปอยู่ในเครื่องคุณ ร้านเป็นผู้ควบคุมข้อมูลของลูกค้าและพนักงานของร้านเอง และรับผิดชอบเรื่องความยินยอมและการแจ้งเจ้าของข้อมูล เราไม่เห็นข้อมูลนั้น",
-      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
-      "ข้อมูลบัญชี คำสั่งซื้อ และรายงานปัญหาที่ส่งมา เราเป็นผู้ควบคุมข้อมูลเอง รายละเอียดอยู่ในนโยบายความเป็นส่วนตัว",
+      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
+      "รีเลย์ PeerapoS Pair ส่งผ่านข้อมูลที่เข้ารหัส เราอ่านเนื้อหาไม่ได้ ไฟล์สำรอง Google Drive เข้ารหัสและส่งตรงไปบัญชีของคุณ เราไม่เก็บหรืออ่านเนื้อหา ส่วนตัวเชื่อม AI ส่งข้อมูลที่คุณเลือกไปยังผู้ให้บริการ AI ตามนโยบายความเป็นส่วนตัว ข้อมูลส่วนนั้นไม่ได้เข้ารหัสปลายทาง",
+      "ข้อมูลบัญชี คำสั่งซื้อ รายงานปัญหาที่ส่งมา และสถิติการใช้งาน เราเป็นผู้ควบคุมข้อมูลเอง รายละเอียดอยู่ในนโยบายความเป็นส่วนตัว",
     ],
   },
   {
@@ -209,14 +216,14 @@ const TH: Sec[] = [
   {
     title: "13. เปลี่ยนแปลงและยุติบริการออนไลน์",
     p: [
-      "บริการออนไลน์ (เว็บไซต์ บัญชี รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า การอัปเดตแอปซื้อขาด) เราอาจปรับ ระงับ หรือเลิกได้ ถ้าจะเลิกบริการที่คุณใช้อยู่ เราแจ้งล่วงหน้าทางอีเมลของบัญชีหรือบนเว็บไซต์",
+      "บริการออนไลน์ (เว็บไซต์ บัญชี รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า การอัปเดตแอปซื้อขาด) เราอาจปรับ ระงับ หรือเลิกได้ ถ้าจะเลิกบริการที่คุณใช้อยู่ เราแจ้งล่วงหน้าบนเว็บไซต์และในแอปที่หัวข้อ มีอะไรใหม่ (What's new)",
       "แอปที่ติดตั้งแล้วใช้งานในเครื่องต่อได้ และข้อมูลของคุณยังอยู่ในเครื่อง",
     ],
   },
   {
     title: "14. ข้อกำหนดนี้เปลี่ยนได้",
     p: [
-      "ถ้าเปลี่ยนข้อกำหนด เราลงฉบับใหม่ที่หน้านี้พร้อมวันที่ใหม่ การสั่งซื้อครั้งใหม่ใช้ฉบับที่ประกาศอยู่ตอนนั้น ถ้าการเปลี่ยนมีผลต่อสิทธิ์ของคุณอย่างสำคัญ เราแจ้งล่วงหน้าทางอีเมลของบัญชี",
+      "ถ้าเปลี่ยนข้อกำหนด เราลงฉบับใหม่ที่หน้านี้พร้อมวันที่ใหม่ การสั่งซื้อครั้งใหม่ใช้ฉบับที่ประกาศอยู่ตอนนั้น ถ้าการเปลี่ยนมีผลต่อสิทธิ์ของคุณอย่างสำคัญ เราแจ้งล่วงหน้าบนเว็บไซต์และในแอปที่หัวข้อ มีอะไรใหม่ (What's new)",
     ],
   },
   {
@@ -232,20 +239,25 @@ const EN: Sec[] = [
   {
     title: "1. Who provides the service",
     p: [
-      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (relay, PeerapoS Pair, the AI connector, customer pages).",
+      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (PeerapoS Pair relay, the AI connector, Google Drive backup, customer pages).",
       "Ticking the box when you order, signing in, or continuing to use the apps after we publish these Terms, means you agree to them.",
     ],
   },
   {
     title: "2. Free apps, paid apps and Pro",
     li: [
-      "Free apps are free to use within each app's limits, such as the number of PCs. The app shows the details.",
+      "Free to use; some features need PeerapoS Pro. The app shows its limits and details.",
       COPY.paid.en,
       COPY.pro.en,
       "Pro turns on Pro features in all the free apps, the paid apps you own, the relay, the AI connector, PeerapoS Pair and backup to Google Drive in the free apps (the paid apps include it without Pro). It does not open paid apps you have not bought. One Pro works across all apps on the same account.",
       "PeerapoS Plan on a phone is a free download, but it needs an active Pro to use at all.",
     ],
-    after: ["The right to use cannot be transferred, and is for the business named on the account."],
+    after: [
+      "Features may change or move to PeerapoS Pro, including for existing users. We announce changes in advance on the website and in the app's What's new. Changes to the scope of Pro also come with advance notice through those channels.",
+      "You can decline an update and keep your current version, turn automatic updates off and resume them when ready, and install an earlier version from https://dl.peerapongsm.dev.",
+      "Existing records stay viewable, finishable, cancellable, printable and exportable, and saved data remains visible. Starting new work or producing reports with features moved to Pro needs Pro.",
+      "The right to use cannot be transferred, and is for the business named on the account.",
+    ],
   },
   {
     title: "3. One account, one name, one licence",
@@ -291,7 +303,7 @@ const EN: Sec[] = [
   {
     title: "7. Refunds",
     p: [
-      "Paid app sales are final. We do not give refunds, except for a defect we cannot fix, or where the law requires a refund.",
+      "For paid apps, request a full refund within 14 days of purchase. After 14 days, sales are final.",
       COPY.refunds.en,
       COPY.revoke.en,
       "This does not limit your rights under Thai consumer law.",
@@ -316,8 +328,9 @@ const EN: Sec[] = [
     title: "10. Your data",
     p: [
       "The business data you enter in the apps stays on your PC. The shop is the data controller for its own customers and staff, and is responsible for consent and notices to them. We do not see that data.",
-      "If you turn on an online service (relay, PeerapoS Pair, the AI connector, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
-      "For account data, orders and the problem reports you send, we are the data controller. Details are in the Privacy Policy.",
+      "If you turn on an online service (PeerapoS Pair relay, the AI connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
+      "PeerapoS Pair relay passes encrypted data whose contents we cannot read. Google Drive backups are encrypted and sent directly to your account; we do not store or read their contents. The AI connector passes the data you choose to your AI provider as described in the Privacy Policy; that traffic is not end-to-end encrypted.",
+      "For account data, orders, problem reports you send and usage statistics, we are the data controller. Details are in the Privacy Policy.",
     ],
   },
   {
@@ -340,14 +353,14 @@ const EN: Sec[] = [
   {
     title: "13. Changing or ending online services",
     p: [
-      "We may change, pause or end the online services (the website, accounts, relay, PeerapoS Pair, the AI connector, customer pages, paid-app updates). If we end one you use, we tell you ahead by email to the account or on the website.",
+      "We may change, pause or end the online services (the website, accounts, relay, PeerapoS Pair, the AI connector, customer pages, paid-app updates). If we end one you use, we tell you ahead on the website and in the app's What's new.",
       "Apps already installed keep working on your PC, and your data stays on it.",
     ],
   },
   {
     title: "14. Changes to these Terms",
     p: [
-      "If we change the Terms we publish the new version here with a new date. A new order uses the version in force at that time. If a change affects your rights in an important way, we tell you ahead by email to the account.",
+      "If we change the Terms we publish the new version here with a new date. A new order uses the version in force at that time. If a change affects your rights in an important way, we tell you ahead on the website and in the app's What's new.",
     ],
   },
   {
@@ -369,7 +382,7 @@ export default function Terms() {
       {/* ── ภาษาไทย ── */}
       <article lang="th" className="mt-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">ข้อกำหนดการใช้งาน</h1>
-        <p className="mt-2 text-graphite">{COPY.updated.th}</p>
+        <p className="mt-2 text-graphite"><Phrases text={COPY.updated.th} /></p>
         <p className="mt-4 leading-relaxed text-graphite">
           อ่านคู่กับ <a href="/privacy" className="text-indigo underline">นโยบายความเป็นส่วนตัว</a>
         </p>

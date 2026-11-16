@@ -1,3 +1,4 @@
+import { Phrases } from "@/components/Phrases";
 import type { Metadata } from "next";
 import type { Msg } from "@/lib/api.ts";
 
@@ -49,8 +50,8 @@ const COPY = {
     en: "On account deletion, card subscriptions are cancelled immediately without a refund.",
   },
   updated: {
-    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 14 พฤศจิกายน 2569",
-    en: "PeerapoS apps, accounts and services. Last updated 14 November 2026",
+    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 17 พฤศจิกายน 2569",
+    en: "PeerapoS apps, accounts and services. Last updated 17 November 2026",
   },
 } satisfies Record<string, Msg>;
 
@@ -75,7 +76,7 @@ type Sec = { id?: string; title: string; p?: string[]; li?: string[]; after?: st
 function Section({ id, title, children }: { id?: string; title: string; children: React.ReactNode }) {
   return (
     <section id={id} className="mt-8 scroll-mt-6">
-      <h3 className="font-display text-xl font-bold">{title}</h3>
+      <h3 className="font-display text-xl font-bold"><Phrases text={title} /></h3>
       <div className="mt-2 space-y-2 leading-relaxed text-graphite">{children}</div>
     </section>
   );
@@ -86,16 +87,38 @@ function Secs({ list }: { list: Sec[] }) {
     <>
       {list.map((s) => (
         <Section key={s.title} id={s.id} title={s.title}>
-          {s.p?.map((x) => <p key={x}>{x}</p>)}
+          {s.p?.map((x) => <p key={x}><Phrases text={x} /></p>)}
           {s.li && (
             <ul className="list-disc space-y-2 pl-5">
-              {s.li.map((x) => <li key={x}>{x}</li>)}
+              {s.li.map((x) => <li key={x}><Phrases text={x} /></li>)}
             </ul>
           )}
-          {s.after?.map((x) => <p key={x}>{x}</p>)}
+          {s.after?.map((x) => <p key={x}><Phrases text={x} /></p>)}
         </Section>
       ))}
     </>
+  );
+}
+
+const PROCESSORS = [
+  ["Cloudflare", "https://www.cloudflare.com/privacypolicy/", "https://www.cloudflare.com/website-terms/"],
+  ["Stripe", "https://stripe.com/privacy", "https://stripe.com/legal/ssa"],
+  ["Resend", "https://resend.com/legal/privacy-policy", "https://resend.com/legal/terms-of-service"],
+  ["Google", "https://policies.google.com/privacy", "https://policies.google.com/terms"],
+  ["Anthropic", "https://www.anthropic.com/legal/privacy", "https://www.anthropic.com/legal/consumer-terms"],
+  ["OpenAI", "https://openai.com/policies/privacy-policy/", "https://openai.com/policies/terms-of-use/"],
+];
+
+function ProcessorLinks({ lang }: { lang: "th" | "en" }) {
+  return (
+    <Section title={lang === "th" ? "นโยบายและเงื่อนไขของผู้ให้บริการ" : "Providers' policies and terms"}>
+      <p><Phrases text={lang === "th" ? "ตัวเชื่อม AI ใช้ผู้ให้บริการที่คุณเลือก เช่น Anthropic หรือ OpenAI อ่านนโยบายและเงื่อนไขของผู้ให้บริการแต่ละรายได้ที่นี่" : "The AI connector uses the provider you choose, such as Anthropic or OpenAI. Read each provider's own privacy policy and terms here."} /></p>
+      <ul className="list-disc space-y-2 pl-5">
+        {PROCESSORS.map(([name, privacy, terms]) => (
+          <li key={name}>{name}: <a href={privacy} className="text-indigo underline">{lang === "th" ? "ความเป็นส่วนตัว" : "Privacy"}</a>{" · "}<a href={terms} className="text-indigo underline">{lang === "th" ? "เงื่อนไข" : "Terms"}</a></li>
+        ))}
+      </ul>
+    </Section>
   );
 }
 
@@ -105,19 +128,41 @@ const TH: Sec[] = [
     p: [
       "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา",
       "ข้อมูลลูกค้าและพนักงานที่ร้านกรอกในแอป ร้านเป็นผู้ควบคุมข้อมูลเอง เราไม่เห็นข้อมูลนั้น",
-      "ข้อมูลบัญชี คำสั่งซื้อ และรายงานปัญหาที่ส่งมา เราเป็นผู้ควบคุมข้อมูลเอง",
-      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
+      "ข้อมูลบัญชี คำสั่งซื้อ รายงานปัญหาที่ส่งมา และสถิติการใช้งาน เราเป็นผู้ควบคุมข้อมูลเอง",
+      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
     ],
   },
   {
-    title: "แอปฟรีที่ไม่มี Pro: ออฟไลน์",
+    title: "แอปฟรีและการเชื่อมต่ออินเทอร์เน็ต",
     p: [
       "ข้อมูลที่กรอกในแอปอยู่ในคอมพิวเตอร์ของคุณเท่านั้น เราไม่มีเซิร์ฟเวอร์เก็บข้อมูลธุรกิจของคุณ ไฟล์สำรองหรือไฟล์ที่ส่งออกไปอยู่ที่ที่คุณเลือกเอง",
-      "แอปฟรีที่ยังไม่ใช้ Pro ไม่มีบัญชี ไม่ติดต่อเซิร์ฟเวอร์ตรวจสิทธิ์ของเรา ไม่มีโฆษณา ไม่มีระบบติดตามการใช้งาน (analytics) และต่ออินเทอร์เน็ตแค่สองกรณี",
+      "ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro ไม่มีโฆษณา ใช้งานหลักได้โดยไม่ต้องมีบัญชี แอปอาจเชื่อมต่ออินเทอร์เน็ตดังนี้",
     ],
     li: [
       "ตรวจหาเวอร์ชันใหม่ แอปถาม GitHub Releases ว่ามีเวอร์ชันใหม่ไหม ไม่ส่งข้อมูลของคุณไปด้วย",
       "รายงานปัญหาหรือส่งความเห็น ส่งเฉพาะตอนที่คุณกดส่งเอง ดูหัวข้อ \"รายงานปัญหา\"",
+      "สถิติการใช้งาน วันละครั้งเมื่อออนไลน์ ปิดได้ ดูหัวข้อ สถิติการใช้งาน",
+      "เฉพาะเมื่อคุณเปิดใช้เอง: ตรวจสิทธิ์ Pro รีเลย์ PeerapoS Pair ตัวเชื่อม AI และสำรองข้อมูลไป Google Drive",
+    ],
+  },
+  {
+    title: "สถิติการใช้งาน",
+    p: [
+      "แอป PeerapoS ส่งสถิติการใช้งานวันละครั้งเมื่อออนไลน์ เปิดเป็นค่าเริ่มต้น และแสดงประกาศในแอปก่อนส่งครั้งแรก ใช้ปรับปรุงผลิตภัณฑ์|ตามฐานประโยชน์โดยชอบด้วยกฎหมาย ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล มาตรา 24(5)",
+      "ใช้รหัสสุ่มหนึ่งรหัสต่อคอมพิวเตอร์ ร่วมกันระหว่างแอป PeerapoS บนเครื่องนั้น และรหัสที่แฮชแยกสำหรับอุปกรณ์ที่จับคู่ซึ่งพบในวันนั้น ไม่ใช้รหัสเครื่อง Windows ไม่ผูกกับบัญชี สิทธิ์ใช้งาน อีเมล Google การชำระเงิน รายงานปัญหา หรือข้อมูลรีเลย์และตัวเชื่อม AI ข้อมูลนี้เป็นข้อมูลส่วนบุคคล|ที่ใช้รหัสแทนตัวบุคคล",
+    ],
+    li: [
+      "ชื่อและเวอร์ชันแอป รุ่น Windows (10, 11 หรืออื่น ๆ) ภาษาไทยหรืออังกฤษ และโหมดฟรี Pro หรือเครื่องลูก",
+      "จำนวนวันที่เปิดแอปใน 7 วันที่ผ่านมา (0–7 วัน) และช่วงเวลาที่ใช้|หน้าต่างแอปวันนี้ (0–15, 15–60, 60–240 หรือมากกว่า 240 นาที)",
+      "จำนวนการใช้ฟีเจอร์|และการเปิดบริการ|ตามรายการที่กำหนดในแอป เช่น ออกเอกสาร เปิดหน้าสมัคร Pro หรือพบขีดจำกัด ไม่เกิน 999 ครั้งต่อรายการ ไม่มีข้อความที่คุณพิมพ์",
+      "ช่วงจำนวนบริษัท (1, 2, 3 หรือ 4 ขึ้นไป) และช่วงจำนวนรายการในบริษัทที่เปิดอยู่ (0–10, 11–50, 51–200 หรือ 201 ขึ้นไป) เช่น ห้อง สินค้า ลูกค้า หรือรถ ตามชนิดแอป มีเพียงช่วงจำนวน ไม่มีรายละเอียดของรายการ",
+      "จำนวนอุปกรณ์ที่จับคู่ ที่เชื่อมต่อวันนี้ และที่ใช้รีเลย์วันนี้ (แต่ละจำนวน 0–20) พร้อมรหัสสุ่มของคอมพิวเตอร์และรหัสแฮชของอุปกรณ์ที่พบวันนี้ ไม่เกิน 20 เครื่อง",
+      "จำนวนครั้งที่แอปหยุดทำงานและอัปเดตไม่สำเร็จ (แต่ละจำนวน 0–99) ไม่มีข้อความข้อผิดพลาด และมีเลขรุ่นรูปแบบรายงาน",
+    ],
+    after: [
+      "ไม่มีข้อมูลร้านหรือลูกค้า ไม่มีชื่อ ยอดเงิน ข้อความอิสระ ที่อยู่ เบอร์โทร เลขภาษี เส้นทางไฟล์ หรืออายุ ไม่เก็บตำแหน่งที่ตั้งทุกชนิด รวมถึงประเทศ ภูมิภาค และเขตเวลา Cloudflare เป็นผู้ประมวลผล เห็นที่อยู่ IP เพื่อส่งคำขอและจำกัดจำนวนครั้ง แต่เราไม่อ่าน ไม่เก็บ และไม่บันทึก IP ในล็อก",
+      "เก็บสถิติ 3 เดือนแล้วลบ ไม่เชื่อมกับข้อมูลอื่นเพื่อหาว่าเป็นใคร และไม่แสดงผลกลุ่มที่มีคอมพิวเตอร์น้อยกว่า 5 เครื่อง",
+      "ปิดได้ที่ ตั้งค่า > เกี่ยวกับ ยืนยันปิดแล้วจะหยุดนับและส่ง ลบตัวนับและรหัสสถิติ|บนคอมพิวเตอร์เครื่องนั้น คำขอที่กำลังส่งอาจเสร็จสิ้นได้ รายงานเดิมจะหมดอายุภายใน 3 เดือน เปิดอีกครั้งจะสร้างรหัสใหม่ ดูสิ่งที่ส่งได้ในหน้าเดียวกัน เราไม่ขอให้ใครส่งรหัสสถิติมาให้เรา",
     ],
   },
   {
@@ -183,9 +228,13 @@ const TH: Sec[] = [
     ],
   },
   {
+    title: "สำรองข้อมูลไป Google Drive",
+    p: ["เมื่อคุณเปิดใช้ แอปส่งไฟล์สำรองที่เข้ารหัสไปยังบัญชี Google Drive ของคุณโดยตรง เราไม่เก็บหรืออ่านเนื้อหาไฟล์สำรอง คุณปิดและจัดการไฟล์ในบัญชี Google ของคุณได้"],
+  },
+  {
     title: "รายงานปัญหา",
     p: [
-      "ส่งเฉพาะตอนที่คุณกดส่งเอง รายงานมีข้อความที่คุณพิมพ์ อีเมลสำหรับให้เราตอบกลับ (ถ้าคุณใส่) ชื่อและเวอร์ชันแอป เวอร์ชัน Windows และรายละเอียดข้อผิดพลาด ก่อนส่ง แอปจะลบชื่อผู้ใช้ Windows และที่อยู่โฟลเดอร์ในเครื่องออกให้ รายงานส่งผ่าน feedback.peerapongsm.dev (Cloudflare) แล้วส่งต่อเป็นอีเมลถึงเรา พร้อมประเทศและเวลาที่ได้รับ สำเนารายงานเก็บในฐานข้อมูลของเราบน Cloudflare จนกว่าเราจะดึงไปอ่านแล้วลบออก ที่อยู่ IP ใช้แค่จำกัดจำนวนครั้งที่ส่งได้ ไม่ได้เก็บไว้ วันละครั้ง ระบบส่งรายงานที่ได้รับไปให้ Claude ของ Anthropic ช่วยสรุปให้เราอ่าน Anthropic ไม่เอาไปฝึก AI เราใช้รายงานเพื่อแก้บั๊กเท่านั้น ไม่ขายหรือแบ่งปันให้ใคร",
+      "ส่งเฉพาะตอนที่คุณกดส่งเอง รายงานมีข้อความที่คุณพิมพ์ อีเมลสำหรับให้เราตอบกลับ (ถ้าคุณใส่) ชื่อและเวอร์ชันแอป เวอร์ชัน Windows และรายละเอียดข้อผิดพลาด ก่อนส่ง แอปจะลบชื่อผู้ใช้ Windows และที่อยู่โฟลเดอร์ในเครื่องออกให้ รายงานส่งผ่าน feedback.peerapongsm.dev (Cloudflare) แล้วส่งต่อเป็นอีเมลถึงเรา พร้อมประเทศและเวลาที่ได้รับ สำเนารายงานเก็บในฐานข้อมูลของเราบน Cloudflare จนกว่าเราจะดึงไปอ่านแล้วลบออก ที่อยู่ IP ใช้แค่จำกัดจำนวนครั้งที่ส่งได้ ไม่ได้เก็บไว้ เราใช้รายงานเพื่อแก้บั๊กเท่านั้น ไม่ขายหรือแบ่งปันให้ใคร",
     ],
   },
   {
@@ -205,12 +254,12 @@ const TH: Sec[] = [
   {
     title: "ใครรับข้อมูลบ้าง และส่งไปนอกประเทศไหม",
     li: [
-      "Cloudflare: เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ เว็บไซต์ และ Turnstile",
-      "Google: เข้าสู่ระบบด้วยบัญชี Google",
+      "Cloudflare: สถิติการใช้งาน เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ เว็บไซต์ และ Turnstile",
+      "Google: เข้าสู่ระบบด้วยบัญชี Google และสำรองข้อมูลไป Google Drive เมื่อคุณเปิดใช้",
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       COPY.recipient.th,
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
-      "Anthropic: บอทแชต LINE และสรุปรายงานปัญหาวันละครั้ง ไม่เอาข้อมูลไปฝึก AI",
+      "Anthropic: บอทแชต LINE ไม่เอาข้อมูลไปฝึก AI",
       "LINE: แชตกับ LINE Official Account ของ PeerapoS",
       "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Pair",
       "ผู้ให้บริการ AI ที่ร้านเลือกเอง: รับข้อมูลที่ร้านตัดสินใจส่ง ตามเงื่อนไขของผู้ให้บริการนั้น",
@@ -254,19 +303,41 @@ const EN: Sec[] = [
     p: [
       "The provider is พีระพอส (PeerapoS), a sole proprietorship.",
       "The shop is the data controller for the customer and staff data it enters in the apps. We do not see that data.",
-      "We are the data controller for account data, orders and the problem reports sent to us.",
-      "If a shop turns on an opt-in online service (relay, PeerapoS Pair, the AI connector, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
+      "We are the data controller for account data, orders, problem reports sent to us and usage statistics.",
+      "If a shop turns on an opt-in online service (PeerapoS Pair relay, the AI connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
     ],
   },
   {
-    title: "Free apps without Pro: offline",
+    title: "Free apps and internet connections",
     p: [
       "Everything you enter in an app is stored only on your computer. We run no server that holds your business data. Backups and exports go wherever you choose.",
-      "A free app without Pro has no account, never contacts our licence server, has no ads and no usage tracking or analytics, and goes online in only two cases.",
+      "Free to use; some features need PeerapoS Pro. There are no ads and the core app needs no account. A free app can make these internet connections:",
     ],
     li: [
       "Update check. The app asks GitHub Releases whether a new version exists. None of your data is sent.",
       "Problem reports and feedback, only when you choose to send one. See \"Problem reports\".",
+      "Usage statistics, once a day when online; you can turn them off. See Usage statistics.",
+      "Only when you turn them on: Pro licence checks, PeerapoS Pair relay, the AI connector and Google Drive backup.",
+    ],
+  },
+  {
+    title: "Usage statistics",
+    p: [
+      "PeerapoS apps send usage statistics once a day when online. This is on by default, with an in-app notice before the first report. Our legal basis is legitimate interest under PDPA section 24(5), for product improvement.",
+      "One random id per PC is shared across PeerapoS apps on that PC, with a separate hashed id for each paired device seen that day. It is not a Windows machine id and is never linked to account, licence, email, Google, payment, feedback, relay or AI connector data. We treat these statistics as pseudonymous personal data.",
+    ],
+    li: [
+      "App name and version, Windows version (10, 11 or other), Thai or English interface, and free, Pro or other-PC client mode.",
+      "Days the app was opened in the last 7 days (0–7), and today's foreground-use range (0–15, 15–60, 60–240 or over 240 minutes).",
+      "Counts of features used and services enabled from a fixed list in the app, such as issuing a document, viewing the Pro signup page or reaching a limit. Counts stop at 999 per item; no text you type is included.",
+      "Company-count range (1, 2, 3 or 4+) and item-count range in the open company (0–10, 11–50, 51–200 or 201+), such as rooms, products, customers or vehicles depending on the app. Only ranges, with no item details.",
+      "Counts of paired devices, devices connected today and devices using relay today (each 0–20), with the random PC id and hashed ids of up to 20 devices seen today.",
+      "Crash and failed-update counts (each 0–99), without error messages, and a report-format version number.",
+    ],
+    after: [
+      "No shop or customer data, names, amounts, free text, addresses, phone numbers, tax ids, file paths or age. No location of any kind, including country, region or time zone. Cloudflare is our processor and sees the IP address to deliver and rate-limit the request; we do not read, store or log it.",
+      "Statistics are kept for 3 months, then deleted. We never join them with other data to identify a person and do not show groups of fewer than 5 PCs.",
+      "Turn it off in Settings > About and confirm Turn off. This stops counting and sending and deletes local counters and the statistics id on that PC. An in-flight request may complete. Earlier reports expire within 3 months. Turning it on again creates a new id. See what is sent is available on the same screen. We never ask anyone to send us their statistics id.",
     ],
   },
   {
@@ -330,9 +401,13 @@ const EN: Sec[] = [
     ],
   },
   {
+    title: "Google Drive backup",
+    p: ["When you turn it on, the app sends encrypted backups directly to your own Google Drive account. We do not store or read their contents. You can turn it off and manage files in your Google account."],
+  },
+  {
     title: "Problem reports",
     p: [
-      "Sent only when you choose to send one. A report contains the text you type, an optional reply email, the app name and version, the Windows version and error details. Your Windows user name and local folder paths are removed before sending. Reports go through feedback.peerapongsm.dev (Cloudflare) and are forwarded to us by email with the country and time received. A copy is held in our database on Cloudflare until we pull it to read and then delete it. Your IP address is used only for rate limiting and is not stored. Once a day, received reports are sent to Claude by Anthropic to write a summary for us; Anthropic does not use them to train AI. Reports are used only to fix bugs and are never sold or shared.",
+      "Sent only when you choose to send one. A report contains the text you type, an optional reply email, the app name and version, the Windows version and error details. Your Windows user name and local folder paths are removed before sending. Reports go through feedback.peerapongsm.dev (Cloudflare) and are forwarded to us by email with the country and time received. A copy is held in our database on Cloudflare until we pull it to read and then delete it. Your IP address is used only for rate limiting and is not stored. Reports are used only to fix bugs and are never sold or shared.",
     ],
   },
   {
@@ -352,12 +427,12 @@ const EN: Sec[] = [
   {
     title: "Who receives data, and transfers abroad",
     li: [
-      "Cloudflare: servers, databases, file storage, the relay, the website and Turnstile.",
-      "Google: Google sign-in.",
+      "Cloudflare: usage statistics, servers, databases, file storage, the relay, the website and Turnstile.",
+      "Google: Google sign-in and Google Drive backup when you turn it on.",
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       COPY.recipient.en,
       "GitHub: update checks for the free apps.",
-      "Anthropic: the LINE chat bot and the daily problem-report summary; it does not train AI on the data.",
+      "Anthropic: the LINE chat bot; it does not train AI on the data.",
       "LINE: chats with the PeerapoS LINE Official Account.",
       "Google Firebase Cloud Messaging: phone alerts for PeerapoS Pair.",
       "The AI provider the shop chooses: receives what the shop decides to send, under that provider's terms.",
@@ -405,12 +480,13 @@ export default function Privacy() {
       {/* ── ภาษาไทย ── */}
       <article lang="th" className="mt-8">
         <h1 className="font-display text-4xl font-bold tracking-tight">นโยบายความเป็นส่วนตัว</h1>
-        <p className="mt-2 text-graphite">{COPY.updated.th}</p>
+        <p className="mt-2 text-graphite"><Phrases text={COPY.updated.th} /></p>
         <p className="mt-4 leading-relaxed text-graphite">
           ใช้กับแอปฟรี {APPS_FREE} แอปแบบซื้อขาด {APPS_PAID} และ PeerapoS Pair อ่านคู่กับ{" "}
           <a href="/terms" className="text-indigo underline">ข้อกำหนดการใช้งาน</a>
         </p>
         <Secs list={TH} />
+        <ProcessorLinks lang="th" />
       </article>
 
       <hr className="my-14 border-line" />
@@ -424,6 +500,7 @@ export default function Privacy() {
           <a href="/terms" className="text-indigo underline">Terms of Use</a>.
         </p>
         <Secs list={EN} />
+        <ProcessorLinks lang="en" />
       </article>
     </main>
   );

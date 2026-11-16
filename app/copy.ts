@@ -16,12 +16,12 @@ export const COPY = {
     // "|" = the only places the H1 may wrap (Chrome's Thai line-breaking can split words mid-phrase).
     h1: "โปรแกรมฟรี|สำหรับ SME",
     heroSub:
-      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ไม่ต้องสมัครสมาชิก ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
+      "โปรแกรมบน Windows ใช้งานออฟไลน์ ข้อมูลอยู่ในเครื่องคุณ ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro ไม่มีโฆษณา ถ้ายังไม่มีตัวที่ตรงกับงานของคุณ เรารับทำให้",
     heroApps: "ดูโปรแกรมทั้งหมด",
     heroCustom: "คุยเรื่องทำแอป",
     wallLabel: "โปรแกรมทั้งหมด กดเพื่อดูรายละเอียด",
     appsTitle: "เลือกตัวที่ตรงกับ|งานของคุณ",
-    appsSub: "ทุกตัวทำงานได้โดยไม่ต้องต่อเน็ต สำรองข้อมูลเก็บไว้เองได้ และแยกข้อมูลหลายบริษัทในเครื่องเดียวได้ ใช้ฟรีทุกตัว",
+    appsSub: "ทุกตัวทำงานได้โดยไม่ต้องต่อเน็ต สำรองข้อมูลเก็บไว้เองได้ และแยกข้อมูลหลายบริษัทในเครื่องเดียวได้ ใช้ฟรี ฟีเจอร์บางอย่างต้องใช้ PeerapoS Pro",
     winOnly: "ใช้ได้กับ Windows 10 และ 11 (64-bit) บนคอมพิวเตอร์ ยังไม่มีเวอร์ชัน Mac มือถือ และแท็บเล็ต",
     uiLang: { th: "หน้าจอภาษาไทย สลับเป็นภาษาอังกฤษได้ในตั้งค่า", en: "หน้าจอภาษาอังกฤษ" },
     dl: {
@@ -102,12 +102,12 @@ export const COPY = {
     navContact: "Contact",
     h1: "Free apps |for SMEs",
     heroSub:
-      "Windows apps that work offline. Your data stays on your PC. No subscription needed, no ads. If none of them fits your work, we'll build one that does.",
+      "Windows apps that work offline. Your data stays on your PC. Free to use; some features need PeerapoS Pro. No ads. If none of them fits your work, we'll build one that does.",
     heroApps: "See all apps",
     heroCustom: "Talk about a custom app",
     wallLabel: "All apps. Select one for details.",
     appsTitle: "Pick the one that fits your work",
-    appsSub: "Every app runs without an internet connection, lets you keep your own backups and can hold several companies on one PC. All of them are free.",
+    appsSub: "Every app runs without an internet connection, lets you keep your own backups and can hold several companies on one PC. Free to use; some features need PeerapoS Pro.",
     winOnly: "Windows 10 and 11 (64-bit) desktops only. No Mac, phone or tablet versions yet.",
     uiLang: { th: "Thai interface, switch to English in Settings", en: "English interface" },
     dl: {

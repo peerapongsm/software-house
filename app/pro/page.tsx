@@ -1,5 +1,6 @@
 "use client";
 
+import { APPS, slugOf } from "@/app/apps-data";
 import { Phrases } from "@/components/Phrases";
 import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
@@ -106,6 +107,7 @@ export default function ProPage() {
         <section className="flex flex-col gap-3">
           <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t("h1")}</h1>
           <p className="text-lg text-graphite"><Phrases text={t("lead")} /></p>
+          <p className="text-sm text-graphite"><Phrases text={t("updated")} /></p>
         </section>
 
         <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5 lg:p-7" aria-labelledby="web-pro">
@@ -146,6 +148,21 @@ export default function ProPage() {
               {err && <p role="alert" className="font-semibold text-red-700"><Phrases text={err[lang]} /></p>}
             </>
           )}
+        </section>
+
+        <section>
+          <h2 className="mb-3 font-display text-xl font-bold"><Phrases text={t("appFeaturesH")} /></h2>
+          <p className="mb-4 text-graphite"><Phrases text={t("existing")} /></p>
+          <div className="grid gap-6 lg:grid-cols-2">
+            {APPS.filter((app) => ["PeerapoS File", "PeerapoS Room", "PeerapoS Garage", "PeerapoS Stock"].includes(app.name)).map((app) => (
+              <div key={app.name} className="rounded-2xl border border-line bg-sheet p-5">
+                <h3 className="mb-3 font-display text-lg font-bold"><a href={`/apps/${slugOf(app)}`} className="hover:text-indigo">{app.name}</a></h3>
+                <ul className="flex list-disc flex-col gap-2 pl-5">
+                  {app[lang].pro.map((text) => <li key={text}><Phrases text={text} /></li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section>
