@@ -52,7 +52,7 @@ export const PRO_COPY = {
   h1: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   updated: { th: "อัปเดตล่าสุด 17 พฤศจิกายน 2569", en: "Last updated 17 November 2026" },
   appFeaturesH: { th: "ฟีเจอร์ Pro ของแต่ละแอป", en: "Pro features by app" },
-  existing: { th: "งานที่สร้างไว้แล้วยังเปิดดู ทำต่อให้เสร็จ ยกเลิก พิมพ์ และส่งออกได้ ข้อมูลที่บันทึกไว้ยังมองเห็นได้ รายงานที่คำนวณใหม่ด้วยฟีเจอร์ Pro ต้องมี Pro", en: "Existing records stay viewable, finishable, cancellable, printable and exportable. Saved data remains visible. New computations in Pro reports need Pro." },
+  existing: { th: "งานที่สร้างไว้แล้วยังเปิดดู ทำต่อให้เสร็จ ยกเลิก พิมพ์ และส่งออกได้ ข้อมูลที่บันทึกไว้ก็ยังเห็นอยู่ แต่ถ้าจะเริ่มงานใหม่หรือออกรายงานด้วยฟีเจอร์ Pro ต้องมี Pro", en: "Existing records stay viewable, finishable, cancellable, printable and exportable. Saved data remains visible. Starting new work or producing reports with Pro features needs Pro." },
   lead: { th: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน", en: "Subscribe once. It works on every app in the same Google account." },
   month: { th: "/ เดือน", en: "/ month" },
   year: { th: "/ ปี", en: "/ year" },
