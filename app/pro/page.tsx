@@ -1,6 +1,5 @@
 "use client";
 
-import { APPS, slugOf } from "@/app/apps-data";
 import { Phrases } from "@/components/Phrases";
 import { useEffect, useState } from "react";
 import Shell from "@/components/account/Shell";
@@ -151,21 +150,6 @@ export default function ProPage() {
         </section>
 
         <section>
-          <h2 className="mb-3 font-display text-xl font-bold"><Phrases text={t("appFeaturesH")} /></h2>
-          <p className="mb-4 text-graphite"><Phrases text={t("existing")} /></p>
-          <div className="grid gap-6 lg:grid-cols-2">
-            {APPS.filter((app) => ["PeerapoS File", "PeerapoS Room", "PeerapoS Garage", "PeerapoS Stock"].includes(app.name)).map((app) => (
-              <div key={app.name} className="rounded-2xl border border-line bg-sheet p-5">
-                <h3 className="mb-3 font-display text-lg font-bold"><a href={`/apps/${slugOf(app)}`} className="hover:text-indigo">{app.name}</a></h3>
-                <ul className="flex list-disc flex-col gap-2 pl-5">
-                  {app[lang].pro.map((text) => <li key={text}><Phrases text={text} /></li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
           <h2 className="mb-3 font-display text-xl font-bold">{t("stepsH")}</h2>
           <ol className="flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:gap-5">
             {PRO_COPY.steps.map((s, i) => (
@@ -182,6 +166,7 @@ export default function ProPage() {
                 <li key={x.en}><Phrases text={x[lang]} /></li>
               ))}
             </ul>
+            <p className="mt-3 text-sm text-graphite"><Phrases text={t("existing")} /></p>
           </div>
           <div className="rounded-2xl border border-line bg-sheet p-5">
             <h2 className="mb-3 font-display text-xl font-bold">{t("factsH")}</h2>
