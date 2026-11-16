@@ -81,12 +81,9 @@ for (const lang of ['th', 'en']) test(`Pro sales copy (${lang}) offers only card
   assert.equal(tree.filter(n => n.type === 'button').length, 2);
 });
 
-for (const lang of ["th", "en"]) test(`Pro R2 (${lang}): per-app lists render even while sales are closed`, async () => {
+for (const lang of ["th", "en"]) test(`Pro R2 (${lang}): no per-app feature lists (each app page has them); existing-work note and date stay`, async () => {
   const { tree } = await page(false, lang);
-  for (const slug of ["file", "room", "garage", "stock"]) {
-    assert.ok(tree.some(n => n.props?.href === `/apps/${slug}`), slug);
-    const app = APPS.find(a => a.name === `PeerapoS ${slug[0].toUpperCase() + slug.slice(1)}`)!;
-    for (const text of app[lang as "th" | "en"].pro) assert.ok(tree.some(n => n.props?.text === text), text);
-  }
+  for (const slug of ["file", "room", "garage", "stock"]) assert.equal(tree.some(n => n.props?.href === `/apps/${slug}`), false, slug);
+  assert.ok(tree.some(n => n.props?.text === pro.PRO_COPY.existing[lang as "th" | "en"]));
   assert.ok(tree.some(n => n.props?.text === pro.PRO_COPY.updated[lang as "th" | "en"]));
 });
