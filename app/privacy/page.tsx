@@ -6,6 +6,7 @@ import type { Msg } from "@/lib/api.ts";
 // LINE OA chat section verified against peerapos-chat 2026-11-13: Claude API replies, last turns kept 24 h in
 // Cloudflare KV keyed by a hash of the LINE user ID, daily/monthly counters, 12 h pause after a handoff.
 // The AI paragraph follows peerapos-go/docs/privacy-ai.md and licence worker/src/consent.ts.
+// The LINE connector section follows the peerapos-go relay (relay/src/line.ts, goRoom.ts) and host/src/line, 2026-11-17.
 
 const COPY = {
   description: {
@@ -129,7 +130,7 @@ const TH: Sec[] = [
       "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา",
       "ข้อมูลลูกค้าและพนักงานที่ร้านกรอกในแอป ร้านเป็นผู้ควบคุมข้อมูลเอง เราไม่เห็นข้อมูลนั้น",
       "ข้อมูลบัญชี คำสั่งซื้อ รายงานปัญหาที่ส่งมา และสถิติการใช้งาน เราเป็นผู้ควบคุมข้อมูลเอง",
-      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
+      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
     ],
   },
   {
@@ -142,7 +143,7 @@ const TH: Sec[] = [
       "ตรวจหาเวอร์ชันใหม่ แอปถาม GitHub Releases ว่ามีเวอร์ชันใหม่ไหม ไม่ส่งข้อมูลของคุณไปด้วย",
       "รายงานปัญหาหรือส่งความเห็น ส่งเฉพาะตอนที่คุณกดส่งเอง ดูหัวข้อ \"รายงานปัญหา\"",
       "สถิติการใช้งาน วันละครั้งเมื่อออนไลน์ ปิดได้ ดูหัวข้อ \"สถิติการใช้งาน\"",
-      "เฉพาะเมื่อคุณเปิดใช้เอง: ตรวจสิทธิ์ Pro รีเลย์ PeerapoS Pair ตัวเชื่อม AI และสำรองข้อมูลไป Google Drive",
+      "เฉพาะเมื่อคุณเปิดใช้เอง: ตรวจสิทธิ์ Pro รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE และสำรองข้อมูลไป Google Drive",
     ],
   },
   {
@@ -229,6 +230,24 @@ const TH: Sec[] = [
     ],
   },
   {
+    title: "ตัวเชื่อม LINE ของร้าน",
+    p: [
+      "ตัวเชื่อม LINE (ไม่บังคับ ปิดเป็นค่าเริ่มต้น) ให้ร้านส่งข้อความ|จากแอปถึงลูกค้าทาง LINE Official Account ของร้านเอง ในแอปฟรีต้องมี Pro ส่วนแอปแบบซื้อขาด|มีให้อยู่แล้ว ร้านใช้ OA และ Channel access token ของร้าน โทเคนกับ Channel secret อยู่ในเครื่องหลักของร้าน|เท่านั้น ไม่ส่งมาที่เรา",
+      "ข้อความที่ลูกค้าส่งถึง LINE OA ของร้าน|จะผ่านเซิร์ฟเวอร์ PeerapoS (relay.peerapongsm.dev) ก่อนถึงเครื่องร้าน เซิร์ฟเวอร์อ่าน|เพียงเพื่อคัดว่าเป็น|รหัสเชื่อม LINE คำขอยกเลิก การเพิ่มเพื่อนหรือบล็อก หรือข้อความแชต รหัสเชื่อมกับการเพิ่มเพื่อน|เก็บไว้แบบเข้ารหัส|ไม่เกิน 7 วัน คำขอยกเลิกกับการบล็อก|ไม่เกิน 90 วัน จนเครื่องร้านมารับ แล้วลบทันทีที่รับไป ถ้าเปิดแชตบอต ข้อความแชต|จะส่งต่อถึงเครื่องร้าน|ทันทีเท่านั้น ไม่เก็บไว้ ถ้าเครื่องปิดอยู่ ข้อความนั้นก็ถูกทิ้ง ถ้าไม่เปิดแชตบอต เราไม่ส่งต่อข้อความแชต ข้อความที่ร้านส่งออก|จากเครื่องร้าน|ตรงถึง LINE ไม่ผ่านเรา",
+    ],
+    li: [
+      "ที่เก็บไว้เข้ารหัส|ด้วยกุญแจของเครื่องหลักร้าน มีแค่เครื่องนั้นที่เปิดอ่านได้ เราเปิดอ่านไม่ได้ ที่เก็บคือ|ข้อความทั้งชุดที่ LINE ส่งมาครั้งนั้น ถ้าในชุดเดียวกัน|มีข้อความอื่นของลูกค้าปนมา ข้อความนั้นก็ถูกเก็บ|แบบเข้ารหัสไปด้วย",
+      "ข้อความสั้น|ที่หน้าตาเหมือนรหัส (ตัวอักษรหรือตัวเลข 6 ตัว) ก็นับเป็นรหัสเชื่อม แล้วเครื่องร้าน|จะเทียบกับรหัส|ที่ร้านออกให้จริง",
+      "บันทึกเส้นทางมีแค่เวลา ขนาด และผลการคัด ไม่มีเนื้อหา เก็บ 7 วันแล้วลบ ไม่เก็บที่อยู่ IP",
+      "ลูกค้าเชื่อม LINE เอง|ด้วยรหัสใช้ครั้งเดียว|จากร้าน (สแกน QR ที่ร้านแล้วกดส่ง) เลิกได้ทุกเมื่อ|ด้วยการพิมพ์ \"ยกเลิก LINE\" หรือ STOP หรือบล็อก OA ของร้าน",
+      "รายการว่าบัญชี LINE ไหน (LINE userId) เชื่อมกับลูกค้าคนไหน อยู่ในเครื่องหลัก|ของร้าน ไม่อยู่ที่เรา แอปไม่ดึงชื่อ|หรือรูปโปรไฟล์ LINE ของลูกค้า",
+      "เมื่อร้านยกเลิกการเชื่อม เครื่องหลักลบที่อยู่ webhook ที่เรา ข้อความที่รอเครื่องร้านอยู่|ก็ถูกลบ ข้อความที่ LINE ส่งมาหลังจากนั้น|เราทิ้งโดยไม่คัด|และไม่เก็บ แล้วเครื่องหลัก|ลืม Channel secret กับโทเคน ถ้าตอนนั้น|เครื่องติดต่อเราไม่ได้ ข้อความที่ค้างอยู่|จะหมดอายุตามเวลาข้างบน",
+    ],
+    after: [
+      "ร้านเป็นผู้ควบคุมข้อมูล|ของลูกค้าที่คุยกับ LINE OA ของร้าน เราเป็นผู้ประมวลผลให้ร้าน ร้านที่เปิดตัวเชื่อม LINE ควรบอกเรื่องนี้|ในประกาศความเป็นส่วนตัว|ของร้านเองด้วย ส่วน LINE เก็บแชต|ตามนโยบายของ LINE เอง",
+    ],
+  },
+  {
     title: "สำรองข้อมูลไป Google Drive",
     p: ["เมื่อคุณเปิดใช้ แอปส่งไฟล์สำรองที่เข้ารหัสไปยังบัญชี Google Drive ของคุณโดยตรง เราไม่เก็บหรืออ่านเนื้อหาไฟล์สำรอง คุณปิดและจัดการไฟล์ในบัญชี Google ของคุณได้"],
   },
@@ -255,13 +274,13 @@ const TH: Sec[] = [
   {
     title: "ใครรับข้อมูลบ้าง และส่งไปนอกประเทศไหม",
     li: [
-      "Cloudflare: สถิติการใช้งาน เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ เว็บไซต์ และ Turnstile",
+      "Cloudflare: สถิติการใช้งาน เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ ตัวเชื่อม LINE เว็บไซต์ และ Turnstile",
       "Google: เข้าสู่ระบบด้วยบัญชี Google และสำรองข้อมูลไป Google Drive เมื่อคุณเปิดใช้",
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       COPY.recipient.th,
       "GitHub: ตรวจหาเวอร์ชันใหม่ของแอปฟรี",
       "Anthropic: บอทแชต LINE ไม่เอาข้อมูลไปฝึก AI",
-      "LINE: แชตกับ LINE Official Account ของ PeerapoS",
+      "LINE: แชตกับ LINE Official Account ของ PeerapoS และส่งข้อความของลูกค้าร้าน|มาที่ตัวเชื่อม LINE ของร้าน",
       "Google Firebase Cloud Messaging: แจ้งเตือนเข้ามือถือ PeerapoS Pair",
       "ผู้ให้บริการ AI ที่ร้านเลือกเอง: รับข้อมูลที่ร้านตัดสินใจส่ง ตามเงื่อนไขของผู้ให้บริการนั้น",
     ],
@@ -277,6 +296,7 @@ const TH: Sec[] = [
       COPY.stripeRetention.th,
       "สำเนารายงานปัญหา จนกว่าเราจะดึงไปอ่านแล้วลบ",
       "ข้อความแชตกับบอท LINE 24 ชั่วโมง",
+      "ตัวเชื่อม LINE ของร้าน: รหัสเชื่อมและการเพิ่มเพื่อน|ไม่เกิน 7 วัน คำขอยกเลิกและการบล็อก|ไม่เกิน 90 วัน หรือจนเครื่องร้านรับไป ข้อความแชตไม่เก็บ",
       "สถิติการใช้งาน 3 เดือน",
       COPY.retention.th,
       "คำสั่งซื้อและอีเมลยืนยันการชำระเงิน เก็บเท่าที่กฎหมายภาษีและบัญชีให้เก็บเอกสารการขาย แม้ลบบัญชีแล้ว",
@@ -306,7 +326,7 @@ const EN: Sec[] = [
       "The provider is พีระพอส (PeerapoS), a sole proprietorship.",
       "The shop is the data controller for the customer and staff data it enters in the apps. We do not see that data.",
       "We are the data controller for account data, orders, problem reports sent to us and usage statistics.",
-      "If a shop turns on an opt-in online service (PeerapoS Pair relay, the AI connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
+      "If a shop turns on an opt-in online service (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
     ],
   },
   {
@@ -319,7 +339,7 @@ const EN: Sec[] = [
       "Update check. The app asks GitHub Releases whether a new version exists. None of your data is sent.",
       "Problem reports and feedback, only when you choose to send one. See \"Problem reports\".",
       "Usage statistics, once a day when online; you can turn them off. See \"Usage statistics\".",
-      "Only when you turn them on: Pro licence checks, PeerapoS Pair relay, the AI connector and Google Drive backup.",
+      "Only when you turn them on: Pro licence checks, PeerapoS Pair relay, the AI connector, the LINE connector and Google Drive backup.",
     ],
   },
   {
@@ -404,6 +424,24 @@ const EN: Sec[] = [
     ],
   },
   {
+    title: "A shop's LINE connector",
+    p: [
+      "The LINE connector (optional, off by default) lets a shop send messages from the app to its customers through the shop's own LINE Official Account. Free apps need Pro; the paid apps include it. The shop uses its own OA and Channel access token. The token and Channel secret stay only on the shop's main PC and are never sent to us.",
+      "Messages a customer sends to the shop's LINE OA pass through the PeerapoS server (relay.peerapongsm.dev) before they reach the shop PC. The server reads them only to sort out link codes, stop requests, friend adds or blocks, and chat. Link codes and friend adds are kept encrypted for at most 7 days, stop requests and blocks for at most 90 days, until the shop PC collects them, and are deleted as soon as it does. If the shop turns the chatbot on, chat messages are passed to the shop PC live only and never kept; if the PC is off, they are dropped. With the chatbot off, we do not pass chat on. Messages the shop sends go from the shop PC straight to LINE, not through us.",
+    ],
+    li: [
+      "What is kept is encrypted to the shop PC's own key. Only that PC can open it; we cannot. It is the whole delivery LINE sent at that moment, so if the same delivery also carried other messages from the customer, they are kept encrypted along with it.",
+      "A short message that looks like a code (6 letters or digits) also counts as a link code; the shop PC then checks it against the codes the shop actually issued.",
+      "Routing records hold only the time, size and how each delivery was sorted, with no content. They are kept 7 days, then deleted. We do not keep IP addresses.",
+      "Customers link their own LINE with a one-time code from the shop (scan the QR at the shop and press send). They can stop at any time by sending \"ยกเลิก LINE\" or STOP, or by blocking the shop's OA.",
+      "The list of which LINE account (LINE userId) is linked to which customer lives on the shop's main PC, not with us. The app never fetches a customer's LINE name or profile picture.",
+      "When the shop disconnects, the main PC removes its webhook address with us and the messages waiting for it are deleted. Anything LINE sends after that is dropped without being sorted or kept, and the PC forgets the Channel secret and token. If the PC cannot reach us at that moment, waiting messages expire on the schedule above.",
+    ],
+    after: [
+      "The shop is the data controller for its customers who talk to its LINE OA, and we are its data processor. A shop that turns on the LINE connector should say so in its own privacy notice. LINE keeps chats under its own policy.",
+    ],
+  },
+  {
     title: "Google Drive backup",
     p: ["When you turn it on, the app sends encrypted backups directly to your own Google Drive account. We do not store or read their contents. You can turn it off and manage files in your Google account."],
   },
@@ -430,13 +468,13 @@ const EN: Sec[] = [
   {
     title: "Who receives data, and transfers abroad",
     li: [
-      "Cloudflare: usage statistics, servers, databases, file storage, the relay, the website and Turnstile.",
+      "Cloudflare: usage statistics, servers, databases, file storage, the relay, the LINE connector, the website and Turnstile.",
       "Google: Google sign-in and Google Drive backup when you turn it on.",
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       COPY.recipient.en,
       "GitHub: update checks for the free apps.",
       "Anthropic: the LINE chat bot; it does not train AI on the data.",
-      "LINE: chats with the PeerapoS LINE Official Account.",
+      "LINE: chats with the PeerapoS LINE Official Account, and delivering a shop's customer messages to that shop's LINE connector.",
       "Google Firebase Cloud Messaging: phone alerts for PeerapoS Pair.",
       "The AI provider the shop chooses: receives what the shop decides to send, under that provider's terms.",
     ],
@@ -452,6 +490,7 @@ const EN: Sec[] = [
       COPY.stripeRetention.en,
       "Problem report copies, until we pull and delete them.",
       "LINE bot chat messages, 24 hours.",
+      "A shop's LINE connector: link codes and friend adds at most 7 days, stop requests and blocks at most 90 days, or until the shop PC takes them. Chat messages are not kept.",
       "Usage statistics, 3 months.",
       COPY.retention.en,
       "Orders and the payment confirmation email are kept as long as tax and accounting law has us keep sales records, even after the account is deleted.",

@@ -102,7 +102,7 @@ const TH: Sec[] = [
   {
     title: "1. ใครให้บริการ",
     p: [
-      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI การสำรองข้อมูลไป Google Drive หน้าลูกค้า)",
+      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า)",
       "ติ๊กยอมรับตอนสั่งซื้อ เข้าสู่ระบบ หรือใช้แอปต่อไปหลังเราประกาศข้อกำหนดนี้ ถือว่าคุณตกลงตามนี้",
     ],
   },
@@ -191,7 +191,7 @@ const TH: Sec[] = [
     title: "10. ข้อมูลของคุณ",
     p: [
       "ข้อมูลธุรกิจที่คุณกรอกในแอปอยู่ในเครื่องคุณ ร้านเป็นผู้ควบคุมข้อมูลของลูกค้าและพนักงานของร้านเอง และรับผิดชอบเรื่องความยินยอมและการแจ้งเจ้าของข้อมูล เราไม่เห็นข้อมูลนั้น",
-      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
+      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
       "รีเลย์ PeerapoS Pair ส่งผ่านข้อมูลที่เข้ารหัส เราอ่านเนื้อหาไม่ได้ ไฟล์สำรอง Google Drive เข้ารหัสและส่งตรงไปบัญชีของคุณ เราไม่เก็บหรืออ่านเนื้อหา ส่วนตัวเชื่อม AI ส่งข้อมูลที่คุณเลือกไปยังผู้ให้บริการ AI ตามนโยบายความเป็นส่วนตัว ข้อมูลส่วนนั้นไม่ได้เข้ารหัสปลายทาง",
       "ข้อมูลบัญชี คำสั่งซื้อ รายงานปัญหาที่ส่งมา และสถิติการใช้งาน เราเป็นผู้ควบคุมข้อมูลเอง รายละเอียดอยู่ในนโยบายความเป็นส่วนตัว",
     ],
@@ -210,13 +210,17 @@ const TH: Sec[] = [
     title: "12. เงินของลูกค้าคุณ และข้อความถึงลูกค้าคุณ",
     p: [
       "เงินที่ลูกค้าของร้านจ่ายให้ร้านไม่ผ่านเรา แอปแค่ทำ QR และบันทึกยอด ร้านรับเงินเข้าบัญชีของร้านเอง",
-      "เราไม่ส่งข้อความถึงลูกค้าของร้าน ไม่ว่าทางใด ข้อความที่ลูกค้าเห็นมาจากร้านเท่านั้น",
+      "เราไม่ส่งข้อความถึงลูกค้าของร้าน ไม่ว่าทางใด รวมถึงทาง LINE ข้อความที่ลูกค้าเห็นมาจากร้านเท่านั้น",
+      "ตัวเชื่อม LINE (ในแอปฟรีต้องมี Pro แอปแบบซื้อขาดมีให้อยู่แล้ว) ใช้ LINE Official Account และ Channel access token ของร้านเอง โทเคนกับ Channel secret อยู่ในเครื่องหลักของร้าน ไม่ส่งมาที่เรา ข้อความถึงลูกค้า|ส่งจากเครื่องหลักของร้าน|ตรงถึง LINE ในนามของร้าน ค่าบริการและโควตาข้อความของ LINE เป็นเรื่องระหว่างร้านกับ LINE และร้านต้องทำตาม|ข้อกำหนดของ LINE เอง",
+      "ร้านเป็นผู้ควบคุมข้อมูล|ของลูกค้าที่เชื่อม LINE และรับผิดชอบ|การขอความยินยอม|กับการแจ้งลูกค้า เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เรารับข้อมูลที่ LINE ส่งมา (รหัสเชื่อม คำขอยกเลิก การเพิ่มเพื่อนหรือบล็อก และข้อความแชตเมื่อร้านเปิดแชตบอต) ตามที่ร้านสั่งด้วยการเปิดใช้ เพื่อส่งต่อถึงเครื่องหลัก|ของร้านเท่านั้น ไม่เอาไปใช้|เพื่อประโยชน์ของเราเอง และลบตามระยะเวลา|ในนโยบายความเป็นส่วนตัว",
+      "เราประมวลผลข้อมูลนี้|บนเซิร์ฟเวอร์ของ Cloudflare ซึ่งอาจอยู่นอกประเทศไทย ข้อมูลส่วนนี้|จึงอาจถูกส่งไป|ประมวลผลนอกประเทศ",
+      "ลูกค้าเชื่อม LINE เอง|ด้วยรหัสใช้ครั้งเดียว และเลิกได้ทุกเมื่อ|ด้วยการพิมพ์ \"ยกเลิก LINE\" หรือ STOP หรือบล็อก OA ของร้าน แล้วแอปจะหยุดส่งข้อความ|ถึงคนนั้น",
     ],
   },
   {
     title: "13. เปลี่ยนแปลงและยุติบริการออนไลน์",
     p: [
-      "บริการออนไลน์ (เว็บไซต์ บัญชี รีเลย์ PeerapoS Pair ตัวเชื่อม AI หน้าลูกค้า การอัปเดตแอปซื้อขาด) เราอาจปรับ ระงับ หรือเลิกได้ ถ้าจะเลิกบริการที่คุณใช้อยู่ เราแจ้งล่วงหน้าบนเว็บไซต์และในแอปที่หัวข้อ มีอะไรใหม่ (What's new)",
+      "บริการออนไลน์ (เว็บไซต์ บัญชี รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE หน้าลูกค้า การอัปเดตแอปซื้อขาด) เราอาจปรับ ระงับ หรือเลิกได้ ถ้าจะเลิกบริการที่คุณใช้อยู่ เราแจ้งล่วงหน้าบนเว็บไซต์และในแอปที่หัวข้อ มีอะไรใหม่ (What's new)",
       "แอปที่ติดตั้งแล้วใช้งานในเครื่องต่อได้ และข้อมูลของคุณยังอยู่ในเครื่อง",
     ],
   },
@@ -239,7 +243,7 @@ const EN: Sec[] = [
   {
     title: "1. Who provides the service",
     p: [
-      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (PeerapoS Pair relay, the AI connector, Google Drive backup, customer pages).",
+      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages).",
       "Ticking the box when you order, signing in, or continuing to use the apps after we publish these Terms, means you agree to them.",
     ],
   },
@@ -328,7 +332,7 @@ const EN: Sec[] = [
     title: "10. Your data",
     p: [
       "The business data you enter in the apps stays on your PC. The shop is the data controller for its own customers and staff, and is responsible for consent and notices to them. We do not see that data.",
-      "If you turn on an online service (PeerapoS Pair relay, the AI connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
+      "If you turn on an online service (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
       "PeerapoS Pair relay passes encrypted data whose contents we cannot read. Google Drive backups are encrypted and sent directly to your account; we do not store or read their contents. The AI connector passes the data you choose to your AI provider as described in the Privacy Policy; that traffic is not end-to-end encrypted.",
       "For account data, orders, problem reports you send and usage statistics, we are the data controller. Details are in the Privacy Policy.",
     ],
@@ -347,13 +351,17 @@ const EN: Sec[] = [
     title: "12. Your customers' money and messages",
     p: [
       "Money your customers pay your shop never passes through us. The apps only make a QR and record the amount. Your shop receives the money in its own account.",
-      "We never message a shop's customers, by any channel. Anything your customers see comes from your shop.",
+      "We never message a shop's customers, by any channel, LINE included. Anything your customers see comes from your shop.",
+      "The LINE connector (free apps need Pro; the paid apps include it) uses the shop's own LINE Official Account and Channel access token. The token and Channel secret stay on the shop's main PC and are never sent to us. Messages to customers go from the shop's main PC straight to LINE, in the shop's name. LINE's fees and message quota are between the shop and LINE, and the shop must follow LINE's own terms.",
+      "The shop is the data controller for its customers who link their LINE, and is responsible for their consent and notices. We act as the shop's data processor: we receive what LINE sends (link codes, stop requests, friend adds or blocks, and chat while the shop's chatbot is on) on the shop's instruction given by turning the connector on, only to pass it to the shop's main PC. We do not use it for our own purposes, and we delete it on the schedule in the Privacy Policy.",
+      "We process this data on Cloudflare servers, which may be outside Thailand, so this data may be transferred abroad for processing.",
+      "Customers link their own LINE with a one-time code and can stop at any time by sending \"ยกเลิก LINE\" or STOP, or by blocking the shop's OA. The app then stops messaging them.",
     ],
   },
   {
     title: "13. Changing or ending online services",
     p: [
-      "We may change, pause or end the online services (the website, accounts, relay, PeerapoS Pair, the AI connector, customer pages, paid-app updates). If we end one you use, we tell you ahead on the website and in the app's What's new.",
+      "We may change, pause or end the online services (the website, accounts, relay, PeerapoS Pair, the AI connector, the LINE connector, customer pages, paid-app updates). If we end one you use, we tell you ahead on the website and in the app's What's new.",
       "Apps already installed keep working on your PC, and your data stays on it.",
     ],
   },
