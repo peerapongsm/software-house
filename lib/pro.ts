@@ -8,7 +8,7 @@ import { orderError } from "./buy.ts";
 export const PRO_PRICE = { monthly: 29900, annual: 299000 };
 
 export const PRO_PASS = 299000;
-export type ProPlan = "month" | "year" | "pass";
+export type ProPlan = "month" | "year" | "pass" | "passMonth";
 
 export function proActive(pro: ProInfo | null, now: number): boolean {
   return pro !== null && Date.parse(pro.until) > now;
@@ -17,15 +17,15 @@ export function proActive(pro: ProInfo | null, now: number): boolean {
 export const PRO_SOURCE_LABEL: Record<ProSource, Msg> = {
   play: { th: "สิทธิ์เดิม", en: "Legacy Pro" },
   stripe: { th: "สมัครผ่านบัตร", en: "Card subscription" },
-  pass: { th: "Pro 1 ปี แบบจ่ายครั้งเดียว", en: "Prepaid annual pass" },
+  pass: { th: "Pro แบบจ่ายครั้งเดียว", en: "Prepaid pass" },
 };
 
 const SOURCE: Record<ProSource, Msg> = {
   play: { th: "สิทธิ์เดิม", en: "legacy coverage" },
   stripe: { th: "การสมัครผ่านบัตร", en: "card" },
-  pass: { th: "Pro 1 ปี", en: "prepaid pass" },
+  pass: { th: "Pro แบบจ่ายครั้งเดียว", en: "prepaid pass" },
 };
-const PASS_LIMIT: Msg = { th: "ซื้อ Pro 1 ปีล่วงหน้าได้สูงสุด 2 ปี รอใกล้หมดอายุแล้วค่อยซื้อเพิ่ม", en: "Passes cover up to 2 years ahead. Try again closer to expiry." };
+const PASS_LIMIT: Msg = { th: "ซื้อ Pro แบบจ่ายครั้งเดียวล่วงหน้าได้สูงสุด 2 ปี รอใกล้หมดอายุแล้วค่อยซื้อเพิ่ม", en: "Passes cover up to 2 years ahead. Try again closer to expiry." };
 const NEED_CONSENT: Msg = { th: "ยอมรับเงื่อนไขก่อนชำระเงิน", en: "Accept the terms before paying." };
 
 export function proBuyError(r: ApiResult<unknown> & { ok: false }): Msg {
@@ -87,10 +87,15 @@ export const PRO_COPY = {
   monthBuy: { th: "รายเดือน", en: "Monthly" },
   yearBuy: { th: "รายปี", en: "Yearly" },
   passBuy: { th: "Pro 1 ปี", en: "1-year pass" },
-  monthNote: { th: "สมัครผ่านบัตร ต่ออายุทุกเดือน", en: "Card subscription, renews monthly" },
-  yearNote: { th: "สมัครผ่านบัตร ต่ออายุทุกปี", en: "Card subscription, renews yearly" },
-  passNote: { th: "จ่ายครั้งเดียวด้วย PromptPay หรือบัตร ไม่ต่ออายุ", en: "Pay once by PromptPay or card, no auto-renew" },
-  renewNote: { th: "สมัครผ่านบัตรแล้ว ยกเลิกได้ทุกเมื่อในหน้าบัญชี", en: "Cancel a card subscription any time from your account." },
+  passMonthBuy: { th: "Pro 1 เดือน", en: "1-month pass" },
+  cardH: { th: "จ่ายด้วยบัตร", en: "Pay by card" },
+  cardLead: { th: "ต่ออายุเองทุกเดือนหรือทุกปี ยกเลิกได้ทุกเมื่อในหน้าบัญชี", en: "Renews by itself every month or year. Cancel any time from your account." },
+  qrH: { th: "จ่ายด้วย PromptPay", en: "Pay by PromptPay" },
+  qrLead: { th: "จ่ายครั้งเดียว ไม่ตัดเงินอัตโนมัติ หมดแล้วซื้อใหม่ หน้าชำระเงินรับบัตรด้วย", en: "Pay once. Nothing is charged automatically; buy again when it ends. The checkout takes cards too." },
+  monthNote: { th: "ตัดบัตรทุกเดือน", en: "Charged to your card every month" },
+  yearNote: { th: "ตัดบัตรทุกปี", en: "Charged to your card every year" },
+  passNote: { th: "ใช้ได้ 1 ปี", en: "Covers 1 year" },
+  passMonthNote: { th: "ใช้ได้ 30 วัน", en: "Covers 30 days" },
   accept: { th: "ฉันยอมรับ", en: "I accept the" },
   retry: { th: "ลองอีกครั้ง", en: "Try again" },
   terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },

@@ -166,7 +166,7 @@ test("deleteNeedsAck: activeSub requires acknowledgement only on 409", () => {
 
 test("account Pro card uses the authoritative source even without tier", () => {
   for (const lang of ["th", "en"]) {
-    for (const [source, label] of [["play", "Legacy Pro"], ["stripe", "Card subscription, cancelled"], ["pass", "Prepaid annual pass"]] as const) {
+    for (const [source, label] of [["play", "Legacy Pro"], ["stripe", "Card subscription, cancelled"], ["pass", "Prepaid pass"]] as const) {
       const tree = planHarness().render(source, lang);
       const html = renderToStaticMarkup(tree);
       assert.ok(html.includes(lang === "en" ? label : proRules.PRO_SOURCE_LABEL[source].th), html);
@@ -195,16 +195,20 @@ test("account pass renewal requires explicit inline consent", async () => {
   let tree = h.render("pass");
   const checkbox = nodes(tree).find((n) => n.type === "input" && n.props.type === "checkbox");
   assert.ok(checkbox, "Inline terms checkbox");
-  const button = nodes(tree).find((n) => n.type === "button");
-  assert.ok(button, "Renew pass button");
-  await button.props.onClick();
+  const buttons = nodes(tree).filter((n) => n.type === "button");
+  assert.equal(buttons.length, 2, "Buy 1 more month and Buy 1 more year");
+  for (const button of buttons) await button.props.onClick();
   assert.deepEqual(h.calls, []);
   checkbox.props.onChange({ target: { checked: true } });
-  h.respond({ ok: true, data: { url: "https://checkout.stripe.com/c/pay/test" } });
-  tree = h.render("pass");
-  await nodes(tree).find((n) => n.type === "button").props.onClick();
-  assert.deepEqual(h.calls, [["/api/pro/checkout", { method: "POST", body: { plan: "pass", consent: true } }]]);
-  assert.deepEqual(h.navigations, ["https://checkout.stripe.com/c/pay/test"]);
+  for (const [i, plan] of [[0, "passMonth"], [1, "pass"]] as const) {
+    h.calls.length = 0;
+    h.navigations.length = 0;
+    h.respond({ ok: true, data: { url: "https://checkout.stripe.com/c/pay/test" } });
+    tree = h.render("pass");
+    await nodes(tree).filter((n) => n.type === "button")[i].props.onClick();
+    assert.deepEqual(h.calls, [["/api/pro/checkout", { method: "POST", body: { plan, consent: true } }]]);
+    assert.deepEqual(h.navigations, ["https://checkout.stripe.com/c/pay/test"]);
+  }
 });
 
 

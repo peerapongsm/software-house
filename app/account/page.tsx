@@ -76,12 +76,13 @@ const COPY = {
 const PRO_TEXT = {
   title: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
   portal: { th: "จัดการการสมัคร", en: "Manage subscription" },
-  renew: { th: "ซื้อ Pro 1 ปีเพิ่ม", en: "Renew pass" },
+  renewMonth: { th: "ซื้อ Pro 1 เดือนเพิ่ม", en: "Buy 1 more month" },
+  renew: { th: "ซื้อ Pro 1 ปีเพิ่ม", en: "Buy 1 more year" },
   renews: { th: " ต่ออายุอัตโนมัติ", en: ", renews automatically" },
   cancelled: { th: " ยกเลิกแล้ว ไม่ต่ออายุ", en: ", cancelled, won't renew" },
   accept: { th: "ฉันยอมรับ", en: "I accept the" },
   terms: { th: "ข้อกำหนดการใช้งาน", en: "Terms of use" },
-  passNote: { th: "ซื้อตอนนี้ วันที่เหลือก็ไม่หาย ปีใหม่จะต่อจากวันหมดอายุเดิม", en: "Buy now and lose nothing: the new year starts when this one ends." },
+  passNote: { th: "ซื้อตอนนี้ วันที่เหลือก็ไม่หาย Pro ที่ซื้อเพิ่มจะเริ่มต่อจากวันหมดอายุเดิม", en: "Buy now and lose nothing: the new pass starts when this one ends." },
   noSub: { th: "ไม่พบการสมัครผ่านบัตร รีเฟรชหน้าบัญชีแล้วลองอีกครั้ง", en: "No card subscription found. Refresh your account and try again." },
   wait: { th: "ได้รับการชำระเงินแล้ว Pro จะขึ้นในไม่กี่วินาที", en: "Payment received. Pro appears in a few seconds." },
   done: { th: "Pro พร้อมใช้งานแล้ว", en: "Pro is ready to use." },
@@ -134,22 +135,24 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
   const pro = lic.pro;
   const view = proView(pro, now);
   const [consent, setConsent] = useState(false);
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState<"portal" | "pass" | "passMonth" | null>(null);
   const [err, setErr] = useState<Msg | null>(null);
   const action = `${out} w-full whitespace-normal text-center [overflow-wrap:anywhere] sm:w-auto disabled:opacity-40`;
 
-  async function pay(renew: boolean) {
+  /** A pass plan buys another pass; null opens the card-subscription portal. */
+  async function pay(plan: "pass" | "passMonth" | null) {
     if (busy) return;
     setErr(null);
+    const renew = plan !== null;
     if (renew && !consent) return setErr(proBuyError({ ok: false, status: 400, error: "needConsent" }));
-    setBusy(true);
+    setBusy(plan ?? "portal");
     if (renew) {
       try { sessionStorage.setItem("pro:before", pro?.until ?? ""); } catch {}
     }
     const r = await api<{ url?: unknown; status?: string }>(renew ? "/api/pro/checkout" : "/api/pro/portal", renew
-      ? { method: "POST", body: { plan: "pass", consent: true } }
+      ? { method: "POST", body: { plan, consent: true } }
       : { method: "POST" });
-    setBusy(false);
+    setBusy(null);
     if (r.ok) {
       const next = checkoutNext(r.data);
       if (next.kind === "go") return location.assign(next.url);
@@ -195,8 +198,9 @@ function Plan({ t, lang, lic, now }: { t: T; lang: Lang; lic: Licence; now: numb
             </>
           )}
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            {view.manage === "portal" && <button type="button" disabled={busy} onClick={() => pay(false)} className={action}>{busy && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
-            {view.renew && <button type="button" disabled={busy} onClick={() => pay(true)} className={action}>{busy && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
+            {view.manage === "portal" && <button type="button" disabled={busy !== null} onClick={() => pay(null)} className={action}>{busy === "portal" && <Spinner />}{PRO_TEXT.portal[lang]}</button>}
+            {view.renew && <button type="button" disabled={busy !== null} onClick={() => pay("passMonth")} className={action}>{busy === "passMonth" && <Spinner />}{PRO_TEXT.renewMonth[lang]}</button>}
+            {view.renew && <button type="button" disabled={busy !== null} onClick={() => pay("pass")} className={action}>{busy === "pass" && <Spinner />}{PRO_TEXT.renew[lang]}</button>}
             {view.subscribe && <a href="/pro" className={`${dark} w-full whitespace-normal text-center sm:w-auto`}>{t.subscribe}</a>}
           </div>
           {err && <p role="alert" className="font-semibold text-red-700">{err[lang]}</p>}

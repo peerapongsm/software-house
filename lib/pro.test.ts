@@ -49,7 +49,7 @@ test("proDonePoll: only future coverage completes, even if cancellation is sched
 });
 
 test("proBuyError: existing Pro identifies source and date in both languages", () => {
-  for (const [source, th, en] of [["play", "สิทธิ์เดิม", "legacy coverage"], ["stripe", "การสมัครผ่านบัตร", "card"], ["pass", "Pro 1 ปี", "pass"]]) {
+  for (const [source, th, en] of [["play", "สิทธิ์เดิม", "legacy coverage"], ["stripe", "การสมัครผ่านบัตร", "card"], ["pass", "Pro แบบจ่ายครั้งเดียว", "pass"]]) {
     const msg = proBuyError({ ok: false, status: 409, error: "proActive", data: { source, until: "2027-01-01T00:00:00.000Z" } });
     assert.doesNotMatch(msg.th, /T00:00/);
     assert.doesNotMatch(msg.en, /T00:00/);

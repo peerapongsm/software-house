@@ -18,15 +18,15 @@ const COPY = {
     en: "PeerapoS Pro is sold only on this website. Prices and payment methods are shown at checkout.",
   },
   deletion: {
-    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro 1 ปีที่เหลือจะหายไป",
+    th: "เมื่อลบบัญชี การสมัครผ่านบัตรจะถูกยกเลิกทันทีโดยไม่คืนเงิน และ Pro แบบจ่ายครั้งเดียวที่เหลือจะหายไป",
     en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
   },
   payment: {
-    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและ Pro 1 ปีจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
+    th: "ซื้อแอปและ Pro บนเว็บไซต์ผ่านหน้าชำระเงินของ Stripe แอปซื้อขาดและ Pro แบบจ่ายครั้งเดียวจ่ายด้วยบัตรหรือ PromptPay ส่วน Pro แบบรายเดือนและรายปีที่ต่ออายุอัตโนมัติจ่ายด้วยบัตรเท่านั้น กรอกข้อมูลการชำระเงินบนหน้าของ Stripe เราไม่เห็นหมายเลขบัตร",
     en: "Website purchases of paid apps and Pro use Stripe's payment page. Paid apps and prepaid passes accept card or PromptPay; auto-renewing monthly and yearly Pro subscriptions accept cards only. Enter payment details on Stripe's page; we never see card numbers.",
   },
   receipt: {
-    th: "เมื่อชำระค่าแอปซื้อขาดหรือ Pro 1 ปีแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
+    th: "เมื่อชำระค่าแอปซื้อขาดหรือ Pro แบบจ่ายครั้งเดียวแล้ว เราส่งอีเมลยืนยันการชำระเงินไปที่อีเมลรับใบยืนยัน ส่วนใบแจ้งค่าบริการและอีเมลต่ออายุการสมัครผ่านบัตรส่งโดย Stripe อีเมลยืนยันของเราเป็นหลักฐานการชำระเงิน ไม่ใช่ใบกำกับภาษี",
     en: "After payment for a paid app or prepaid pass we email a payment confirmation to the receipt email. Stripe sends card-subscription invoices and renewal emails. Our confirmation is proof of payment, not a tax invoice.",
   },
   cancel: {
@@ -34,11 +34,11 @@ const COPY = {
     en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds.",
   },
   pass: {
-    th: "Pro 1 ปีใช้ได้ 1 ปี ไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro 1 ปีที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลา Pro 1 ปีที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้การสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro 1 ปี จ่ายครั้งเดียว และถ้ามี Pro 1 ปีที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
-    en: "A prepaid pass covers 1 year and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
+    th: "Pro แบบจ่ายครั้งเดียวมี 2 แบบ คือ Pro 1 เดือนใช้ได้ 30 วัน และ Pro 1 ปีใช้ได้ 1 ปี ทั้งสองแบบไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro แบบจ่ายครั้งเดียวที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลาที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้การสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro แบบจ่ายครั้งเดียว และถ้ามี Pro แบบจ่ายครั้งเดียวที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
+    en: "A prepaid pass covers 30 days (1-month pass) or 1 year (1-year pass) and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
   },
   ends: {
-    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อ Pro 1 ปีหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
+    th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อ Pro แบบจ่ายครั้งเดียวหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
     en: "Pro ends when the paid period runs out after cancellation, a prepaid pass expires, the payment provider cannot collect payment within its allowed recovery time, or a purchase is fully refunded, revoked or a payment dispute is lost.",
   },
   grace: {

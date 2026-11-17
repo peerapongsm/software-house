@@ -32,6 +32,29 @@ const PIC = [
   </>,
 ];
 
+const PAY_PIC = {
+  card: <>
+    <rect {...P} x="14" y="18" width="92" height="60" rx="8" />
+    <rect fill="var(--color-ink)" x="14" y="30" width="92" height="10" />
+    <rect {...ACC} x="26" y="52" width="18" height="13" rx="3" />
+    <rect {...SOFT} x="52" y="56" width="42" height="6" rx="3" />
+  </>,
+  qr: <>
+    <rect {...P} x="30" y="8" width="60" height="80" rx="8" />
+    {[[38, 26], [70, 26], [38, 58]].map(([x, y]) => (
+      <g key={x + "-" + y}>
+        <rect {...ACC} x={x} y={y} width="12" height="12" rx="2" />
+        <rect fill="var(--color-sheet)" x={x + 3} y={y + 3} width="6" height="6" />
+      </g>
+    ))}
+    <rect {...SOFT} x="56" y="28" width="5" height="5" />
+    <rect {...ACC} x="57" y="43" width="5" height="5" />
+    <rect {...SOFT} x="68" y="49" width="5" height="5" />
+    <rect {...ACC} x="56" y="61" width="5" height="5" />
+    <rect {...SOFT} x="75" y="62" width="5" height="5" />
+  </>,
+} as const;
+
 /** One numbered picture step. Pictures lead on mobile and sit in a row on desktop. */
 function Step({ n, pic, text }: { n: number; pic: React.ReactNode; text: string }) {
   return (
@@ -45,12 +68,6 @@ function Step({ n, pic, text }: { n: number; pic: React.ReactNode; text: string 
     </li>
   );
 }
-
-const PLANS = [
-  { plan: "month", name: "monthBuy", note: "monthNote", per: "month" },
-  { plan: "year", name: "yearBuy", note: "yearNote", per: "year" },
-  { plan: "pass", name: "passBuy", note: "passNote", per: null },
-] as const;
 
 /** /pro: public Pro information and signed-in website checkout. */
 export default function ProPage() {
@@ -127,23 +144,76 @@ export default function ProPage() {
                 <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="size-5 shrink-0 accent-indigo" />
                 <span>{t("accept")} <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo underline underline-offset-4">{t("terms")}</a></span>
               </label>
-              <div className="grid gap-3 lg:grid-cols-3">
-                {PLANS.map(({ plan, name, note, per }) => (
-                  <button key={plan} type="button" onClick={() => buy(plan)} disabled={busy !== null || !prices || pro === undefined}
-                    className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-paper px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
-                    <span className="flex items-baseline justify-between gap-3">
-                      <span className="font-display text-lg font-bold">{t(name)}</span>
-                      <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
-                        {busy === plan && <Spinner />}
-                        {baht(plan === "month" ? (prices?.monthly ?? PRO_PRICE.monthly) : plan === "year" ? (prices?.annual ?? PRO_PRICE.annual) : (prices?.annual ?? PRO_PASS))}
-                        {per && <small className="font-body text-[0.9375rem] font-medium text-graphite">{t(per)}</small>}
+              <div className="grid gap-4 lg:grid-cols-2 lg:gap-5">
+                <div role="group" aria-labelledby="pay-card" className="flex flex-col gap-3 rounded-xl border border-line bg-paper/60 p-4 lg:p-5">
+                  <div className="flex items-center gap-3">
+                    <svg viewBox="0 0 120 96" className="w-16 shrink-0 rounded-lg bg-sheet" aria-hidden="true" focusable="false">{PAY_PIC.card}</svg>
+                    <div>
+                      <h3 id="pay-card" className="font-display text-lg font-bold">{t("cardH")}</h3>
+                      <p className="text-sm text-graphite"><Phrases text={t("cardLead")} /></p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <button type="button" onClick={() => buy("month")} disabled={busy !== null || !prices || pro === undefined}
+                      className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-sheet px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="font-display text-lg font-bold">{t("monthBuy")}</span>
+                        <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
+                          {busy === "month" && <Spinner />}
+                          {baht(prices?.monthly ?? PRO_PRICE.monthly)}
+                          <small className="font-body text-[0.9375rem] font-medium text-graphite">{t("month")}</small>
+                        </span>
                       </span>
-                    </span>
-                    <span className="text-sm text-graphite">{t(note)}</span>
-                  </button>
-                ))}
+                      <span className="text-sm text-graphite">{t("monthNote")}</span>
+                    </button>
+                    <button type="button" onClick={() => buy("year")} disabled={busy !== null || !prices || pro === undefined}
+                      className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-sheet px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="font-display text-lg font-bold">{t("yearBuy")}</span>
+                        <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
+                          {busy === "year" && <Spinner />}
+                          {baht(prices?.annual ?? PRO_PRICE.annual)}
+                          <small className="font-body text-[0.9375rem] font-medium text-graphite">{t("year")}</small>
+                        </span>
+                      </span>
+                      <span className="text-sm text-graphite">{t("yearNote")}</span>
+                    </button>
+                  </div>
+                </div>
+                <div role="group" aria-labelledby="pay-qr" className="flex flex-col gap-3 rounded-xl border border-line bg-paper/60 p-4 lg:p-5">
+                  <div className="flex items-center gap-3">
+                    <svg viewBox="0 0 120 96" className="w-16 shrink-0 rounded-lg bg-sheet" aria-hidden="true" focusable="false">{PAY_PIC.qr}</svg>
+                    <div>
+                      <h3 id="pay-qr" className="font-display text-lg font-bold">{t("qrH")}</h3>
+                      <p className="text-sm text-graphite"><Phrases text={t("qrLead")} /></p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <button type="button" onClick={() => buy("passMonth")} disabled={busy !== null || !prices || pro === undefined}
+                      className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-sheet px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="font-display text-lg font-bold">{t("passMonthBuy")}</span>
+                        <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
+                          {busy === "passMonth" && <Spinner />}
+                          {baht(prices?.monthly ?? PRO_PRICE.monthly)}
+                        </span>
+                      </span>
+                      <span className="text-sm text-graphite">{t("passMonthNote")}</span>
+                    </button>
+                    <button type="button" onClick={() => buy("pass")} disabled={busy !== null || !prices || pro === undefined}
+                      className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-sheet px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="font-display text-lg font-bold">{t("passBuy")}</span>
+                        <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
+                          {busy === "pass" && <Spinner />}
+                          {baht(prices?.annual ?? PRO_PASS)}
+                        </span>
+                      </span>
+                      <span className="text-sm text-graphite">{t("passNote")}</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <p className="text-sm text-graphite"><Phrases text={t("renewNote")} /></p>
               {!prices && err && <button type="button" onClick={loadPrices} className="min-h-[52px] w-full rounded-xl border border-ink/25 px-6 py-3 font-semibold sm:w-auto">{t("retry")}</button>}
               {err && <p role="alert" className="font-semibold text-red-700"><Phrases text={err[lang]} /></p>}
             </>

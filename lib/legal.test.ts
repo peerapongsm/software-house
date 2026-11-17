@@ -63,7 +63,7 @@ for (const lang of ["th", "en"] as const) {
     for (const page of ["terms", "privacy"] as const) {
       const text = article(page, lang);
       assert.match(text, lang === "th" ? /ยกเลิกทันที.*ไม่คืนเงิน/ : /cancelled immediately without a refund/);
-      assert.match(text, lang === "th" ? /Pro 1 ปีที่เหลือจะหายไป/ : /remaining prepaid passes are lost/);
+      assert.match(text, lang === "th" ? /Pro แบบจ่ายครั้งเดียวที่เหลือจะหายไป/ : /remaining prepaid passes are lost/);
       assert.doesNotMatch(text, /Google Play|Play purchase|Play records|บน Play/);
       assert.doesNotMatch(text, /slip|สลิป/i);
     }

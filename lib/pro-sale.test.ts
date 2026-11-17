@@ -53,11 +53,25 @@ for (const flag of [undefined, false, "true", true]) {
     const { initial, tree } = await page(flag);
     assert.equal(initial.some(n => n.type === "input"), false, "fail closed before catalogue loads");
     assert.equal(tree.some(n => n.type === "input"), flag === true);
-    assert.equal(tree.filter(n => n.type === "button").length, flag === true ? 3 : 0);
+    assert.equal(tree.filter(n => n.type === "button").length, flag === true ? 4 : 0);
     assert.equal(tree.some(n => typeof n.props?.href === "string" && n.props.href.includes("play.google.com")), false, "Pro is sold only on the website");
     assert.equal(JSON.stringify(tree).includes("PeerapoS Pro opens soon"), flag !== true);
     assert.ok(tree.some(n => n.props?.href === "/buy"), "paid-app link remains");
     assert.ok(JSON.stringify(tree).includes("What Pro gives you"));
+  });
+}
+for (const lang of ["th", "en"] as const) {
+  test(`Pro sale separates card and PromptPay choices (${lang})`, async () => {
+    const { tree } = await page(true, lang);
+    const json = JSON.stringify(tree);
+    assert.ok(json.includes(pro.PRO_COPY.qrLead[lang]));
+    assert.ok(json.includes(pro.PRO_COPY.cardH[lang]));
+    assert.ok(json.includes(pro.PRO_COPY.qrH[lang]));
+    assert.ok(tree.some(n => n.props?.id === "pay-qr"));
+    assert.equal(tree.filter(n => n.type === "button").length, 4);
+    const qr = json.slice(json.indexOf(pro.PRO_COPY.qrH[lang]));
+    assert.ok(qr.indexOf(pro.PRO_COPY.passMonthBuy[lang]) > 0, "1-month pass sits in the PromptPay group");
+    assert.ok(qr.indexOf(pro.PRO_COPY.passMonthBuy[lang]) < qr.indexOf(pro.PRO_COPY.passBuy[lang]), "month before year");
   });
 }
 test("Pro opens soon uses exact Thai copy and fails closed on network failure", async () => {
