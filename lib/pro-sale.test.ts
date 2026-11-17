@@ -70,8 +70,8 @@ for (const lang of ["th", "en"] as const) {
     assert.ok(tree.some(n => n.props?.id === "pay-qr"));
     assert.equal(tree.filter(n => n.type === "button").length, 4);
     const qr = json.slice(json.indexOf(pro.PRO_COPY.qrH[lang]));
-    assert.ok(qr.indexOf(pro.PRO_COPY.passMonthBuy[lang]) > 0, "1-month pass sits in the PromptPay group");
-    assert.ok(qr.indexOf(pro.PRO_COPY.passMonthBuy[lang]) < qr.indexOf(pro.PRO_COPY.passBuy[lang]), "month before year");
+    assert.ok(qr.indexOf(pro.PRO_COPY.monthBuy[lang]) > 0, "1-month pass sits in the PromptPay group");
+    assert.ok(qr.indexOf(pro.PRO_COPY.monthBuy[lang]) < qr.indexOf(pro.PRO_COPY.yearBuy[lang]), "month before year");
   });
 }
 test("Pro opens soon uses exact Thai copy and fails closed on network failure", async () => {

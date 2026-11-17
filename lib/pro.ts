@@ -86,8 +86,6 @@ export const PRO_COPY = {
   account: { th: "ดูหรือจัดการในหน้าบัญชี", en: "View or manage on My account" },
   monthBuy: { th: "รายเดือน", en: "Monthly" },
   yearBuy: { th: "รายปี", en: "Yearly" },
-  passBuy: { th: "Pro 1 ปี", en: "1-year pass" },
-  passMonthBuy: { th: "Pro 1 เดือน", en: "1-month pass" },
   cardH: { th: "จ่ายด้วยบัตร", en: "Pay by card" },
   cardLead: { th: "ต่ออายุเองทุกเดือนหรือทุกปี ยกเลิกได้ทุกเมื่อในหน้าบัญชี", en: "Renews by itself every month or year. Cancel any time from your account." },
   qrH: { th: "จ่ายด้วย PromptPay", en: "Pay by PromptPay" },

@@ -192,7 +192,7 @@ export default function ProPage() {
                     <button type="button" onClick={() => buy("passMonth")} disabled={busy !== null || !prices || pro === undefined}
                       className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-sheet px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
                       <span className="flex items-baseline justify-between gap-3">
-                        <span className="font-display text-lg font-bold">{t("passMonthBuy")}</span>
+                        <span className="font-display text-lg font-bold">{t("monthBuy")}</span>
                         <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
                           {busy === "passMonth" && <Spinner />}
                           {baht(prices?.monthly ?? PRO_PRICE.monthly)}
@@ -203,7 +203,7 @@ export default function ProPage() {
                     <button type="button" onClick={() => buy("pass")} disabled={busy !== null || !prices || pro === undefined}
                       className="flex min-h-[52px] flex-col gap-1 rounded-xl border-2 border-ink/15 bg-sheet px-5 py-4 text-left transition-colors hover:border-ink focus-visible:border-ink disabled:opacity-50 disabled:hover:border-ink/15">
                       <span className="flex items-baseline justify-between gap-3">
-                        <span className="font-display text-lg font-bold">{t("passBuy")}</span>
+                        <span className="font-display text-lg font-bold">{t("yearBuy")}</span>
                         <span className="flex items-center gap-2 font-display text-2xl font-extrabold tabular-nums">
                           {busy === "pass" && <Spinner />}
                           {baht(prices?.annual ?? PRO_PASS)}
