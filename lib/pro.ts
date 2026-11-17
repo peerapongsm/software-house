@@ -89,7 +89,7 @@ export const PRO_COPY = {
   cardH: { th: "จ่ายด้วยบัตร", en: "Pay by card" },
   cardLead: { th: "ต่ออายุเองทุกเดือนหรือทุกปี ยกเลิกได้ทุกเมื่อในหน้าบัญชี", en: "Renews by itself every month or year. Cancel any time from your account." },
   qrH: { th: "จ่ายด้วย PromptPay", en: "Pay by PromptPay" },
-  qrLead: { th: "จ่ายครั้งเดียว ไม่ตัดเงินอัตโนมัติ หมดแล้วซื้อใหม่ หน้าชำระเงินรับบัตรด้วย", en: "Pay once. Nothing is charged automatically; buy again when it ends. The checkout takes cards too." },
+  qrLead: { th: "จ่ายครั้งเดียว ไม่ตัดเงินอัตโนมัติ", en: "Pay once. Nothing is charged automatically." },
   monthNote: { th: "ตัดบัตรทุกเดือน", en: "Charged to your card every month" },
   yearNote: { th: "ตัดบัตรทุกปี", en: "Charged to your card every year" },
   passNote: { th: "ใช้ได้ 365 วัน", en: "Covers 365 days" },
