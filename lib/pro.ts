@@ -94,7 +94,7 @@ export const PRO_COPY = {
   qrLead: { th: "จ่ายครั้งเดียว ไม่ตัดเงินอัตโนมัติ หมดแล้วซื้อใหม่ หน้าชำระเงินรับบัตรด้วย", en: "Pay once. Nothing is charged automatically; buy again when it ends. The checkout takes cards too." },
   monthNote: { th: "ตัดบัตรทุกเดือน", en: "Charged to your card every month" },
   yearNote: { th: "ตัดบัตรทุกปี", en: "Charged to your card every year" },
-  passNote: { th: "ใช้ได้ 1 ปี", en: "Covers 1 year" },
+  passNote: { th: "ใช้ได้ 365 วัน", en: "Covers 365 days" },
   passMonthNote: { th: "ใช้ได้ 30 วัน", en: "Covers 30 days" },
   accept: { th: "ฉันยอมรับ", en: "I accept the" },
   retry: { th: "ลองอีกครั้ง", en: "Try again" },

@@ -34,8 +34,8 @@ const COPY = {
     en: "Card Pro subscriptions renew automatically. Cancel any time from /account; Pro runs to the end of the paid period, with no partial refunds.",
   },
   pass: {
-    th: "Pro แบบจ่ายครั้งเดียวมี 2 แบบ คือ Pro 1 เดือนใช้ได้ 30 วัน และ Pro 1 ปีใช้ได้ 1 ปี ทั้งสองแบบไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro แบบจ่ายครั้งเดียวที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลาที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้การสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro แบบจ่ายครั้งเดียว และถ้ามี Pro แบบจ่ายครั้งเดียวที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
-    en: "A prepaid pass covers 30 days (1-month pass) or 1 year (1-year pass) and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
+    th: "Pro แบบจ่ายครั้งเดียวมี 2 แบบ คือ Pro 1 เดือนใช้ได้ 30 วัน และ Pro 1 ปีใช้ได้ 365 วัน ทั้งสองแบบไม่ต่ออายุอัตโนมัติ ถ้ามีเฉพาะ Pro แบบจ่ายครั้งเดียวที่ยังใช้ได้ ซื้อเพิ่มล่วงหน้าได้ โดยระยะเวลาที่ซื้อเพิ่มเริ่มเมื่อระยะเวลาเดิมหมด รวมระยะเวลาที่เหลือไม่เกิน 2 ปี ต้องรอให้การสมัครผ่านบัตรสิ้นสุดก่อนซื้อ Pro แบบจ่ายครั้งเดียว และถ้ามี Pro แบบจ่ายครั้งเดียวที่ยังใช้ได้ ต้องรอให้หมดก่อนสมัครผ่านบัตร",
+    en: "A prepaid pass covers 30 days (1-month pass) or 365 days (1-year pass) and does not auto-renew. If only passes are active, you can buy ahead: the next pass starts when the current coverage ends, up to 2 years of coverage ahead. Wait until an active card subscription ends before buying a pass; wait until an active pass ends before starting a card subscription.",
   },
   ends: {
     th: "Pro สิ้นสุดเมื่อรอบที่จ่ายไว้หมดหลังยกเลิก เมื่อ Pro แบบจ่ายครั้งเดียวหมด เมื่อผู้ให้บริการเก็บเงินไม่สำเร็จจนหมดเวลาแก้ไข หรือเมื่อคืนเงินเต็มจำนวน เพิกถอนการซื้อ หรือแพ้ข้อพิพาทการชำระเงิน",
