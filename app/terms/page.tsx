@@ -214,7 +214,7 @@ const TH: Sec[] = [
       "ตัวเชื่อม LINE (ในแอปฟรีต้องมี Pro แอปแบบซื้อขาดมีให้อยู่แล้ว) ใช้ LINE Official Account และ Channel access token ของร้านเอง โทเคนกับ Channel secret อยู่ในเครื่องหลักของร้าน ไม่ส่งมาที่เรา ข้อความถึงลูกค้า|ส่งจากเครื่องหลักของร้าน|ตรงถึง LINE ในนามของร้าน ค่าบริการและโควตาข้อความของ LINE เป็นเรื่องระหว่างร้านกับ LINE และร้านต้องทำตาม|ข้อกำหนดของ LINE เอง",
       "ร้านเป็นผู้ควบคุมข้อมูล|ของลูกค้าที่เชื่อม LINE และรับผิดชอบ|การขอความยินยอม|กับการแจ้งลูกค้า เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เรารับข้อมูลที่ LINE ส่งมา (รหัสเชื่อม คำขอยกเลิก การเพิ่มเพื่อนหรือบล็อก และข้อความแชตเมื่อร้านเปิดแชตบอต) ตามที่ร้านสั่งด้วยการเปิดใช้ เพื่อส่งต่อถึงเครื่องหลัก|ของร้านเท่านั้น ไม่เอาไปใช้|เพื่อประโยชน์ของเราเอง และลบตามระยะเวลา|ในนโยบายความเป็นส่วนตัว",
       "เราประมวลผลข้อมูลนี้|บนเซิร์ฟเวอร์ของ Cloudflare ซึ่งอาจอยู่นอกประเทศไทย ข้อมูลส่วนนี้|จึงอาจถูกส่งไป|ประมวลผลนอกประเทศ",
-      "ลูกค้าเชื่อม LINE เอง|ด้วยรหัสใช้ครั้งเดียว และเลิกได้ทุกเมื่อ|ด้วยการพิมพ์ \"ยกเลิก LINE\" หรือ STOP หรือบล็อก OA ของร้าน แล้วแอปจะหยุดส่งข้อความ|ถึงคนนั้น",
+      "ลูกค้าเชื่อม LINE เอง|ด้วยรหัสใช้ครั้งเดียว และเลิกได้ทุกเมื่อ|ด้วยการพิมพ์ \"ยกเลิก LINE\" หรือ STOP หรือบล็อก OA ของร้าน แล้วแอปจะหยุดส่งข้อความ|ถึงคนนั้น ถ้าลูกค้าส่งรหัสตอนเครื่องร้านปิดอยู่ แอปส่งข้อความยืนยัน|หนึ่งข้อความจาก OA ของร้าน ซึ่งนับในโควตาข้อความ|ของร้าน และการเชื่อมจะนับ|เมื่อ LINE รับข้อความนั้นแล้ว",
     ],
   },
   {
@@ -355,7 +355,7 @@ const EN: Sec[] = [
       "The LINE connector (free apps need Pro; the paid apps include it) uses the shop's own LINE Official Account and Channel access token. The token and Channel secret stay on the shop's main PC and are never sent to us. Messages to customers go from the shop's main PC straight to LINE, in the shop's name. LINE's fees and message quota are between the shop and LINE, and the shop must follow LINE's own terms.",
       "The shop is the data controller for its customers who link their LINE, and is responsible for their consent and notices. We act as the shop's data processor: we receive what LINE sends (link codes, stop requests, friend adds or blocks, and chat while the shop's chatbot is on) on the shop's instruction given by turning the connector on, only to pass it to the shop's main PC. We do not use it for our own purposes, and we delete it on the schedule in the Privacy Policy.",
       "We process this data on Cloudflare servers, which may be outside Thailand, so this data may be transferred abroad for processing.",
-      "Customers link their own LINE with a one-time code and can stop at any time by sending \"ยกเลิก LINE\" or STOP, or by blocking the shop's OA. The app then stops messaging them.",
+      "Customers link their own LINE with a one-time code and can stop at any time by sending \"ยกเลิก LINE\" or STOP, or by blocking the shop's OA. The app then stops messaging them. If a customer sends a code while the shop PC is off, the app sends one confirmation message from the shop's OA, which counts against the shop's message quota, and the link counts once LINE accepts it.",
     ],
   },
   {

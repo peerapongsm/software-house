@@ -6,7 +6,8 @@ import type { Msg } from "@/lib/api.ts";
 // LINE OA chat section verified against peerapos-chat 2026-11-13: Claude API replies, last turns kept 24 h in
 // Cloudflare KV keyed by a hash of the LINE user ID, daily/monthly counters, 12 h pause after a handoff.
 // The AI paragraph follows peerapos-go/docs/privacy-ai.md and licence worker/src/consent.ts.
-// The LINE connector section follows the peerapos-go relay (relay/src/line.ts, goRoom.ts) and host/src/line, 2026-11-17.
+// The LINE connector section follows the peerapos-go relay (relay/src/line.ts, goRoom.ts, shared/src/lineSort.ts) and
+// host/src/line after the round-3 fixes (per-event extracts, mixed codes, unread removed hooks, finished disconnect), 2026-11-17.
 
 const COPY = {
   description: {
@@ -236,12 +237,13 @@ const TH: Sec[] = [
       "ข้อความที่ลูกค้าส่งถึง LINE OA ของร้าน|จะผ่านเซิร์ฟเวอร์ PeerapoS (relay.peerapongsm.dev) ก่อนถึงเครื่องร้าน เซิร์ฟเวอร์อ่าน|เพียงเพื่อคัดว่าเป็น|รหัสเชื่อม LINE คำขอยกเลิก การเพิ่มเพื่อนหรือบล็อก หรือข้อความแชต รหัสเชื่อมกับการเพิ่มเพื่อน|เก็บไว้แบบเข้ารหัส|ไม่เกิน 7 วัน คำขอยกเลิกกับการบล็อก|ไม่เกิน 90 วัน จนเครื่องร้านมารับ แล้วลบทันทีที่รับไป ถ้าเปิดแชตบอต ข้อความแชต|จะส่งต่อถึงเครื่องร้าน|ทันทีเท่านั้น ไม่เก็บไว้ ถ้าเครื่องปิดอยู่ ข้อความนั้นก็ถูกทิ้ง ถ้าไม่เปิดแชตบอต เราไม่ส่งต่อข้อความแชต ข้อความที่ร้านส่งออก|จากเครื่องร้าน|ตรงถึง LINE ไม่ผ่านเรา",
     ],
     li: [
-      "ที่เก็บไว้เข้ารหัส|ด้วยกุญแจของเครื่องหลักร้าน มีแค่เครื่องนั้นที่เปิดอ่านได้ เราเปิดอ่านไม่ได้ ที่เก็บคือ|ข้อความทั้งชุดที่ LINE ส่งมาครั้งนั้น ถ้าในชุดเดียวกัน|มีข้อความอื่นของลูกค้าปนมา ข้อความนั้นก็ถูกเก็บ|แบบเข้ารหัสไปด้วย",
-      "ข้อความสั้น|ที่หน้าตาเหมือนรหัส (ตัวอักษรหรือตัวเลข 6 ตัว) ก็นับเป็นรหัสเชื่อม แล้วเครื่องร้าน|จะเทียบกับรหัส|ที่ร้านออกให้จริง",
+      "ที่เก็บไว้เข้ารหัส|ด้วยกุญแจของเครื่องหลักร้าน มีแค่เครื่องนั้นที่เปิดอ่านได้ เราเปิดอ่านไม่ได้ แต่ละรายการเก็บแค่ชนิด (รหัสเชื่อม คำขอยกเลิก เพิ่มเพื่อน หรือบล็อก) ตัวรหัส LINE userId เวลา และรหัสอ้างอิงของ LINE ไม่เก็บข้อความที่ลูกค้าพิมพ์ และไม่เก็บข้อความอื่น|ที่ส่งมาพร้อมกัน",
+      "รหัสเชื่อมมี 6 ตัว ปนทั้งตัวอักษรและตัวเลขเสมอ ข้อความหน้าตาแบบนี้เท่านั้น|ที่นับเป็นรหัส คำทั่วไปอย่าง THANKS หรือตัวเลขล้วน ไม่นับและไม่ถูกเก็บ แล้วเครื่องร้าน|จะเทียบกับรหัส|ที่ร้านออกให้จริง",
+      "ถ้าลูกค้าส่งรหัสตอนเครื่องร้านปิดอยู่ การเชื่อมจะนับ|ก็ต่อเมื่อ LINE รับข้อความยืนยัน|ที่ OA ของร้านส่งถึงลูกค้าคนนั้นแล้ว ถ้า LINE ไม่รับ การเชื่อมจะถูกยกเลิก|และร้านต้องออกรหัสใหม่ให้",
       "บันทึกเส้นทางมีแค่เวลา ขนาด และผลการคัด ไม่มีเนื้อหา เก็บ 7 วันแล้วลบ ไม่เก็บที่อยู่ IP",
       "ลูกค้าเชื่อม LINE เอง|ด้วยรหัสใช้ครั้งเดียว|จากร้าน (สแกน QR ที่ร้านแล้วกดส่ง) เลิกได้ทุกเมื่อ|ด้วยการพิมพ์ \"ยกเลิก LINE\" หรือ STOP หรือบล็อก OA ของร้าน",
       "รายการว่าบัญชี LINE ไหน (LINE userId) เชื่อมกับลูกค้าคนไหน อยู่ในเครื่องหลัก|ของร้าน ไม่อยู่ที่เรา แอปไม่ดึงชื่อ|หรือรูปโปรไฟล์ LINE ของลูกค้า",
-      "เมื่อร้านยกเลิกการเชื่อม เครื่องหลักลบที่อยู่ webhook ที่เรา ข้อความที่รอเครื่องร้านอยู่|ก็ถูกลบ ข้อความที่ LINE ส่งมาหลังจากนั้น|เราทิ้งโดยไม่คัด|และไม่เก็บ แล้วเครื่องหลัก|ลืม Channel secret กับโทเคน ถ้าตอนนั้น|เครื่องติดต่อเราไม่ได้ ข้อความที่ค้างอยู่|จะหมดอายุตามเวลาข้างบน",
+      "เมื่อร้านยกเลิกการเชื่อม เครื่องหลัก|ลืม Channel secret ทันที แล้วลบที่อยู่ webhook ที่เรา ข้อความที่รอเครื่องร้านอยู่|ก็ถูกลบไปด้วย ถ้าตอนนั้น|ติดต่อเราหรือ LINE ไม่ได้ เครื่องหลักจะลองใหม่ทุกนาที|และหลังเปิดแอปใหม่ จนลบเสร็จ ระหว่างนั้นเก็บไว้แค่โทเคน|เพื่อเปลี่ยนที่อยู่ webhook ใน LINE แล้วลบโทเคนทิ้ง|ทันทีที่เสร็จ ถ้า LINE ไม่รับโทเคนนั้นแล้ว ให้ปิด Use webhook ใน LINE Developers เอง ข้อความที่ LINE ส่งมาหลังลบแล้ว|เราไม่อ่านและไม่เก็บ",
     ],
     after: [
       "ร้านเป็นผู้ควบคุมข้อมูล|ของลูกค้าที่คุยกับ LINE OA ของร้าน เราเป็นผู้ประมวลผลให้ร้าน ร้านที่เปิดตัวเชื่อม LINE ควรบอกเรื่องนี้|ในประกาศความเป็นส่วนตัว|ของร้านเองด้วย ส่วน LINE เก็บแชต|ตามนโยบายของ LINE เอง",
@@ -430,12 +432,13 @@ const EN: Sec[] = [
       "Messages a customer sends to the shop's LINE OA pass through the PeerapoS server (relay.peerapongsm.dev) before they reach the shop PC. The server reads them only to sort out link codes, stop requests, friend adds or blocks, and chat. Link codes and friend adds are kept encrypted for at most 7 days, stop requests and blocks for at most 90 days, until the shop PC collects them, and are deleted as soon as it does. If the shop turns the chatbot on, chat messages are passed to the shop PC live only and never kept; if the PC is off, they are dropped. With the chatbot off, we do not pass chat on. Messages the shop sends go from the shop PC straight to LINE, not through us.",
     ],
     li: [
-      "What is kept is encrypted to the shop PC's own key. Only that PC can open it; we cannot. It is the whole delivery LINE sent at that moment, so if the same delivery also carried other messages from the customer, they are kept encrypted along with it.",
-      "A short message that looks like a code (6 letters or digits) also counts as a link code; the shop PC then checks it against the codes the shop actually issued.",
+      "What is kept is encrypted to the shop PC's own key. Only that PC can open it; we cannot. Each kept item holds only its type (link code, stop request, friend add or block), the code itself, the LINE userId, the time and LINE's reference ids. The text the customer typed is not kept, and nor is anything else sent with it.",
+      "A link code is 6 characters that always mix letters and digits. Only a message shaped like that counts as a code; ordinary words such as THANKS, or plain numbers, do not and are not kept. The shop PC then checks it against the codes the shop actually issued.",
+      "If a customer sends a code while the shop PC is off, the link counts only once LINE accepts a confirmation message from the shop's OA to that customer. If LINE refuses it, the link is undone and the shop issues a new code.",
       "Routing records hold only the time, size and how each delivery was sorted, with no content. They are kept 7 days, then deleted. We do not keep IP addresses.",
       "Customers link their own LINE with a one-time code from the shop (scan the QR at the shop and press send). They can stop at any time by sending \"ยกเลิก LINE\" or STOP, or by blocking the shop's OA.",
       "The list of which LINE account (LINE userId) is linked to which customer lives on the shop's main PC, not with us. The app never fetches a customer's LINE name or profile picture.",
-      "When the shop disconnects, the main PC removes its webhook address with us and the messages waiting for it are deleted. Anything LINE sends after that is dropped without being sorted or kept, and the PC forgets the Channel secret and token. If the PC cannot reach us at that moment, waiting messages expire on the schedule above.",
+      "When the shop disconnects, the main PC forgets the Channel secret at once and removes its webhook address with us; the messages waiting for it are deleted with it. If we or LINE cannot be reached at that moment, the PC retries every minute, and again after the app restarts, until removal is done. Meanwhile it keeps only the token, to change the webhook address in LINE, and deletes it as soon as that is done. If LINE no longer accepts the token, turn off Use webhook in LINE Developers yourself. Anything LINE sends after removal is neither read nor kept by us.",
     ],
     after: [
       "The shop is the data controller for its customers who talk to its LINE OA, and we are its data processor. A shop that turns on the LINE connector should say so in its own privacy notice. LINE keeps chats under its own policy.",
