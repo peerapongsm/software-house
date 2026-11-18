@@ -58,8 +58,8 @@ const COPY = {
     en: "A full refund or lost card dispute removes the apps in that order, or Pro ends immediately. PCs lose refunded apps at their next licence check; PC Pro grace still applies as in section 6. Partial refunds and unresolved disputes do not automatically revoke rights.",
   },
   updated: {
-    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 17 พฤศจิกายน 2569",
-    en: "PeerapoS apps and services. Last updated 17 November 2026",
+    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 18 พฤศจิกายน 2569",
+    en: "PeerapoS apps and services. Last updated 18 November 2026",
   },
 } satisfies Record<string, Msg>;
 
@@ -106,7 +106,7 @@ const TH: Sec[] = [
   {
     title: "1. ใครให้บริการ",
     p: [
-      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า)",
+      "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา จดทะเบียนพาณิชย์ในประเทศไทย ข้อกำหนดนี้ใช้กับแอปของ PeerapoS บัญชีบนเว็บไซต์ peerapongsm.dev PeerapoS Pro แอปมือถือ (PeerapoS Pair และ PeerapoS Plan) แอปแบบซื้อขาด และบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า การลงนามเอกสารออนไลน์)",
       "ติ๊กยอมรับตอนสั่งซื้อ เข้าสู่ระบบ หรือใช้แอปต่อไปหลังเราประกาศข้อกำหนดนี้ ถือว่าคุณตกลงตามนี้",
     ],
   },
@@ -196,8 +196,8 @@ const TH: Sec[] = [
     title: "10. ข้อมูลของคุณ",
     p: [
       "ข้อมูลธุรกิจที่คุณกรอกในแอปอยู่ในเครื่องคุณ ร้านเป็นผู้ควบคุมข้อมูลของลูกค้าและพนักงานของร้านเอง และรับผิดชอบเรื่องความยินยอมและการแจ้งเจ้าของข้อมูล เราไม่เห็นข้อมูลนั้น",
-      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
-      "รีเลย์ PeerapoS Pair ส่งผ่านข้อมูลที่เข้ารหัส เราอ่านเนื้อหาไม่ได้ ไฟล์สำรอง Google Drive เข้ารหัสและส่งตรงไปบัญชีของคุณ เราไม่เก็บหรืออ่านเนื้อหา ส่วนตัวเชื่อม AI ส่งข้อมูลที่คุณเลือกไปยังผู้ให้บริการ AI ตามนโยบายความเป็นส่วนตัว ข้อมูลส่วนนั้นไม่ได้เข้ารหัสปลายทาง",
+      "ถ้าคุณเปิดบริการออนไลน์ (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า การลงนามเอกสารออนไลน์) เราทำหน้าที่ผู้ประมวลผลข้อมูลให้ร้านเท่าที่จำเป็นต่อการเดินบริการ เรา: ประมวลผลตามที่ร้านสั่งด้วยการเปิดใช้บริการ ไม่เอาข้อมูลไปใช้เพื่อประโยชน์ของเราเอง ใช้ผู้ประมวลผลช่วงตามรายชื่อในนโยบายความเป็นส่วนตัว และลบตามระยะเวลาที่นโยบายนั้นบอก",
+      "รีเลย์ PeerapoS Pair ส่งผ่านข้อมูลที่เข้ารหัส เราอ่านเนื้อหาไม่ได้ ไฟล์สำรอง Google Drive เข้ารหัสและส่งตรงไปบัญชีของคุณ เราไม่เก็บหรืออ่านเนื้อหา เอกสารที่ส่งให้ลงนามออนไลน์เข้ารหัสบนเครื่องของร้าน เราอ่านไม่ได้ ส่วนตัวเชื่อม AI ส่งข้อมูลที่คุณเลือกไปยังผู้ให้บริการ AI ตามนโยบายความเป็นส่วนตัว ข้อมูลส่วนนั้นไม่ได้เข้ารหัสปลายทาง",
       "ข้อมูลบัญชี คำสั่งซื้อ รายงานปัญหาที่ส่งมา และสถิติการใช้งาน เราเป็นผู้ควบคุมข้อมูลเอง รายละเอียดอยู่ในนโยบายความเป็นส่วนตัว",
     ],
   },
@@ -248,7 +248,7 @@ const EN: Sec[] = [
   {
     title: "1. Who provides the service",
     p: [
-      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages).",
+      "The provider is พีระพอส (PeerapoS), a sole proprietorship registered for commerce in Thailand. These Terms cover the PeerapoS apps, your account on peerapongsm.dev, PeerapoS Pro, the mobile apps (PeerapoS Pair and PeerapoS Plan), the one-time paid apps, and the opt-in online services (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages, online document signing).",
       "Ticking the box when you order, signing in, or continuing to use the apps after we publish these Terms, means you agree to them.",
     ],
   },
@@ -338,8 +338,8 @@ const EN: Sec[] = [
     title: "10. Your data",
     p: [
       "The business data you enter in the apps stays on your PC. The shop is the data controller for its own customers and staff, and is responsible for consent and notices to them. We do not see that data.",
-      "If you turn on an online service (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
-      "PeerapoS Pair relay passes encrypted data whose contents we cannot read. Google Drive backups are encrypted and sent directly to your account; we do not store or read their contents. The AI connector passes the data you choose to your AI provider as described in the Privacy Policy; that traffic is not end-to-end encrypted.",
+      "If you turn on an online service (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages, online document signing), we act as a data processor for the shop, only as far as needed to run the service. We: process on the shop's instruction given by turning the service on, do not use the data for our own purposes, use the sub-processors listed in the Privacy Policy, and delete on the schedule that policy gives.",
+      "PeerapoS Pair relay passes encrypted data whose contents we cannot read. Google Drive backups are encrypted and sent directly to your account; we do not store or read their contents. Documents sent for online signing are encrypted on the shop PC; we cannot read them. The AI connector passes the data you choose to your AI provider as described in the Privacy Policy; that traffic is not end-to-end encrypted.",
       "For account data, orders, problem reports you send and usage statistics, we are the data controller. Details are in the Privacy Policy.",
     ],
   },

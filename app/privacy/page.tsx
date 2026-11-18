@@ -52,8 +52,8 @@ const COPY = {
     en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
   },
   updated: {
-    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 17 พฤศจิกายน 2569",
-    en: "PeerapoS apps, accounts and services. Last updated 17 November 2026",
+    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 18 พฤศจิกายน 2569",
+    en: "PeerapoS apps, accounts and services. Last updated 18 November 2026",
   },
 } satisfies Record<string, Msg>;
 
@@ -131,7 +131,7 @@ const TH: Sec[] = [
       "ผู้ให้บริการคือ พีระพอส (PeerapoS) ผู้ประกอบการบุคคลธรรมดา",
       "ข้อมูลลูกค้าและพนักงานที่ร้านกรอกในแอป ร้านเป็นผู้ควบคุมข้อมูลเอง เราไม่เห็นข้อมูลนั้น",
       "ข้อมูลบัญชี คำสั่งซื้อ รายงานปัญหาที่ส่งมา และสถิติการใช้งาน เราเป็นผู้ควบคุมข้อมูลเอง",
-      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
+      "ถ้าร้านเปิดบริการออนไลน์ที่ให้เปิดใช้เอง (รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE การสำรองข้อมูลไป Google Drive หน้าลูกค้า การลงนามเอกสารออนไลน์) เราเป็นผู้ประมวลผลข้อมูลให้ร้าน เท่าที่จำเป็นต่อการเดินบริการ",
     ],
   },
   {
@@ -144,7 +144,7 @@ const TH: Sec[] = [
       "ตรวจหาเวอร์ชันใหม่ แอปถาม GitHub Releases ว่ามีเวอร์ชันใหม่ไหม ไม่ส่งข้อมูลของคุณไปด้วย",
       "รายงานปัญหาหรือส่งความเห็น ส่งเฉพาะตอนที่คุณกดส่งเอง ดูหัวข้อ \"รายงานปัญหา\"",
       "สถิติการใช้งาน วันละครั้งเมื่อออนไลน์ ปิดได้ ดูหัวข้อ \"สถิติการใช้งาน\"",
-      "เฉพาะเมื่อคุณเปิดใช้เอง: ตรวจสิทธิ์ Pro รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE และสำรองข้อมูลไป Google Drive",
+      "เฉพาะเมื่อคุณเปิดใช้เอง: ตรวจสิทธิ์ Pro รีเลย์ PeerapoS Pair ตัวเชื่อม AI ตัวเชื่อม LINE สำรองข้อมูลไป Google Drive และลงนามเอกสารออนไลน์",
     ],
   },
   {
@@ -222,6 +222,18 @@ const TH: Sec[] = [
     after: ["ร้านเป็นผู้ควบคุมข้อมูลของลูกค้าที่กรอกผ่านหน้าลูกค้า และเป็นผู้ตั้งข้อความความเป็นส่วนตัวของร้าน ใครอยากใช้สิทธิ์เกี่ยวกับข้อมูลนั้น ให้ติดต่อร้านนั้นก่อน"],
   },
   {
+    title: "ลงนามเอกสารออนไลน์",
+    p: [
+      "เมื่อร้านส่งเอกสารให้ลูกค้าลงนาม แอปเข้ารหัสไฟล์ PDF บนเครื่องของร้านก่อน แล้วพักไว้ที่ esign.peerapongsm.dev กุญแจถอดรหัสอยู่ในลิงก์ที่ร้านส่งให้ลูกค้าเท่านั้น ไม่ถูกส่งถึงเซิร์ฟเวอร์ของเรา",
+    ],
+    li: [
+      "เอกสาร ช่องที่ร้านกรอกไว้ ชื่อ ลายเซ็น และข้อความที่ลูกค้ากรอก ถูกเข้ารหัสทั้งหมด เราอ่านไม่ได้",
+      "คำขอที่ยังไม่ปิดงานเก็บไม่เกิน 14 วัน เอกสารที่ลงนามครบแล้วเก็บ 30 วัน แล้วลบ ร้านยกเลิกคำขอได้ทุกเมื่อ และเราลบทันที",
+      "หน้าลงนามเข้ารหัสด้วยโค้ดที่เราส่งให้เบราว์เซอร์จาก esign.peerapongsm.dev ลูกค้าจึงต้องเชื่อใจโค้ดนั้น ซึ่งเราเป็นผู้ให้",
+    ],
+    after: ["ร้านเป็นผู้ควบคุมข้อมูลในเอกสาร และข้อมูลของลูกค้าที่ลงนาม เราเป็นผู้ประมวลผลให้ร้าน ใครอยากใช้สิทธิ์เกี่ยวกับข้อมูลนั้น ให้ติดต่อร้านนั้นก่อน"],
+  },
+  {
     title: "ตัวเชื่อม AI",
     p: [
       "ตัวเชื่อม AI (ไม่บังคับ ปิดเป็นค่าเริ่มต้น) PeerapoS เป็นทางผ่านระหว่างผู้ให้บริการ AI ที่ร้านเลือกกับเครื่องของร้าน เราไม่เก็บคำถาม คำตอบ หรือข้อมูลร้านไว้บนเซิร์ฟเวอร์ เก็บเพียงรหัสร้าน ขนาด ผลลัพธ์ (สำเร็จหรือรหัสข้อผิดพลาด) และเวลา เพื่อดูแลระบบและตรวจสอบการใช้งานเกินกำหนด ข้อมูลที่ผ่านเราไปถึงผู้ให้บริการ AI ไม่ได้เข้ารหัสปลายทาง ผู้ให้บริการ AI ที่ร้านเลือกเป็นผู้รับข้อมูลที่ร้านตัดสินใจส่งเอง และอยู่ภายใต้เงื่อนไขและนโยบายของผู้ให้บริการนั้น ไม่ใช่ของ PeerapoS ร้านยกเลิกการเชื่อมได้ทุกเมื่อที่ ตั้งค่า › AI ในแอป หรือ \"AI ที่เชื่อมต่อ\" ในหน้าบัญชีของฉัน เมื่อยกเลิก การเรียกถัดไปจะถูกปฏิเสธทันที",
@@ -276,7 +288,7 @@ const TH: Sec[] = [
   {
     title: "ใครรับข้อมูลบ้าง และส่งไปนอกประเทศไหม",
     li: [
-      "Cloudflare: สถิติการใช้งาน เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ ตัวเชื่อม LINE เว็บไซต์ และ Turnstile",
+      "Cloudflare: สถิติการใช้งาน เซิร์ฟเวอร์ ฐานข้อมูล ที่เก็บไฟล์ รีเลย์ ลงนามเอกสารออนไลน์ ตัวเชื่อม LINE เว็บไซต์ และ Turnstile",
       "Google: เข้าสู่ระบบด้วยบัญชี Google และสำรองข้อมูลไป Google Drive เมื่อคุณเปิดใช้",
       "Resend: ส่งอีเมลยืนยันการชำระเงิน ได้รับอีเมลผู้รับและเนื้อหาอีเมล",
       COPY.recipient.th,
@@ -295,6 +307,7 @@ const TH: Sec[] = [
     li: [
       "เซสชัน 30 วัน",
       "บันทึกเส้นทางของรีเลย์ 7 วัน คำขอจากหน้าลูกค้าที่พักไว้ 14 วัน",
+      "ลงนามเอกสารออนไลน์: คำขอที่ยังไม่ปิดงาน|ไม่เกิน 14 วัน เอกสารที่ลงนามครบแล้ว 30 วัน",
       COPY.stripeRetention.th,
       "สำเนารายงานปัญหา จนกว่าเราจะดึงไปอ่านแล้วลบ",
       "ข้อความแชตกับบอท LINE 24 ชั่วโมง",
@@ -328,7 +341,7 @@ const EN: Sec[] = [
       "The provider is พีระพอส (PeerapoS), a sole proprietorship.",
       "The shop is the data controller for the customer and staff data it enters in the apps. We do not see that data.",
       "We are the data controller for account data, orders, problem reports sent to us and usage statistics.",
-      "If a shop turns on an opt-in online service (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages), we act as a data processor for the shop, only as far as needed to run the service.",
+      "If a shop turns on an opt-in online service (PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup, customer pages, online document signing), we act as a data processor for the shop, only as far as needed to run the service.",
     ],
   },
   {
@@ -341,7 +354,7 @@ const EN: Sec[] = [
       "Update check. The app asks GitHub Releases whether a new version exists. None of your data is sent.",
       "Problem reports and feedback, only when you choose to send one. See \"Problem reports\".",
       "Usage statistics, once a day when online; you can turn them off. See \"Usage statistics\".",
-      "Only when you turn them on: Pro licence checks, PeerapoS Pair relay, the AI connector, the LINE connector and Google Drive backup.",
+      "Only when you turn them on: Pro licence checks, PeerapoS Pair relay, the AI connector, the LINE connector, Google Drive backup and online document signing.",
     ],
   },
   {
@@ -417,6 +430,18 @@ const EN: Sec[] = [
     after: ["The shop is the data controller for what customers enter on its customer pages and sets its own privacy text. To use your rights over that data, contact that shop first."],
   },
   {
+    title: "Online document signing",
+    p: [
+      "When a shop sends a document for a customer to sign, the app encrypts the PDF on the shop PC first, then holds it at esign.peerapongsm.dev. The decryption key is only in the link the shop gives the customer; it never reaches our servers.",
+    ],
+    li: [
+      "The document, boxes the shop filled in, and the customer's name, signature and entries are all encrypted. We cannot read them.",
+      "Open requests are kept at most 14 days; a fully signed document is kept 30 days; then they are deleted. The shop can cancel a request at any time and we delete it straight away.",
+      "The signing page is encrypted by code that we serve to the browser from esign.peerapongsm.dev, so the customer has to trust that code, and we supply it.",
+    ],
+    after: ["The shop is the data controller for the document and for the data of the customer who signs; we process it for the shop. To use your rights over that data, contact that shop first."],
+  },
+  {
     title: "AI connector",
     p: [
       "AI connector (optional, off by default). PeerapoS is only the pass-through between the AI provider the shop chose and the shop's own PC. We do not store questions, answers or shop data on our servers; we keep only the shop handle, sizes, outcome (success or error code) and time, to run the service and spot abuse. Data passing through us to the AI provider is not end-to-end encrypted. The AI provider the shop picks is a recipient of data the shop itself decided to send, under that provider's terms and policy, not PeerapoS's. A shop can disconnect at any time in Settings › AI in the app or under \"Connected AI\" on My account; the next call is then refused at once.",
@@ -471,7 +496,7 @@ const EN: Sec[] = [
   {
     title: "Who receives data, and transfers abroad",
     li: [
-      "Cloudflare: usage statistics, servers, databases, file storage, the relay, the LINE connector, the website and Turnstile.",
+      "Cloudflare: usage statistics, servers, databases, file storage, the relay, online document signing, the LINE connector, the website and Turnstile.",
       "Google: Google sign-in and Google Drive backup when you turn it on.",
       "Resend: sends the payment confirmation emails, so it receives the recipient address and the message.",
       COPY.recipient.en,
@@ -490,6 +515,7 @@ const EN: Sec[] = [
     li: [
       "Sessions 30 days.",
       "Relay routing records 7 days; held customer-page requests 14 days.",
+      "Online document signing: open requests at most 14 days, fully signed documents 30 days.",
       COPY.stripeRetention.en,
       "Problem report copies, until we pull and delete them.",
       "LINE bot chat messages, 24 hours.",

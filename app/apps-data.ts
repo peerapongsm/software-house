@@ -128,6 +128,7 @@ export const APPS: DesktopApp[] = [
         "ใช้ PeerapoS Pair จากนอกร้าน",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -150,6 +151,7 @@ export const APPS: DesktopApp[] = [
         "Use PeerapoS Pair away from the shop",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -170,6 +172,7 @@ export const APPS: DesktopApp[] = [
         "เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง นอกจากเครื่องหลัก (รุ่นฟรีใช้ได้เฉพาะเครื่องหลัก)",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -184,6 +187,7 @@ export const APPS: DesktopApp[] = [
         "Connect up to 5 other PCs in the shop over LAN, in addition to the main PC (free: main PC only).",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -209,6 +213,7 @@ export const APPS: DesktopApp[] = [
         "ใช้ PeerapoS Pair จากนอกร้าน",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -228,6 +233,7 @@ export const APPS: DesktopApp[] = [
         "Use PeerapoS Pair away from the shop",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -254,6 +260,7 @@ export const APPS: DesktopApp[] = [
         "ใช้ PeerapoS Pair จากนอกร้าน",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -274,6 +281,7 @@ export const APPS: DesktopApp[] = [
         "Use PeerapoS Pair away from the shop",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -362,6 +370,7 @@ export const APPS: DesktopApp[] = [
         "เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง นอกจากเครื่องหลัก (รุ่นฟรีใช้ได้เฉพาะเครื่องหลัก)",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -376,6 +385,7 @@ export const APPS: DesktopApp[] = [
         "Connect up to 5 other PCs in the shop over LAN, in addition to the main PC (free: main PC only).",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -494,6 +504,7 @@ export const APPS: DesktopApp[] = [
         "เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง นอกจากเครื่องหลัก (รุ่นฟรีใช้ได้เฉพาะเครื่องหลัก)",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -508,6 +519,7 @@ export const APPS: DesktopApp[] = [
         "Connect up to 5 other PCs in the shop over LAN, in addition to the main PC (free: main PC only).",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -528,6 +540,7 @@ export const APPS: DesktopApp[] = [
         "เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง นอกจากเครื่องหลัก (รุ่นฟรีใช้ได้เฉพาะเครื่องหลัก)",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -542,6 +555,7 @@ export const APPS: DesktopApp[] = [
         "Connect up to 5 other PCs in the shop over LAN, in addition to the main PC (free: main PC only).",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -562,6 +576,7 @@ export const APPS: DesktopApp[] = [
         "เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง นอกจากเครื่องหลัก (รุ่นฟรีใช้ได้เฉพาะเครื่องหลัก)",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -576,6 +591,7 @@ export const APPS: DesktopApp[] = [
         "Connect up to 5 other PCs in the shop over LAN, in addition to the main PC (free: main PC only).",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -596,6 +612,7 @@ export const APPS: DesktopApp[] = [
         "เชื่อมคอมพิวเตอร์เครื่องอื่นในร้านผ่าน LAN ได้สูงสุด 5 เครื่อง นอกจากเครื่องหลัก (รุ่นฟรีใช้ได้เฉพาะเครื่องหลัก)",
         "ใช้ตัวเชื่อม AI โดยเปิดใช้เองในแอป",
         "สำรองข้อมูลไป Google Drive ของคุณเอง",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -610,6 +627,7 @@ export const APPS: DesktopApp[] = [
         "Connect up to 5 other PCs in the shop over LAN, in addition to the main PC (free: main PC only).",
         "Use the AI connector by turning it on in the app.",
         "Back up to your own Google Drive.",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -766,6 +784,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "เพิ่มบริษัทได้สูงสุด 500 บริษัท (แอปซื้อขาดรวม 5 บริษัท)",
         "ใช้คอมพิวเตอร์ในร้านผ่าน LAN ได้สูงสุด 10 เครื่อง รวมเครื่องหลัก (แอปซื้อขาดรวม 2 เครื่อง)",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -777,6 +796,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "Up to 500 companies (paid app includes 5).",
         "Use up to 10 PCs in the shop over LAN, including the main PC (paid app includes 2).",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -796,6 +816,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "เพิ่มบริษัทได้สูงสุด 50 บริษัท (แอปซื้อขาดรวม 2 บริษัท)",
         "ใช้คอมพิวเตอร์ในร้านผ่าน LAN ได้สูงสุด 10 เครื่อง รวมเครื่องหลัก (แอปซื้อขาดรวม 2 เครื่อง)",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -807,6 +828,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "Up to 50 companies (paid app includes 2).",
         "Use up to 10 PCs in the shop over LAN, including the main PC (paid app includes 2).",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -826,6 +848,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "เพิ่มบริษัทได้สูงสุด 50 บริษัท (แอปซื้อขาดรวม 2 บริษัท)",
         "ใช้คอมพิวเตอร์ในร้านผ่าน LAN ได้สูงสุด 10 เครื่อง รวมเครื่องหลัก (แอปซื้อขาดรวม 2 เครื่อง)",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -837,6 +860,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "Up to 50 companies (paid app includes 2).",
         "Use up to 10 PCs in the shop over LAN, including the main PC (paid app includes 2).",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -886,6 +910,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "เพิ่มบริษัทได้สูงสุด 50 บริษัท (แอปซื้อขาดรวม 2 บริษัท)",
         "ใช้คอมพิวเตอร์ในร้านผ่าน LAN ได้สูงสุด 10 เครื่อง รวมเครื่องหลัก (แอปซื้อขาดรวม 2 เครื่อง)",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -897,6 +922,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "Up to 50 companies (paid app includes 2).",
         "Use up to 10 PCs in the shop over LAN, including the main PC (paid app includes 2).",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -916,6 +942,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "เพิ่มบริษัทได้สูงสุด 50 บริษัท (แอปซื้อขาดรวม 2 บริษัท)",
         "ใช้คอมพิวเตอร์ในร้านผ่าน LAN ได้สูงสุด 10 เครื่อง รวมเครื่องหลัก (แอปซื้อขาดรวม 2 เครื่อง)",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -927,6 +954,7 @@ export const PAID_APPS: DesktopApp[] = [
       pro: [
         "Up to 50 companies (paid app includes 2).",
         "Use up to 10 PCs in the shop over LAN, including the main PC (paid app includes 2).",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },
@@ -947,6 +975,7 @@ export const PAID_APPS: DesktopApp[] = [
         "เพิ่มบริษัทได้สูงสุด 50 บริษัท (แอปซื้อขาดรวม 2 บริษัท)",
         "ใช้คอมพิวเตอร์ในร้านผ่าน LAN ได้สูงสุด 10 เครื่อง รวมเครื่องหลัก (แอปซื้อขาดรวม 2 เครื่อง)",
         "เชื่อมมือถือด้วย PeerapoS Pair ได้สูงสุด 20 เครื่อง และใช้นอกร้านผ่านรีเลย์ (แอปซื้อขาดรวม 5 เครื่องบน Wi-Fi ร้าน)",
+        "ส่งเอกสารหรือไฟล์ PDF ใดก็ได้ให้ลูกค้าลงนามออนไลน์ แล้วร้านลงนามกำกับบนคอมพิวเตอร์หรือมือถือ",
       ],
     },
     en: {
@@ -959,6 +988,7 @@ export const PAID_APPS: DesktopApp[] = [
         "Up to 50 companies (paid app includes 2).",
         "Use up to 10 PCs in the shop over LAN, including the main PC (paid app includes 2).",
         "Pair up to 20 phones with PeerapoS Pair and use them outside the shop through the relay (paid app includes 5 on shop Wi-Fi).",
+        "Send a document or any PDF for the customer to sign online, then counter-sign on the PC or your phone.",
       ],
     },
   },

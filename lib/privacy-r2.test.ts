@@ -15,7 +15,7 @@ for (const lang of ["th", "en"] as const) {
       "รหัสสุ่มหนึ่งรหัสต่อคอมพิวเตอร์", "รหัสที่แฮชแยก", "ไม่ผูกกับบัญชี สิทธิ์ใช้งาน อีเมล Google การชำระเงิน รายงานปัญหา หรือข้อมูลรีเลย์",
       "ไม่มีข้อมูลร้านหรือลูกค้า", "ไม่มีชื่อ ยอดเงิน ข้อความที่พิมพ์เอง", "หรืออายุ", "ไม่เก็บตำแหน่งที่ตั้งทุกชนิด",
       "Cloudflare เป็นผู้ประมวลผล", "ไม่เก็บ และไม่บันทึก IP ในล็อก", "3 เดือนแล้วลบ",
-      "ตั้งค่า > เกี่ยวกับ", "หยุดนับและส่ง", "ลบตัวนับและรหัสสถิติ", "เราไม่ขอให้ใครส่งรหัสสถิติมาให้เรา", "ถ้าอยากคัดค้านหรือลบ ให้ปิดสวิตช์นี้", "สถิติการใช้งาน 3 เดือน", "17 พฤศจิกายน 2569",
+      "ตั้งค่า > เกี่ยวกับ", "หยุดนับและส่ง", "ลบตัวนับและรหัสสถิติ", "เราไม่ขอให้ใครส่งรหัสสถิติมาให้เรา", "ถ้าอยากคัดค้านหรือลบ ให้ปิดสวิตช์นี้", "สถิติการใช้งาน 3 เดือน", "18 พฤศจิกายน 2569",
     ] : [
       "Update check", "Problem reports and feedback", "Only when you turn them on: Pro licence checks",
       "PeerapoS Pair relay", "AI connector", "Google Drive", "once a day", "on by default",
@@ -27,7 +27,7 @@ for (const lang of ["th", "en"] as const) {
       "pseudonymous personal data", "No shop or customer data, names, amounts, free text", "or age", "No location of any kind",
       "Cloudflare is our processor", "we do not read, store or log it", "3 months, then deleted",
       "Settings > About", "stops counting and sending", "deletes local counters and the statistics id on that PC",
-      "We never ask anyone to send us their statistics id", "To object or delete, use this switch", "Usage statistics, 3 months", "17 November 2026",
+      "We never ask anyone to send us their statistics id", "To object or delete, use this switch", "Usage statistics, 3 months", "18 November 2026",
     ]) assert.ok(text.includes(phrase), phrase);
     for (const range of ["0–15", "15–60", "60–240", "240", "0–10", "11–50", "51–200", "201", "0–20"]) assert.ok(text.includes(range), range);
     assert.doesNotMatch(text, /anonymous|ไม่ระบุตัวตน|no usage tracking or analytics|only two cases|แค่สองกรณี|daily problem-report summary|สรุปรายงานปัญหาวันละครั้ง|received reports are sent to Claude|ระบบส่งรายงานที่ได้รับไปให้ Claude/i);
