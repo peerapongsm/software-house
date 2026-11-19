@@ -68,7 +68,7 @@ export const APPS: DesktopApp[] = [
       tagline: "สต็อกสินค้า ร้านเล็กถึงโกดังย่อม",
       description:
         "รับเข้า เบิกออก ตรวจนับด้วยบาร์โค้ด ต้นทุนเฉลี่ยคิดให้เอง ของใกล้หมดก็รู้ก่อนขาด",
-      chips: ["สินค้า", "บาร์โค้ด", "ตรวจนับ", "ต้นทุนเฉลี่ย"],
+      chips: ["รับเข้าและเบิกออก", "บาร์โค้ด", "พิมพ์ฉลาก", "ตรวจนับ", "ต้นทุนเฉลี่ย", "เตือนของใกล้หมด", "ตำแหน่งจัดเก็บ", "รายงานคงเหลือ"],
       features: ["รับสินค้าเข้าพร้อมต้นทุน", "เบิกออกและขาย", "ตรวจนับด้วยบาร์โค้ด", "ต้นทุนเฉลี่ยอัตโนมัติ", "เตือนของใกล้หมด", "สร้างบาร์โค้ด EAN-13 ของร้านและพิมพ์ฉลาก", "ตำแหน่งจัดเก็บสินค้า", "รายงานสต็อกคงเหลือ"],
       pro: [
         "เริ่มรอบตรวจนับสต็อกใหม่ บนคอมพิวเตอร์หรือ PeerapoS Pair",
@@ -87,7 +87,7 @@ export const APPS: DesktopApp[] = [
       tagline: "Inventory for shops and small warehouses.",
       description:
         "Receive, issue and count stock with a barcode scanner. Moving-average cost is worked out for you, and low stock shows up before you run out.",
-      chips: ["Products", "Barcodes", "Stock count", "Avg cost"],
+      chips: ["Stock in and out", "Barcodes", "Labels", "Stock count", "Avg cost", "Low-stock alerts", "Storage locations", "Stock report"],
       features: ["Receive stock with cost", "Issue and sell", "Barcode stock count", "Automatic moving-average cost", "Low-stock alerts", "In-store EAN-13 barcodes and labels", "Storage location per product", "Stock-on-hand report"],
       pro: [
         "Start new stock count rounds on the PC or PeerapoS Pair",
@@ -112,7 +112,7 @@ export const APPS: DesktopApp[] = [
       tagline: "ออกเอกสารธุรกิจครบในที่เดียว",
       description:
         "ใบเสนอราคา ใบแจ้งหนี้ ใบเสร็จ ใบกำกับภาษี ใบส่งสินค้า ใบสั่งซื้อ และใบสำคัญรับจ่าย คิด VAT หัก ณ ที่จ่าย และเขียนยอดเงินเป็นตัวหนังสือให้เอง ร้านที่ไม่ได้จด VAT ก็ออกใบส่งสินค้า/ใบแจ้งหนี้ได้ ใบเสนอราคาที่ลูกค้าตกลงแล้วก็แปลงเป็นใบแจ้งหนี้ได้ทันที",
-      chips: ["ใบเสนอราคา", "ใบกำกับภาษี", "VAT 7%", "หัก ณ ที่จ่าย", "PDF"],
+      chips: ["ใบเสนอราคา", "ใบแจ้งหนี้", "ใบกำกับภาษี", "ใบสั่งซื้อ", "VAT 7%", "หัก ณ ที่จ่าย", "QR พร้อมเพย์", "PDF"],
       features: ["ใบเสนอราคา", "ใบแจ้งหนี้", "ใบเสร็จและใบกำกับภาษี", "ใบส่งสินค้า/ใบแจ้งหนี้สำหรับร้านที่ไม่ได้จด VAT", "ใบสั่งซื้อ ใบสำคัญรับ ใบสำคัญจ่าย และใบรับรองแทนใบเสร็จ", "VAT 7% และหัก ณ ที่จ่าย", "ยอดเงินเป็นตัวหนังสือ", "QR พร้อมเพย์บนใบเสนอราคาและใบแจ้งหนี้", "บันทึกเป็น PDF หรือรูปภาพ"],
       pro: [
         "เปิดโมดูลงานราชการ สร้างแบบฟอร์ม A/B/C ใหม่ และแก้ข้อมูลหน่วยงานหรือบุคลากร",
@@ -135,7 +135,7 @@ export const APPS: DesktopApp[] = [
       tagline: "Every business document in one place.",
       description:
         "Quotations, invoices, receipts, full tax invoices, delivery notes, purchase orders, and receipt and payment vouchers. VAT, withholding tax and the amount in Thai words are done for you, a business without VAT registration can issue delivery note/invoices, and an accepted quote turns into an invoice in one click.",
-      chips: ["Quotation", "Tax invoice", "VAT 7%", "Withholding", "PDF"],
+      chips: ["Quotation", "Invoice", "Tax invoice", "Purchase order", "VAT 7%", "Withholding", "PromptPay QR", "PDF"],
       features: ["Quotations", "Invoices", "Receipts and tax invoices", "Delivery note/invoices for businesses without VAT", "Purchase orders, receipt and payment vouchers, substitute receipts", "VAT 7% and withholding tax", "Amount in Thai words", "PromptPay QR on quotations and invoices", "Save as PDF or image"],
       pro: [
         "Enable the government module, create new A/B/C forms, and edit agency or personnel profiles",
@@ -164,7 +164,7 @@ export const APPS: DesktopApp[] = [
       tagline: "เงินเดือนและงานบุคคล 5–50 คน",
       description:
         "คิดเงินเดือน OT วันลา ประกันสังคม และภาษีหัก ณ ที่จ่ายให้ครบ ออกสลิปเงินเดือน รายงาน ภ.ง.ด.1 สปส.1-10 และ 50 ทวิ ได้จากโปรแกรมเลย",
-      chips: ["เงินเดือน", "OT", "วันลา", "ประกันสังคม", "ภ.ง.ด.1"],
+      chips: ["เงินเดือน", "OT", "สลิปเงินเดือน", "วันลา", "ประกันสังคม", "ลูกจ้างต่างด้าว", "ภ.ง.ด.1", "50 ทวิ"],
       features: ["คำนวณเงินเดือนและ OT", "วันลาและโควตา", "ประกันสังคม", "ภาษีหัก ณ ที่จ่าย", "สลิปเงินเดือน", "ลูกจ้างต่างด้าว (บัตรชมพู พาสปอร์ต ใบอนุญาตทำงาน)", "ภ.ง.ด.1 สปส.1-10 50 ทวิ"],
       pro: [
         "เพิ่มพนักงานได้ไม่จำกัด (รุ่นฟรีสูงสุด 25 คน)",
@@ -179,7 +179,7 @@ export const APPS: DesktopApp[] = [
       tagline: "Payroll and HR for 5–50 staff.",
       description:
         "Salary, overtime, leave, social security and withholding tax, all calculated. Payslips and the Thai filings (ภ.ง.ด.1, สปส.1-10, 50 ทวิ) come straight out of the app.",
-      chips: ["Payroll", "Overtime", "Leave", "Social security", "PND1"],
+      chips: ["Payroll", "Overtime", "Payslips", "Leave", "Social security", "Migrant workers", "PND1", "50 Tawi"],
       features: ["Salary and overtime", "Leave and quotas", "Social security", "Withholding tax", "Payslips", "Migrant workers (pink card, passport, work permit)", "ภ.ง.ด.1, สปส.1-10 and 50 ทวิ filings"],
       pro: [
         "Unlimited employees (free: up to 25).",
@@ -246,7 +246,7 @@ export const APPS: DesktopApp[] = [
       tagline: "หอพักและห้องเช่า 10–200 ห้อง",
       description:
         "จดมิเตอร์น้ำไฟทั้งตึกในตารางเดียวหรือผ่าน Excel ออกบิลรายเดือนพร้อม QR พร้อมเพย์ ส่งรูปบิลเข้า LINE ได้ รับเช่ารายวันหรือรายสัปดาห์ก็ได้ พอผู้เช่าย้ายออกก็คิดเงินมัดจำคืนให้",
-      chips: ["มิเตอร์", "บิลรายเดือน", "พร้อมเพย์", "สัญญาเช่า", "ย้ายออก"],
+      chips: ["ผังห้อง", "มิเตอร์น้ำไฟ", "บิลรายเดือน", "พร้อมเพย์", "ใบเสร็จ", "สัญญาเช่า", "ย้ายออก", "Excel"],
       features: ["ผังห้องพัก", "จดมิเตอร์น้ำไฟ หรือกรอกผ่าน Excel", "ค่าน้ำขั้นต่ำรายห้อง", "บิลรายเดือนพร้อม QR พร้อมเพย์", "ใบเสร็จ", "สัญญาเช่ารายเดือน รายสัปดาห์ และรายวัน", "คิดเงินย้ายออก", "สรุปรายเดือนทุกห้อง ส่งออก Excel", "นำเข้าห้องและผู้เช่าจาก Excel"],
       pro: [
         "นำเข้าห้องและผู้เช่าจาก Excel",
@@ -267,7 +267,7 @@ export const APPS: DesktopApp[] = [
       tagline: "Dorms and rentals, 10–200 rooms.",
       description:
         "Read every water and power meter in one grid or through Excel, issue monthly bills with a PromptPay QR, send bill images over LINE, rent by the day or week too, and settle deposits when a tenant moves out.",
-      chips: ["Meters", "Monthly bills", "PromptPay", "Leases", "Move-out"],
+      chips: ["Room map", "Meters", "Monthly bills", "PromptPay", "Receipts", "Leases", "Move-out", "Excel"],
       features: ["Room map", "Water and power meter readings, or fill them in Excel", "Minimum water charge per room", "Monthly bills with PromptPay QR", "Receipts", "Monthly, weekly and daily leases", "Move-out settlement", "Monthly summary of all rooms to Excel", "Import rooms and tenants from Excel"],
       pro: [
         "Import rooms and tenants from Excel",
@@ -674,7 +674,7 @@ export const APPS: DesktopApp[] = [
       tagline: "ระบบหน้าร้านสำหรับร้านอาหาร คาเฟ่ และร้านขายของเล็ก",
       description:
         "เปิดโต๊ะจากผังร้านหรือขายที่เคาน์เตอร์ ส่งใบสั่งเข้าครัวและบาร์ แยกบิลหรือหารเท่ากันก็ได้ คิด VAT และค่าบริการให้ รับเงินสด พร้อมเพย์ โอน หรือบัตร ตัดวัตถุดิบตามสูตรทุกครั้งที่ขาย และปิดกะพร้อมนับเงินในลิ้นชัก มีจอลูกค้า โปรโมชันลดราคาอัตโนมัติ และ PIN แยกพนักงาน ร้านขายของก็ใช้ได้ ไม่จำกัดจำนวนบิล ใช้ได้ถึง 20 โต๊ะและ 200 เมนู",
-      chips: ["โต๊ะและเคาน์เตอร์", "ใบสั่งเข้าครัว", "แยกบิล", "จอลูกค้า", "โปรโมชัน", "สมาชิกและแต้ม"],
+      chips: ["โต๊ะและเคาน์เตอร์", "ใบสั่งเข้าครัว", "แยกบิล", "จอลูกค้า", "โปรโมชัน", "สมาชิกและแต้ม", "สต็อกวัตถุดิบ", "เปิดปิดกะ"],
       features: ["ผังโต๊ะ หรือขายที่เคาน์เตอร์พร้อมเลขคิว", "เมนูมีขนาดและตัวเลือก เช่น เผ็ดน้อย ไข่ดาว", "ส่งใบสั่งแยกตามจุดทำ ครัวหรือบาร์", "ย้ายโต๊ะ รวมโต๊ะ ยกเลิกรายการ พร้อมใบแจ้งครัว", "แยกบิลตามรายการหรือหารเท่ากัน", "VAT และค่าบริการ", "ใบเสร็จ ใบกำกับภาษีอย่างย่อและเต็มรูป พร้อม QR พร้อมเพย์", "สต๊อกวัตถุดิบตัดตามสูตร พร้อมต้นทุนอาหาร", "เปิดปิดกะและนับเงินในลิ้นชัก", "จอลูกค้าบนจอที่สอง พร้อม QR พร้อมเพย์และสไลด์โฆษณา", "โปรโมชันลดราคาอัตโนมัติตามวัน เวลา สมาชิก หรือเมนู", "พนักงานมี PIN ของตัวเอง ชื่อขึ้นในบิลและกะ", "โหมดร้านขายของ สแกนบาร์โค้ด", "สมาชิกและแต้มสะสม", "รายงานยอดขาย เมนูขายดี กำไรขั้นต้น ยอดตามพนักงาน และภาษีขาย"],
       pro: [
         "เพิ่มโต๊ะและเมนูได้ไม่จำกัด (รุ่นฟรีสูงสุด 20 โต๊ะ และ 200 เมนู)",
@@ -687,7 +687,7 @@ export const APPS: DesktopApp[] = [
       tagline: "Point of sale for a small restaurant, café or shop.",
       description:
         "Open a table from the floor plan or sell at the counter, send orders to the kitchen and bar, split a bill by item or evenly, add VAT and service charge, take cash, PromptPay, transfer or card, deduct ingredients by recipe with every sale, and close each shift with a cash count. Comes with a customer display, automatic promotions and a PIN for each staff member, and works for a retail shop too. No limit on bills, and up to 20 tables and 200 menu items.",
-      chips: ["Tables and counter", "Kitchen tickets", "Split bills", "Customer display", "Promotions", "Members and points"],
+      chips: ["Tables and counter", "Kitchen tickets", "Split bills", "Customer display", "Promotions", "Members and points", "Ingredient stock", "Shifts"],
       features: ["Floor plan, or counter mode with queue numbers", "Menu sizes and options", "Tickets per station: kitchen or bar", "Move, merge and void with kitchen slips", "Split by item or evenly", "VAT and service charge", "Receipts and abbreviated/full tax invoices with PromptPay QR", "Recipe-based ingredient stock with food cost", "Shifts with a cash-drawer count", "Customer display on a second screen with PromptPay QR and ad slides", "Automatic promotions by date, time, member or menu item", "Staff PINs, with names on bills and shifts", "Retail shop mode with barcode scanning", "Members and loyalty points", "Sales, top-item, gross-profit, per-staff and sales-tax reports"],
       pro: [
         "Unlimited tables and menu items (free: up to 20 tables and 200 menu items).",

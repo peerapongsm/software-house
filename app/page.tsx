@@ -141,10 +141,9 @@ export default function Home() {
                       <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%]" />
                       <span className="block font-display text-lg font-bold group-hover:text-indigo">{a.name}</span>
                     </span>
-                    <span className="block leading-snug text-graphite"><Phrases text={c.tagline} /></span>
-                    {/* ponytail: first 3 chips keep the 5 cards the same height; the dialog shows them all */}
-                    <span className="mt-auto flex flex-wrap gap-1.5">
-                      {c.chips.slice(0, 3).map((chip) => (
+                    {/* owner 2026-11-19: top-5 cards show feature chips only, no tagline */}
+                    <span className="flex flex-wrap gap-1.5">
+                      {c.chips.map((chip) => (
                         <span key={chip} className="rounded-md bg-sheet px-2 py-0.5 text-sm text-graphite">
                           {chip}
                         </span>
