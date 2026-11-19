@@ -10,6 +10,7 @@ import { day } from "@/lib/account.ts";
 import { checkoutNext } from "@/lib/buy.ts";
 import { baht } from "@/lib/cart.ts";
 import { useLang } from "@/lib/lang.ts";
+import { PLAN_NAMES, PLAN_NOTES, PLAN_ROWS } from "@/lib/plans.ts";
 
 // Picture tiles in the site's style: one flat shape per step, ink lines, indigo accent.
 const P = { fill: "var(--color-sheet)", stroke: "var(--color-ink)", strokeWidth: 3, strokeLinejoin: "round" } as const;
@@ -125,6 +126,51 @@ export default function ProPage() {
           <h1 className="font-display text-[2rem] font-bold leading-[1.15] tracking-tight md:text-[2.75rem]">{t("h1")}</h1>
           <p className="text-lg text-graphite"><Phrases text={t("lead")} /></p>
           <p className="text-sm text-graphite"><Phrases text={t("updated")} /></p>
+        </section>
+
+        <section id="plans" aria-labelledby="plans-h" className="flex flex-col gap-3">
+          <h2 id="plans-h" className="font-display text-xl font-bold">{t("plansH")}</h2>
+          <ul className="grid gap-3 lg:hidden">
+            {PLAN_NAMES.map((name, c) => (
+              <li key={name.en} className="rounded-2xl border border-line bg-sheet p-4">
+                <h3 className="font-display text-lg font-bold"><Phrases text={name[lang]} /></h3>
+                <dl className="mt-2 flex flex-col gap-2.5">
+                  {PLAN_ROWS.map((row) => (
+                    <div key={row.label.en} className="flex flex-col gap-0.5">
+                      <dt className="text-sm text-graphite"><Phrases text={row.label[lang]} /></dt>
+                      <dd className="font-semibold"><Phrases text={row.cells[c][lang]} /></dd>
+                    </div>
+                  ))}
+                </dl>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden overflow-x-auto rounded-2xl border border-line bg-sheet lg:block">
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr className="border-b border-line">
+                  <th scope="col" className="p-4" />
+                  {PLAN_NAMES.map((name) => (
+                    <th key={name.en} scope="col" className="p-4 font-display text-lg font-bold"><Phrases text={name[lang]} /></th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {PLAN_ROWS.map((row) => (
+                  <tr key={row.label.en} className="border-b border-line last:border-b-0">
+                    <th scope="row" className="p-4 align-top text-sm font-semibold text-graphite"><Phrases text={row.label[lang]} /></th>
+                    {row.cells.map((cell, c) => (
+                      <td key={c} className="p-4 align-top"><Phrases text={cell[lang]} /></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-graphite"><Phrases text={PLAN_NOTES.devices[lang]} /></p>
+          <p className="text-sm text-graphite">
+            <a href="/terms#account" className="font-semibold text-indigo underline-offset-4 hover:underline"><Phrases text={PLAN_NOTES.deletion[lang]} /></a>
+          </p>
         </section>
 
         <section className="flex flex-col gap-4 rounded-2xl border border-line bg-sheet p-5 lg:p-7" aria-labelledby="web-pro">

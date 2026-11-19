@@ -5,6 +5,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
 import { splitPhrases } from "./phrases.ts";
+import * as plans from "./plans.ts";
 
 // Render the real pages and phrase component; node --test cannot load TSX.
 export function legalArticle(page: "terms" | "privacy", lang: "th" | "en") {
@@ -21,7 +22,7 @@ export function legalArticle(page: "terms" | "privacy", lang: "th" | "en") {
   const phrases = compile("../components/Phrases.tsx", ((id: string) =>
     id === "@/lib/phrases" ? { splitPhrases } : require(id)) as typeof require);
   const component = compile(`../app/${page}/page.tsx`, ((id: string) =>
-    id === "@/components/Phrases" ? phrases : require(id)) as typeof require);
+    id === "@/components/Phrases" ? phrases : id === "@/lib/plans.ts" ? plans : require(id)) as typeof require);
   const html = renderToStaticMarkup(createElement(component.default));
   const match = html.match(new RegExp(`<article lang="${lang}"[^>]*>([\\s\\S]*?)</article>`));
   assert.ok(match, `${page} has a ${lang} article`);

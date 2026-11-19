@@ -1,6 +1,7 @@
 import { Phrases } from "@/components/Phrases";
 import type { Metadata } from "next";
 import type { Msg } from "@/lib/api.ts";
+import { ACCOUNT_PCS } from "@/lib/plans.ts";
 
 // Terms for paid apps and website-only Pro through Stripe. Decisions: 2026-11-14 spec.
 
@@ -73,11 +74,11 @@ export const metadata: Metadata = {
 
 const EMAIL = "contact@peerapongsm.dev";
 
-type Sec = { title: string; p?: string[]; li?: string[]; after?: string[] };
+type Sec = { id?: string; title: string; p?: string[]; li?: string[]; after?: string[] };
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ id, title, children }: { id?: string; title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-8">
+    <section id={id} className="mt-8">
       <h3 className="font-display text-xl font-bold"><Phrases text={title} /></h3>
       <div className="mt-2 space-y-2 leading-relaxed text-graphite">{children}</div>
     </section>
@@ -88,7 +89,7 @@ function Secs({ list }: { list: Sec[] }) {
   return (
     <>
       {list.map((s) => (
-        <Section key={s.title} title={s.title}>
+        <Section key={s.title} id={s.id} title={s.title}>
           {s.p?.map((x) => <p key={x}><Phrases text={x} /></p>)}
           {s.li && (
             <ul className="list-disc space-y-2 pl-5">
@@ -131,12 +132,13 @@ const TH: Sec[] = [
     p: ["บัญชีหนึ่งมีหนึ่งชื่อ (ชื่อร้าน บริษัท หรือชื่อคุณ) และหนึ่งชุดสิทธิ์ ชื่อนี้แสดงในแอป ไม่มีรหัสหรือคีย์ให้พิมพ์ เครื่องได้สิทธิ์ด้วยการเชื่อมเครื่องกับบัญชี"],
     li: [
       "เชื่อมเครื่อง: เปิดแอป กด \"เปิดใช้\" แล้วยืนยันบนเว็บหรือสแกนด้วยมือถือ",
-      "จำนวนเครื่องที่เชื่อมได้: มีแต่แอปซื้อขาด 2 เครื่อง มีแต่ Pro ไม่มีแอปซื้อขาด 6 เครื่อง มี Pro และมีแอปซื้อขาดอย่างน้อยหนึ่งแอป 10 เครื่อง",
+      `จำนวนเครื่องที่เชื่อมได้: มีแต่แอปซื้อขาด ${ACCOUNT_PCS.paid} เครื่อง มีแต่ Pro ไม่มีแอปซื้อขาด ${ACCOUNT_PCS.pro} เครื่อง มี Pro และมีแอปซื้อขาดอย่างน้อยหนึ่งแอป ${ACCOUNT_PCS.proPaid} เครื่อง ไม่นับมือถือ แท็บเล็ต และคอมในร้านที่ต่อเข้าเครื่องหลัก`,
       "ยกเลิกการเชื่อมได้เองที่หน้าบัญชีของฉัน เครื่องที่ยกเลิกจะเสียสิทธิ์ทันทีที่ออนไลน์ครั้งถัดไป",
       "ถ้า Pro หมดและจำนวนเครื่องเกินที่เหลือ เราไม่ตัดเครื่องไหนทิ้ง แต่สิทธิ์จะเรียงตามลำดับที่เชื่อมไว้ และเชื่อมเครื่องใหม่ไม่ได้จนกว่าจะไม่เกิน",
     ],
   },
   {
+    id: "account",
     title: "4. เข้าสู่ระบบและลบบัญชี",
     li: [
       "เข้าสู่ระบบด้วยบัญชี Google เท่านั้น ทั้งบนเว็บและบน Android ไม่มีรหัสเข้าสู่ระบบทางอีเมล",
@@ -273,12 +275,13 @@ const EN: Sec[] = [
     p: ["An account has one name (shop, company or your own name) and one set of rights. The name shows in the apps. There are no keys to type: a PC gets its rights by being linked to the account."],
     li: [
       "To link a PC: open the app, press \"เปิดใช้\" (Activate), then approve on the web or scan with your phone.",
-      "PC limits: paid apps alone 2 PCs; Pro with no paid app 6 PCs; Pro plus at least one paid app 10 PCs.",
+      `PC limits: paid apps alone ${ACCOUNT_PCS.paid} PCs; Pro with no paid app ${ACCOUNT_PCS.pro} PCs; Pro plus at least one paid app ${ACCOUNT_PCS.proPaid} PCs. Phones, tablets and other shop PCs that connect to the main PC do not count.`,
       "You can unlink a PC yourself on My account. An unlinked PC loses its rights the next time it is online.",
       "If Pro ends and you have more PCs than the remaining limit, we do not remove any. Rights follow the order the PCs were linked, and you cannot link a new PC until you are back under the limit.",
     ],
   },
   {
+    id: "account",
     title: "4. Signing in and deleting your account",
     li: [
       "Sign-in is with a Google account only, on the website and on Android. There is no email-code login.",

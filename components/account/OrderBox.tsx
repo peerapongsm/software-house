@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { appName } from "@/components/account/BuyPicker";
 import Spinner from "@/components/account/Spinner";
+import { Phrases } from "@/components/Phrases";
 import { api, type Licence, type Msg } from "@/lib/api.ts";
 import { checkoutNext, orderError, orderItems } from "@/lib/buy.ts";
 import { baht, total, type Line } from "@/lib/cart.ts";
+import { PLAN_NOTES } from "@/lib/plans.ts";
 import type { Lang } from "@/lib/lang.ts";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -173,6 +175,7 @@ export default function OrderBox({
           <a href="/privacy" target="_blank" className="whitespace-nowrap font-semibold text-indigo">{t.privacy}</a>
         </span>
       </label>
+      <p className="text-sm text-graphite"><Phrases text={PLAN_NOTES.deletion[lang]} /></p>
       <button
         disabled={busy || !lines.length || !consent}
         className={`inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-ink px-6 py-3 font-semibold text-white transition-colors enabled:hover:bg-indigo-deep ${busy ? "disabled:bg-ink/70" : "disabled:opacity-40"}`}

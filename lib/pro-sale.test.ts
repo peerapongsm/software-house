@@ -8,6 +8,7 @@ import { APPS, slugOf } from "../app/apps-data.ts";
 import { day } from "./account.ts";
 import { checkoutNext } from "./buy.ts";
 import { baht } from "./cart.ts";
+import * as plans from "./plans.ts";
 
 const require = createRequire(import.meta.url);
 function nodes(tree: any): any[] {
@@ -33,6 +34,7 @@ async function page(flag: unknown, lang = "en", member: "play" | "stripe" | "pas
     if (id === "@/lib/account.ts") return { day };
     if (id === "@/lib/buy.ts") return { checkoutNext };
     if (id === "@/lib/cart.ts") return { baht };
+    if (id === "@/lib/plans.ts") return plans;
     if (id === "@/lib/lang.ts") return { useLang: () => [lang, () => {}] };
     if (id === "@/lib/api.ts") return { api: async (path: string) => {
       calls.push(path);

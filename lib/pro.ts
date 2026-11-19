@@ -63,6 +63,7 @@ export const PRO_COPY = {
     { th: "ซื้อบนหน้านี้", en: "Buy on this page." },
     { th: "บนคอมพิวเตอร์ กด “เชื่อมเครื่องนี้” แล้วเข้าสู่ระบบด้วยบัญชี Google เดียวกับตอนซื้อ", en: "On the PC, press “Link this PC” and sign in with the Google account you bought with." },
   ],
+  plansH: { th: "แต่ละแบบได้อะไร", en: "What each plan gets" },
   getH: { th: "Pro ให้อะไรบ้าง", en: "What Pro gives you" },
   gets: [
     { th: "ฟีเจอร์ Pro ในแอปฟรีทุกตัว", en: "Pro features in every free app" },
