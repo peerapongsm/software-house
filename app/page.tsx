@@ -4,7 +4,7 @@ import { Phrases } from "@/components/Phrases";
 import Image from "next/image";
 import { COPY } from "./copy";
 import { useRef, useState } from "react";
-import { APPS, PAID_APPS, slugOf, type DesktopApp } from "./apps-data";
+import { APPS, PAID_APPS, shotUrls, slugOf, splitFeatured, type DesktopApp } from "./apps-data";
 import { EMAIL, FACEBOOK_URL, FAQ, FASTWORK_URL, LINE_URL, TIKTOK_URL } from "./site-info";
 import { AppDetail } from "@/components/AppDetail";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -78,6 +78,7 @@ export default function Home() {
   const t = COPY[lang];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [openAppName, setOpenAppName] = useState<string | null>(null);
+  const { featured, rest } = splitFeatured(APPS);
   const app = APPS.find((a) => a.name === openAppName) ?? PAID_APPS.find((a) => a.name === openAppName);
 
   function openApp(a: DesktopApp) {
@@ -120,9 +121,44 @@ export default function Home() {
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-graphite"><Phrases text={t.appsSub} /></p>
           <p className="mt-2 max-w-2xl text-sm font-semibold text-graphite"><Phrases text={t.winOnly} /></p>
 
+          <h3 className="mt-10 font-display text-2xl font-bold">{t.featuredTitle}</h3>
+          {/* mobile: one swipeable row, next card peeks; lg: five equal columns */}
+          <ul className="-mx-4 mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 scroll-px-4 sm:-mx-8 sm:px-8 sm:scroll-px-8 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0 lg:pb-0">
+            {featured.map((a) => {
+              const c = a[lang];
+              return (
+                <li key={a.name} className="w-[82%] shrink-0 snap-start sm:w-[45%] lg:w-auto">
+                  <a
+                    href={`/apps/${slugOf(a)}`}
+                    onClick={e => { if (isPlainClick(e)) { e.preventDefault(); openApp(a); } }}
+                    aria-haspopup="dialog"
+                    className="group flex h-full flex-col gap-4 rounded-2xl border border-line bg-paper p-3 text-left"
+                  >
+                    {a.shots > 0 && (
+                      <Image src={shotUrls(a)[0]} alt="" width={1920} height={1080} className="aspect-video w-full rounded-xl border border-line object-cover object-top" />
+                    )}
+                    <span className="flex items-center gap-3">
+                      <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%]" />
+                      <span className="block font-display text-lg font-bold group-hover:text-indigo">{a.name}</span>
+                    </span>
+                    <span className="block leading-snug text-graphite"><Phrases text={c.tagline} /></span>
+                    <span className="mt-auto flex flex-wrap gap-1.5">
+                      {c.chips.map((chip) => (
+                        <span key={chip} className="rounded-md bg-sheet px-2 py-0.5 text-sm text-graphite">
+                          {chip}
+                        </span>
+                      ))}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          <h3 className="mt-14 font-display text-2xl font-bold">{t.moreTitle}</h3>
           {/* mobile: compact one-line rows; tablet: two columns, desktop: four, with the feature chips */}
-          <ul className="mt-10 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
-            {APPS.map((a) => {
+          <ul className="mt-5 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
+            {rest.map((a) => {
               const c = a[lang];
               return (
                 <li key={a.name} className="border-b border-line">
