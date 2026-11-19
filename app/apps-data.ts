@@ -997,3 +997,17 @@ export const PAID_APPS: DesktopApp[] = [
 export const ALL_APPS: DesktopApp[] = [...APPS, ...PAID_APPS];
 
 export const appBySlug = (slug: string): DesktopApp | undefined => ALL_APPS.find(a => slugOf(a) === slug);
+
+// Top 5 by downloads, peerapos_downloads Analytics Engine, 90 days to 2026-11-19 (stock 205, file 149, room 134, pos 121, pay 100).
+export const FEATURED_SLUGS = ["stock", "file", "room", "pos", "pay"] as const;
+
+// Featured first, in FEATURED_SLUGS order; rest keeps APPS order. Throws if a featured app is missing, so the build fails instead of showing 4 cards.
+export function splitFeatured(apps: DesktopApp[]): { featured: DesktopApp[]; rest: DesktopApp[] } {
+  const featured = FEATURED_SLUGS.map(slug => {
+    const app = apps.find(a => slugOf(a) === slug);
+    if (!app) throw new Error(`featured app missing: ${slug}`);
+    return app;
+  });
+  const featuredSet = new Set<string>(FEATURED_SLUGS);
+  return { featured, rest: apps.filter(a => !featuredSet.has(slugOf(a))) };
+}
