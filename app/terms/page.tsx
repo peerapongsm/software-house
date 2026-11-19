@@ -132,7 +132,7 @@ const TH: Sec[] = [
     p: ["บัญชีหนึ่งมีหนึ่งชื่อ (ชื่อร้าน บริษัท หรือชื่อคุณ) และหนึ่งชุดสิทธิ์ ชื่อนี้แสดงในแอป ไม่มีรหัสหรือคีย์ให้พิมพ์ เครื่องได้สิทธิ์ด้วยการเชื่อมเครื่องกับบัญชี"],
     li: [
       "เชื่อมเครื่อง: เปิดแอป กด \"เปิดใช้\" แล้วยืนยันบนเว็บหรือสแกนด้วยมือถือ",
-      `จำนวนเครื่องที่เชื่อมได้: มีแต่แอปซื้อขาด ${ACCOUNT_PCS.paid} เครื่อง มีแต่ Pro ไม่มีแอปซื้อขาด ${ACCOUNT_PCS.pro} เครื่อง มี Pro และมีแอปซื้อขาดอย่างน้อยหนึ่งแอป ${ACCOUNT_PCS.proPaid} เครื่อง ไม่นับมือถือ แท็บเล็ต และคอมในร้านที่ต่อเข้าเครื่องหลัก`,
+      `จำนวนเครื่องที่เชื่อมได้: มีแต่แอปซื้อขาด ${ACCOUNT_PCS.paid} เครื่อง มีแต่ Pro ไม่มีแอปซื้อขาด ${ACCOUNT_PCS.pro} เครื่อง มี Pro และมีแอปซื้อขาดอย่างน้อยหนึ่งแอป ${ACCOUNT_PCS.proPaid} เครื่อง มือถือและแท็บเล็ตไม่นับ ในแอปฟรี คอมในร้านที่ต่อเข้าเครื่องหลักก็ไม่นับ ส่วนในแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมและนับ`,
       "ยกเลิกการเชื่อมได้เองที่หน้าบัญชีของฉัน เครื่องที่ยกเลิกจะเสียสิทธิ์ทันทีที่ออนไลน์ครั้งถัดไป",
       "ถ้า Pro หมดและจำนวนเครื่องเกินที่เหลือ เราไม่ตัดเครื่องไหนทิ้ง แต่สิทธิ์จะเรียงตามลำดับที่เชื่อมไว้ และเชื่อมเครื่องใหม่ไม่ได้จนกว่าจะไม่เกิน",
     ],
@@ -275,7 +275,7 @@ const EN: Sec[] = [
     p: ["An account has one name (shop, company or your own name) and one set of rights. The name shows in the apps. There are no keys to type: a PC gets its rights by being linked to the account."],
     li: [
       "To link a PC: open the app, press \"เปิดใช้\" (Activate), then approve on the web or scan with your phone.",
-      `PC limits: paid apps alone ${ACCOUNT_PCS.paid} PCs; Pro with no paid app ${ACCOUNT_PCS.pro} PCs; Pro plus at least one paid app ${ACCOUNT_PCS.proPaid} PCs. Phones, tablets and other shop PCs that connect to the main PC do not count.`,
+      `PC limits: paid apps alone ${ACCOUNT_PCS.paid} PCs; Pro with no paid app ${ACCOUNT_PCS.pro} PCs; Pro plus at least one paid app ${ACCOUNT_PCS.proPaid} PCs. Phones and tablets do not count. In the free apps, other shop PCs that connect to the main PC do not count. In the paid apps, every PC that opens the app, main or shop, must be linked and counts.`,
       "You can unlink a PC yourself on My account. An unlinked PC loses its rights the next time it is online.",
       "If Pro ends and you have more PCs than the remaining limit, we do not remove any. Rights follow the order the PCs were linked, and you cannot link a new PC until you are back under the limit.",
     ],
