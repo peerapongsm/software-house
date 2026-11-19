@@ -53,7 +53,7 @@ export function proDonePoll(startedAt: number, now: number, pro: ProInfo | null,
 export const PRO_COPY = {
   opensSoon: { th: "PeerapoS Pro เปิดให้สมัครเร็ว ๆ นี้", en: "PeerapoS Pro opens soon" },
   h1: { th: "PeerapoS Pro", en: "PeerapoS Pro" },
-  updated: { th: "อัปเดตล่าสุด 18 พฤศจิกายน 2569", en: "Last updated 18 November 2026" },
+  updated: { th: "อัปเดตล่าสุด 19 พฤศจิกายน 2569", en: "Last updated 19 November 2026" },
   existing: { th: "งานที่สร้างไว้แล้วยังเปิดดู ทำต่อให้เสร็จ ยกเลิก พิมพ์ และส่งออกได้ ข้อมูลที่บันทึกไว้ก็ยังเห็นอยู่ แต่ถ้าจะเริ่มงานใหม่หรือออกรายงานด้วยฟีเจอร์ Pro ต้องมี Pro", en: "Existing records stay viewable, finishable, cancellable, printable and exportable. Saved data remains visible. Starting new work or producing reports with Pro features needs Pro." },
   lead: { th: "สมัครครั้งเดียว ใช้ได้กับทุกแอปในบัญชี Google เดียวกัน", en: "Subscribe once. It works on every app in the same Google account." },
   month: { th: "/ เดือน", en: "/ month" },

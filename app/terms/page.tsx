@@ -59,8 +59,8 @@ const COPY = {
     en: "A full refund or lost card dispute removes the apps in that order, or Pro ends immediately. PCs lose refunded apps at their next licence check; PC Pro grace still applies as in section 6. Partial refunds and unresolved disputes do not automatically revoke rights.",
   },
   updated: {
-    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 18 พฤศจิกายน 2569",
-    en: "PeerapoS apps and services. Last updated 18 November 2026",
+    th: "แอปและบริการของ PeerapoS อัปเดตล่าสุด 19 พฤศจิกายน 2569",
+    en: "PeerapoS apps and services. Last updated 19 November 2026",
   },
 } satisfies Record<string, Msg>;
 
@@ -281,7 +281,7 @@ const EN: Sec[] = [
     ],
   },
   {
-    id: "account",
+    id: "account-en",
     title: "4. Signing in and deleting your account",
     li: [
       "Sign-in is with a Google account only, on the website and on Android. There is no email-code login.",

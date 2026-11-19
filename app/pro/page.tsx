@@ -169,7 +169,7 @@ export default function ProPage() {
           </div>
           <p className="text-sm text-graphite"><Phrases text={PLAN_NOTES.devices[lang]} /></p>
           <p className="text-sm text-graphite">
-            <a href="/terms#account" className="font-semibold text-indigo underline-offset-4 hover:underline"><Phrases text={PLAN_NOTES.deletion[lang]} /></a>
+            <a href={lang === "en" ? "/terms#account-en" : "/terms#account"} className="font-semibold text-indigo underline-offset-4 hover:underline"><Phrases text={PLAN_NOTES.deletion[lang]} /></a>
           </p>
         </section>
 

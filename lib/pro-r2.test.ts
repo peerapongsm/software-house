@@ -37,7 +37,7 @@ for (const lang of ["th", "en"] as const) {
       assert.ok(text.includes(lang === "th" ? "ใช้ PeerapoS Pair จากนอกร้าน" : "Use PeerapoS Pair away from the shop"));
       assert.doesNotMatch(text, /5 other PCs|5 เครื่อง|4G/);
     }
-    assert.equal(PRO_COPY.updated[lang], lang === "th" ? "อัปเดตล่าสุด 18 พฤศจิกายน 2569" : "Last updated 18 November 2026");
+    assert.equal(PRO_COPY.updated[lang], lang === "th" ? "อัปเดตล่าสุด 19 พฤศจิกายน 2569" : "Last updated 19 November 2026");
     assert.match(PRO_COPY.existing[lang], lang === "th" ? /ทำต่อให้เสร็จ/ : /finishable/);
   });
 

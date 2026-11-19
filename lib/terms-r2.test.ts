@@ -8,12 +8,12 @@ for (const lang of ["th", "en"] as const) {
     for (const phrase of lang === "th" ? [
       "ฟีเจอร์อาจเปลี่ยนแปลงหรือย้ายไปอยู่ใน PeerapoS Pro", "มีผลกับผู้ใช้เดิมด้วย",
       "แจ้งล่วงหน้าบนเว็บไซต์และในแอป", "ขอบเขตฟีเจอร์ของ Pro", "เลือกไม่อัปเดตและใช้เวอร์ชันเดิมต่อได้",
-      "ปิดการอัปเดตอัตโนมัติแล้วเปิดกลับ", "ติดตั้งเวอร์ชันก่อนหน้า", "ทำต่อให้เสร็จ", "18 พฤศจิกายน 2569",
+      "ปิดการอัปเดตอัตโนมัติแล้วเปิดกลับ", "ติดตั้งเวอร์ชันก่อนหน้า", "ทำต่อให้เสร็จ", "19 พฤศจิกายน 2569",
     ] : [
       "Features may change or move to PeerapoS Pro", "including for existing users",
       "in advance on the website and in the app's What's new", "Changes to the scope of Pro",
       "decline an update and keep your current version", "turn automatic updates off and resume",
-      "install an earlier version", "finishable", "18 November 2026",
+      "install an earlier version", "finishable", "19 November 2026",
     ]) assert.ok(text.includes(phrase), phrase);
     assert.match(text, /https:\/\/dl\.peerapongsm\.dev/);
     assert.doesNotMatch(text, /by email to the account|ทางอีเมลของบัญชี/);
