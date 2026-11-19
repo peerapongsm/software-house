@@ -134,9 +134,9 @@ export default function ProPage() {
             {PLAN_NAMES.map((name, c) => (
               <li key={name.en} className="rounded-2xl border border-line bg-sheet p-4">
                 <h3 className="font-display text-lg font-bold"><Phrases text={name[lang]} /></h3>
-                <dl className="mt-2 flex flex-col gap-2.5">
+                <dl className="mt-3 flex flex-col gap-2">
                   {PLAN_ROWS.map((row) => (
-                    <div key={row.label.en} className="flex flex-col gap-0.5">
+                    <div key={row.label.en} className="grid grid-cols-[7.5rem_1fr] gap-x-3">
                       <dt className="text-sm text-graphite"><Phrases text={row.label[lang]} /></dt>
                       <dd className="font-semibold"><Phrases text={row.cells[c][lang]} /></dd>
                     </div>
@@ -146,10 +146,10 @@ export default function ProPage() {
             ))}
           </ul>
           <div className="hidden overflow-x-auto rounded-2xl border border-line bg-sheet lg:block">
-            <table className="w-full border-collapse text-left">
+            <table className="w-full table-fixed border-collapse text-left">
               <thead>
                 <tr className="border-b border-line">
-                  <th scope="col" className="p-4" />
+                  <th scope="col" className="w-[16%] p-4" />
                   {PLAN_NAMES.map((name) => (
                     <th key={name.en} scope="col" className="p-4 font-display text-lg font-bold"><Phrases text={name[lang]} /></th>
                   ))}
