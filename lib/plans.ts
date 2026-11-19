@@ -35,9 +35,9 @@ export const PLAN_ROWS: { label: Msg; cells: Msg[] }[] = [
     label: { th: "ได้อะไร", en: "What you get" },
     cells: [
       { th: "รุ่นฟรีของทุกแอปฟรี", en: "Free version of every free app" },
-      { th: "แอปที่ซื้อ ใช้ได้ตลอด ฟีเจอร์ Pro ของแอปนั้นต้องมี Pro", en: "The apps you bought, for good. Their Pro features need Pro" },
+      { th: "แอปที่ซื้อ ใช้ได้ตลอด ส่วนฟีเจอร์ Pro ในแอปนั้นต้องสมัคร Pro เพิ่ม", en: "The apps you bought, for good. Their Pro features need Pro" },
       { th: "ฟีเจอร์ Pro ในแอปฟรีทุกตัว", en: "Pro features in every free app" },
-      { th: "ทั้งสองอย่าง และฟีเจอร์ Pro ในแอปซื้อขาดที่คุณมี", en: "Both of the above, and Pro features in the paid apps you bought" },
+      { th: "ได้ทั้งสองแบบ รวมฟีเจอร์ Pro ในแอปที่ซื้อด้วย", en: "Both of the above, and Pro features in the paid apps you bought" },
     ],
   },
   {
@@ -54,7 +54,7 @@ export const PLAN_ROWS: { label: Msg; cells: Msg[] }[] = [
 /** Notes under the plan table (/pro) and the one line on /buy. */
 export const PLAN_NOTES = {
   devices: {
-    th: "มือถือและแท็บเล็ตไม่นับในแถวคอมที่เชื่อมกับบัญชี ในแอปฟรี คอมในร้านที่ต่อเข้าเครื่องหลักก็ไม่นับ ส่วนในแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมและนับ จำนวนของแต่ละแอปดูที่หน้าแอปนั้น",
+    th: "มือถือและแท็บเล็ตไม่นับรวมในจำนวนคอมที่เชื่อมกับบัญชี คอมเครื่องอื่นในร้านที่ต่อเข้าเครื่องหลัก ถ้าเป็นแอปฟรีก็ไม่นับ แต่ถ้าเป็นแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมกับบัญชีและนับด้วย จำนวนเครื่องของแต่ละแอปดูได้ที่หน้าแอปนั้น",
     en: "Phones and tablets do not count in the linked PCs row. In the free apps, other shop PCs that connect to the main PC do not count. In the paid apps, every PC that opens the app, main or shop, must be linked and counts. Each app's own limit is on its app page.",
   },
   deletion: {

@@ -51,7 +51,7 @@ test("plan copy: every cell and note has Thai and English, and no Thai text ends
 
 test("PLAN_ROWS: the paid cell says Pro features in the bought apps still need Pro", () => {
   const cell = PLAN_ROWS[2].cells[1];
-  assert.match(cell.th, /แอปที่ซื้อ ใช้ได้ตลอด ฟีเจอร์ Pro ของแอปนั้นต้องมี Pro/);
+  assert.match(cell.th, /แอปที่ซื้อ ใช้ได้ตลอด ส่วนฟีเจอร์ Pro ในแอปนั้นต้องสมัคร Pro เพิ่ม/);
   assert.equal(cell.en, "The apps you bought, for good. Their Pro features need Pro");
   assert.doesNotMatch(cell.en, /every feature/i);
 });
@@ -60,10 +60,10 @@ test("PLAN_ROWS: the Pro cell is limited to free apps; Pro + paid also opens the
   assert.equal(PLAN_ROWS[2].cells[2].en, "Pro features in every free app");
   assert.match(PLAN_ROWS[2].cells[2].th, /ฟีเจอร์ Pro ในแอปฟรีทุกตัว/);
   assert.equal(PLAN_ROWS[2].cells[3].en, "Both of the above, and Pro features in the paid apps you bought");
-  assert.match(PLAN_ROWS[2].cells[3].th, /ฟีเจอร์ Pro ในแอปซื้อขาดที่คุณมี/);
+  assert.match(PLAN_ROWS[2].cells[3].th, /รวมฟีเจอร์ Pro ในแอปที่ซื้อด้วย/);
 });
 
 test("PLAN_NOTES.devices: shop PCs are exempt only in free apps; paid apps count every PC that opens them", () => {
-  assert.match(PLAN_NOTES.devices.th, /ในแอปฟรี คอมในร้านที่ต่อเข้าเครื่องหลักก็ไม่นับ ส่วนในแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมและนับ/);
+  assert.match(PLAN_NOTES.devices.th, /ถ้าเป็นแอปฟรีก็ไม่นับ แต่ถ้าเป็นแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมกับบัญชีและนับด้วย/);
   assert.match(PLAN_NOTES.devices.en, /In the free apps, other shop PCs that connect to the main PC do not count\. In the paid apps, every PC that opens the app, main or shop, must be linked and counts\./);
 });

@@ -17,7 +17,7 @@ for (const lang of ["th", "en"] as const) {
   test(`terms (${lang}): shop PCs are exempt only in free apps; paid apps count every PC that opens them`, () => {
     const text = article("terms", lang);
     assert.match(text, lang === "th"
-      ? /มือถือและแท็บเล็ตไม่นับ ในแอปฟรี คอมในร้านที่ต่อเข้าเครื่องหลักก็ไม่นับ ส่วนในแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมและนับ/
+      ? /มือถือและแท็บเล็ตไม่นับ คอมเครื่องอื่นในร้านที่ต่อเข้าเครื่องหลัก ถ้าเป็นแอปฟรีก็ไม่นับ แต่ถ้าเป็นแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมกับบัญชีและนับด้วย/
       : /Phones and tablets do not count\. In the free apps, other shop PCs that connect to the main PC do not count\. In the paid apps, every PC that opens the app, main or shop, must be linked and counts\./);
   });
 }
