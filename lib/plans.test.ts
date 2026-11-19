@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { APPS, FEATURED_SLUGS, slugOf, splitFeatured } from "../app/apps-data.ts";
+import { ALL_APPS, APPS, FEATURED_SLUGS, slugOf, splitFeatured } from "../app/apps-data.ts";
 import { ACCOUNT_PCS, PLAN_NAMES, PLAN_NOTES, PLAN_ROWS } from "./plans.ts";
 
 test("splitFeatured: the top 5 come first, in download order", () => {
@@ -66,4 +66,17 @@ test("PLAN_ROWS: the Pro cell is limited to free apps; Pro + paid also opens the
 test("PLAN_NOTES.devices: shop PCs are exempt only in free apps; paid apps count every PC that opens them", () => {
   assert.match(PLAN_NOTES.devices.th, /ถ้าเป็นแอปฟรีก็ไม่นับ แต่ถ้าเป็นแอปซื้อขาด ทุกเครื่องที่เปิดแอปต้องเชื่อมกับบัญชีและนับด้วย/);
   assert.match(PLAN_NOTES.devices.en, /In the free apps, other shop PCs that connect to the main PC do not count\. In the paid apps, every PC that opens the app, main or shop, must be linked and counts\./);
+});
+
+test("ALL_APPS: eight chips per language, without duplicates or trailing Thai full stops", () => {
+  for (const app of ALL_APPS) {
+    for (const lang of ["th", "en"] as const) {
+      const chips = app[lang].chips;
+      assert.equal(chips.length, 8, `${app.name} ${lang}: chip count`);
+      assert.equal(new Set(chips).size, chips.length, `${app.name} ${lang}: duplicate chips`);
+    }
+    for (const chip of app.th.chips) {
+      assert.doesNotMatch(chip, /\.$/, `${app.name}: ${chip}`);
+    }
+  }
 });

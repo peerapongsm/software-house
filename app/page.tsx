@@ -141,7 +141,7 @@ export default function Home() {
                       <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%]" />
                       <span className="block font-display text-lg font-bold group-hover:text-indigo">{a.name}</span>
                     </span>
-                    {/* owner 2026-11-19: top-5 cards show feature chips only, no tagline */}
+                    {/* owner 2026-11-19: every app card shows feature chips only, no tagline */}
                     <span className="flex flex-wrap gap-1.5">
                       {c.chips.map((chip) => (
                         <span key={chip} className="rounded-md bg-sheet px-2 py-0.5 text-sm text-graphite">
@@ -156,7 +156,7 @@ export default function Home() {
           </ul>
 
           <h3 className="mt-14 font-display text-2xl font-bold">{t.moreTitle}</h3>
-          {/* mobile: compact one-line rows; tablet: two columns, desktop: four, with the feature chips */}
+          {/* mobile: one row per app; tablet: two columns, desktop: four */}
           <ul className="mt-5 grid border-t border-line md:grid-cols-2 md:gap-x-10 lg:grid-cols-4">
             {rest.map((a) => {
               const c = a[lang];
@@ -166,13 +166,12 @@ export default function Home() {
                     href={`/apps/${slugOf(a)}`}
                     onClick={e => { if (isPlainClick(e)) { e.preventDefault(); openApp(a); } }}
                     aria-haspopup="dialog"
-                    className="group flex w-full items-center gap-4 py-4 text-left md:items-start md:py-6"
+                    className="group flex w-full items-start gap-4 py-4 text-left md:py-6"
                   >
                     <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%] md:size-14" />
                     <span className="min-w-0 flex-1">
                       <span className="block font-display text-lg font-bold group-hover:text-indigo md:text-xl">{a.name}</span>
-                      <span className="block leading-snug text-graphite"><Phrases text={c.tagline} /></span>
-                      <span className="mt-3 hidden flex-wrap gap-1.5 md:flex">
+                      <span className="mt-2 flex flex-wrap gap-1.5 md:mt-3">
                         {c.chips.map((chip) => (
                           <span key={chip} className="rounded-md bg-paper px-2 py-0.5 text-sm text-graphite">
                             {chip}
@@ -180,7 +179,7 @@ export default function Home() {
                         ))}
                       </span>
                     </span>
-                    <span aria-hidden="true" className="text-2xl text-line group-hover:text-ink md:hidden">
+                    <span aria-hidden="true" className="self-center text-2xl text-line group-hover:text-ink md:hidden">
                       ›
                     </span>
                   </a>
@@ -205,7 +204,7 @@ export default function Home() {
                     href={`/apps/${slugOf(a)}`}
                     onClick={e => { if (isPlainClick(e)) { e.preventDefault(); openApp(a); } }}
                     aria-haspopup="dialog"
-                    className="group flex w-full items-center gap-4 py-4 text-left md:items-start md:py-6"
+                    className="group flex w-full items-start gap-4 py-4 text-left md:py-6"
                   >
                     <Image src={a.icon} alt="" width={96} height={96} className="size-12 shrink-0 rounded-[22%] md:size-14" />
                     <span className="min-w-0 flex-1">
@@ -215,8 +214,7 @@ export default function Home() {
                           ฿{a.price.toLocaleString("en-US")} <span className="text-sm font-semibold text-graphite">{t.oneTime}</span>
                         </span>
                       )}
-                      <span className="block leading-snug text-graphite"><Phrases text={c.tagline} /></span>
-                      <span className="mt-3 hidden flex-wrap gap-1.5 md:flex">
+                      <span className="mt-2 flex flex-wrap gap-1.5 md:mt-3">
                         {c.chips.map((chip) => (
                           <span key={chip} className="rounded-md bg-paper px-2 py-0.5 text-sm text-graphite">
                             {chip}
@@ -224,7 +222,7 @@ export default function Home() {
                         ))}
                       </span>
                     </span>
-                    <span aria-hidden="true" className="text-2xl text-line group-hover:text-ink md:hidden">
+                    <span aria-hidden="true" className="self-center text-2xl text-line group-hover:text-ink md:hidden">
                       ›
                     </span>
                   </a>
