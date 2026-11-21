@@ -52,8 +52,8 @@ const COPY = {
     en: "On account deletion, card subscriptions are cancelled immediately without a refund, and remaining prepaid passes are lost.",
   },
   updated: {
-    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 18 พฤศจิกายน 2569",
-    en: "PeerapoS apps, accounts and services. Last updated 18 November 2026",
+    th: "แอป บัญชี และบริการของ PeerapoS อัปเดตล่าสุด 21 พฤศจิกายน 2569",
+    en: "PeerapoS apps, accounts and services. Last updated 21 November 2026",
   },
 } satisfies Record<string, Msg>;
 
@@ -281,7 +281,7 @@ const TH: Sec[] = [
     title: "แชตกับ PeerapoS ทาง LINE",
     p: [
       "ข้อความที่คุณส่งมาที่ LINE Official Account ของ PeerapoS (@peerapos) บอท AI จะตอบก่อน บอทใช้ Claude ของ Anthropic ข้อความของคุณจึงถูกส่งไปที่ Anthropic เพื่อเขียนคำตอบ Anthropic ไม่เอาข้อความนี้ไปฝึก AI",
-      "เพื่อให้บอทจำได้ว่าคุยอะไรกันอยู่ เราเก็บข้อความล่าสุดไว้ 24 ชั่วโมงแล้วลบทิ้งเอง โดยผูกกับรหัสที่แปลงมาจาก LINE user ID ไม่ใช่ชื่อหรือรูปโปรไฟล์ของคุณ และนับจำนวนคำถามต่อวันเพื่อจำกัดโควตา ถ้าคุณพิมพ์ คุยกับแอดมิน หรือบอทตอบเรื่องไหนไม่ได้ บอทจะหยุดตอบคุณ 12 ชั่วโมง และส่งข้อความล่าสุดของคุณทางอีเมลถึงแอดมินเพื่อให้มาตอบเอง",
+      "เพื่อให้บอทจำได้ว่าคุยอะไรกันอยู่ เราเก็บข้อความล่าสุดไว้ 24 ชั่วโมงแล้วลบทิ้งเอง โดยผูกกับรหัสที่แปลงมาจาก LINE user ID ไม่ใช่รูปโปรไฟล์ของคุณ และนับจำนวนคำถามต่อวันเพื่อจำกัดโควตา เราเก็บชื่อที่แสดงใน LINE ของคุณไว้ 7 วันด้วย เพื่อให้แอดมินสั่งบอทหยุดตอบคุณได้ตอนแอดมินมาคุยเอง ถ้าคุณพิมพ์ คุยกับแอดมิน หรือบอทตอบเรื่องไหนไม่ได้ บอทจะหยุดตอบคุณ 24 ชั่วโมง และส่งข้อความล่าสุดของคุณทางอีเมลถึงแอดมินเพื่อให้มาตอบเอง ตอนแอดมินมาคุยเอง บอทก็หยุดตอบ 24 ชั่วโมงเหมือนกัน",
       "บอทมองไม่เห็นข้อมูลในโปรแกรมบนเครื่องคุณ อย่าส่งรหัสผ่านหรือข้อมูลลูกค้าของคุณมาในแชต แอดมินอ่านแชตได้ผ่านระบบของ LINE และ LINE เก็บแชตตามนโยบายของ LINE เอง",
     ],
   },
@@ -489,7 +489,7 @@ const EN: Sec[] = [
     title: "Chatting with PeerapoS on LINE",
     p: [
       "Messages you send to the PeerapoS LINE Official Account (@peerapos) are answered first by an AI bot built on Claude by Anthropic, so your message is sent to Anthropic to write the reply. Anthropic does not use it to train AI.",
-      "So the bot can follow the conversation, we keep your latest messages for 24 hours and then they are deleted automatically. They are keyed to a code derived from your LINE user ID, not your name or profile picture. We also count questions per day to enforce a quota. If you type คุยกับแอดมิน (talk to an admin), or the bot can't answer, the bot stays quiet for you for 12 hours and emails your latest message to the admin so a person can reply.",
+      "So the bot can follow the conversation, we keep your latest messages for 24 hours and then they are deleted automatically. They are keyed to a code derived from your LINE user ID, not your profile picture. We also count questions per day to enforce a quota, and keep your LINE display name for 7 days so the admin can tell the bot to stop answering you while a person takes over. If you type คุยกับแอดมิน (talk to an admin), or the bot can't answer, the bot stays quiet for you for 24 hours and emails your latest message to the admin so a person can reply. When the admin joins the chat, the bot also stays quiet for 24 hours.",
       "The bot cannot see the data in the apps on your PC. Please don't send passwords or your customers' details in the chat. The admin can read chats through LINE, and LINE keeps chats under its own policy.",
     ],
   },
